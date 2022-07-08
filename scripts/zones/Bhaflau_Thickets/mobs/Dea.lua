@@ -1,35 +1,27 @@
 -----------------------------------
--- Area: Alzadaal Undersea Ruins
---  Mob: Armed Gears
--- !pos -19 -4 -153
+-- Area: Bhaflau Thickets
+--  ZNM: Dea
 -----------------------------------
--- todo
--- add add random elemental magic absorb to elements its casting
-mixins =
-{
-    require("scripts/mixins/job_special"),
-    require("scripts/mixins/families/gears")
-}
+mixins = {require("scripts/mixins/rage")}
 require("scripts/globals/status")
 -----------------------------------
 local entity = {}
-
+-- TODO INITIAL COMMIT Just put here so players cannot run through the NM's 
 entity.onMobInitialize = function(mob)
-<<<<<<< Updated upstream
-    mob:addMod(xi.mod.MDEF, 60)
-    mob:addMod(xi.mod.DEF, 60)
-=======
+    mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 300)
+    mob:setMod(xi.mod.CRITHITRATE, 50)
+    mob:setMod(xi.mod.CRIT_DMG_INCREASE, 75)
     mob:addMod(xi.mod.MDEF, 150)
     mob:addMod(xi.mod.DEF, 100)
-    mob:addMod(xi.mod.MAIN_DMG_RATING, 45)
+    mob:addMod(xi.mod.MAIN_DMG_RATING, 50)
     mob:addMod(xi.mod.STR, 50)
     mob:addMod(xi.mod.VIT, 20)
     mob:addMod(xi.mod.INT, 50)
     mob:addMod(xi.mod.MND, 20)
     mob:addMod(xi.mod.CHR, 20)
     mob:addMod(xi.mod.AGI, 20)
-    mob:addMod(xi.mod.DEX, 40)
-    mob:addMod(xi.mod.DEFP, 200)
+    mob:addMod(xi.mod.DEX, 60)
+    mob:addMod(xi.mod.DEFP, 475)
     mob:setMod(xi.mod.DOUBLE_ATTACK, 10)
     mob:setMod(xi.mod.EARTH_MEVA, 170)
     mob:setMod(xi.mod.DARK_MEVA, 250)
@@ -60,8 +52,11 @@ entity.onMobInitialize = function(mob)
     mob:addStatusEffect(xi.effect.REGEN, 30, 3, 0)
     mob:addStatusEffect(xi.effect.REFRESH, 50, 3, 0)
     mob:addMod(xi.mod.MOVE, 12)
->>>>>>> Stashed changes
     mob:setAnimationSub(0)
+end
+
+entity.onMobSpawn = function(mob)
+    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
 end
 
 entity.onMobDeath = function(mob, player, isKiller)
