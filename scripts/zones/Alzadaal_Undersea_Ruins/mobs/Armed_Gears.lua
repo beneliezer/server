@@ -15,10 +15,6 @@ require("scripts/globals/status")
 local entity = {}
 
 entity.onMobInitialize = function(mob)
-<<<<<<< Updated upstream
-    mob:addMod(xi.mod.MDEF, 60)
-    mob:addMod(xi.mod.DEF, 60)
-=======
     mob:addMod(xi.mod.MDEF, 150)
     mob:addMod(xi.mod.DEF, 100)
     mob:addMod(xi.mod.MAIN_DMG_RATING, 45)
@@ -60,7 +56,6 @@ entity.onMobInitialize = function(mob)
     mob:addStatusEffect(xi.effect.REGEN, 30, 3, 0)
     mob:addStatusEffect(xi.effect.REFRESH, 50, 3, 0)
     mob:addMod(xi.mod.MOVE, 12)
->>>>>>> Stashed changes
     mob:setAnimationSub(0)
 end
 

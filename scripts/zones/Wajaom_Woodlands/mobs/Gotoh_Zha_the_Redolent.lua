@@ -29,10 +29,8 @@ require("scripts/globals/status")
 --    Should onCriticalHit count WS crit hits if regular WS hits do not count?
 -----------------------------------
 local entity = {}
-
+-- TODO INITIAL COMMIT Just put here so players cannot run through the NM's 
 entity.onMobInitialize = function(mob)
-<<<<<<< Updated upstream
-=======
     mob:addMod(xi.mod.ATT, 200)
     mob:addMod(xi.mod.MDEF, 150)
     mob:addMod(xi.mod.DEF, 100)
@@ -75,7 +73,6 @@ entity.onMobInitialize = function(mob)
     mob:addStatusEffect(xi.effect.REGEN, 30, 3, 0)
     mob:addStatusEffect(xi.effect.REFRESH, 50, 3, 0)
     mob:addMod(xi.mod.MOVE, 12)
->>>>>>> Stashed changes
     mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 300)
 end
 
