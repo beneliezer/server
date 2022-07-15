@@ -1,4 +1,4 @@
-/*
+﻿/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -566,9 +566,9 @@ namespace synthutils
                 }
 
                 // Do skill amount multiplier
-                if (settings::get<uint8>("map.CRAFT_AMOUNT_MULTIPLIER") > 1)
+                if (settings::get<double>("map.CRAFT_AMOUNT_MULTIPLIER") > 1)
                 {
-                    skillUpAmount += skillUpAmount * settings::get<uint8>("map.CRAFT_AMOUNT_MULTIPLIER");
+                    skillUpAmount += skillUpAmount * settings::get<double>("map.CRAFT_AMOUNT_MULTIPLIER");
                     if (skillUpAmount > 9)
                     {
                         skillUpAmount = 9;
