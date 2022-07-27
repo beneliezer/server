@@ -279,7 +279,8 @@ m:addOverride("xi.globals.spells.trust.semih_lafihna.onSpellCast", function(cast
     trust:addSimpleGambit(ai.t.TARGET, ai.c.ALWAYS, 0, ai.r.RATTACK, 0, 0)
 
     trust:SetAutoAttackEnabled(false)
-
+	
+	local power = trust:getMainLvl()
     trust:addMod(xi.mod.STORETP, 40)
     trust:addMod(xi.mod.RACC, power*3)	
 end)
