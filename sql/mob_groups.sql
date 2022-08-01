@@ -3054,7 +3054,7 @@ INSERT INTO `mob_groups` VALUES (43,1938,62,'Hetairoi_Zarwarkur',0,128,0,0,0,80,
 INSERT INTO `mob_groups` VALUES (44,220,62,'Archaic_Mirror',0,128,160,0,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (45,1948,62,'Hilltroll_Mirror_Guard',0,128,0,0,0,81,82,0);
 INSERT INTO `mob_groups` VALUES (46,4366,62,'Woodtroll_Mirror_Guard',0,128,0,0,0,81,82,0);
-INSERT INTO `mob_groups` VALUES (47,1851,62,'Gurfurlur_the_Menacing',900,0,1259,80000,0,85,90,0);
+INSERT INTO `mob_groups` VALUES (47,1851,62,'Gurfurlur_the_Menacing',259200,0,1259,80000,0,85,90,0);
 INSERT INTO `mob_groups` VALUES (48,1947,62,'Hilltroll_Elite_Guard',0,128,0,0,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (49,4365,62,'Woodtroll_Elite_Guard',0,128,0,0,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (50,4327,62,'Wheel_Wamoura',0,128,0,0,0,74,79,0);
