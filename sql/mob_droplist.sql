@@ -12134,7 +12134,7 @@ INSERT INTO `mob_droplist` VALUES (1461,2,0,1000,1449,0);       -- Tukuku Whites
 INSERT INTO `mob_droplist` VALUES (1463,0,0,1000,5378,@UNCOMMON); -- Congestus Cell (Uncommon, 10%)
 INSERT INTO `mob_droplist` VALUES (1463,0,0,1000,5379,@UNCOMMON); -- Nimbus Cell (Uncommon, 10%)
 
--- ZoneID:   3 - Kraken Fished
+-- ZoneID:   3 -  Fished
 -- ZoneID:   4 - Kraken Fished
 -- ZoneID:   4 - Kraken
 -- ZoneID:   4 - Kraken
@@ -12609,7 +12609,7 @@ INSERT INTO `mob_droplist` VALUES (1535,0,0,1000,15829,92);     -- Skirmishers R
 INSERT INTO `mob_droplist` VALUES (1536,0,0,1000,4484,@ALWAYS); -- Shall Shell (Always, 100%)
 INSERT INTO `mob_droplist` VALUES (1536,0,0,1000,4484,500);     -- Shall Shell (50.0%)
 INSERT INTO `mob_droplist` VALUES (1536,0,0,1000,4484,330);     -- Shall Shell (33.0%)
-INSERT INTO `mob_droplist` VALUES (1536,0,0,1000,18852,@RARE);  -- Octave Club (Rare, 5%)
+INSERT INTO `mob_droplist` VALUES (1536,0,0,1000,17440,10);     -- Kraken Club (Rare, 1%)
 
 -- ZoneID: 217 - Lord Varney
 INSERT INTO `mob_droplist` VALUES (1537,0,0,1000,3197,660);  -- Bale Seal Feet (66.0%)
