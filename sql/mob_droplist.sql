@@ -3297,7 +3297,7 @@ INSERT INTO `mob_droplist` VALUES (342,0,0,1000,1125,20); -- Carbuncles Ruby (2.
 -- ZoneID: 193 - Thread Leech Fished
 -- ZoneID: 193 - Thread Leech
 INSERT INTO `mob_droplist` VALUES (343,0,0,1000,924,@UNCOMMON); -- Vial Of Fiend Blood (Uncommon, 10%)
-INSERT INTO `mob_droplist` VALUES (343,0,0,1000,1125,20);       -- Carbuncles Ruby (2.0%)
+--INSERT INTO `mob_droplist` VALUES (343,0,0,1000,1125,20);       -- Carbuncles Ruby (2.0%)
 
 -- ZoneID: 169 - Bouncing Ball
 INSERT INTO `mob_droplist` VALUES (344,0,0,1000,924,@UNCOMMON); -- Vial Of Fiend Blood (Uncommon, 10%)
