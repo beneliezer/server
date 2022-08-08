@@ -22395,7 +22395,7 @@ INSERT INTO `mob_droplist` VALUES (2691,2,0,1000,748,0);   -- Gold Beastcoin (St
 -- ZoneID: 115 - Yagudo Acolyte
 -- ZoneID: 116 - Yagudo Acolyte
 INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,841,470);      -- Yagudo Feather (47.0%)
-INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,498,400);      -- Yagudo Bead Necklace (40.0%)
+INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,498,150);      -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,841,@VCOMMON); -- Yagudo Feather (Very Common, 24%)
 INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,4666,180);     -- Scroll Of Paralyze (18.0%)
 INSERT INTO `mob_droplist` VALUES (2692,0,0,1000,841,160);      -- Yagudo Feather (16.0%)
@@ -22415,7 +22415,7 @@ INSERT INTO `mob_droplist` VALUES (2693,0,0,1000,4745,@VRARE); -- Scroll Of Snea
 INSERT INTO `mob_droplist` VALUES (2693,2,0,1000,656,0);       -- Beastcoin (Steal)
 
 -- ZoneID: 145 - Yagudo Acolyte
-INSERT INTO `mob_droplist` VALUES (2694,0,0,1000,498,330);     -- Yagudo Bead Necklace (33.0%)
+INSERT INTO `mob_droplist` VALUES (2694,0,0,1000,498,150);     -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2694,0,0,1000,4666,60);     -- Scroll Of Paralyze (6.0%)
 INSERT INTO `mob_droplist` VALUES (2694,0,0,1000,12984,@RARE); -- Ash Clogs (Rare, 5%)
 INSERT INTO `mob_droplist` VALUES (2694,0,0,1000,4680,40);     -- Scroll Of Barsleep (4.0%)
@@ -22616,7 +22616,7 @@ INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,841,1130);       -- Yagudo Feat
 INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,841,560);        -- Yagudo Feather (56.0%)
 INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,841,380);        -- Yagudo Feather (38.0%)
 INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,841,280);        -- Yagudo Feather (28.0%)
-INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,498,@VCOMMON);   -- Yagudo Bead Necklace (Very Common, 24%)
+INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,498,150);   -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2716,0,0,1000,1981,@UNCOMMON); -- Skull Locust (Uncommon, 10%)
 INSERT INTO `mob_droplist` VALUES (2716,2,0,1000,656,0);          -- Beastcoin (Steal)
 
@@ -22630,7 +22630,7 @@ INSERT INTO `mob_droplist` VALUES (2717,2,0,1000,656,0);          -- Beastcoin (
 INSERT INTO `mob_droplist` VALUES (2717,4,0,1000,4537,0);         -- Roast Carp (Despoil)
 
 -- ZoneID: 145 - Yagudo Initiate
-INSERT INTO `mob_droplist` VALUES (2718,0,0,1000,498,220);      -- Yagudo Bead Necklace (22.0%)
+INSERT INTO `mob_droplist` VALUES (2718,0,0,1000,498,150);      -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2718,0,0,1000,12448,@VRARE); -- Bronze Cap (Very Rare, 1%)
 INSERT INTO `mob_droplist` VALUES (2718,0,0,1000,12704,@VRARE); -- Bronze Mittens (Very Rare, 1%)
 INSERT INTO `mob_droplist` VALUES (2718,0,0,1000,12832,@VRARE); -- Bronze Subligar (Very Rare, 1%)
@@ -22741,7 +22741,7 @@ INSERT INTO `mob_droplist` VALUES (2732,0,0,1000,12992,@VRARE);   -- Solea (Very
 INSERT INTO `mob_droplist` VALUES (2732,2,0,1000,656,0);          -- Beastcoin (Steal)
 
 -- ZoneID: 145 - Yagudo Mendicant
-INSERT INTO `mob_droplist` VALUES (2733,0,0,1000,498,270);      -- Yagudo Bead Necklace (27.0%)
+INSERT INTO `mob_droplist` VALUES (2733,0,0,1000,498,150);      -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2733,0,0,1000,750,140);      -- Silver Beastcoin (14.0%)
 INSERT INTO `mob_droplist` VALUES (2733,0,0,1000,2759,40);      -- Block Of Yagudo Caulk (4.0%)
 INSERT INTO `mob_droplist` VALUES (2733,0,0,1000,12736,20);     -- Mitts (2.0%)
@@ -22800,7 +22800,7 @@ INSERT INTO `mob_droplist` VALUES (2740,2,0,1000,656,0);          -- Beastcoin (
 
 -- ZoneID:  95 - Yagudo Persecutor
 -- ZoneID: 145 - Yagudo Persecutor
-INSERT INTO `mob_droplist` VALUES (2741,0,0,1000,498,230);     -- Yagudo Bead Necklace (23.0%)
+INSERT INTO `mob_droplist` VALUES (2741,0,0,1000,498,150);     -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2741,0,0,1000,750,@COMMON); -- Silver Beastcoin (Common, 15%)
 INSERT INTO `mob_droplist` VALUES (2741,0,0,1000,2759,80);     -- Block Of Yagudo Caulk (8.0%)
 INSERT INTO `mob_droplist` VALUES (2741,0,0,1000,12456,20);    -- Hachimaki (2.0%)
@@ -22841,7 +22841,7 @@ INSERT INTO `mob_droplist` VALUES (2744,0,0,1000,12472,@VRARE);   -- Circlet (Ve
 INSERT INTO `mob_droplist` VALUES (2744,2,0,1000,656,0);          -- Beastcoin (Steal)
 
 -- ZoneID: 145 - Yagudo Piper
-INSERT INTO `mob_droplist` VALUES (2745,0,0,1000,498,280);        -- Yagudo Bead Necklace (28.0%)
+INSERT INTO `mob_droplist` VALUES (2745,0,0,1000,498,150);        -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2745,0,0,1000,5071,@UNCOMMON); -- Scroll Of Foe Lullaby (Uncommon, 10%)
 INSERT INTO `mob_droplist` VALUES (2745,0,0,1000,4994,70);        -- Scroll Of Mages Ballad (7.0%)
 INSERT INTO `mob_droplist` VALUES (2745,0,0,1000,2759,30);        -- Block Of Yagudo Caulk (3.0%)
@@ -22922,7 +22922,7 @@ INSERT INTO `mob_droplist` VALUES (2750,0,0,1000,4745,@VRARE); -- Scroll Of Snea
 INSERT INTO `mob_droplist` VALUES (2750,2,0,1000,750,0);       -- Silver Beastcoin (Steal)
 
 -- ZoneID: 145 - Yagudo Priest
-INSERT INTO `mob_droplist` VALUES (2751,0,0,1000,498,350);        -- Yagudo Bead Necklace (35.0%)
+INSERT INTO `mob_droplist` VALUES (2751,0,0,1000,498,150);        -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2751,0,0,1000,1026,110);       -- Giddeus Chest Key (11.0%)
 INSERT INTO `mob_droplist` VALUES (2751,0,0,1000,2759,@UNCOMMON); -- Block Of Yagudo Caulk (Uncommon, 10%)
 INSERT INTO `mob_droplist` VALUES (2751,0,0,1000,4667,80);        -- Scroll Of Silence (8.0%)
@@ -23012,7 +23012,7 @@ INSERT INTO `mob_droplist` VALUES (2760,2,0,1000,748,0);   -- Gold Beastcoin (St
 
 -- ZoneID: 115 - Yagudo Scribe
 -- ZoneID: 116 - Yagudo Scribe
-INSERT INTO `mob_droplist` VALUES (2761,0,0,1000,498,360);    -- Yagudo Bead Necklace (36.0%)
+INSERT INTO `mob_droplist` VALUES (2761,0,0,1000,498,150);    -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2761,0,0,1000,4862,60);    -- Scroll Of Blind (6.0%)
 INSERT INTO `mob_droplist` VALUES (2761,0,0,1000,4866,@RARE); -- Scroll Of Bind (Rare, 5%)
 INSERT INTO `mob_droplist` VALUES (2761,0,0,1000,841,20);     -- Yagudo Feather (2.0%)
@@ -23030,7 +23030,7 @@ INSERT INTO `mob_droplist` VALUES (2762,0,0,1000,841,@VRARE); -- Yagudo Feather 
 INSERT INTO `mob_droplist` VALUES (2762,2,0,1000,656,0);      -- Beastcoin (Steal)
 
 -- ZoneID: 145 - Yagudo Scribe
-INSERT INTO `mob_droplist` VALUES (2763,0,0,1000,498,260);      -- Yagudo Bead Necklace (26.0%)
+INSERT INTO `mob_droplist` VALUES (2763,0,0,1000,498,150);      -- Yagudo Bead Necklace (15.0%)
 INSERT INTO `mob_droplist` VALUES (2763,0,0,1000,4862,110);     -- Scroll Of Blind (11.0%)
 INSERT INTO `mob_droplist` VALUES (2763,0,0,1000,4866,60);      -- Scroll Of Bind (6.0%)
 INSERT INTO `mob_droplist` VALUES (2763,0,0,1000,12728,30);     -- Cuffs (3.0%)
