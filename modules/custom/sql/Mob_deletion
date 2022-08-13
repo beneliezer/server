@@ -1,0 +1,86 @@
+MOB DELETION PROCEDURE IF mobid EXISTS delete_mob;
+Delimiter $$
+CREATE PROCEDURE delete_mob(
+    IN mobid  INT
+	  IN badmob INT
+)
+BEGIN
+    SET @mobid = (SELECT mobid FROM mob_spawn_points);
+	  DELETE mobid WHERE mobid = @badmob;
+END $$
+Delimiter ;
+
+-- Deletes npc ('mobid', 'badmob')
+-- mobid: as found in mob_spawn_points.sql
+-- badmob: same as mobid in mob_spawn_points as we identy the mob we want and then delete the mob that we identified.
+
+CALL delete_mob('17391617', '17391617');
+CALL delete_mob('17391618', '17391618');
+CALL delete_mob('17391619', '17391619');
+CALL delete_mob('17391620', '17391620');
+CALL delete_mob('17391621', '17391621');
+CALL delete_mob('17391623', '17391623');
+CALL delete_mob('17391631', '17391631');
+CALL delete_mob('17391632', '17391632');
+CALL delete_mob('17391640', '17391640');
+CALL delete_mob('17391641', '17391641');
+CALL delete_mob('17391645', '17391645');
+CALL delete_mob('17391648', '17391648');
+CALL delete_mob('17391653', '17391653');
+CALL delete_mob('17391654', '17391654');
+CALL delete_mob('17391658', '17391658');
+CALL delete_mob('17391659', '17391659');
+CALL delete_mob('17391664', '17391664');
+CALL delete_mob('17391665', '17391665');
+CALL delete_mob('17391669', '17391669');
+CALL delete_mob('17391673', '17391673');
+CALL delete_mob('17391676', '17391676');
+CALL delete_mob('17391677', '17391677');
+CALL delete_mob('17391679', '17391679');
+CALL delete_mob('17391683', '17391683');
+CALL delete_mob('17391685', '17391685');
+CALL delete_mob('17391686', '17391686');
+CALL delete_mob('17391694', '17391694');
+CALL delete_mob('17391700', '17391700');
+CALL delete_mob('17391702', '17391702');
+CALL delete_mob('17391708', '17391708');
+CALL delete_mob('17391710', '17391710');
+CALL delete_mob('17391716', '17391716');
+CALL delete_mob('17391717', '17391717');
+CALL delete_mob('17391718', '17391718');
+CALL delete_mob('17391719', '17391719');
+CALL delete_mob('17391720', '17391720');
+CALL delete_mob('17391722', '17391722');
+CALL delete_mob('17391724', '17391724');
+CALL delete_mob('17391731', '17391731');
+CALL delete_mob('17391736', '17391736');
+CALL delete_mob('17391738', '17391738');
+CALL delete_mob('17391740', '17391740');
+CALL delete_mob('17391741', '17391741');
+CALL delete_mob('17391742', '17391742');
+CALL delete_mob('17391743', '17391743');
+CALL delete_mob('17391746', '17391746');
+CALL delete_mob('17391748', '17391748');
+CALL delete_mob('17391749', '17391749');
+CALL delete_mob('17391751', '17391751');
+CALL delete_mob('17391754', '17391754');
+CALL delete_mob('17391756', '17391756');
+CALL delete_mob('17391757', '17391757');
+CALL delete_mob('17391762', '17391762');
+CALL delete_mob('17391769', '17391769');
+CALL delete_mob('17391771', '17391771');
+CALL delete_mob('17391774', '17391774');
+CALL delete_mob('17391778', '17391778');
+CALL delete_mob('17391779', '17391779');
+CALL delete_mob('17391780', '17391780');
+CALL delete_mob('17391784', '17391784');
+CALL delete_mob('17391785', '17391785');
+CALL delete_mob('17391789', '17391789');
+CALL delete_mob('17391792', '17391792');
+CALL delete_mob('17391794', '17391794');
+CALL delete_mob('17391795', '17391795');
+CALL delete_mob('17391796', '17391796');
+CALL delete_mob('17391798', '17391798');
+CALL delete_mob('17391700', '17391700');
+
+-- None of these mobs are PH.
