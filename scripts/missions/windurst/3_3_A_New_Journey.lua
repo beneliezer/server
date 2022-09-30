@@ -27,7 +27,7 @@ local mission = Mission:new(xi.mission.log_id.WINDURST, xi.mission.id.windurst.A
 
 mission.reward =
 {
-    gil  = 5000,
+    gil  = 10000,
     rank = 4,
 }
 

@@ -25,7 +25,7 @@ local mission = Mission:new(xi.mission.log_id.SANDORIA, xi.mission.id.sandoria.T
 
 mission.reward =
 {
-    gil  = 20000,
+    gil  = 40000,
     rank = 6,
 }
 

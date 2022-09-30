@@ -25,7 +25,7 @@ local mission = Mission:new(xi.mission.log_id.BASTOK, xi.mission.id.bastok.JEUNO
 
 mission.reward =
 {
-    gil  = 5000,
+    gil  = 10000,
     rank = 4,
 }
 

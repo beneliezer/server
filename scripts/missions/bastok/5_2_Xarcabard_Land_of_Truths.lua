@@ -27,7 +27,7 @@ local mission = Mission:new(xi.mission.log_id.BASTOK, xi.mission.id.bastok.XARCA
 
 mission.reward =
 {
-    gil = 20000,
+    gil = 40000,
     rank = 6,
 }
 
