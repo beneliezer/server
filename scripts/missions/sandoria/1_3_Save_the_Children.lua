@@ -26,7 +26,7 @@ local mission = Mission:new(xi.mission.log_id.SANDORIA, xi.mission.id.sandoria.S
 mission.reward =
 {
     -- First Time Completion
-    -- gil = 1000,
+    -- gil = 2000,
     -- rank = 2,
 
     -- Repeat Only
@@ -43,7 +43,7 @@ end
 local handleCompleteEventFinish = function(player, csid, option, npc)
     if not player:hasCompletedMission(mission.areaId, mission.missionId) then
         player:setRank(2)
-        npcUtil.giveCurrency(player, 'gil', 1000)
+        npcUtil.giveCurrency(player, 'gil', 2000)
     else
         player:addRankPoints(250)
     end

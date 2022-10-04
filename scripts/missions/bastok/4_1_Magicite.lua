@@ -41,7 +41,7 @@ end
 mission.reward =
 {
     rank    = 5,
-    gil     = 10000,
+    gil     = 20000,
     keyItem = xi.ki.MESSAGE_TO_JEUNO_BASTOK,
 }
 
