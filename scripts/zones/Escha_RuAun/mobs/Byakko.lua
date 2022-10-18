@@ -64,11 +64,10 @@ entity.onMobSpawn = function(mob ,target)
 	
 	
     xi.mix.jobSpecial.config(mob, {
-        between = 75,
+        between = 240, -- 4 min PD timer
         specials =
-        {
-            {id = xi.jsa.PERFECT_DODGE, cooldown = 0, hpp = 100},	
-            {id = xi.jsa.BLOOD_WEAPON, cooldown = 0, hpp = 100},
+        {		
+            {id = xi.jsa.PERFECT_DODGE, cooldown = 0, hpp = 100},			
         },
     })
         mob:setMobMod(xi.mobMod.DRAW_IN, 1)
@@ -93,41 +92,43 @@ entity.onMobSpawn = function(mob ,target)
         mob:setMod(xi.mod.POISONRES, 9999)
         mob:setMod(xi.mod.PARALYZERES, 9999)
         mob:setMod(xi.mod.LULLABYRES, 9999)
-        mob:setMod(xi.mod.DOUBLE_ATTACK, 20)
+        mob:setMod(xi.mod.DOUBLE_ATTACK, 75)
         mob:setMod(xi.mod.EARTH_MEVA, 250)
         mob:setMod(xi.mod.DARK_MEVA, 128)
         mob:setMod(xi.mod.LIGHT_MEVA, 200)
         mob:setMod(xi.mod.FIRE_MEVA, 250)
         mob:setMod(xi.mod.WATER_MEVA, 250)
-        mob:setMod(xi.mod.THUNDER_MEVA, 250)
+        mob:setMod(xi.mod.THUNDER_MEVA, 350)
         mob:setMod(xi.mod.WIND_MEVA, 250)
-        mob:setMod(xi.mod.ICE_MEVA, 250)
+        mob:setMod(xi.mod.ICE_MEVA, 350)
         mob:setMod(xi.mod.EARTH_SDT, 250)
         mob:setMod(xi.mod.LIGHT_SDT, 200)
         mob:setMod(xi.mod.FIRE_SDT, 250)
         mob:setMod(xi.mod.WATER_SDT, 250)
-        mob:setMod(xi.mod.THUNDER_SDT, 250)
-        mob:setMod(xi.mod.ICE_SDT, 250)
+        mob:setMod(xi.mod.THUNDER_SDT, 350)
+        mob:setMod(xi.mod.ICE_SDT, 350)
         mob:setMod(xi.mod.WIND_SDT, 250)
         mob:setMod(xi.mod.LIGHT_ABSORB, 200)
         mob:setMod(xi.mod.FASTCAST, 550)
-        mob:addStatusEffect(xi.effect.REGEN, 50, 3, 0)
+        mob:addStatusEffect(xi.effect.REGEN, 70, 3, 0)
         mob:addStatusEffect(xi.effect.REFRESH, 30, 3, 0)
         mob:addStatusEffect(xi.effect.REGAIN, 50, 3, 0)
+        mob:addStatusEffect(xi.effect.BLOOD_WEAPON, 1, 0, 0)		
 		mob:setDropID(3991)
 end
 
 entity.onMobFight = function(mob, target)
     local lifePercent = mob:getHPP()
+    local twoHourUsed = mob:getLocalVar("twoHourUsed")	
 
-    if  lifePercent == 60  and mob:getLocalVar("2hourused") == 0 then
+    if lifePercent <= 60 and lifePercent >= 50  and mob:getLocalVar("twoHourUsed") == 0 then
         mob:useMobAbility(731) --MIJIN_GAKURE
-		mob:setLocalVar("2hourused", 1)
+		mob:setLocalVar("twoHourUsed", 1)
     end
 
-    if  lifePercent == 20 and mob:getLocalVar("2hourused") == 1 then
+    if lifePercent <= 30 and lifePercent >= 20 and mob:getLocalVar("twoHourUsed") == 1 then
         mob:useMobAbility(731) --MIJIN_GAKURE
-		mob:setLocalVar("2hourused", 2)
+		mob:setLocalVar("twoHourUsed", 2)
     end
 end
 
@@ -140,6 +141,7 @@ entity.onAdditionalEffect = function(mob, target, damage)
 end
 
 entity.onMobDeath = function(mob, player, isKiller)
+    mob:resetLocalVars()
 end
 
 entity.onMobDespawn = function(mob)
