@@ -48,6 +48,7 @@ zones[xi.zone.ROMAEVE] =
             [17277075] = 17277079,
             [17277078] = 17277079,
         },
+        SHIKIGAMI_WEAPON  = 17277127,
         MOKKURKALFI_I     = 17276929,
         MOKKURKALFI_II    = 17276930,
         ELDHRIMNIR        = 17277126,

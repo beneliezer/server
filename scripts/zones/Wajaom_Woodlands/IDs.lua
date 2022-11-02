@@ -52,6 +52,7 @@ zones[xi.zone.WAJAOM_WOODLANDS] =
             [16986195] = 16986197, -- 219.000 -18.000 -59.000
             [16986196] = 16986197, -- 203.000 -16.000 -74.000
         },
+        HYDRA                  = 16986355,
         ZORAAL_JA_S_PKUUCHA    = 16986197,
         PERCIPIENT_ZORAAL_JA   = 16986198,
         VULPANGUE              = 16986428,
