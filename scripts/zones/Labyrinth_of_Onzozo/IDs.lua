@@ -83,7 +83,7 @@ zones[xi.zone.LABYRINTH_OF_ONZOZO] =
             [17649773] = 17649761, -- -65.089 5.386 81.363
             [17649766] = 17649761, -- -64.269 5.441 72.382
         },
-        LORD_OF_ONZOZO          = 17093078,
+        LORD_OF_ONZOZO          = DYNAMIC_LOOKUP,
         MYSTICMAKER_PROFBLIX    = 17649693,
         UBUME                   = 17649860,
         MEGAPOD_MEGALOPS        = 17649861,
