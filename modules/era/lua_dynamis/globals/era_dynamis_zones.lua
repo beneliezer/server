@@ -11,7 +11,7 @@ require("modules/module_utils")
 --       Module Affected Scripts          --
 --------------------------------------------
 --------------------------------------------
-
+print("FUCK")
 local m = Module:new("era_dynamis_zones")
 
 local dynamisZones =
