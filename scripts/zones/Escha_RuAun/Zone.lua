@@ -6,6 +6,10 @@ local ID = require('scripts/zones/Escha_RuAun/IDs')
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
+    GetNPCByID(ID.npc.QM_GENBU):setStatus(xi.status.DISAPPEAR)
+    GetNPCByID(ID.npc.QM_SUZAKU):setStatus(xi.status.DISAPPEAR)
+    GetNPCByID(ID.npc.QM_SEIRYU):setStatus(xi.status.DISAPPEAR)
+    GetNPCByID(ID.npc.QM_BYAKKO):setStatus(xi.status.DISAPPEAR)
 end
 
 zoneObject.onZoneIn = function(player, prevZone)
