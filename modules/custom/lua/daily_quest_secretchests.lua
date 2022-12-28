@@ -14,6 +14,7 @@ local handleMidnight = function(player)
     -- handle first time quest midnight
     if questMidnight == 0 then
         player:setCharVar("[DailyQuest]Midnight",currentMidnight)
+        player:setCharVar("[DailyQuest]Completed",0)
         player:setCharVar("[DailyQuest]Fishstix",0)
         player:setCharVar("[DailyQuest]Murdoc",0)
         player:setCharVar("[DailyQuest]Mistrix",0)
@@ -24,6 +25,7 @@ local handleMidnight = function(player)
     -- handle midnight reset
     if currentMidnight < questMidnight then
         player:setCharVar("[DailyQuest]Midnight",currentMidnight)
+        player:setCharVar("[DailyQuest]Completed",0)
         player:setCharVar("[DailyQuest]Fishstix",0)
         player:setCharVar("[DailyQuest]Murdoc",0)
         player:setCharVar("[DailyQuest]Mistrix",0)

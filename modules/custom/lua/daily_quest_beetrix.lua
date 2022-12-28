@@ -126,6 +126,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
         -- handle first time quest midnight
         if questMidnight == 0 then
             player:setCharVar("[DailyQuest]Midnight",currentMidnight)
+            player:setCharVar("[DailyQuest]Completed",0)
             player:setCharVar("[DailyQuest]Fishstix",0)
             player:setCharVar("[DailyQuest]Murdoc",0)
             player:setCharVar("[DailyQuest]Mistrix",0)
@@ -136,6 +137,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
         -- handle midnight reset
         if currentMidnight < questMidnight then
             player:setCharVar("[DailyQuest]Midnight",currentMidnight)
+            player:setCharVar("[DailyQuest]Completed",0)
             player:setCharVar("[DailyQuest]Fishstix",0)
             player:setCharVar("[DailyQuest]Murdoc",0)
             player:setCharVar("[DailyQuest]Mistrix",0)
@@ -158,6 +160,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
         onTrade = function(player, npc, trade)
             handleMidnight(player)
             local questStage = player:getCharVar("[DailyQuest]Beetrix")
+            local completedDailyQuests = player:getCharVar("[DailyQuest]Completed")
 
             -- handle quest stages
             if questStage == 1 then
@@ -168,6 +171,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                 if npcUtil.tradeHasExactly(trade, questRExItemID) then
                     player:tradeComplete()
                     player:setCharVar("[DailyQuest]Beetrix",2)
+                    player:setCharVar("[DailyQuest]Completed",completedDailyQuests + 1)
                     player:PrintToPlayer("Congratulations! You've completed my quest for today, here's your reward!", 0, npc:getPacketName())
                     player:addCurrency('bayld', 5)
                     player:PrintToPlayer("You have obtained 5 bayld!", 17)
