@@ -43,3 +43,4 @@ custom/lua/daily_quest_mistrix.lua
 custom/lua/daily_quest_murdoc.lua
 custom/lua/daily_quest_saltlik.lua
 custom/lua/daily_quest_beetrix.lua
+custom/lua/daily_quest_secretchests.lua
