@@ -167,8 +167,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
             
             -- handle quest stages
             if questStage == 0 then
-                local randNum = 1 -- force to West Ronfaure for testing
-                --local randNum = math.random(1,100)
+                local randNum = math.random(1,100)
                 local questZoneName = questLocations[randNum][1]
                 local nmListLength = table.getn(questLocations[randNum][2])
                 local randNM = math.random(1,nmListLength)
@@ -218,8 +217,6 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
 
         m:addOverride(string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName), function(mob, player, optParams)
             super(mob, player, optParams)
-
-            --print(string.format("%s killed",mob:getName()))
             
             local dailyQuestActive = player:getCharVar("[DailyQuest]Saltlik")
             local dailyZone        = player:getCharVar("[DailyQuest]Saltlik_zone")

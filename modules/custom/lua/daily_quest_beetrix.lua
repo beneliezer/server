@@ -192,8 +192,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
             
             -- handle quest stages
             if questStage == 0 then
-                local randNum = 1 -- force to West Ronfaure for testing
-                --local randNum = math.random(1,100)
+                local randNum = math.random(1,100)
                 local questZoneName = questLocations[randNum][1]
                 local rExItemListLength = table.getn(questLocations[randNum][2])
                 local randrExItem = math.random(1,rExItemListLength)
@@ -218,29 +217,6 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
     })
 
     utils.unused(beetrix)
-
-    -- Reward NPC
-    local gronk = zone:insertDynamicEntity({
-
-        objtype = xi.objType.NPC,
-        name = "Gronk",
-        look = 73,
-        x = -49.7539,
-        y = 0.000,
-        z = -54.3718,
-        rotation = 19,
-        widescan = 1,
-
-        onTrade = function(player, npc, trade)
-            player:PrintToPlayer("I don't require any items from you.", 0, npc:getPacketName())
-        end,
-
-        onTrigger = function(player, npc)
-            player:PrintToPlayer("This will be where you claim your Daily Quest rewards!", 0, npc:getPacketName())
-        end,
-    })
-
-    utils.unused(gronk)
 end)
 
 return m
