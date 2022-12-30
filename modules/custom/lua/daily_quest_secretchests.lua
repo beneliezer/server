@@ -141,7 +141,6 @@ local treasurePositions =
 }
 
 for _, entry in pairs(treasurePositions) do
-if entry[1] == 1 then -- TODO: Delete this line (for testing purposes, forces West Ronfaure)
     local questZoneNum         = entry[1]
     local questZoneName        = entry[2]
     local questZoneID          = entry[3]
@@ -151,9 +150,6 @@ if entry[1] == 1 then -- TODO: Delete this line (for testing purposes, forces We
     local positionY = entry[4][randChestNum][2]
     local positionZ = entry[4][randChestNum][3]
     local positionR = entry[4][randChestNum][4]
-
-    --print(string.format("xi.zones.%s.Zone.onInitialize",questZoneName))
-    --print(string.format("Chest: x-pos %d, y-pos %d, z-pos %d, rot %d",positionX,positionY,positionZ,positionR))
 
     m:addOverride(string.format("xi.zones.%s.Zone.onInitialize",questZoneName), function(zone)
 
@@ -207,7 +203,6 @@ if entry[1] == 1 then -- TODO: Delete this line (for testing purposes, forces We
 
         utils.unused(dailyQuestChest)
     end)
-end -- TODO: Delete this line (for testing purposes, forces West Ronfaure)
 end
 
 return m
