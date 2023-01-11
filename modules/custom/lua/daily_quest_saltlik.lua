@@ -116,47 +116,47 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
     }
 
     local handleMidnight = function(player)
-        local questMidnight = player:getCharVar("[DailyQuest]Midnight")
+        local questMidnight = player:getCharVar("[DQ]Midnight")
         local currentMidnight = getMidnight()
 
         -- handle first time quest midnight
         if questMidnight == 0 then
-            player:setCharVar("[DailyQuest]Midnight", currentMidnight)
-            player:setCharVar("[DailyQuest]Completed", 0)
-            player:setCharVar("[DailyQuest]Fishstix", 0)
-            player:setCharVar("[DailyQuest]Fishstix_zone", 0)
-            player:setCharVar("[DailyQuest]Murdoc", 0)
-            player:setCharVar("[DailyQuest]Murdoc_zone", 0)
-            player:setCharVar("[DailyQuest]Murdoc_mobType", 0)
-            player:setCharVar("[DailyQuest]Murdoc_killAmt", 0)
-            player:setCharVar("[DailyQuest]Mistrix", 0)
-            player:setCharVar("[DailyQuest]Mistrix_item", 0)
-            player:setCharVar("[DailyQuest]Saltlik", 0)
-            player:setCharVar("[DailyQuest]Saltlik_zone", 0)
-            player:setCharVar("[DailyQuest]Saltlik_NM", 0)
-            player:setCharVar("[DailyQuest]Beetrix", 0)
-            player:setCharVar("[DailyQuest]Beetrix_zone", 0)
-            player:setCharVar("[DailyQuest]Beetrix_RExItem", 0)
+            player:setCharVar("[DQ]Midnight", currentMidnight)
+            player:setCharVar("[DQ]Completed", 0)
+            player:setCharVar("[DQ]Fishstix", 0)
+            player:setCharVar("[DQ]Fishstix_Z", 0)
+            player:setCharVar("[DQ]Murdoc", 0)
+            player:setCharVar("[DQ]Murdoc_Z", 0)
+            player:setCharVar("[DQ]Murdoc_MT", 0)
+            player:setCharVar("[DQ]Murdoc_KA", 0)
+            player:setCharVar("[DQ]Mistrix", 0)
+            player:setCharVar("[DQ]Mistrix_I", 0)
+            player:setCharVar("[DQ]Saltlik", 0)
+            player:setCharVar("[DQ]Saltlik_Z", 0)
+            player:setCharVar("[DQ]Saltlik_NM", 0)
+            player:setCharVar("[DQ]Beetrix", 0)
+            player:setCharVar("[DQ]Beetrix_Z", 0)
+            player:setCharVar("[DQ]Beetrix_RE", 0)
         end
         
         -- handle midnight reset
         if currentMidnight < questMidnight then
-            player:setCharVar("[DailyQuest]Midnight", currentMidnight)
-            player:setCharVar("[DailyQuest]Completed", 0)
-            player:setCharVar("[DailyQuest]Fishstix", 0)
-            player:setCharVar("[DailyQuest]Fishstix_zone", 0)
-            player:setCharVar("[DailyQuest]Murdoc", 0)
-            player:setCharVar("[DailyQuest]Murdoc_zone", 0)
-            player:setCharVar("[DailyQuest]Murdoc_mobType", 0)
-            player:setCharVar("[DailyQuest]Murdoc_killAmt", 0)
-            player:setCharVar("[DailyQuest]Mistrix", 0)
-            player:setCharVar("[DailyQuest]Mistrix_item", 0)
-            player:setCharVar("[DailyQuest]Saltlik", 0)
-            player:setCharVar("[DailyQuest]Saltlik_zone", 0)
-            player:setCharVar("[DailyQuest]Saltlik_NM", 0)
-            player:setCharVar("[DailyQuest]Beetrix", 0)
-            player:setCharVar("[DailyQuest]Beetrix_zone", 0)
-            player:setCharVar("[DailyQuest]Beetrix_RExItem", 0)
+            player:setCharVar("[DQ]Midnight", currentMidnight)
+            player:setCharVar("[DQ]Completed", 0)
+            player:setCharVar("[DQ]Fishstix", 0)
+            player:setCharVar("[DQ]Fishstix_Z", 0)
+            player:setCharVar("[DQ]Murdoc", 0)
+            player:setCharVar("[DQ]Murdoc_Z", 0)
+            player:setCharVar("[DQ]Murdoc_MT", 0)
+            player:setCharVar("[DQ]Murdoc_KA", 0)
+            player:setCharVar("[DQ]Mistrix", 0)
+            player:setCharVar("[DQ]Mistrix_I", 0)
+            player:setCharVar("[DQ]Saltlik", 0)
+            player:setCharVar("[DQ]Saltlik_Z", 0)
+            player:setCharVar("[DQ]Saltlik_NM", 0)
+            player:setCharVar("[DQ]Beetrix", 0)
+            player:setCharVar("[DQ]Beetrix_Z", 0)
+            player:setCharVar("[DQ]Beetrix_RE", 0)
         end
     end
 
@@ -177,8 +177,8 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
 
         onTrigger = function(player, npc)
             handleMidnight(player)
-            local questStage = player:getCharVar("[DailyQuest]Saltlik")
-            local completedDailyQuests = player:getCharVar("[DailyQuest]Completed")
+            local questStage = player:getCharVar("[DQ]Saltlik")
+            local completedDailyQuests = player:getCharVar("[DQ]Completed")
             
             -- handle quest stages
             if questStage == 0 then
@@ -187,21 +187,21 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                 local nmListLength = table.getn(questLocations[randNum][2])
                 local randNM = math.random(1,nmListLength)
                 local questNMName = questLocations[randNum][2][randNM]
-                player:setCharVar("[DailyQuest]Saltlik",1)
-                player:setCharVar("[DailyQuest]Saltlik_zone",randNum)
-                player:setCharVar("[DailyQuest]Saltlik_NM",randNM)
+                player:setCharVar("[DQ]Saltlik",1)
+                player:setCharVar("[DQ]Saltlik_Z",randNum)
+                player:setCharVar("[DQ]Saltlik_NM",randNM)
                 player:PrintToPlayer(string.format("Go to %s and kill %s!",questZoneName, questNMName), 0, npc:getPacketName())
                 return
             elseif questStage == 1 then
-                local questZone = player:getCharVar("[DailyQuest]Saltlik_zone")
-                local questNM = player:getCharVar("[DailyQuest]Saltlik_NM")
+                local questZone = player:getCharVar("[DQ]Saltlik_Z")
+                local questNM = player:getCharVar("[DQ]Saltlik_NM")
                 local questZoneName = questLocations[questZone][1]
                 local questNMName = questLocations[questZone][2][questNM]
                 player:PrintToPlayer(string.format("Go to %s and kill %s!",questZoneName, questNMName), 0, npc:getPacketName())
                 return
             elseif questStage == 2 then
-                player:setCharVar("[DailyQuest]Saltlik",3)
-                player:setCharVar("[DailyQuest]Completed",completedDailyQuests + 1)
+                player:setCharVar("[DQ]Saltlik",3)
+                player:setCharVar("[DQ]Completed",completedDailyQuests + 1)
                 player:PrintToPlayer("Congratulations! You've completed my quest for today, here's your reward!", 0, npc:getPacketName())
                 player:addCurrency('bayld', 400)
                 player:PrintToPlayer("You have obtained 400 bayld!", 17)
@@ -854,9 +854,9 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
         m:addOverride(string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName), function(mob, player, optParams)
             super(mob, player, optParams)
             
-            local dailyQuestActive = player:getCharVar("[DailyQuest]Saltlik")
-            local dailyZone        = player:getCharVar("[DailyQuest]Saltlik_zone")
-            local dailyNM          = player:getCharVar("[DailyQuest]Saltlik_NM")
+            local dailyQuestActive = player:getCharVar("[DQ]Saltlik")
+            local dailyZone        = player:getCharVar("[DQ]Saltlik_Z")
+            local dailyNM          = player:getCharVar("[DQ]Saltlik_NM")
 
             if
                 dailyQuestActive == 1 and
@@ -864,7 +864,7 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                 dailyNM == nmNum
             then
                 if optParams.isKiller then
-                    player:setCharVar("[DailyQuest]Saltlik",2)
+                    player:setCharVar("[DQ]Saltlik",2)
                     player:PrintToPlayer(string.format("You've killed %s, please return to Saltlik to claim your reward!",mob:getName()), 17)
                 end
             end
