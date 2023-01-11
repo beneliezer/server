@@ -63,21 +63,21 @@ function onTrigger(player, target, option, choice)
             player:PrintToPlayer(string.format("%s's [Mistrix] Active: %i, Item ID: %i.", targ:getName(), mistrixStage, mistrixItemID))
             player:PrintToPlayer(string.format("%s's [Saltlik] Active: %i, Zone: %i, NM: %i.", targ:getName(), saltlikStage, salklikZone, salklikNM))
             player:PrintToPlayer(string.format("%s's [Beetrix] Active: %i, Zone: %i, Item ID: %i.", targ:getName(), beetrixStage, beetrixZone, beetrixRExItem))
-        else if choice == "fishstix" then
+        elseif choice == "fishstix" then
             player:PrintToPlayer(string.format("%s's [Fishstix] Active: %i, Zone: %i.", targ:getName(), fishstixStage, fishstixZone))
-        else if choice == "murdoc" then
+        elseif choice == "murdoc" then
             player:PrintToPlayer(string.format("%s's [Murdoc] Active: %i, Zone: %i, Mob Type: %i, Kill Amt: %i.", targ:getName(), murdocStage, murdocZone, murdocMobType, murdocKillAmt))
-        else if choice == "mistrix" then
+        elseif choice == "mistrix" then
             player:PrintToPlayer(string.format("%s's [Mistrix] Active: %i, Item ID: %i.", targ:getName(), mistrixStage, mistrixItemID))
-        else if choice == "saltlik" then
+        elseif choice == "saltlik" then
             player:PrintToPlayer(string.format("%s's [Saltlik] Active: %i, Zone: %i, NM: %i.", targ:getName(), saltlikStage, salklikZone, salklikNM))
-        else if choice == "beetrix" then
+        elseif choice == "beetrix" then
             player:PrintToPlayer(string.format("%s's [Beetrix] Active: %i, Zone: %i, Item ID: %i.", targ:getName(), beetrixStage, beetrixZone, beetrixRExItem))
         else
             error(player, "You must select 'all' or the npc's name.")
             return
         end
-    else if option == "reset" then
+    elseif option == "reset" then
         if choice == "all" then
             local currentMidnight = getMidnight()
             targ:setCharVar("[DailyQuest]Midnight", currentMidnight)
@@ -97,26 +97,26 @@ function onTrigger(player, target, option, choice)
             targ:setCharVar("[DailyQuest]Beetrix_zone", 0)
             targ:setCharVar("[DailyQuest]Beetrix_RExItem", 0)
             player:PrintToPlayer(string.format("You have reset all of %s's daily quests.", targ:getName()))
-        else if choice == "fishstix" then
+        elseif choice == "fishstix" then
             targ:setCharVar("[DailyQuest]Fishstix", 0)
             targ:setCharVar("[DailyQuest]Fishstix_zone", 0)
             player:PrintToPlayer(string.format("You have reset %s's Fishstix daily quest.", targ:getName()))
-        else if choice == "murdoc" then
+        elseif choice == "murdoc" then
             targ:setCharVar("[DailyQuest]Murdoc", 0)
             targ:setCharVar("[DailyQuest]Murdoc_zone", 0)
             targ:setCharVar("[DailyQuest]Murdoc_mobType", 0)
             targ:setCharVar("[DailyQuest]Murdoc_killAmt", 0)
             player:PrintToPlayer(string.format("You have reset %s's Murdoc daily quest.", targ:getName()))
-        else if choice == "mistrix" then
+        elseif choice == "mistrix" then
             targ:setCharVar("[DailyQuest]Mistrix", 0)
             targ:setCharVar("[DailyQuest]Mistrix_item", 0)
             player:PrintToPlayer(string.format("You have reset %s's Mistrix daily quest.", targ:getName()))
-        else if choice == "saltlik" then
+        elseif choice == "saltlik" then
             targ:setCharVar("[DailyQuest]Saltlik", 0)
             targ:setCharVar("[DailyQuest]Saltlik_zone", 0)
             targ:setCharVar("[DailyQuest]Saltlik_NM", 0)
             player:PrintToPlayer(string.format("You have reset %s's Saltlik daily quest.", targ:getName()))
-        else if choice == "beetrix" then
+        elseif choice == "beetrix" then
             targ:setCharVar("[DailyQuest]Beetrix", 0)
             targ:setCharVar("[DailyQuest]Beetrix_zone", 0)
             targ:setCharVar("[DailyQuest]Beetrix_RExItem", 0)
