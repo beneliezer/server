@@ -259,8 +259,8 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                         player:setCharVar("[DailyQuest]Mistrix",2)
                         player:setCharVar("[DailyQuest]Completed",completedDailyQuests + 1)
                         player:PrintToPlayer("Congratulations! You've completed my quest for today, here's your reward!", 0, npc:getPacketName())
-                        player:addCurrency('bayld', 3)
-                        player:PrintToPlayer("You have obtained 3 bayld!", 17)
+                        player:addCurrency('bayld', 300)
+                        player:PrintToPlayer("You have obtained 300 bayld!", 17)
                         return
                     else
                         player:PrintToPlayer(string.format("I said I need a SIGNED %s, please use a HQ crystal and try again!",questCraftItemName), 0, npc:getPacketName())

@@ -203,8 +203,8 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                 player:setCharVar("[DailyQuest]Saltlik",3)
                 player:setCharVar("[DailyQuest]Completed",completedDailyQuests + 1)
                 player:PrintToPlayer("Congratulations! You've completed my quest for today, here's your reward!", 0, npc:getPacketName())
-                player:addCurrency('bayld', 4)
-                player:PrintToPlayer("You have obtained 4 bayld!", 17)
+                player:addCurrency('bayld', 400)
+                player:PrintToPlayer("You have obtained 400 bayld!", 17)
                 return
             elseif questStage == 3 then
                 player:PrintToPlayer("You've already completed this quest today! Come back tomorrow for more.", 0, npc:getPacketName())

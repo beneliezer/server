@@ -188,8 +188,8 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
                     player:setCharVar("[DailyQuest]Beetrix",2)
                     player:setCharVar("[DailyQuest]Completed",completedDailyQuests + 1)
                     player:PrintToPlayer("Congratulations! You've completed my quest for today, here's your reward!", 0, npc:getPacketName())
-                    player:addCurrency('bayld', 5)
-                    player:PrintToPlayer("You have obtained 5 bayld!", 17)
+                    player:addCurrency('bayld', 500)
+                    player:PrintToPlayer("You have obtained 500 bayld!", 17)
                     return
                 else
                     player:PrintToPlayer(string.format("I said I need a %s, please try again!",string.upper(questRExItemName)), 0, npc:getPacketName())
