@@ -222,56 +222,57 @@ m:addOverride("xi.zones.Lower_Jeuno.Zone.onInitialize", function(zone)
 
     utils.unused(murdoc)
 
-    local killAmtMobs =
-    {
-        {1, 1, "West_Ronfaure", { "Wild_Rabbit",   "Forest_Hare"                                                                             } },
-        {1, 2, "West_Ronfaure", { "Tunnel_Worm",   "Carrion_Worm"                                                                            } },
-        {1, 3, "West_Ronfaure", { "Ding_Bats",     "Mouse_Bat"                                                                               } },
-        {1, 4, "West_Ronfaure", { "River_Crab",    "Passage_Crab",    "Land_Crab",        "Limicoline_Crab", "Tree_Crab", "Vermivorous_Crab" } },
-        {1, 5, "West_Ronfaure", { "Scarab_Beetle"                                                                                            } },
-        {1, 6, "West_Ronfaure", { "Orcish_Fodder", "Orcish_Grappler", "Orcish_Mesmerizer"                                                    } },
-        {1, 7, "West_Ronfaure", { "Goblin_Thug",   "Goblin_Weaver",   "Goblin_Digger",    "Goblin_Fisher"                                    } },
-        {1, 8, "West_Ronfaure", { "Wild_Sheep"                                                                                               } },
-        {1, 9, "West_Ronfaure", { "Forest_Funguar"                                                                                           } }
-    }
+end)
 
-    for _, entry in pairs(killAmtMobs) do
-        local zoneNum        = entry[1]
-        local mobTypeNum     = entry[2]
-        local zoneName       = entry[3]
-        local mobNamesLength = #(entry[4])
+local killAmtMobs =
+{
+    {1, 1, "West_Ronfaure", { "Wild_Rabbit",   "Forest_Hare"                                                                             } },
+    {1, 2, "West_Ronfaure", { "Tunnel_Worm",   "Carrion_Worm"                                                                            } },
+    {1, 3, "West_Ronfaure", { "Ding_Bats",     "Mouse_Bat"                                                                               } },
+    {1, 4, "West_Ronfaure", { "River_Crab",    "Passage_Crab",    "Land_Crab",        "Limicoline_Crab", "Tree_Crab", "Vermivorous_Crab" } },
+    {1, 5, "West_Ronfaure", { "Scarab_Beetle"                                                                                            } },
+    {1, 6, "West_Ronfaure", { "Orcish_Fodder", "Orcish_Grappler", "Orcish_Mesmerizer"                                                    } },
+    {1, 7, "West_Ronfaure", { "Goblin_Thug",   "Goblin_Weaver",   "Goblin_Digger",    "Goblin_Fisher"                                    } },
+    {1, 8, "West_Ronfaure", { "Wild_Sheep"                                                                                               } },
+    {1, 9, "West_Ronfaure", { "Forest_Funguar"                                                                                           } }
+}
 
-        for i = 1, mobNamesLength do
-            local mobName = entry[4][i]
+for _, entry in pairs(killAmtMobs) do
+    local zoneNum        = entry[1]
+    local mobTypeNum     = entry[2]
+    local zoneName       = entry[3]
+    local mobNamesLength = #(entry[4])
 
-            --print( string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName) )
+    for i = 1, mobNamesLength do
+        local mobName = entry[4][i]
 
-            m:addOverride(string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName), function(mob, player, optParams)
-                super(mob, player, optParams)
+        --print( string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName) )
 
-                local dailyQuestActive = player:getCharVar("[DQ]Murdoc")
-                local dailyZone        = player:getCharVar("[DQ]Murdoc_Z")
-                local dailyMobType     = player:getCharVar("[DQ]Murdoc_MT")
-                local dailyMobKillAmt  = player:getCharVar("[DQ]Murdoc_KA")
+        m:addOverride(string.format("xi.zones.%s.mobs.%s.onMobDeath", zoneName, mobName), function(mob, player, optParams)
+            super(mob, player, optParams)
 
-                if
-                    dailyQuestActive == 1 and
-                    dailyZone == zoneNum and
-                    dailyMobType == mobTypeNum
-                then
-                    if optParams.isKiller then
-                        if dailyMobKillAmt > 1 then
-                            player:setCharVar("[DQ]Murdoc_KA",dailyMobKillAmt - 1)
-                        elseif dailyMobKillAmt == 1 then
-                            player:setCharVar("[DQ]Murdoc_KA",dailyMobKillAmt - 1)
-                            player:setCharVar("[DQ]Murdoc",2)
-                            player:PrintToPlayer( string.format("You've killed enough %s's, please return to Murdoc to claim your reward!", mob:getName()), 17)
-                        end
+            local dailyQuestActive = player:getCharVar("[DQ]Murdoc")
+            local dailyZone        = player:getCharVar("[DQ]Murdoc_Z")
+            local dailyMobType     = player:getCharVar("[DQ]Murdoc_MT")
+            local dailyMobKillAmt  = player:getCharVar("[DQ]Murdoc_KA")
+
+            if
+                dailyQuestActive == 1 and
+                dailyZone == zoneNum and
+                dailyMobType == mobTypeNum
+            then
+                if optParams.isKiller then
+                    if dailyMobKillAmt > 1 then
+                        player:setCharVar("[DQ]Murdoc_KA",dailyMobKillAmt - 1)
+                    elseif dailyMobKillAmt == 1 then
+                        player:setCharVar("[DQ]Murdoc_KA",dailyMobKillAmt - 1)
+                        player:setCharVar("[DQ]Murdoc",2)
+                        player:PrintToPlayer( string.format("You've killed enough %s's, please return to Murdoc to claim your reward!", mob:getName()), 17)
                     end
                 end
-            end)
-        end
+            end
+        end)
     end
-end)
+end
 
 return m
