@@ -36,12 +36,4 @@
 #
 # Live example:
 
-custom/commands/
 custom/lua/test_npcs_in_gm_home.lua
-custom/lua/daily_quest_fishstix.lua
-custom/lua/daily_quest_mistrix.lua
-custom/lua/daily_quest_murdoc.lua
-custom/lua/daily_quest_saltlik.lua
-custom/lua/daily_quest_beetrix.lua
-custom/lua/daily_quest_gronk.lua
-custom/lua/daily_quest_secretchests.lua
