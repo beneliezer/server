@@ -627,11 +627,11 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
     local selection = bit.rshift(option, 16)
 
     local qty = 1
-    local requestedQty = bit.band(bit.rshift(option, 10), 0x3F)
+    local requested_qty = bit.band(bit.rshift(option, 10), 0x3F)
 
     -- only skillup books and currencies can have qty > 1 aside from special cases such as ammo or shurikens
     if category == 2 or category == 20 or category == 30 then
-        qty = requestedQty
+        qty = requested_qty
     end
 
     -- There are three specific cases for Sparks rewards currently implemented:
@@ -681,7 +681,7 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
         local currency = optionToItem[category][selection]
 
         if copperVouchersStored >= qty then
-            if currency.name ~= "bayld" then
+            if currency.name ~= "kinetic_unit" then
                 player:delCurrency("aman_vouchers", qty)
             end
 
@@ -697,8 +697,8 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
                 end
             end
 
-            if currency.name == "bayld" then
-                player:PrintToPlayer("You are not allowed to receive Bayld in this way.", 17)
+            if currency.name == "kinetic_unit" then
+                player:PrintToPlayer("You are not allowed to receive Kinetic Units in this way.", 17)
             else
                 player:addCurrency(currency.name, currency.amount * qty, getCurrencyCap(currency.name))
             end
