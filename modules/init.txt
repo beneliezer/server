@@ -1,0 +1,37 @@
+# This file is for marking which modules you wish to load.
+#
+# init.txt:
+# ---------------------
+# | 
+# | renamer
+# | 
+# ---------------------
+#
+# Will load everything under the renamer folder.
+#
+# init.txt:
+# ---------------------
+# | 
+# | custom/cpp/custom_module.cpp
+# | custom/lua/claim_shield.lua
+# |
+# ---------------------
+#
+# Will load only custom/cpp/custom_module.cpp and catseyexi/claim_shield.lua.
+#
+# COMPLETE override: No use of "super" the fuction contained will be brand new.
+# ADDITIVE override: Use of "super" to ADD to whatever is already in the function.
+#                    This must be made AFTER FULL overrides.
+#
+# Database overrides here:
+catseyexi/sql
+#
+# Core overrides here:
+catseyexi/cpp
+custom/cpp
+#
+# Lua FULL overrides here:
+catseyexi/lua/complete_overrides
+#
+# Lua ADDITIVE overrides here:
+catseyexi/lua/additive_overrides
