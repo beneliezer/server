@@ -22,6 +22,9 @@ entity.onAdditionalEffect = function(mob, target, damage)
     end
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     mob:setLocalVar("death", 1)
 end

@@ -7,6 +7,9 @@ require("scripts/globals/titles")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     player:addTitle(xi.title.BYE_BYE_TAISAI)
 end

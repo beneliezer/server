@@ -208,6 +208,9 @@ entity.onMobDisengage = function(mob)
     mob:setMod(xi.mod.REGAIN, 0)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 418)
 end

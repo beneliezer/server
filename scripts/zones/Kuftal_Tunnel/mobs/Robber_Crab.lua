@@ -14,6 +14,9 @@ entity.onMobInitialize = function(mob)
     end
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.regime.checkRegime(player, mob, 735, 1, xi.regime.type.GROUNDS)
     xi.regime.checkRegime(player, mob, 736, 1, xi.regime.type.GROUNDS)

@@ -25,6 +25,9 @@ entity.onMobRoam = function(mob)
     end
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

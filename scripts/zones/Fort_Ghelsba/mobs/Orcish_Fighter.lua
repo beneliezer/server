@@ -6,6 +6,9 @@ local ID = require("scripts/zones/Fort_Ghelsba/IDs")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

@@ -12,6 +12,9 @@ entity.onMobInitialize = function(mob)
     mob:setMod(xi.mod.SLEEP_MEVA, 75)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

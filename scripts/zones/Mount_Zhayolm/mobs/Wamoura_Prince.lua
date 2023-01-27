@@ -16,7 +16,10 @@ end
 entity.onMobFight = function(mob, target)
 end
 
-entity.onMobDeath = function(mob)
+entity.onMobEngaged = function(mob, target)
+end
+
+entity.onMobDeath = function(mob, player, optParams)
 end
 
 return entity

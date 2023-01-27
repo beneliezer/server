@@ -6,6 +6,9 @@
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     if optParams.isKiller then
         local mobId = mob:getID()

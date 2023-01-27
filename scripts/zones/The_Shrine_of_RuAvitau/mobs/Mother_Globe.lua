@@ -157,6 +157,9 @@ entity.onAdditionalEffect = function(mob, target, damage)
     -- Unknown if this can be stolen/dispelled like spikes.  Isn't mentioned, probably not.
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     mob:setRespawnTime(math.random(10800, 21600)) -- respawn 3-6 hrs
 

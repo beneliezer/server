@@ -18,6 +18,9 @@ entity.onMobInitialize = function(mob)
     mob:addMod(xi.mod.ATT, 50) -- May need adjustment along with cmbDmgMult in mob_pools.sql
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 206)
     -- I think he still counts the FoV pages? Most NM's do not though.

@@ -6,6 +6,9 @@ require("scripts/globals/titles")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     player:addTitle(xi.title.GOLIATH_KILLER)
 end

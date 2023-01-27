@@ -7,11 +7,14 @@ require("scripts/globals/mobs")
 -----------------------------------
 local entity = {}
 
-entity.mobOnDeath = function(mob, player, optParams)
-end
-
 entity.onMobDespawn = function(mob)
     xi.mob.phOnDespawn(mob, ID.mob.AIATAR_PH, 10, 75600) -- 50 minutes
+end
+
+entity.onMobEngaged = function(mob, target)
+end
+
+entity.onMobDeath = function(mob, player, optParams)
 end
 
 return entity

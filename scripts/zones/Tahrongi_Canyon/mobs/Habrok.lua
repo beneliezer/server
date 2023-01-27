@@ -11,6 +11,9 @@ entity.onMobInitialize = function(mob)
     mob:setLocalVar("pop", os.time() + math.random(1200, 7200))
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 258)
     xi.tutorial.onMobDeath(player)

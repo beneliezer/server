@@ -15,6 +15,9 @@ entity.onMobSpawn = function(mob)
     })
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

@@ -9,6 +9,9 @@ local ID = require("scripts/zones/Batallia_Downs/IDs")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.regime.checkRegime(player, mob, 74, 2, xi.regime.type.FIELDS)
     if

@@ -22,6 +22,9 @@ entity.onMobRoam = function(mob)
     end
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 179)
 end

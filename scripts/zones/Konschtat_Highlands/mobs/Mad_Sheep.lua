@@ -9,6 +9,9 @@ require("scripts/quests/tutorial")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.tutorial.onMobDeath(player)
 end

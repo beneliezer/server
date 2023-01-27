@@ -12,6 +12,9 @@ local entity = {}
 entity.onMobSpawn = function(mob)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 203)
     player:addTitle(xi.title.MARYS_GUIDE)

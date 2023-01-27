@@ -7,6 +7,9 @@ require("scripts/quests/tutorial")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.regime.checkRegime(player, mob, 6, 1, xi.regime.type.FIELDS)
     xi.regime.checkRegime(player, mob, 71, 2, xi.regime.type.FIELDS)

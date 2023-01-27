@@ -7,6 +7,9 @@ require("scripts/globals/dynamis")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.dynamis.megaBossOnDeath(mob, player, optParams)
 end

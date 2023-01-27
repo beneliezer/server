@@ -11,6 +11,9 @@ entity.onMobInitialize = function(mob)
     mob:setMod(xi.mod.REGEN, 5)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

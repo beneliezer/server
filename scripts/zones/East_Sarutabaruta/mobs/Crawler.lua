@@ -9,6 +9,9 @@ require("scripts/globals/mobs")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.regime.checkRegime(player, mob, 92, 2, xi.regime.type.FIELDS)
     xi.regime.checkRegime(player, mob, 93, 2, xi.regime.type.FIELDS)

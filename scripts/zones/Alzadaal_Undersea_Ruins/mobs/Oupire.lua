@@ -164,6 +164,9 @@ entity.onMobWeaponSkill = function(target, mob, skill)
     end
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 478)
      player:addTitle(xi.title.OUPIRE_IMPALER)

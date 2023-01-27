@@ -10,6 +10,9 @@ entity.onMobSpawn = function(mob)
     mob:setLocalVar("fomorHateAdj", -1)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

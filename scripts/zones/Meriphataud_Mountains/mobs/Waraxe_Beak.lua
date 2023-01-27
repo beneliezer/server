@@ -11,6 +11,9 @@ entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.HP_STANDBACK, -1)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

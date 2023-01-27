@@ -58,6 +58,9 @@ entity.onAdditionalEffect = function(mob, target, damage)
     return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.ENSTONE)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     player:addTitle(xi.title.KIRIN_CAPTIVATOR)
     player:showText(mob, ID.text.KIRIN_OFFSET + 1)

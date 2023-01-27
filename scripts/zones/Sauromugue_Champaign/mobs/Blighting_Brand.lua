@@ -7,6 +7,9 @@ require("scripts/globals/regimes")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 275)
     xi.regime.checkRegime(player, mob, 100, 2, xi.regime.type.FIELDS)

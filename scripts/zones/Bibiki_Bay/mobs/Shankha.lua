@@ -13,6 +13,9 @@ entity.onMobInitialize = function(mob)
     mob:setMod(xi.mod.REGAIN, 200) -- "Seemed to have very high TP gain." (guessing 200 after watching video)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 266)
 end

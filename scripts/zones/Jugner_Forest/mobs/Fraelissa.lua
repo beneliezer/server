@@ -29,6 +29,9 @@ entity.onMobRoam = function(mob)
     updateRegen(mob)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 158)
 end

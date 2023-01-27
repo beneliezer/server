@@ -16,6 +16,9 @@ entity.onAdditionalEffect = function(mob, target, damage)
     return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.HP_DRAIN)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 316)
     xi.regime.checkRegime(player, mob, 55, 1, xi.regime.type.FIELDS)

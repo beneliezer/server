@@ -8,6 +8,9 @@ require("scripts/quests/tutorial")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 154)
     xi.regime.checkRegime(player, mob, 71, 2, xi.regime.type.FIELDS)

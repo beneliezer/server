@@ -12,6 +12,9 @@ entity.onMobInitialize = function(mob)
     mob:setMod(xi.mod.STORETP, 50) -- "Possesses extremely high Store TP."
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 318)
 end

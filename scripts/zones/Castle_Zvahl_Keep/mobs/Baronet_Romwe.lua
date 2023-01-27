@@ -7,6 +7,9 @@ require("scripts/globals/titles")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 353)
     player:addTitle(xi.title.HELLSBANE)

@@ -19,6 +19,9 @@ entity.onMobSpawn = function(mob)
     mob:addMod(xi.mod.SPELLINTERRUPT, 25)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 426)
 end

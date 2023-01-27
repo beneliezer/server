@@ -7,6 +7,9 @@ local ID = require("scripts/zones/Uleguerand_Range/IDs")
 -----------------------------------
 local entity = {}
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

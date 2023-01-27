@@ -21,6 +21,9 @@ entity.onMobSpawn = function(mob)
     mob:setMod(xi.mod.ICE_MEVA, 150) -- Todo: Move to mob_resists.sql
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
 end
 

@@ -11,6 +11,9 @@ entity.onMobInitialize = function(mob)
     mob:addMod(xi.mod.SILENCE_MEVA, 80)
 end
 
+entity.onMobEngaged = function(mob, target)
+end
+
 entity.onMobDeath = function(mob, player, optParams)
     xi.regime.checkRegime(player, mob, 771, 2, xi.regime.type.GROUNDS)
     xi.regime.checkRegime(player, mob, 772, 2, xi.regime.type.GROUNDS)
