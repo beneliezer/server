@@ -271,7 +271,6 @@ entity.onTrigger = function(player, npc)
         -- Has not Accepted or Declined a new Head (or Head/Frame combination)
         if attachmentStatus == 0 and player:getMainLvl() >= requiredLevel then
             if numUnlockedHeads < 3 then
-                player:setCharVar("PUP_AttachmentOption", 0) -- Used to create CS 622 param 2
                 player:startEventString(620, automatonName, automatonName, automatonName, automatonName, numUnlockedHeads, 0, 0, 0, 0, unlockCost[numUnlockedHeads][1], unlockCost[numUnlockedHeads][2], unlockedAttachments)
             elseif numUnlockedHeads == 3 then
                 player:startEventString(900, automatonName, automatonName, automatonName, automatonName, 0, 0, 0, 0, 0, unlockCost[numUnlockedHeads][1], unlockCost[numUnlockedHeads][2])
@@ -348,9 +347,9 @@ end
 entity.onEventUpdate = function(player, csid, option)
     if csid == 620 then -- Collecting option for CS 622 param 2
         if option == 1 then
-            player:setCharVar("PUP_AttachmentStatus", option)
+            player:setCharVar("PUP_AttachmentOption", option)
         elseif option == 2 then
-            player:setCharVar("PUP_AttachmentStatus", option)
+            player:setCharVar("PUP_AttachmentOption", option)
         elseif option == 3 then
             player:setCharVar("PUP_AttachmentOption", option)
         end
@@ -367,14 +366,17 @@ entity.onEventFinish = function(player, csid, option)
             player:unlockAttachment(xi.items.VALOREDGE_FRAME)
             player:unlockAttachment(xi.items.VALOREDGE_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_VALOREDGE_UNLOCK)
+            player:setCharVar("PUP_AttachmentOption", 0)
         elseif attachmentStatus == 9 then
             player:unlockAttachment(xi.items.SHARPSHOT_FRAME)
             player:unlockAttachment(xi.items.SHARPSHOT_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_SHARPSHOT_UNLOCK)
+            player:setCharVar("PUP_AttachmentOption", 0)
         elseif attachmentStatus == 10 then
             player:unlockAttachment(xi.items.STORMWAKER_FRAME)
             player:unlockAttachment(xi.items.STORMWAKER_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_STORMWAKER_UNLOCK)
+            player:setCharVar("PUP_AttachmentOption", 0)
         end
 
         player:setCharVar("PUP_AttachmentStatus", 0)
