@@ -28,7 +28,7 @@ deprecated_functions = [
 ]
 
 excluded_filenames = [
-    'scripts/mixins/claim_shield.lua',
+    './scripts/mixins/claim_shield.lua',
 ]
 
 def contains_word(word):
