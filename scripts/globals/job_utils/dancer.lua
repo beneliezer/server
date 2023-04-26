@@ -64,7 +64,10 @@ local function getStepFinishingMovesBase(player)
         numAwardedMoves = 2
     end
 --- If Terpsichore is equipped, adds 1 additional finishing move to player (custom)
-    if player:getEquipID(xi.slot.MAIN) == xi.items.TERPSICHORE or player:getEquipID(xi.slot.SUB) == xi.items.TERPSICHORE then
+    if
+        player:getEquipID(xi.slot.MAIN) == xi.items.TERPSICHORE or
+        player:getEquipID(xi.slot.SUB) == xi.items.TERPSICHORE
+    then
         numAwardedMoves = numAwardedMoves + 1
     end
 --- End of custom code
