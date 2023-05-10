@@ -35,7 +35,11 @@
 #include "mob_modifier.h"
 #include "mob_spell_list.h"
 #include "mobutils.h"
+#include "packets/char_abilities.h"
+#include "packets/char_job_extra.h"
+#include "packets/char_stats.h"
 #include "packets/entity_update.h"
+#include "utils/charutils.h"
 #include "zone_instance.h"
 
 #include <algorithm>
@@ -1209,6 +1213,16 @@ namespace zoneutils
         }
 
         luautils::AfterZoneIn(PChar);
+
+        if (PChar != nullptr && PChar->objtype == TYPE_PC)
+        {
+            charutils::BuildingCharTraitsTable(PChar);
+            PChar->pushPacket(new CCharAbilitiesPacket(PChar));
+            PChar->pushPacket(new CCharJobExtraPacket(PChar, true));
+            PChar->pushPacket(new CCharJobExtraPacket(PChar, false));
+            PChar->pushPacket(new CCharStatsPacket(PChar));
+            PChar->UpdateHealth();
+        }
     }
 
 }; // namespace zoneutils
