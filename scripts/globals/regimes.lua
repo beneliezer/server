@@ -1451,7 +1451,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         end
     end
 
-    -- get base reward
+    -- get base reward 
     player:messageBasic(xi.msg.basic.FOV_COMPLETED_REGIME)
     local reward = page[7]
 
