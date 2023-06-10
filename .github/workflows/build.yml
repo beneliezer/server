@@ -137,7 +137,7 @@ jobs:
         for changed_file in ${{ steps.changed-files.outputs.all }}; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.lua ]]; then
-              if [[ $changed_file != scripts/mixins/claim_shield.lua ]]; then
+              if [[ $changed_file != scripts/mixins/claim_shield.lua || scripts/globals/synergy_furnace.lua ]]; then
                 bash tools/ci/lua.sh ${changed_file} >> lua_checks.txt || true
               fi
             fi

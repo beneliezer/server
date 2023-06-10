@@ -9,6 +9,7 @@ import re
 function_names = []
 excluded_filenames = [
     './scripts/mixins/claim_shield.lua',
+    './scripts/globals/synergy_furnace.lua',
 ]
 
 def extract_function_names():
