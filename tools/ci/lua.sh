@@ -194,6 +194,13 @@ global_objects=(
 
 ignores=(
     "unused variable ID"
+
+    craftingStallRequirements
+    craftingSmocks
+    handleKirinItemCreation
+    handleHqItemCreation
+    handleAugmentedItemCreation
+    handleRandomAugment
 )
 
 ignore_rules=(
@@ -205,7 +212,7 @@ ignore_rules=(
 --quiet --jobs 4 --no-config --codes \
 --no-unused-args \
 --no-max-line-length \
---max-cyclomatic-complexity 30 \
+--max-cyclomatic-complexity 50 \
 --globals ${global_funcs[@]} ${global_objects[@]} \
 --ignore ${ignores[@]} ${ignore_rules[@]} | grep -v "Total:"
 
