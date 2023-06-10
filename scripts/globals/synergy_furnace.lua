@@ -1,5 +1,5 @@
 --------------------------------------
--- Synergy Furnace 
+-- Synergy Furnace
 -- Custom work of Neckbeard (CatsEyeXI)
 -- Steal this and die.
 --------------------------------------
@@ -123,7 +123,7 @@ local augmentTable =
     [19304] = {  23,  25, 512, 188 }, -- *Sarissa*
     [18603] = { 133,  83, 516, 141 }, -- *Majestas*
     [19159] = {  23,  25, 512, 188 }, -- *Galatyn*
-    [17765] = {  23, 299, 332, 512 }, -- *Concordia*    
+    [17765] = {  23, 299, 332, 512 }, -- *Concordia*
     [19118] = {  23,  25, 513, 515 }, -- *Machismo*
 }
 
@@ -143,11 +143,11 @@ local craftingStallRequirements =
 {
 --   [x] = {item1, Qty1, item2, Qty2, item3, Qty3, item4, Qty4, item5, Qty5, item6, Qty6, item7, Qty7 },
     [ 1] = { 4104,   12,   662,    3,   718,    2,   829,    1,  2000,    1,  3324,    1 },              -- Fire Cluster, Iron Sheet, Rosewood Lumber, Silk Cloth, Dark Adaman Ingot, Blacksmiths' Emblem
-    [ 2] = { 4110,   12,   662,    3,   718,    2,   829,    1,   743,    1,  3325,    1 },              -- Light Cluster, Iron Sheet, Rosewood Lumber, Silk Cloth, Phrygian Gold Ingot, Goldsmiths' Emblem 
+    [ 2] = { 4110,   12,   662,    3,   718,    2,   829,    1,   743,    1,  3325,    1 },              -- Light Cluster, Iron Sheet, Rosewood Lumber, Silk Cloth, Phrygian Gold Ingot, Goldsmiths' Emblem
     [ 3] = { 4111,   12,   662,    3,   718,    2,   829,    1,  2147,    1,  3326,    1 },              -- Dark Cluster, Iron Sheet, Rosewood Lumber, Silk Cloth, Marid Tusk, Boneworkers' Emblem
     [ 4] = { 4107,   12,   654,    1,   708,    3,   745,    1,  1829,    1,  2200,    1,  3327,    1 }, -- Earth Cluster, Darksteel Ingot, Maple Lumber, Gold Ingot, Red Grass Cloth, Twill Damask, Weavers' Emblem
     [ 5] = { 4106,   12,   654,    1,   708,    3,   745,    1,  1829,    1,  4387,    1,  3328,    1 }, -- Wind Cluster, Darksteel Ingot, Maple Lumber, Gold Ingot, Red Grass Cloth, Wild Onion, Culinarians' Emblem
-    [ 6] = { 4105,   12,   654,    1,   708,    3,   745,    1,  1829,    1,  1117,    1,  3329,    1 }, -- Ice Cluster, Darksteel Ingot, Maple Lumber, Gold Ingot, Red Grass Cloth, Manticore Leather, Tanners' Emblem 
+    [ 6] = { 4105,   12,   654,    1,   708,    3,   745,    1,  1829,    1,  1117,    1,  3329,    1 }, -- Ice Cluster, Darksteel Ingot, Maple Lumber, Gold Ingot, Red Grass Cloth, Manticore Leather, Tanners' Emblem
     [ 7] = { 4109,   12,   709,    1,   716,    4,   824,    1, 17388,    1,  3330,    1 },              -- Water Cluster, Beech Lumber, Oak Lumber, Grass Cloth, Fastwater Fishing Rod, Fishermen's Emblem
     [ 8] = { 4107,   12,   709,    1,   716,    4,   824,    1,  1657,    1,  3331,    1 },              -- Earth Cluster, Beech Lumber, Oak Lumber, Grass Cloth, Bundling Twine, Carpenters' Emblem
     [ 9] = { 4108,   12,   709,    1,   716,    4,   824,    1,  4145,    1,  3332,    1 },              -- Lightning cluster, Beech Lumber, Oak Lumber, Grass Cloth, Elixir, Alchemists' Emblem
@@ -159,11 +159,11 @@ local craftingSmocks =
     [ 1] = { 4107,   12,   14392,    1 }, -- Earth Cluster, Carpenters Apron
     [ 2] = { 4104,   12,   14393,    1 }, -- Fire Cluster, Blacksmiths Apron
     [ 3] = { 4110,   12,   14394,    1 }, -- Light Cluster, Goldsmiths Apron
-    [ 4] = { 4107,   12,   14395,    1 }, -- Earth Cluster, Weavers Apron 
-    [ 5] = { 4105,   12,   14396,    1 }, -- Ice Cluster,  Tanners Apron 
-    [ 6] = { 4111,   12,   14397,    1 }, -- Dark Cluster, Boneworkers Apron 
-    [ 7] = { 4108,   12,   14398,    1 }, -- Lightning Cluster, Alchemists Apron 
-    [ 8] = { 4106,   12,   14399,    1 }, -- Wind Cluster, Culinarians Apron 
+    [ 4] = { 4107,   12,   14395,    1 }, -- Earth Cluster, Weavers Apron
+    [ 5] = { 4105,   12,   14396,    1 }, -- Ice Cluster,  Tanners Apron
+    [ 6] = { 4111,   12,   14397,    1 }, -- Dark Cluster, Boneworkers Apron
+    [ 7] = { 4108,   12,   14398,    1 }, -- Lightning Cluster, Alchemists Apron
+    [ 8] = { 4106,   12,   14399,    1 }, -- Wind Cluster, Culinarians Apron
     [ 9] = { 4109,   12,   14400,    1 }, -- Water Cluster, Fishermans Apron
 }
 
@@ -519,7 +519,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         if npcUtil.tradeHas(trade, 27325, 27325) then
             player:tradeComplete()
             player:addItem(27326)
-            player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, 27326) -- Give Track Pants +1  
+            player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, 27326) -- Give Track Pants +1
         elseif npcUtil.tradeHas(trade, 25713, 25713) then
             player:tradeComplete()
             player:addItem(25714)
@@ -680,7 +680,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
             type   = 1
 
         -- *Dalmatica +1*
-        elseif npcUtil.tradeHasExactly(trade, {13788, 3283}) then    
+        elseif npcUtil.tradeHasExactly(trade, {13788, 3283}) then
             itemId = 13788
             aug0   = 351 -- + 1% Occasionally Quickens Spellcasting. Guaranteed.
             pow0   = 0
@@ -1253,7 +1253,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
             pow0   = math.random(0, 7)
             type   = 1
 
-        -- *Majestas* 
+        -- *Majestas*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 18617}) then
             itemId = 18603
             aug0   = 35 -- + 1-10 Magic Acc. Guaranteed.
@@ -1266,7 +1266,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
             pow0   = math.random(0, 9)
             type   = 1
 
-        -- *Galatyn* 
+        -- *Galatyn*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2858, 2859, 19162}) then
             itemId = 19159
             aug0   = 25 -- + 1-7 Attack Damage. Guaranteed.
@@ -1279,7 +1279,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
             pow0   = math.random(0, 7)
             type   = 1
 
-        -- *Concordia* 
+        -- *Concordia*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 2859, 17767}) then
             itemId = 17765
             aug0   = 25 -- + 1-3 Attack Damage. Guaranteed.
@@ -1292,7 +1292,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
             pow0   = math.random(0, 2)
             type   = 1
 
-        -- *Machismo* 
+        -- *Machismo*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2859, 2859, 19128}) then
             itemId = 19118
             aug0   = 25 -- + 1-3 Attack Damage. Guaranteed.
