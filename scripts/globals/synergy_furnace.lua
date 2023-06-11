@@ -167,7 +167,8 @@ local craftingSmocks =
     [ 9] = { 4109,   12,   14400,    1 }, -- Water Cluster, Fishermans Apron
 }
 
-local augmentLimits = {
+local augmentLimitsHQ = {
+    [ 25] = 9, -- Attack Damage +10
     [ 41] = 2, -- Critical Hit Rate 1~3%
     [ 49] = 2, -- Haste 1~3%
     [ 57] = 3, -- Magic Critical Hit rate 1~4%
@@ -180,13 +181,41 @@ local augmentLimits = {
     [328] = 2  -- Critical Hit Damage 1~3%
 }
 
+local augmentLimitsNQ = {
+    [ 25] = 9, -- Attack Damage +10
+    [ 41] = 1, -- Critical Hit Rate 1~2%
+    [ 49] = 1, -- Haste 1~2%
+    [ 57] = 2, -- Magic Critical Hit rate 1~3%
+    [137] = 1, -- Regen 1~2
+    [138] = 0, -- Refresh 1
+    [140] = 1, -- Fast Cast 1~2%
+    [143] = 1, -- Double Attack 1~2%
+    [144] = 1, -- Triple Attack 1~2%
+    [211] = 1, -- Snapshot 1~2
+    [328] = 1  -- Critical Hit Damage 1~2%
+}
+
 ------------------------------------------------------------
--- Limit power of augments to 3
+-- Limit power of HQ augments
 ------------------------------------------------------------
-local function limitPower(aug, pow)
-    if augmentLimits[aug] then
-        if augmentLimits[aug] > 0 then
-            pow = math.random(0, augmentLimits[aug])
+local function limitPowerHQ(aug, pow)
+    if augmentLimitsHQ[aug] then
+        if augmentLimitsHQ[aug] > 0 then
+            pow = math.random(0, augmentLimitsHQ[aug])
+        else
+            pow = 0
+        end
+    end
+    return pow
+end
+
+------------------------------------------------------------
+-- Limit power of NQ augments
+------------------------------------------------------------
+local function limitPowerNQ(aug, pow)
+    if augmentLimitsNQ[aug] then
+        if augmentLimitsNQ[aug] > 0 then
+            pow = math.random(0, augmentLimitsHQ[aug])
         else
             pow = 0
         end
@@ -292,9 +321,9 @@ local function handleKirinItemCreation(player, itemId, aug0, pow0)
         player:PrintToPlayer( "The Furnace has spoken! You can have the damaged NQ remains!", 0xd )
     end
 
-    pow0 = limitPower(aug0, pow0) -- Limit power
-    pow1 = limitPower(aug1, pow1) -- Limit power
-    pow2 = limitPower(aug2, pow2) -- Limit power
+    pow0 = limitPowerNQ(aug0, pow0) -- Limit power
+    pow1 = limitPowerNQ(aug1, pow1) -- Limit power
+    pow2 = limitPowerNQ(aug2, pow2) -- Limit power
     player:tradeComplete()
     player:addItem(itemId, 1, aug0, pow0, aug1, pow1, aug2, pow2)
     player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, itemId)
@@ -341,9 +370,9 @@ local function handleHqItemCreation(player, itemId, aug0, pow0) -- This is for H
         until(aug2 ~= aug1)
     end
 
-    pow0 = limitPower(aug0, pow0) -- Limit power
-    pow1 = limitPower(aug1, pow1) -- Limit power
-    pow2 = limitPower(aug2, pow2) -- Limit power
+    pow0 = limitPowerHQ(aug0, pow0) -- Limit power
+    pow1 = limitPowerHQ(aug1, pow1) -- Limit power
+    pow2 = limitPowerHQ(aug2, pow2) -- Limit power
     player:tradeComplete()
     player:addItem(itemId, 1, aug0, pow0, aug1, pow1, aug2, pow2)
     player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, itemId)
@@ -384,9 +413,9 @@ local function handleAugmentedItemCreation(player, itemId, aug0, pow0)
         player:PrintToPlayer( "The Furnace has spoken! You can have the damaged NQ remains!", 0xd )
     end
 
-    pow0 = limitPower(aug0, pow0) -- Limit power
-    pow1 = limitPower(aug1, pow1) -- Limit power
-    pow2 = limitPower(aug2, pow2) -- Limit power
+    pow0 = limitPowerNQ(aug0, pow0) -- Limit power
+    pow1 = limitPowerNQ(aug1, pow1) -- Limit power
+    pow2 = limitPowerNQ(aug2, pow2) -- Limit power
     player:tradeComplete()
     player:addItem(itemId, 1, aug0, pow0, aug1, pow1, aug2, pow2)
     player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, itemId)
@@ -493,9 +522,9 @@ local function handleRandomAugment(player, itemId, aug0, pow0)
         pow2 = math.random(0, 4)
     end
 
-    pow0 = limitPower(aug0, pow0) -- Limit power
-    pow1 = limitPower(aug1, pow1) -- Limit power
-    pow2 = limitPower(aug2, pow2) -- Limit power
+    pow0 = limitPowerNQ(aug0, pow0) -- Limit power
+    pow1 = limitPowerNQ(aug1, pow1) -- Limit power
+    pow2 = limitPowerNQ(aug2, pow2) -- Limit power
     player:tradeComplete()
     player:addItem(itemId, 1, aug0, pow0, aug1, pow1, aug2, pow2)
     player:messageSpecial(zones[player:getZoneID()].text.ITEM_OBTAINED, itemId)
@@ -505,12 +534,10 @@ end
 -- Public functions
 -----------------------------------
 xi.synergyFurnace.onTrigger = function(player)
---    player:PrintToPlayer( "The Furnace is powered by the souls [GM]Xaver has collected.", 0xd )
     player:PrintToPlayer( "The Furnace is under construction. Come back later!", 0xd )
 end
 
 xi.synergyFurnace.onTrade = function(player, npc, trade)
---[[
     ----------------------------------------------------------------------------------------------
     -- Crafting Track Suit
     local fireclusters = npcUtil.tradeHas(trade, {{ 4104, 12 }})
@@ -605,7 +632,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Genbu's Kabuto*
         if npcUtil.tradeHasExactly(trade, {12434, 3275}) then
             itemId = 12434
-            aug0   = 49 -- + 1-3% Haste. Guaranteed.
+            aug0   = 49 -- + 1% Haste. Guaranteed.
             pow0   = 0
             type   = 1
 
@@ -620,7 +647,7 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         elseif npcUtil.tradeHasExactly(trade, {12946, 3276}) then
             itemId = 12946
             aug0   = 49 -- + 1% Haste. Guaranteed.
-            pow0   = 0 -- This should cap out at 3% haste
+            pow0   = 0
             type   = 1
 
         -- *Suzaku's Scythe*
@@ -731,15 +758,15 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Hecatomb Cap*
         elseif npcUtil.tradeHasExactly(trade, {13927, 3279}) then
             itemId = 13927
-            aug0   = 143 -- + 1 Double Attack. Guaranteed.
+            aug0   = 143 -- + 1% Double Attack. Guaranteed.
             pow0   = 0
             type   = 1
 
         -- *Hecatomb Cap +1*
         elseif npcUtil.tradeHasExactly(trade, {13928, 3279}) then
             itemId = 13928
-            aug0   = 143 -- + 1 Double Attack. Guaranteed.
-            pow0   = 0
+            aug0   = 143 -- + 1~2% Double Attack. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Hecatomb Harness* or +1
@@ -764,8 +791,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14077, 3279}) then
             itemId = 14077
-            aug0   = 328 -- + 1% Crit. Hit Damage. Guaranteed.
-            pow0   = 0
+            aug0   = 328 -- + 1~2% Crit. Hit Damage. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Hecatomb Subligar* or +1
@@ -777,8 +804,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14309, 3279}) then
             itemId = 14309
-            aug0   = 41 -- + 1 Crit. Hit Rate. Guaranteed.
-            pow0   = 0
+            aug0   = 41 -- + 1~2% Crit. Hit Rate. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Hecatomb Leggings* or +1
@@ -803,8 +830,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {13911, 3280}) then
             itemId = 13911
-            aug0   = 140 -- + 1 Fast Cast. Guaranteed.
-            pow0   = 0
+            aug0   = 140 -- + 1~2 Fast Cast. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Koenig Cuirass* or +1
@@ -849,8 +876,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Koenig Schuhs* or +1
         elseif npcUtil.tradeHasExactly(trade, {12933, 3280}) then
             itemId = 12933
-            aug0   = 137 -- + 1 Regen. Guaranteed.
-            pow0   = 0
+            aug0   = 137 -- + 1~2 Regen. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {14163, 3280}) then
@@ -881,8 +908,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14371, 3281}) then
             itemId = 14371
-            aug0   = 143 -- + 1 Double Attack. Guaranteed.
-            pow0   = 0
+            aug0   = 143 -- + 1~2 Double Attack. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Adaman Mufflers* or +1
@@ -894,8 +921,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14816, 3281}) then
             itemId = 14816
-            aug0   = 49 -- + 1% Haste. Guaranteed.
-            pow0   = 0
+            aug0   = 49 -- + 1~2% Haste. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Adaman Breeches* or +1
@@ -946,8 +973,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14388, 3282}) then
             itemId = 14388
-            aug0   = 49 -- + 1% Haste. Guaranteed.
-            pow0   = 0
+            aug0   = 49 -- + 1~2% Haste. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Shura Kote* or +1
@@ -1011,8 +1038,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14368, 3284}) then
             itemId = 14368
-            aug0   = 49 -- + 1% Haste. Guaranteed.
-            pow0   = 0
+            aug0   = 49 -- + 1~2% Haste. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Crimson Finger Gauntlets* or +1
@@ -1024,21 +1051,21 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14059, 3284}) then
             itemId = 14059
-            aug0   = 211 -- + 1 Snapshot. Guaranteed.
-            pow0   = 0
+            aug0   = 211 -- + 1~2 Snapshot. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Crimson Cuisses* or +1
         elseif npcUtil.tradeHasExactly(trade, {14280, 3284}) then
             itemId = 14280
-            aug0   = 140 -- + 1 Fast Cast. Guaranteed.
+            aug0   = 140 -- + 1% Fast Cast. Guaranteed.
             pow0   = 0
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {14281, 3284}) then
             itemId = 14281
-            aug0   = 140 -- + 1 Fast Cast. Guaranteed.
-            pow0   = 0
+            aug0   = 140 -- + 1~2% Fast Cast. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Crimson Greaves* or +1
@@ -1135,14 +1162,14 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Shadow Breastplate* or +1
         elseif npcUtil.tradeHasExactly(trade, {14573, 3285}) then
             itemId = 14573
-            aug0   = 144 -- + 1 Triple Attack. Guaranteed.
+            aug0   = 144 -- + 1% Triple Attack. Guaranteed.
             pow0   = 0
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {14574, 3285}) then
             itemId = 14574
-            aug0   = 144 -- + 1 Triple Attack. Guaranteed.
-            pow0   = 0
+            aug0   = 144 -- + 1~2% Triple Attack. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Shadow Gauntlets* or +1
@@ -1154,8 +1181,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {14996, 3285}) then
             itemId = 14996
-            aug0   = 143 -- + 1% Double Attack. Guaranteed.
-            pow0   = 0
+            aug0   = 143 -- + 1~2% Double Attack. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Shadow Cuishes* or +1
@@ -1167,8 +1194,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {15656, 3285}) then
             itemId = 15656
-            aug0   = 49 -- + 1% Haste. Guaranteed.
-            pow0   = 0
+            aug0   = 49 -- + 1~2% Haste. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Shadow Sabatons* or +1
@@ -1180,8 +1207,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
 
         elseif npcUtil.tradeHasExactly(trade, {15741, 3285}) then
             itemId = 15741
-            aug0   = 41 -- + 1% Crit. Hit Rate. Guaranteed.
-            pow0   = 0
+            aug0   = 41 -- + 1~2% Crit. Hit Rate. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 2
 
         -- *Kirin's Osode (Genbu)*
@@ -1243,8 +1270,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Sarissa*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 19307}) then
             itemId = 19304
-            aug0   = 25 -- + 1-8 Attack Damage. Guaranteed.
-            pow0   = math.random(0, 7)
+            aug0   = 25 -- + 1-7 Attack Damage. Guaranteed.
+            pow0   = math.random(0, 6)
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 19304}) then
@@ -1256,8 +1283,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Majestas*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 18617}) then
             itemId = 18603
-            aug0   = 35 -- + 1-10 Magic Acc. Guaranteed.
-            pow0   = math.random(0, 9)
+            aug0   = 35 -- + 1-9 Magic Acc. Guaranteed.
+            pow0   = math.random(0, 8)
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 18603}) then
@@ -1282,8 +1309,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Concordia*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 2859, 17767}) then
             itemId = 17765
-            aug0   = 25 -- + 1-3 Attack Damage. Guaranteed.
-            pow0   = math.random(0, 2)
+            aug0   = 25 -- + 1-2 Attack Damage. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {2858, 2858, 2859, 2859, 17765}) then
@@ -1295,8 +1322,8 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         -- *Machismo*
         elseif npcUtil.tradeHasExactly(trade, {2858, 2859, 2859, 19128}) then
             itemId = 19118
-            aug0   = 25 -- + 1-3 Attack Damage. Guaranteed.
-            pow0   = math.random(0, 2)
+            aug0   = 25 -- + 1-2 Attack Damage. Guaranteed.
+            pow0   = math.random(0, 1)
             type   = 1
 
         elseif npcUtil.tradeHasExactly(trade, {2858, 2859, 2859, 19118}) then
@@ -1324,8 +1351,6 @@ xi.synergyFurnace.onTrade = function(player, npc, trade)
         end
 
     else
-]]
---        player:PrintToPlayer( "Not enough space in the inventory.", 0xd )
-        player:PrintToPlayer( "The Furnace is under construction. Come back later!", 0xd )
---    end
+        player:PrintToPlayer( "Not enough space in the inventory.", 0xd )
+    end
 end
