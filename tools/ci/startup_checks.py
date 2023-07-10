@@ -23,9 +23,9 @@ def main():
     )
 
 
-    print("Sleeping for 5 minutes...")
+    print("Sleeping for 10 minutes...")
 
-    time.sleep(300)
+    time.sleep(600)
 
     print("Checking logs and killing exes...")
 
