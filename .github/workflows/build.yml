@@ -269,6 +269,8 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
+          cat modules/init.txt | grep -v catseye > modules/temp.txt
+          mv modules/temp.txt modules/init.txt
           mkdir -p build
           cmake -S . -B build -A Win32
       - name: Build
