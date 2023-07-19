@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Dynamis - San d'Oria
---  Mob: Bladeburner Rokgevok
+-- Mob: Arch_Overlord_Tombstone
+-- !Spawnmob 17535213
 -----------------------------------
 mixins =
 {
-    require("scripts/mixins/dynamis_beastmen"),
     require("scripts/mixins/job_special"),
     require("scripts/mixins/rage")
 }
