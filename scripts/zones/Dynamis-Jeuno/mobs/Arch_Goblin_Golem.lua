@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Dynamis - Jeuno
---  Mob: Wilywox Tenderpalm
+-- Mob: Arch_Goblin_Golem
+-- !Spawnmob 17547499
 -----------------------------------
 mixins =
 {
-    require("scripts/mixins/dynamis_beastmen"),
     require("scripts/mixins/job_special"),
     require("scripts/mixins/rage")
 }
