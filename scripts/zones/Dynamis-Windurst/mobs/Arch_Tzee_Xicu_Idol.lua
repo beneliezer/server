@@ -1,12 +1,11 @@
 -----------------------------------
 -- Area: Dynamis - Windurst
---  Mob: Tee Zaksa the Ceaseless
+-- Mob: Arch_Tzee_Xicu_Idol
+-- !Spawnmob 17543469
 -----------------------------------
 mixins =
 {
-    require("scripts/mixins/dynamis_beastmen"),
     require("scripts/mixins/job_special"),
-    require("scripts/mixins/remove_doom"),
     require("scripts/mixins/rage")
 }
 -----------------------------------
