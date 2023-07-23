@@ -397,10 +397,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
-
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1    
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -428,6 +424,8 @@ jobs:
         sed -i 's/topazadmin/root/g' settings/network.lua
         sed -i 's/topazisawesome/root/g' settings/network.lua
         sed -i 's/tpzdb/xidb/g' settings/network.lua
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
     - name: Enable Modules
       shell: bash
       run: |
