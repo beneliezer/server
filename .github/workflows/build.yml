@@ -16,12 +16,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  debug-ssh:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
   Sanity_Checks:
     runs-on: ubuntu-22.04
     steps:
@@ -546,6 +540,12 @@ jobs:
               echo "hxi exited with code $hxi_result"
               exit $hxi_result
           fi
+  debug-ssh:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1          
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
       run: |
