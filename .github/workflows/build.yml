@@ -397,6 +397,10 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
+
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1    
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -540,13 +544,7 @@ jobs:
               echo "hxi exited with code $hxi_result"
               exit $hxi_result
           fi
-  debug-ssh:
-    runs-on: ubuntu-latest
-    - needs: Startup and character login checks
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1          
+      
     - name: Check for errors and warnings
       if: ${{ success() || failure() }}
       run: |
