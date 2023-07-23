@@ -608,6 +608,7 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
+        sed -i 's/33066/3306/g' settings/network.lua
     - name: Install Python Dependencies
       run: |
         pip install -r tools/requirements.txt
