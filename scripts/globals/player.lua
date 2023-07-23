@@ -1,4 +1,3 @@
----- This is a test ----------------
 require('scripts/globals/abyssea')
 require("scripts/globals/gear_sets")
 require("scripts/globals/quests")
