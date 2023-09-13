@@ -22,16 +22,10 @@
 #ifndef _CLINKSHELL_H
 #define _CLINKSHELL_H
 
-#include "../common/cbasetypes.h"
-#include "../common/mmo.h"
+#include "common/cbasetypes.h"
+#include "common/mmo.h"
 
 #include <vector>
-
-/************************************************************************
- *                                                                       *
- *                                                                       *
- *                                                                       *
- ************************************************************************/
 
 class CBasicPacket;
 class CCharEntity;
@@ -72,12 +66,6 @@ private:
 
     std::string m_name;
 };
-
-/************************************************************************
- *                                                                       *
- *  namespase для работы с Linkshells                                    *
- *                                                                       *
- ************************************************************************/
 
 namespace linkshell
 {

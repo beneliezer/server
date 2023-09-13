@@ -9,8 +9,6 @@
 --                "Requiem of Sin"
 -- Involved in:   "Secrets of Ovens Lost"
 -----------------------------------
-require("scripts/globals/missions")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -19,10 +17,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 -- TODO: cutscenes including Despachiaire for reference

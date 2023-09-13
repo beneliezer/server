@@ -1,10 +1,8 @@
 -----------------------------------
 -- Zone: Beaucedine_Glacier (111)
 -----------------------------------
-local ID = require('scripts/zones/Beaucedine_Glacier/IDs')
+local ID = zones[xi.zone.BEAUCEDINE_GLACIER]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/conquest')
-require('scripts/globals/zone')
 -----------------------------------
 local zoneObject = {}
 
@@ -45,13 +43,13 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 114 then
         quests.rainbow.onEventUpdate(player)
     end
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onZoneWeatherChange = function(weather)

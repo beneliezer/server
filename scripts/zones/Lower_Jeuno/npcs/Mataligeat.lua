@@ -10,7 +10,7 @@ end
 
 entity.onTrigger = function(player, npc)
     -- THE OLD MONUMENT
-    if player:getCharVar("TheOldMonument_Event") == 1 then
+    if player:getCharVar('TheOldMonument_Event') == 1 then
         player:startEvent(141) -- looks like his girlfriend dumped him
 
     -- PAINFUL MEMORY
@@ -20,7 +20,7 @@ entity.onTrigger = function(player, npc)
     -- THE REQUIEM
     elseif
         player:getQuestStatus(xi.quest.log_id.JEUNO, xi.quest.id.jeuno.THE_REQUIEM) == QUEST_ACCEPTED and
-        player:getCharVar("TheRequiemCS") == 3
+        player:getCharVar('TheRequiemCS') == 3
     then
         player:startEvent(142) -- huh? the bard interred inside eldieme?
 
@@ -34,10 +34,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

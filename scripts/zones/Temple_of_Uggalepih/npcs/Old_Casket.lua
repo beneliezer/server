@@ -4,7 +4,7 @@
 -- Obtaining 'Paintbrush of Souls'
 -- !pos 61 0 17 159
 -----------------------------------
-local ID = require("scripts/zones/Temple_of_Uggalepih/IDs")
+local ID = zones[xi.zone.TEMPLE_OF_UGGALEPIH]
 -----------------------------------
 local entity = {}
 
@@ -21,10 +21,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 64 and option == 1 then
         player:delKeyItem(xi.ki.OLD_RUSTY_KEY)
         player:addKeyItem(xi.ki.PAINTBRUSH_OF_SOULS)

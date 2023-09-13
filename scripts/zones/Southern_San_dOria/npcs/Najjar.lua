@@ -8,19 +8,19 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    if player:getCharVar("UnderOathCS") == 1 then  -- Quest: Under Oath - PLD AF3
+    if player:getCharVar('UnderOathCS') == 1 then  -- Quest: Under Oath - PLD AF3
         player:startEvent(16)
     else
         player:startEvent(17)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 16 then
-        player:setCharVar("UnderOathCS", 2)  -- Quest: Under Oath - PLD AF3
+        player:setCharVar('UnderOathCS', 2)  -- Quest: Under Oath - PLD AF3
     end
 end
 

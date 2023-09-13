@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Windurst Waters (S)
 --  NPC: Eih Lhogotan
--- Type: Standard NPC
 -- !pos -29.887 -5.999 91.042 94
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(407)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

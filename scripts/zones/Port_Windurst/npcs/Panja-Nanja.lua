@@ -4,8 +4,7 @@
 -- Type: Fishing Adv. Image Support
 -- !pos -194.499 -3 58.692 240
 -----------------------------------
-require("scripts/globals/crafting")
-local ID = require("scripts/zones/Port_Windurst/IDs")
+local ID = zones[xi.zone.PORT_WINDURST]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local cost = xi.crafting.getAdvImageSupportCost(player, xi.skill.FISHING)
 
     if csid == 10011 and option == 1 then

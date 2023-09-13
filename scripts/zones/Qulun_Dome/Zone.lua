@@ -1,8 +1,7 @@
 -----------------------------------
 -- Zone: Qulun_Dome (148)
 -----------------------------------
-local ID = require('scripts/zones/Qulun_Dome/IDs')
-require('scripts/globals/conquest')
+local ID = zones[xi.zone.QULUN_DOME]
 -----------------------------------
 local zoneObject = {}
 
@@ -32,10 +31,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

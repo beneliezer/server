@@ -1,8 +1,6 @@
 -----------------------------------
 -- Warrior Job Utilities
 -----------------------------------
-require('scripts/globals/items')
------------------------------------
 xi = xi or {}
 xi.job_utils = xi.job_utils or {}
 xi.job_utils.warrior = xi.job_utils.warrior or {}
@@ -23,7 +21,7 @@ end
 xi.job_utils.warrior.checkTomahawk = function(player, target, ability)
     local ammoID = player:getEquipID(xi.slot.AMMO)
 
-    if ammoID == xi.items.THROWING_TOMAHAWK then
+    if ammoID == xi.item.THROWING_TOMAHAWK then
         return 0, 0
     else
         return xi.msg.basic.CANNOT_PERFORM, 0
@@ -86,16 +84,10 @@ end
 
 xi.job_utils.warrior.useWarcry = function(player, target, ability)
     local merit    = player:getMerit(xi.merit.SAVAGERY)
-    local power    = 0
+    local warLevel = utils.getActiveJobLevel(player, xi.job.WAR)
+    local power    = (math.floor((warLevel / 4) + 4.75) / 256) * 100
     local duration = 30
 
-    if player:getMainJob() == xi.job.WAR then
-        power = math.floor((player:getMainLvl() / 4) + 4.75) / 256
-    else
-        power = math.floor((player:getSubLvl() / 4) + 4.75) / 256
-    end
-
-    power    = power * 100
     duration = duration + player:getMod(xi.mod.WARCRY_DURATION)
 
     target:addStatusEffect(xi.effect.WARCRY, power, 0, duration, 0, merit)

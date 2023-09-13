@@ -1,12 +1,11 @@
 -----------------------------------
 -- Rune Fencer Job Utilities
 -----------------------------------
-require("scripts/globals/ability")
-require("scripts/globals/msg")
-require("scripts/globals/weaponskills")
-require("scripts/globals/jobpoints")
-require("scripts/globals/spells/damage_spell")
-require("scripts/globals/utils")
+require('scripts/globals/ability')
+require('scripts/globals/weaponskills')
+require('scripts/globals/jobpoints')
+require('scripts/globals/spells/damage_spell')
+require('scripts/globals/utils')
 -----------------------------------
 xi = xi or {}
 xi.job_utils = xi.job_utils or {}
@@ -91,7 +90,7 @@ local function calculateVivaciousPulseHealing(target)
 
     local effects = target:getStatusEffects()
     for _, effect in ipairs(effects) do
-        local type = effect:getType()
+        local type = effect:getEffectType()
 
         hpHealAmount = hpHealAmount + getRuneHealAmount(type, target) -- type checked internally
 
@@ -223,14 +222,14 @@ end
 local function getSwipeLungeElement(type)
     local runeElementEffectMap =
     {
-        [xi.effect.IGNIS]    = xi.magic.ele.FIRE,
-        [xi.effect.GELUS]    = xi.magic.ele.ICE,
-        [xi.effect.FLABRA]   = xi.magic.ele.WIND,
-        [xi.effect.TELLUS]   = xi.magic.ele.EARTH,
-        [xi.effect.SULPOR]   = xi.magic.ele.THUNDER,
-        [xi.effect.UNDA]     = xi.magic.ele.WATER,
-        [xi.effect.LUX]      = xi.magic.ele.LIGHT,
-        [xi.effect.TENEBRAE] = xi.magic.ele.DARK,
+        [xi.effect.IGNIS]    = xi.element.FIRE,
+        [xi.effect.GELUS]    = xi.element.ICE,
+        [xi.effect.FLABRA]   = xi.element.WIND,
+        [xi.effect.TELLUS]   = xi.element.EARTH,
+        [xi.effect.SULPOR]   = xi.element.THUNDER,
+        [xi.effect.UNDA]     = xi.element.WATER,
+        [xi.effect.LUX]      = xi.element.LIGHT,
+        [xi.effect.TENEBRAE] = xi.element.DARK,
     }
 
     return runeElementEffectMap[type]
@@ -303,7 +302,7 @@ xi.job_utils.rune_fencer.useSwordplay = function(player, target, ability)
         power = tickPower + player:getMod(xi.mod.SWORDPLAY)
     end
 
-    if power > 0 then -- add aug bonus if appropriate gear is equipped. Note: ilvl 109+ "relic" or "AF2" gear always has the augment, so no need to check extdata. RUN does not have AF/AF2/AF3 gear below i109.
+    if power > 0 then -- add aug bonus if appropriate gear is equipped. Note: ilvl 109+ "relic" or "AF2" gear always has the augment, so no need to check exdata. RUN does not have AF/AF2/AF3 gear below i109.
         augBonus = (meritBonus / 5) * 2
     end
 
@@ -772,7 +771,7 @@ local function applyLiementEffect(target, absorbTypes, absorbPower, duration)
     end
 
     if i * 4 > 16 then -- This will trip if a custom module overrides current retail behavior and give RUN 5 runes or more.
-        print("ERROR: applyLiementEffect trying to pack more than 16 bits into 16 bit datatype! Does Rune Fencer have 5 or more runes enabled?")
+        print('ERROR: applyLiementEffect trying to pack more than 16 bits into 16 bit datatype! Does Rune Fencer have 5 or more runes enabled?')
     end
 
     target:delStatusEffectSilent(xi.effect.VALLATION) -- Liement overwrites Vallation

@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos 10.883    -15.99    66.186 249
 -----------------------------------
-local ID = require("scripts/zones/Mhaura/IDs")
+local ID = zones[xi.zone.MHAURA]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

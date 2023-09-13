@@ -3,23 +3,19 @@
 --  NPC: Yoran-Oran
 -- !pos -109.987 -14 203.338 239
 -----------------------------------
-require("scripts/globals/quests")
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.MANDRAGORA_MAD) ~= QUEST_AVAILABLE then
-        if npcUtil.tradeHas(trade, 17344, true) then
+        if npcUtil.tradeHas(trade, xi.item.CORNETTE, true) then
             player:startEvent(251, xi.settings.main.GIL_RATE * 200)
-        elseif npcUtil.tradeHas(trade, 934, true) then
+        elseif npcUtil.tradeHas(trade, xi.item.PINCH_OF_YUHTUNGA_SULFUR, true) then
             player:startEvent(252, xi.settings.main.GIL_RATE * 250)
-        elseif npcUtil.tradeHas(trade, 1154, true) then
+        elseif npcUtil.tradeHas(trade, xi.item.THREE_LEAF_MANDRAGORA_BUD, true) then
             player:startEvent(253, xi.settings.main.GIL_RATE * 1200)
-        elseif npcUtil.tradeHas(trade, 4369, true) then
+        elseif npcUtil.tradeHas(trade, xi.item.FOUR_LEAF_MANDRAGORA_BUD, true) then
             player:startEvent(254, xi.settings.main.GIL_RATE * 120)
-        elseif npcUtil.tradeHas(trade, 1150, true) then
+        elseif npcUtil.tradeHas(trade, xi.item.SNOBBY_LETTER, true) then
             player:startEvent(255, xi.settings.main.GIL_RATE * 5500)
         else
             player:startEvent(250)
@@ -40,10 +36,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 249 then
         player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.MANDRAGORA_MAD)
 

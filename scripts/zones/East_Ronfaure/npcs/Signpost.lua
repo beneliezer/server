@@ -4,9 +4,6 @@
 -- Involved in Quest: To Cure a Cough
 -- !pos 257 -45 212 101
 -----------------------------------
-require("scripts/globals/npc_util")
-local ID = require("scripts/zones/East_Ronfaure/IDs")
------------------------------------
 local entity = {}
 
 -- TODO: These really should be split out into unique NPCs, as this handles all
@@ -58,13 +55,13 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 20 then
         player:delKeyItem(xi.ki.SCROLL_OF_TREASURE)
-        npcUtil.giveCurrency(player, "gil", 3000)
+        npcUtil.giveCurrency(player, 'gil', 3000)
     end
 end
 

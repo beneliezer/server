@@ -4,7 +4,7 @@
 -- Notes: Opens door _474
 -- !pos -57.575 24.218 -67.651 151
 -----------------------------------
-local ID = require("scripts/zones/Castle_Oztroja/IDs")
+local ID = zones[xi.zone.CASTLE_OZTROJA]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +19,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local brassDoor = GetNPCByID(ID.npc.THIRD_PASSWORD_STATUE - 2)
     local torch1 = GetNPCByID(ID.npc.THIRD_PASSWORD_STATUE + 1)
     local torch2 = GetNPCByID(ID.npc.THIRD_PASSWORD_STATUE + 2)

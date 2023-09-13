@@ -3,6 +3,8 @@
 --  NPC: Vertical Transit Device (3)
 -- !pos 532.889 99 -19.942 274
 -----------------------------------
+local ID = zones[xi.zone.OUTER_RAKAZNAR]
+-----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- TODO: Verify that CS moves the player
 end
 

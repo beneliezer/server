@@ -5,8 +5,6 @@
 -- !pos -10.500 -5.250 -143.400 241 - Boneworker's Guild
 -- !pos -34.840 -1.250 -114.490 241 - Weaver's Guild
 -----------------------------------
-require("scripts/globals/ephemeral")
------------------------------------
 local entity = {}
 
 local triggerEvent = 895
@@ -21,11 +19,11 @@ entity.onTrigger = function(player, npc)
     xi.ephemeral.onTrigger(player, triggerEvent)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.ephemeral.onEventUpdate(player)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.ephemeral.onEventFinish(player, option, csid == tradeEvent)
 end
 

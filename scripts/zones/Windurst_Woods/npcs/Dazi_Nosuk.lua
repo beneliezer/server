@@ -2,8 +2,6 @@
 -- Area: Windurst Woods
 --  NPC: Dazi Nosuk
 -----------------------------------
-require("scripts/globals/pathfind")
------------------------------------
 local entity = {}
 
 local pathNodes =
@@ -29,10 +27,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(428)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

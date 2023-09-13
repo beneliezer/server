@@ -4,24 +4,22 @@
 -- Spawns Ophanim
 -- !pos -195 -16 -165 45
 -----------------------------------
-local ID = require('scripts/zones/Abyssea-Tahrongi/IDs')
-require("scripts/globals/abyssea")
-require("scripts/globals/items")
+local ID = zones[xi.zone.ABYSSEA_TAHRONGI]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    xi.abyssea.qmOnTrade(player, npc, trade, ID.mob.OPHANIM, { xi.items.SHRIVELED_WING, xi.items.TARNISHED_PINCER, xi.items.BLOODSHOT_HECTEYE })
+    xi.abyssea.qmOnTrade(player, npc, trade, ID.mob.OPHANIM, { xi.item.SHRIVELED_WING, xi.item.TARNISHED_PINCER, xi.item.BLOODSHOT_HECTEYE })
 end
 
 entity.onTrigger = function(player, npc)
-    xi.abyssea.qmOnTrigger(player, npc, 0, 0, { xi.items.SHRIVELED_WING, xi.items.TARNISHED_PINCER, xi.items.BLOODSHOT_HECTEYE })
+    xi.abyssea.qmOnTrigger(player, npc, 0, 0, { xi.item.SHRIVELED_WING, xi.item.TARNISHED_PINCER, xi.item.BLOODSHOT_HECTEYE })
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

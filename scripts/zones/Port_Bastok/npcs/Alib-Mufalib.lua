@@ -4,10 +4,6 @@
 -- Type: Warp NPC
 -- !pos 116.080 7.372 -31.820 236
 -----------------------------------
-require("scripts/globals/teleports")
-require("scripts/globals/missions")
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -30,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 379 then
         player:tradeComplete()
         xi.teleport.to(player, xi.teleport.id.WHITEGATE)

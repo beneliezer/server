@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Monastic Cavern (150)
 -----------------------------------
-local ID = require('scripts/zones/Monastic_Cavern/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
+local ID = zones[xi.zone.MONASTIC_CAVERN]
 -----------------------------------
 local zoneObject = {}
 
@@ -35,10 +33,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

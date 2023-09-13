@@ -1,11 +1,9 @@
 -----------------------------------
 -- The Voidwalker NM System
 -----------------------------------
-require("scripts/globals/mobs")
-require("scripts/globals/voidwalkerpos")
-require("scripts/globals/zone")
+require('scripts/globals/mobs')
+require('scripts/globals/voidwalkerpos')
 -----------------------------------
-
 xi = xi or {}
 xi.voidwalker = xi.voidwalker or {}
 
@@ -73,7 +71,7 @@ local function getMobsFromAbyssites(zoneId, abyssites)
             for _, mobId in ipairs(zones[zoneId].mob.VOIDWALKER[keyitem]) do
                 local mob = GetMobByID(mobId)
 
-                if mob:isAlive() and mob:getLocalVar("[VoidWalker]PopedBy") == 0 then
+                if mob:isAlive() and mob:getLocalVar('[VoidWalker]PopedBy') == 0 then
                     table.insert(results, { mobId = mobId, keyItem = keyitem })
                 end
             end
@@ -201,7 +199,7 @@ local function checkUpgrade(player, mob, nextKeyItem)
         mob:getZoneID() == player:getZoneID()
     then
         local zoneTextTable  = zones[mob:getZoneID()].text
-        local currentKeyItem = mob:getLocalVar("[VoidWalker]PopedWith")
+        local currentKeyItem = mob:getLocalVar('[VoidWalker]PopedWith')
         local rand           = math.random(1, 10)
 
         if rand == 5 then
@@ -236,7 +234,7 @@ xi.voidwalker.npcOnTrigger = function(player, npc)
     player:startEvent(10120, currentKIS)
 end
 
-xi.voidwalker.npcOnEventUpdate = function(player, csid, option)
+xi.voidwalker.npcOnEventUpdate = function(player, csid, option, npc)
     local opt = bit.band(option, 0xF)
 
     if
@@ -256,12 +254,12 @@ xi.voidwalker.npcOnEventUpdate = function(player, csid, option)
     end
 end
 
-xi.voidwalker.npcOnEventFinish = function(player, csid, option)
+xi.voidwalker.npcOnEventFinish = function(player, csid, option, npc)
     local opt = bit.band(option, 0xF)
 
     if csid == 10120 then
         if opt == 1 then
-            local msg = require("scripts/zones/RuLude_Gardens/IDs")
+            local msg = zones[xi.zone.RULUDE_GARDENS]
             local ki  = abyssiteKeyitems[1]
             player:delGil(1000)
             player:addKeyItem(ki)
@@ -323,10 +321,10 @@ local function randomly(mob, chance, between, effect, skill)
     if
         math.random(0, 100) <= chance and
         not mob:hasStatusEffect(effect) and
-        os.time() > (mob:getLocalVar("MOBSKILL_TIME") + between)
+        os.time() > (mob:getLocalVar('MOBSKILL_TIME') + between)
     then
-        mob:setLocalVar("MOBSKILL_USE", 1)
-        mob:setLocalVar("MOBSKILL_TIME", os.time())
+        mob:setLocalVar('MOBSKILL_USE', 1)
+        mob:setLocalVar('MOBSKILL_TIME', os.time())
         mob:useMobAbility(skill)
     end
 end
@@ -383,10 +381,10 @@ local mixinByMobName =
     ['Jyeshtha'] = function(mob)
         randomly(mob, 30, 60, xi.jsa.MIGHTY_STRIKES, xi.jsa.MIGHTY_STRIKES)
         if
-            mob:getLocalVar("MOBSKILL_USE") == 1 and
+            mob:getLocalVar('MOBSKILL_USE') == 1 and
             not mob:hasStatusEffect(xi.effect.MIGHTY_STRIKES)
         then
-            mob:setLocalVar("MOBSKILL_USE", 0)
+            mob:setLocalVar('MOBSKILL_USE', 0)
         end
     end,
 
@@ -448,7 +446,7 @@ xi.voidwalker.onMobFight = function(mob, target)
         mixin(mob)
     end
 
-    local poptime = mob:getLocalVar("[VoidWalker]PopedAt")
+    local poptime = mob:getLocalVar('[VoidWalker]PopedAt')
     local now     = os.time()
 
     if
@@ -466,12 +464,12 @@ xi.voidwalker.onMobFight = function(mob, target)
 end
 
 xi.voidwalker.onMobDisengage = function(mob)
-    mob:setLocalVar("[VoidWalker]PopedBy", 0)
-    mob:setLocalVar("[VoidWalker]checkPopedBy", 0)
-    mob:setLocalVar("[VoidWalker]PopedWith", 0)
-    mob:setLocalVar("[VoidWalker]PopedAt", 0)
-    mob:setLocalVar("MOBSKILL_USE", 0)
-    mob:setLocalVar("MOBSKILL_TIME", 0)
+    mob:setLocalVar('[VoidWalker]PopedBy', 0)
+    mob:setLocalVar('[VoidWalker]checkPopedBy', 0)
+    mob:setLocalVar('[VoidWalker]PopedWith', 0)
+    mob:setLocalVar('[VoidWalker]PopedAt', 0)
+    mob:setLocalVar('MOBSKILL_USE', 0)
+    mob:setLocalVar('MOBSKILL_TIME', 0)
     DespawnPet(mob)
     mob:setStatus(xi.status.INVISIBLE)
     mob:hideHP(true)
@@ -485,21 +483,21 @@ xi.voidwalker.onMobDespawn = function(mob)
 
     removeMobIdFromPos(zoneId, mobId)
     setRandomPos(zoneId, mobId)
-    mob:setLocalVar("[VoidWalker]PopedBy", 0)
-    mob:setLocalVar("[VoidWalker]checkPopedBy", 0)
-    mob:setLocalVar("[VoidWalker]PopedWith", 0)
-    mob:setLocalVar("[VoidWalker]PopedAt", 0)
-    mob:setLocalVar("MOBSKILL_USE", 0)
-    mob:setLocalVar("MOBSKILL_TIME", 0)
+    mob:setLocalVar('[VoidWalker]PopedBy', 0)
+    mob:setLocalVar('[VoidWalker]checkPopedBy', 0)
+    mob:setLocalVar('[VoidWalker]PopedWith', 0)
+    mob:setLocalVar('[VoidWalker]PopedAt', 0)
+    mob:setLocalVar('MOBSKILL_USE', 0)
+    mob:setLocalVar('MOBSKILL_TIME', 0)
     DespawnPet(mob)
 end
 
 xi.voidwalker.onMobDeath = function(mob, player, optParams, keyItem)
     if player then
-        local popkeyitem = mob:getLocalVar("[VoidWalker]PopedWith")
+        local popkeyitem = mob:getLocalVar('[VoidWalker]PopedWith')
 
         if optParams.isKiller then
-            local playerpoped = GetPlayerByID(mob:getLocalVar("[VoidWalker]PopedBy"))
+            local playerpoped = GetPlayerByID(mob:getLocalVar('[VoidWalker]PopedBy'))
             local alliance    = player:getAlliance()
             local outOfParty  = true
 
@@ -554,9 +552,9 @@ xi.voidwalker.onHealing = function(player)
         player:messageSpecial(zoneTextTable.VOIDWALKER_NO_MOB, abyssites[1])
     elseif mobNearest.distance <= 4 then
         local mob = GetMobByID(mobNearest.mobId)
-        mob:setLocalVar("[VoidWalker]PopedBy", player:getID())
-        mob:setLocalVar("[VoidWalker]PopedWith", mobNearest.keyItem)
-        mob:setLocalVar("[VoidWalker]PopedAt", os.time())
+        mob:setLocalVar('[VoidWalker]PopedBy', player:getID())
+        mob:setLocalVar('[VoidWalker]PopedWith', mobNearest.keyItem)
+        mob:setLocalVar('[VoidWalker]PopedAt', os.time())
 
         if
             mobNearest.keyItem ~= xi.keyItem.CLEAR_ABYSSITE and

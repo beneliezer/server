@@ -49,6 +49,13 @@ void lua_init()
     // Bind print(...) globally
     lua.set_function("print", &lua_print);
 
+    // Copy the original tostring impl into _tostring, so we can use our own
+    // implementation for tostring, but then fall back to the original for usertypes.
+    lua.set_function("_tostring", lua.get<sol::function>("tostring"));
+
+    // Bind tostring(...) globally
+    lua.set_function("tostring", &lua_to_string);
+
     // Attempt to startup lldebugger
     auto result = lua["require"]("lldebugger");
     if (result.valid())
@@ -61,7 +68,7 @@ void lua_init()
 /**
  * @brief
  */
-std::string lua_to_string(sol::object const& obj, std::size_t depth)
+std::string lua_to_string_depth(sol::object const& obj, std::size_t depth)
 {
     switch (obj.get_type())
     {
@@ -100,7 +107,8 @@ std::string lua_to_string(sol::object const& obj, std::size_t depth)
         }
         case sol::type::userdata:
         {
-            return lua["tostring"](obj);
+            // Fallback to original implementation of tostring that we stored in _tostring
+            return lua["_tostring"](obj);
         }
         case sol::type::lightuserdata:
         {
@@ -128,11 +136,11 @@ std::string lua_to_string(sol::object const& obj, std::size_t depth)
             {
                 if (keyObj.get_type() == sol::type::string)
                 {
-                    stringVec.emplace_back(fmt::format("{}{}: {}", indent, lua_to_string(keyObj), lua_to_string(valObj, depth + 1)));
+                    stringVec.emplace_back(fmt::format("{}{}: {}", indent, lua_to_string_depth(keyObj, 0), lua_to_string_depth(valObj, depth + 1)));
                 }
                 else
                 {
-                    stringVec.emplace_back(fmt::format("{}{}", indent, lua_to_string(valObj, depth + 1)));
+                    stringVec.emplace_back(fmt::format("{}{}", indent, lua_to_string_depth(valObj, depth + 1)));
                 }
             }
 
@@ -158,15 +166,36 @@ std::string lua_to_string(sol::object const& obj, std::size_t depth)
 /**
  * @brief
  */
-void lua_print(sol::variadic_args va)
+std::string lua_to_string(sol::variadic_args va)
 {
     TracyZoneScoped;
 
     std::vector<std::string> vec;
     for (std::size_t i = 0; i < va.size(); ++i)
     {
-        vec.emplace_back(lua_to_string(va[i]));
+        // Determine if this value is an integer.
+        // NOTE: Since all known values in Lua are referenced as uint32, this conversion
+        // is being done here.
+
+        if (va[i].is<double>() && va[i].as<double>() == std::floor(va[i].as<double>()))
+        {
+            vec.emplace_back(fmt::format("{0:d}", va[i].as<uint32>()));
+        }
+        else
+        {
+            vec.emplace_back(lua_to_string_depth(va[i], 0));
+        }
     }
 
-    ShowLua(fmt::format("{}", fmt::join(vec.begin(), vec.end(), " ")).c_str());
+    return fmt::format("{}", fmt::join(vec.begin(), vec.end(), " "));
+}
+
+/**
+ * @brief
+ */
+void lua_print(sol::variadic_args va)
+{
+    TracyZoneScoped;
+
+    ShowLua(lua_to_string(va).c_str());
 }

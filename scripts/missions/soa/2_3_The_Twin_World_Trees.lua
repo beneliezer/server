@@ -5,10 +5,6 @@
 -- !addmission 12 17
 -- Oscairn : !pos -80.214 -0.150 30.717 257
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SOA, xi.mission.id.soa.THE_TWIN_WORLD_TREES)
 

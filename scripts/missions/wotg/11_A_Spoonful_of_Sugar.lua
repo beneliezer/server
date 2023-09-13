@@ -5,10 +5,6 @@
 -- !addmission 5 10
 -- Raustigne : !pos 3.979 -1.999 44.456 80
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.WOTG, xi.mission.id.wotg.A_SPOONFUL_OF_SUGAR)
 

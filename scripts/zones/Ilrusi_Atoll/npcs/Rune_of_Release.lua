@@ -3,9 +3,6 @@
 --  NPC: Rune of Release
 -- !pos 412 -9 54 55
 -----------------------------------
-require("scripts/globals/assault")
-require("scripts/globals/zone")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -21,12 +18,12 @@ entity.onTrigger = function(player, npc)
     return 1
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.assault.instanceOnEventFinish(player, csid, xi.zone.ARRAPAGO_REEF)
-    xi.assault.runeReleaseFinish(player, csid, option)
+    xi.assault.runeReleaseFinish(player, csid, option, npc)
 end
 
 return entity

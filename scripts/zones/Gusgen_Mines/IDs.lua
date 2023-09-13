@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Gusgen Mines (196)
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.GUSGEN_MINES] =
@@ -63,15 +60,7 @@ zones[xi.zone.GUSGEN_MINES] =
     npc =
     {
         TREASURE_CHEST = 17580403,
-        MINING =
-        {
-            17580397,
-            17580398,
-            17580399,
-            17580400,
-            17580401,
-            17580402,
-        },
+        MINING         = GetTableOfIDs('Mining_Point'),
     },
 }
 

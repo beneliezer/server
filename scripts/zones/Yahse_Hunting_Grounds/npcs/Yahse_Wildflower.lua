@@ -4,9 +4,6 @@
 -- Involved in quest Children of the Rune
 -- pos 370.6285 0.6692 153.3728
 -----------------------------------
-require("scripts/globals/npc_util")
-local ID = require("scripts/zones/Yahse_Hunting_Grounds/IDs")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -19,10 +16,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

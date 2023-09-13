@@ -3,9 +3,7 @@
 --  NPC: Yafafa
 -- Kolshushu Regional Goods
 -----------------------------------
-local ID = require("scripts/zones/Bastok_Markets/IDs")
-require("scripts/globals/conquest")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.BASTOK_MARKETS]
 -----------------------------------
 local entity = {}
 
@@ -18,11 +16,11 @@ entity.onTrigger = function(player, npc)
     else
         local stock =
         {
-            4503,  184,    --Buburimu Grape
-            1120, 1620,    --Casablanca
-            4359,  220,    --Dhalmel Meat
-            614,    72,    --Mhaura Garlic
-            4445,   40,     --Yagudo Cherry
+            xi.item.BULB_OF_MHAURA_GARLIC,      83,
+            xi.item.YAGUDO_CHERRY,              45,
+            xi.item.DHALMEL_MEAT,              249,
+            xi.item.BUNCH_OF_BUBURIMU_GRAPES,  208,
+            xi.item.CASABLANCA,               1872,
         }
 
         player:showText(npc, ID.text.YAFAFA_OPEN_DIALOG)
@@ -30,10 +28,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

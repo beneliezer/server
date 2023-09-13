@@ -4,8 +4,6 @@
 -- Type: Magian Trials NPC (Relic Armor)
 -- !pos -6.843 2.459 121.9 64
 -----------------------------------
-require("scripts/globals/magiantrials")
------------------------------------
 local entity = {}
 
 local eventIds =
@@ -33,11 +31,11 @@ entity.onTrigger = function(player, npc)
     xi.magian.magianOnTrigger(player, npc, eventIds)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.magian.magianEventUpdate(player, csid, option, eventIds)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.magian.magianOnEventFinish(player, csid, option, eventIds)
 end
 

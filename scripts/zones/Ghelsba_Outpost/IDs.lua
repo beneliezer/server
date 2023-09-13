@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Ghelsba_Outpost
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.GHELSBA_OUTPOST] =
@@ -47,13 +44,7 @@ zones[xi.zone.GHELSBA_OUTPOST] =
     },
     npc =
     {
-        LOGGING =
-        {
-            17350974,
-            17350975,
-            17350976,
-            17350977,
-        },
+        LOGGING = GetTableOfIDs('Logging_Point'),
     },
 }
 

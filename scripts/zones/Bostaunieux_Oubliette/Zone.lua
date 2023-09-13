@@ -1,8 +1,7 @@
 -----------------------------------
 -- Zone: Bostaunieux_Oubliette (167)
 -----------------------------------
-local ID = require('scripts/zones/Bostaunieux_Oubliette/IDs')
-require('scripts/globals/conquest')
+local ID = zones[xi.zone.BOSTAUNIEUX_OUBLIETTE]
 -----------------------------------
 local zoneObject = {}
 
@@ -38,7 +37,7 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onGameHour = function(zone)

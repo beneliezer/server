@@ -4,9 +4,6 @@
 -- Type: Appraiser
 -- !pos -42.739 -1 -45.987 48
 -----------------------------------
-require("scripts/globals/appraisal")
------------------------------------
-
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -17,7 +14,7 @@ entity.onTrigger = function(player, npc)
     player:startEvent(260, 50)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

@@ -4,8 +4,6 @@
 -- Type: Allegiance Changer NPC
 -- !pos -247.422 7.000 28.992 231
 -----------------------------------
-require("scripts/globals/conquest")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -43,10 +41,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 606 and option == 1 then
         local newNation = xi.nation.SANDORIA
         local rank = GetNationRank(newNation)

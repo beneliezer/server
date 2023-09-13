@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Windurst Woods
 --  NPC: Mheca Khetashipah
--- Type: Standard NPC
 -- !pos 66.881 -6.249 185.752 241
------------------------------------
-require("scripts/globals/quests")
 -----------------------------------
 local entity = {}
 
@@ -23,10 +20,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

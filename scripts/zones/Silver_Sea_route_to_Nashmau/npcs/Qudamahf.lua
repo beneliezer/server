@@ -4,8 +4,7 @@
 -- Notes: Tells ship ETA time
 -- !pos 0.340 -12.232 -4.120 58
 -----------------------------------
-local ID = require("scripts/zones/Silver_Sea_route_to_Nashmau/IDs")
-require("scripts/globals/transport")
+local ID = zones[xi.zone.SILVER_SEA_ROUTE_TO_NASHMAU]
 -----------------------------------
 local entity = {}
 
@@ -31,10 +30,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.ON_WAY_TO_NASHMAU, 0, 0) -- Earth Time, Vana Hours. Needs a get-time function for boat?
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

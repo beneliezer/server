@@ -4,8 +4,7 @@
 -- Type: Bonecraft Image Support
 -- !pos -1.540 -6.25 -144.517 241
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Woods/IDs")
-require("scripts/globals/crafting")
+local ID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10019 and option == 1 then
         player:messageSpecial(ID.text.IMAGE_SUPPORT, 0, 6, 1)
         player:addStatusEffect(xi.effect.BONECRAFT_IMAGERY, 1, 0, 120)

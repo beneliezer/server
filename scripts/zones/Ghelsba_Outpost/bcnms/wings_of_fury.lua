@@ -3,12 +3,10 @@
 -- Ghelsba Outpost BCNM20, Cloudy Orb
 -- !additem 1551
 -----------------------------------
-require("scripts/globals/battlefield")
------------------------------------
 local battlefieldObject = {}
 
 battlefieldObject.onBattlefieldInitialise = function(battlefield)
-    battlefield:setLocalVar("loot", 1)
+    battlefield:setLocalVar('loot', 1)
 end
 
 battlefieldObject.onBattlefieldTick = function(battlefield, tick)
@@ -24,16 +22,16 @@ end
 battlefieldObject.onBattlefieldLeave = function(player, battlefield, leavecode)
     if leavecode == xi.battlefield.leaveCode.WON then
         local _, clearTime, partySize = battlefield:getRecord()
-        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 2, battlefield:getLocalVar("[cs]bit"), 2)
+        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 2, battlefield:getLocalVar('[cs]bit'), 2)
     elseif leavecode == xi.battlefield.leaveCode.LOST then
         player:startEvent(32002)
     end
 end
 
-battlefieldObject.onEventUpdate = function(player, csid, option)
+battlefieldObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-battlefieldObject.onEventFinish = function(player, csid, option)
+battlefieldObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return battlefieldObject

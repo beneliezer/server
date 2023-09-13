@@ -4,15 +4,13 @@
 -- Involved in Quests: Tuning Out
 -- !pos 105 -20 140 111
 -----------------------------------
-require("scripts/globals/npc_util")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local tuningOutProgress = player:getCharVar("TuningOut_Progress")
+    local tuningOutProgress = player:getCharVar('TuningOut_Progress')
 
     -- QUEST: TUNING OUT
     if tuningOutProgress == 7 then
@@ -22,13 +20,13 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 207 then
-        npcUtil.giveCurrency(player, "gil", 6000)
-        player:setCharVar("TuningOut_Progress", 8)
+        npcUtil.giveCurrency(player, 'gil', 6000)
+        player:setCharVar('TuningOut_Progress', 8)
     end
 end
 

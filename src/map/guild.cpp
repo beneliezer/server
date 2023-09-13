@@ -27,9 +27,8 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "utils/itemutils.h"
 
 CGuild::CGuild(uint8 id, const std::string& _pointsName)
+: m_id(id)
 {
-    m_id = id;
-
     for (size_t i = 0; i < m_GPItemsRank.size(); ++i)
     {
         m_GPItemsRank[i] = (uint8)((CVanaTime::getInstance()->getVanaTime() / (60 * 60 * 24)) % (i + 4));
@@ -64,7 +63,7 @@ void CGuild::updateGuildPointsPattern(uint8 pattern)
         {
             while (sql->NextRow() == SQL_SUCCESS)
             {
-                m_GPItems[i].push_back(
+                m_GPItems[i].emplace_back(
                     GPItem_t(itemutils::GetItemPointer(sql->GetUIntData(0)), sql->GetUIntData(2), sql->GetUIntData(1)));
             }
         }

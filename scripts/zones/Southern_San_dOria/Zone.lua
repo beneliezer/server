@@ -1,20 +1,14 @@
 -----------------------------------
 -- Zone: Southern_San_dOria (230)
 -----------------------------------
-local ID = require('scripts/zones/Southern_San_dOria/IDs')
-require('scripts/globals/events/harvest_festivals')
 require('scripts/quests/flyers_for_regine')
-require('scripts/globals/conquest')
-require('scripts/globals/cutscenes')
-require('scripts/globals/chocobo')
-require('scripts/globals/zone')
 -----------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
     zone:registerTriggerArea(1, -292, -10, 90 , -258, 10, 105)
     quests.ffr.initZone(zone) -- register trigger areas 2 through 6
-    applyHalloweenNpcCostumes(zone:getID())
+    xi.events.harvestFestival.applyHalloweenNpcCostumes(zone:getID())
     xi.chocobo.initZone(zone)
     xi.conquest.toggleRegionalNPCs(zone)
 end
@@ -40,7 +34,7 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
     if
         triggerAreaID == 1 and
         player:getCurrentMission(xi.mission.log_id.COP) == xi.mission.id.cop.DAWN and
-        player:getCharVar("COP_louverance_story") == 2
+        player:getCharVar('COP_louverance_story') == 2
     then
         player:startEvent(758)
     end
@@ -51,12 +45,12 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 758 then
-        player:setCharVar("COP_louverance_story", 3)
+        player:setCharVar('COP_louverance_story', 3)
     end
 end
 

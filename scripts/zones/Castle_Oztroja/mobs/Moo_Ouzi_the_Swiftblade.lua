@@ -2,8 +2,7 @@
 -- Area: Castle Oztroja (151)
 --   NM: Moo Ouzi the Swiftblade
 -----------------------------------
-require("scripts/globals/hunts")
-mixins = { require("scripts/mixins/job_special") }
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
 local entity = {}
 

@@ -4,8 +4,6 @@
 -- Fame Checker
 -- !zone 230
 -----------------------------------
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,10 +13,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(31, player:getFame(xi.quest.fame_area.SANDORIA))
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

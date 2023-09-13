@@ -2,8 +2,7 @@
 -- Assault: Requiem
 -- TODO: random the chest locations
 -----------------------------------
-require("scripts/globals/instance")
-local ID = require("scripts/zones/Periqia/IDs")
+local ID = zones[xi.zone.PERIQIA]
 -----------------------------------
 local instanceObject = {}
 
@@ -60,10 +59,10 @@ instanceObject.onInstanceComplete = function(instance)
     GetNPCByID(ID.npc.ANCIENT_LOCKBOX, instance):setStatus(xi.status.NORMAL)
 end
 
-instanceObject.onEventUpdate = function(player, csid, option)
+instanceObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return instanceObject

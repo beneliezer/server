@@ -3,9 +3,7 @@
 --  NPC: ???
 -- Spawns Aroma Fly - RSE Satchets
 -----------------------------------
-local ID = require("scripts/zones/Gusgen_Mines/IDs")
-require("scripts/globals/loot")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.GUSGEN_MINES]
 -----------------------------------
 local entity = {}
 
@@ -28,8 +26,8 @@ entity.onTrigger = function(player, npc)
         npcUtil.popFromQM(player, npc, ID.mob.AROMA_FLY, { claim = true, hide = math.random(600, 1800), look = true, radius = 1 })  -- ??? despawns and respawns 10-30 minutes after NM dies
 
         local item = 18246 + playerRace - raceOffset
-        GetMobByID(ID.mob.AROMA_FLY):addListener("ITEM_DROPS", "ITEM_DROPS_RSE", function(mob, loot)
-            loot:addItemFixed(item, xi.loot.rate.UNCOMMON)
+        GetMobByID(ID.mob.AROMA_FLY):addListener('ITEM_DROPS', 'ITEM_DROPS_RSE', function(mob, loot)
+            loot:addItemFixed(item, xi.drop_rate.UNCOMMON)
         end)
 
         local newSpawn = math.random(1, 3) -- determine new spawn point for ???
@@ -45,10 +43,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

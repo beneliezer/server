@@ -1,23 +1,20 @@
 -----------------------------------
 -- Area: Lower Jeuno
 --  NPC: Momiji
--- Standard Info NPC
 -----------------------------------
-
-local ID = require("scripts/zones/Lower_Jeuno/IDs")
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
+    player:startEvent(223)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity
-

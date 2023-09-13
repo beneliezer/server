@@ -11,10 +11,6 @@
 -- Throne Room (S)         : !pos 19.003 0 -4.487
 -- Walk of Echoes          : !pos -702.325 0.399 -481.664
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.WOTG, xi.mission.id.wotg.FORK_IN_THE_ROAD)
 

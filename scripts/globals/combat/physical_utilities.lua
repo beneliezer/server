@@ -19,32 +19,30 @@
 
 -- 4  - Add them all, and final operations/considerations.
 -----------------------------------
-require("scripts/globals/items")
------------------------------------
 xi = xi or {}
 xi.combat = xi.combat or {}
 xi.combat.physical = xi.combat.physical or {}
 -----------------------------------
 local wsElementalProperties =
 {
--- [Resonance] = { None, Fire, Ice, Wind, Earth, Thunder, Water, Light, Dark },
-    [       0] = {    0,    0,   0,    0,     0,       0,     0,     0,    0 }, -- Lv 0, NONE
-    [       1] = {    0,    0,   0,    0,     0,       0,     0,     1,    0 }, -- Lv 1, Transfixion
-    [       2] = {    0,    0,   0,    0,     0,       0,     0,     0,    1 }, -- Lv 1, Compression
-    [       3] = {    0,    1,   0,    0,     0,       0,     0,     0,    0 }, -- Lv 1, Liquefaction
-    [       4] = {    0,    0,   0,    0,     1,       0,     0,     0,    0 }, -- Lv 1, Scission
-    [       5] = {    0,    0,   0,    0,     0,       0,     1,     0,    0 }, -- Lv 1, Reverberation
-    [       6] = {    0,    0,   0,    1,     0,       0,     0,     0,    0 }, -- Lv 1, Detonation
-    [       7] = {    0,    0,   1,    0,     0,       0,     0,     0,    0 }, -- Lv 1, Induration
-    [       8] = {    0,    0,   0,    0,     0,       1,     0,     0,    0 }, -- Lv 1, Impaction
-    [       9] = {    0,    0,   0,    0,     1,       0,     0,     0,    1 }, -- Lv 2, Gravitation
-    [      10] = {    0,    0,   1,    0,     0,       0,     1,     0,    0 }, -- Lv 2, Distorsion
-    [      11] = {    0,    1,   0,    0,     0,       0,     0,     1,    0 }, -- Lv 2, Fusion
-    [      12] = {    0,    0,   0,    1,     0,       1,     0,     0,    0 }, -- Lv 2, Fragmentation
-    [      13] = {    0,    1,   0,    1,     0,       1,     0,     1,    0 }, -- Lv 3, Light
-    [      14] = {    0,    0,   1,    0,     1,       0,     1,     0,    1 }, -- Lv 3, Darkness
-    [      15] = {    0,    1,   0,    1,     0,       1,     0,     1,    0 }, -- Lv 4, Light
-    [      16] = {    0,    0,   1,    0,     1,       0,     1,     0,    1 }, -- Lv 4, Darkness
+    -- [Skillchain type             ] = { None, Fire, Ice, Wind, Earth, Thunder, Water, Light, Dark },
+    [xi.skillchainType.NONE         ] = {    0,    0,   0,    0,     0,       0,     0,     0,    0 }, -- Lv0 None
+    [xi.skillchainType.TRANSFIXION  ] = {    0,    0,   0,    0,     0,       0,     0,     1,    0 }, -- Lv1 Light
+    [xi.skillchainType.COMPRESSION  ] = {    0,    0,   0,    0,     0,       0,     0,     0,    1 }, -- Lv1 Dark
+    [xi.skillchainType.LIQUEFACTION ] = {    0,    1,   0,    0,     0,       0,     0,     0,    0 }, -- Lv1 Fire
+    [xi.skillchainType.SCISSION     ] = {    0,    0,   0,    0,     1,       0,     0,     0,    0 }, -- Lv1 Earth
+    [xi.skillchainType.REVERBERATION] = {    0,    0,   0,    0,     0,       0,     1,     0,    0 }, -- Lv1 Water
+    [xi.skillchainType.DETONATION   ] = {    0,    0,   0,    1,     0,       0,     0,     0,    0 }, -- Lv1 Wind
+    [xi.skillchainType.INDURATION   ] = {    0,    0,   1,    0,     0,       0,     0,     0,    0 }, -- Lv1 Ice
+    [xi.skillchainType.IMPACTION    ] = {    0,    0,   0,    0,     0,       1,     0,     0,    0 }, -- Lv1 Thunder
+    [xi.skillchainType.GRAVITATION  ] = {    0,    0,   0,    0,     1,       0,     0,     0,    1 }, -- Lv2 Earth & Dark
+    [xi.skillchainType.DISTORTION   ] = {    0,    0,   1,    0,     0,       0,     1,     0,    0 }, -- Lv2 Ice & Water
+    [xi.skillchainType.FUSION       ] = {    0,    1,   0,    0,     0,       0,     0,     1,    0 }, -- Lv2 Fire & Light
+    [xi.skillchainType.FRAGMENTATION] = {    0,    0,   0,    1,     0,       1,     0,     0,    0 }, -- Lv2 Wind & Thunder
+    [xi.skillchainType.LIGHT        ] = {    0,    1,   0,    1,     0,       1,     0,     1,    0 }, -- Lv3 Fire, Wind, Thunder, Light
+    [xi.skillchainType.DARKNESS     ] = {    0,    0,   1,    0,     1,       0,     1,     0,    1 }, -- Lv3 Ice, Earth, Water, Dark
+    [xi.skillchainType.LIGHT_II     ] = {    0,    1,   0,    1,     0,       1,     0,     1,    0 }, -- Lv4 Fire, Wind, Thunder, Light
+    [xi.skillchainType.DARKNESS_II  ] = {    0,    0,   1,    0,     1,       0,     1,     0,    1 }, -- Lv4 Ice, Earth, Water, Dark
 }
 
 -- Table with pDIF caps per weapon/skill type.
@@ -74,29 +72,29 @@ local pDifWeaponCapTable =
 
 local elementalGorget = -- Ordered by element.
 {
-    xi.items.FLAME_GORGET,
-    xi.items.SNOW_GORGET,
-    xi.items.BREEZE_GORGET,
-    xi.items.SOIL_GORGET,
-    xi.items.THUNDER_GORGET,
-    xi.items.AQUA_GORGET,
-    xi.items.LIGHT_GORGET,
-    xi.items.SHADOW_GORGET
+    xi.item.FLAME_GORGET,
+    xi.item.SNOW_GORGET,
+    xi.item.BREEZE_GORGET,
+    xi.item.SOIL_GORGET,
+    xi.item.THUNDER_GORGET,
+    xi.item.AQUA_GORGET,
+    xi.item.LIGHT_GORGET,
+    xi.item.SHADOW_GORGET
 }
 
 local elementalBelt = -- Ordered by element.
 {
-    xi.items.FLAME_BELT,
-    xi.items.SNOW_BELT,
-    xi.items.BREEZE_BELT,
-    xi.items.SOIL_BELT,
-    xi.items.THUNDER_BELT,
-    xi.items.AQUA_BELT,
-    xi.items.LIGHT_BELT,
-    xi.items.SHADOW_BELT
+    xi.item.FLAME_BELT,
+    xi.item.SNOW_BELT,
+    xi.item.BREEZE_BELT,
+    xi.item.SOIL_BELT,
+    xi.item.THUNDER_BELT,
+    xi.item.AQUA_BELT,
+    xi.item.LIGHT_BELT,
+    xi.item.SHADOW_BELT
 }
 
--- "fSTR" in English Wikis. "SV function" in JP wiki and Studio Gobli.
+-- 'fSTR' in English Wikis. 'SV function' in JP wiki and Studio Gobli.
 -- BG wiki: https://www.bg-wiki.com/ffxi/FSTR
 -- Gobli Wiki: https://w-atwiki-jp.translate.goog/studiogobli/pages/14.html?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp
 xi.combat.physical.calculateMeleeStatFactor = function(actor, target)
@@ -142,7 +140,7 @@ xi.combat.physical.calculateMeleeStatFactor = function(actor, target)
     return fSTR
 end
 
--- "fSTR2" in English Wikis. "SV function" in JP wiki and Studio Gobli.
+-- 'fSTR2' in English Wikis. 'SV function' in JP wiki and Studio Gobli.
 -- BG wiki: https://www.bg-wiki.com/ffxi/FSTR
 -- Gobli Wiki: https://w-atwiki-jp.translate.goog/studiogobli/pages/14.html?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp
 xi.combat.physical.calculateRangedStatFactor = function(actor, target)
@@ -185,7 +183,7 @@ xi.combat.physical.calculateRangedStatFactor = function(actor, target)
         fSTRlowerCap = -3
     end
 
-    fSTR = utils.clamp(fSTR2 / 2, fSTRlowerCap, fSTRupperCap)
+    fSTR = utils.clamp(fSTR / 2, fSTRlowerCap, fSTRupperCap)
 
     return fSTR
 end
@@ -208,7 +206,7 @@ xi.combat.physical.calculateWSC = function(actor, wsSTRmod, wsDEXmod, wsVITmod, 
     return finalWSC
 end
 
--- TP factor equation. Used to determine TP modifer across all cases of "X varies with TP"
+-- TP factor equation. Used to determine TP modifer across all cases of 'X varies with TP'
 xi.combat.physical.calculateTPfactor = function(actor, TP1000, TP2000, TP3000)
     local tpFactor = 1
     local actorTP  = actor:getTP()
@@ -260,7 +258,7 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
             wsElementalProperties[scProp1][neckElement] == 1 or
             wsElementalProperties[scProp2][neckElement] == 1 or
             wsElementalProperties[scProp3][neckElement] == 1 or
-            neckItem == xi.items.FOTIA_GORGET
+            neckItem == xi.item.FOTIA_GORGET
         then
             neckFtpBonus = 0.1
         end
@@ -283,7 +281,7 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
             wsElementalProperties[scProp1][waistElement] == 1 or
             wsElementalProperties[scProp2][waistElement] == 1 or
             wsElementalProperties[scProp3][waistElement] == 1 or
-            waistItem == xi.items.FOTIA_BELT
+            waistItem == xi.item.FOTIA_BELT
         then
             waistFtpBonus = 0.1
         end
@@ -297,11 +295,11 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
             wsElementalProperties[scProp3][dayElement] == 1
         then
             if
-                headItem == xi.items.MEKIRA_OTO or
-                headItem == xi.items.MEKIRA_OTO_P1
+                headItem == xi.item.MEKIRA_OTO or
+                headItem == xi.item.MEKIRA_OTO_P1
             then
                 headFtpBonus = 0.1
-            elseif headItem == xi.items.GAVIALIS_HELM then
+            elseif headItem == xi.item.GAVIALIS_HELM then
                 headFtpBonus = 0.117
             end
         end
@@ -314,7 +312,7 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
             wsElementalProperties[scProp2][dayElement] == 1 or
             wsElementalProperties[scProp3][dayElement] == 1
         then
-            if handsItem == xi.items.ATHOSS_GLOVES then
+            if handsItem == xi.item.ATHOSS_GLOVES then
                 handsFtpBonus = 0.06
             end
         end
@@ -416,7 +414,7 @@ xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAt
     ----------------------------------------
     -- Step 4: Apply weapon type caps.
     ----------------------------------------
-    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] + isCritical -- TODO: Add "Damage Limit +" Trait here.
+    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] + isCritical -- TODO: Add 'Damage Limit +' Trait here.
 
     pDif = utils.clamp(pDif, 0, pDifFinalCap)
 
@@ -482,7 +480,7 @@ xi.combat.physical.calculateRangedPDIF = function(actor, target, weaponType, wsA
 
     local cRatio = utils.clamp(baseRatio - levelDifFactor, 0, 10) -- Clamp for the lower limit, mainly.
 
-    -- TODO: Presumably, pets get a Cap here if the target checks as "Too Weak". More info needed.
+    -- TODO: Presumably, pets get a Cap here if the target checks as 'Too Weak'. More info needed.
 
     ----------------------------------------
     -- Step 3: pDif Caps (Ranged)
@@ -507,7 +505,7 @@ xi.combat.physical.calculateRangedPDIF = function(actor, target, weaponType, wsA
     ----------------------------------------
     -- Step 4: Apply weapon type caps.
     ----------------------------------------
-    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] + isCritical -- TODO: Add "Damage Limit +" Trait here.
+    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] + isCritical -- TODO: Add 'Damage Limit +' Trait here.
 
     pDif = utils.clamp(pDif, 0, pDifFinalCap)
 

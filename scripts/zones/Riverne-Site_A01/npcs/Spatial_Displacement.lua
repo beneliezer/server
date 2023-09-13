@@ -2,7 +2,7 @@
 -- Area: Riverne Site #A01
 --  NPC: Spacial Displacement
 -----------------------------------
-local ID = require("scripts/zones/Riverne-Site_A01/IDs")
+local ID = zones[xi.zone.RIVERNE_SITE_A01]
 -----------------------------------
 local entity = {}
 
@@ -18,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 35 and option == 1 then
         player:setPos(12.527, 0.345, -539.602, 127, 31) -- to Monarch Linn (Retail confirmed)
     elseif csid == 10 and option == 1 then

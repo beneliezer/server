@@ -1,16 +1,9 @@
 -----------------------------------
 -- Area: Western Adoulin
 --  NPC: Flapno
--- Type: Standard NPC, Quest NPC, and Shop NPC
--- Starts, Involved with, and Finishes Quest: 'Exotic Delicacies'
--- Involved with Quest: 'All the Way to the Bank'
 -- !pos 70 0 -13 256
 -----------------------------------
-local ID = require("scripts/zones/Western_Adoulin/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/utils")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
 local entity = {}
 
@@ -20,9 +13,9 @@ entity.onTrade = function(player, npc, trade)
     -- ALL THE WAY TO THE BANK
     if
         player:hasKeyItem(xi.ki.TARUTARU_SAUCE_INVOICE) and
-        npcUtil.tradeHas(trade, { { "gil", 5600 } })
+        npcUtil.tradeHas(trade, { { 'gil', 5600 } })
     then
-        local paidFlapano = utils.mask.getBit(player:getCharVar("ATWTTB_Payments"), 2)
+        local paidFlapano = utils.mask.getBit(player:getCharVar('ATWTTB_Payments'), 2)
         if not paidFlapano then
             player:startEvent(5071)
         end
@@ -31,7 +24,10 @@ entity.onTrade = function(player, npc, trade)
     elseif exoticDelicacies == QUEST_ACCEPTED then
         if npcUtil.tradeHas(trade, { 3916, 5949, { 5954, 2 } }) then
             player:startEvent(2861)
-        elseif npcUtil.tradeHas(trade, 5974) or npcUtil.tradeHas(trade, 5975) then
+        elseif
+            npcUtil.tradeHas(trade, xi.item.PLATE_OF_BARNACLE_PAELLA) or
+            npcUtil.tradeHas(trade, xi.item.PLATE_OF_FLAPANOS_PAELLA)
+        then
             player:startEvent(2862)
         end
     end
@@ -44,7 +40,7 @@ entity.onTrigger = function(player, npc)
     -- THE WEATHERSPOON WAR
     if
         theWeatherspoonWar == QUEST_ACCEPTED and
-        player:getCharVar("Weatherspoon_War_Status") == 6
+        player:getCharVar('Weatherspoon_War_Status') == 6
     then
         player:startEvent(191)
 
@@ -52,7 +48,7 @@ entity.onTrigger = function(player, npc)
     -- Flapano offers his quest every other time the player talks to him
     elseif
         exoticDelicacies ~= QUEST_COMPLETED and
-        player:getCharVar("Flapano_Odd_Even") == 0
+        player:getCharVar('Flapano_Odd_Even') == 0
     then
         if exoticDelicacies == QUEST_AVAILABLE then
             player:startEvent(2860)
@@ -60,7 +56,7 @@ entity.onTrigger = function(player, npc)
             player:startEvent(2863)
         end
 
-        player:setCharVar("Flapano_Odd_Even", 1)
+        player:setCharVar('Flapano_Odd_Even', 1)
 
     -- SHOP
     else
@@ -78,20 +74,20 @@ entity.onTrigger = function(player, npc)
         xi.shop.general(player, stock)
 
         if exoticDelicacies ~= QUEST_COMPLETED then
-            player:setCharVar("Flapano_Odd_Even", 0)
+            player:setCharVar('Flapano_Odd_Even', 0)
         end
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- ALL THE WAY TO THE BANK
     if csid == 5071 then
         player:confirmTrade()
-        player:setCharVar("ATWTTB_Payments", utils.mask.setBit(player:getCharVar("ATWTTB_Payments"), 2, true))
-        if utils.mask.isFull(player:getCharVar("ATWTTB_Payments"), 5) then
+        player:setCharVar('ATWTTB_Payments', utils.mask.setBit(player:getCharVar('ATWTTB_Payments'), 2, true))
+        if utils.mask.isFull(player:getCharVar('ATWTTB_Payments'), 5) then
             npcUtil.giveKeyItem(player, xi.ki.TARUTARU_SAUCE_RECEIPT)
         end
 
@@ -99,9 +95,9 @@ entity.onEventFinish = function(player, csid, option)
     elseif csid == 2860 and option == 1 then
         player:addQuest(xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.EXOTIC_DELICACIES)
     elseif csid == 2861 then
-        if npcUtil.completeQuest(player, xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.EXOTIC_DELICACIES, { bayld = 500, item = 5975, xp = 1000 }) then
+        if npcUtil.completeQuest(player, xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.EXOTIC_DELICACIES, { bayld = 500, item = xi.item.PLATE_OF_FLAPANOS_PAELLA, xp = 1000 }) then
             player:confirmTrade()
-            player:setCharVar("Flapano_Odd_Even", 0)
+            player:setCharVar('Flapano_Odd_Even', 0)
         end
     end
 end

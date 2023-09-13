@@ -4,8 +4,6 @@
 -- Spawns Anemic Aloysius
 -- !pos 440 -51 142 253
 -----------------------------------
-require("scripts/globals/abyssea")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,10 +14,10 @@ entity.onTrigger = function(player, npc)
     -- xi.abyssea.qmOnTrigger(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -3,8 +3,6 @@
 --  NPC: Treasure Coffer
 -- !zone 177
 -----------------------------------
-require("scripts/globals/treasure")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,10 +13,10 @@ entity.onTrigger = function(player, npc)
     xi.treasure.onTrigger(player, xi.treasure.type.COFFER)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

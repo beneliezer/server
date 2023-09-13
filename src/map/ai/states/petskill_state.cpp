@@ -20,13 +20,13 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 */
 
 #include "petskill_state.h"
-#include "../../enmity_container.h"
-#include "../../entities/petentity.h"
-#include "../../packets/action.h"
-#include "../../petskill.h"
-#include "../../status_effect_container.h"
-#include "../../utils/battleutils.h"
-#include "../ai_container.h"
+#include "ai/ai_container.h"
+#include "enmity_container.h"
+#include "entities/petentity.h"
+#include "packets/action.h"
+#include "petskill.h"
+#include "status_effect_container.h"
+#include "utils/battleutils.h"
 
 CPetSkillState::CPetSkillState(CPetEntity* PEntity, uint16 targid, uint16 wsid)
 : CState(PEntity, targid)
@@ -93,7 +93,7 @@ void CPetSkillState::SpendCost()
 
 bool CPetSkillState::Update(time_point tick)
 {
-    if (tick > GetEntryTime() + m_castTime && !IsCompleted())
+    if (m_PEntity && m_PEntity->isAlive() && (tick > GetEntryTime() + m_castTime && !IsCompleted()))
     {
         action_t action;
         m_PEntity->OnPetSkillFinished(*this, action);
@@ -130,7 +130,7 @@ bool CPetSkillState::Update(time_point tick)
 
 void CPetSkillState::Cleanup(time_point tick)
 {
-    if (!IsCompleted())
+    if (m_PEntity && m_PEntity->isAlive() && !IsCompleted())
     {
         action_t action;
         action.id         = m_PEntity->id;

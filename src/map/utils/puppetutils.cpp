@@ -20,16 +20,16 @@
 */
 
 #include "puppetutils.h"
-#include "../entities/automatonentity.h"
-#include "../job_points.h"
-#include "../lua/luautils.h"
-#include "../packets/char_job_extra.h"
-#include "../packets/message_basic.h"
-#include "../status_effect_container.h"
 #include "battleutils.h"
 #include "charutils.h"
+#include "entities/automatonentity.h"
 #include "itemutils.h"
+#include "job_points.h"
+#include "lua/luautils.h"
+#include "packets/char_job_extra.h"
+#include "packets/message_basic.h"
 #include "petutils.h"
+#include "status_effect_container.h"
 #include "zoneutils.h"
 
 namespace puppetutils
@@ -126,6 +126,9 @@ namespace puppetutils
                         setAttachment(PChar, i, tempEquip.Attachments[i]);
                     }
                 }
+
+                // After the Automaton has all attachments set, make sure we update for Optic Fiber
+                puppetutils::UpdateAttachments(PChar);
 
                 // Set burden based on JP
                 PChar->PAutomaton->setAllBurden(30 - PChar->PJobPoints->GetJobPointValue(JP_ACTIVATE_EFFECT));
@@ -714,9 +717,7 @@ namespace puppetutils
                         }
                         else
                         {
-                            // Note: This is called before the new maneuver count is known.  Send GetStatusEffectsCount - 1 to reflect
-                            // the new value.
-                            luautils::OnManeuverLose(PAutomaton, PAttachment, PChar->StatusEffectContainer->GetEffectsCount(maneuver) - 1);
+                            luautils::OnManeuverLose(PAutomaton, PAttachment, PChar->StatusEffectContainer->GetEffectsCount(maneuver));
                         }
                     }
                 }

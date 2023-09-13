@@ -5,10 +5,6 @@
 -- !addmission 5 27
 -- Halver : !pos 2 0.1 0.1 233
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.WOTG, xi.mission.id.wotg.ANOTHER_WORLD)
 

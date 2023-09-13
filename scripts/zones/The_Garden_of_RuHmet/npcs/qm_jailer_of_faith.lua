@@ -8,17 +8,15 @@
 -- SW / Tarutaru tower !pos -580 0 -644 35
 -- NW / Mithra tower   !pos -683 0 -340 35
 -----------------------------------
-local ID = require("scripts/zones/The_Garden_of_RuHmet/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.THE_GARDEN_OF_RUHMET]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
-        npcUtil.tradeHas(trade, 1899) and
+        npcUtil.tradeHas(trade, xi.item.HIGH_QUALITY_EUVHI_ORGAN) and
         npcUtil.popFromQM(player, npc, ID.mob.JAILER_OF_FAITH, { radius = 1 })
     then
-        -- High-Quality Euvhi Organ
         player:confirmTrade()
     end
 end
@@ -26,10 +24,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

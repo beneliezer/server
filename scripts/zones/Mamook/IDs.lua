@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Mamook
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.MAMOOK] =
@@ -56,15 +53,7 @@ zones[xi.zone.MAMOOK] =
     },
     npc =
     {
-        LOGGING =
-        {
-            17044014,
-            17044015,
-            17044016,
-            17044017,
-            17044018,
-            17044019,
-        },
+        LOGGING = GetTableOfIDs('Logging_Point'),
     },
 }
 

@@ -6,14 +6,7 @@
 -- Involved in Mission 2-1
 -- !pos 62 -4 240 241
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Woods/IDs")
-require("scripts/globals/items")
-require("scripts/globals/magic")
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
-require("scripts/globals/utils")
+local ID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
 local entity = {}
 
@@ -40,7 +33,7 @@ local trustMemory = function(player)
     end
 
     -- 32 - hasItem(286) Nanaa Mihgo statue
-    if player:hasItem(xi.items.NANAA_MIHGO_STATUE) then
+    if player:hasItem(xi.item.NANAA_MIHGO_STATUE) then
         memories = memories + 32
     end
 
@@ -65,10 +58,10 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local wildcatWindurst = player:getCharVar("WildcatWindurst")
+    local wildcatWindurst = player:getCharVar('WildcatWindurst')
     local mihgosAmigo = player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.MIHGO_S_AMIGO)
     local rockRacketeer = player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.ROCK_RACKETEER)
-    local rockRacketeerCS = player:getCharVar("rockracketeer_sold")
+    local rockRacketeerCS = player:getCharVar('rockracketeer_sold')
 
     -- LURE OF THE WILDCAT (WINDURST 2-1)
     -- Simply checks this NPC as talked to for the PC, should be highest priority
@@ -82,11 +75,11 @@ entity.onTrigger = function(player, npc)
     elseif
         player:hasKeyItem(xi.ki.WINDURST_TRUST_PERMIT) and
         not player:hasSpell(xi.magic.spell.NANAA_MIHGO) and
-        player:getLocalVar("TrustDialogue") == 0
+        player:getLocalVar('TrustDialogue') == 0
     then
         local trustFlag = (player:getRank(player:getNation()) >= 3 and 1 or 0) + (mihgosAmigo == QUEST_COMPLETED and 2 or 0)
 
-        player:setLocalVar("TrustDialogue", 1)
+        player:setLocalVar('TrustDialogue', 1)
 
         player:startEvent(865, 0, 0, 0, trustMemory(player), 0, 0, 0, trustFlag)
 
@@ -128,13 +121,13 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- LURE OF THE WILDCAT (WINDURST)
     if csid == 732 then
-        player:setCharVar("WildcatWindurst", utils.mask.setBit(player:getCharVar("WildcatWindurst"), 4, true))
+        player:setCharVar('WildcatWindurst', utils.mask.setBit(player:getCharVar('WildcatWindurst'), 4, true))
 
     -- ROCK RACKETEER
     elseif csid == 93 then
@@ -142,7 +135,7 @@ entity.onEventFinish = function(player, csid, option)
         npcUtil.giveKeyItem(player, xi.ki.SHARP_GRAY_STONE)
     elseif csid == 98 then
         player:delGil(10 * xi.settings.main.GIL_RATE)
-        player:setCharVar("rockracketeer_sold", 3)
+        player:setCharVar('rockracketeer_sold', 3)
 
     -- MIHGO'S AMIGO
     elseif csid == 80 or csid == 81 then
@@ -160,8 +153,8 @@ entity.onEventFinish = function(player, csid, option)
         player:addGil(xi.settings.main.GIL_RATE * 200)
         player:addFame(xi.quest.fame_area.NORG, 30)
     elseif csid == 865 and option == 2 then
-        player:addSpell(901, true, true)
-        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, 901)
+        player:addSpell(xi.magic.spell.NANAA_MIHGO, true, true)
+        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, xi.magic.spell.NANAA_MIHGO)
     end
 end
 

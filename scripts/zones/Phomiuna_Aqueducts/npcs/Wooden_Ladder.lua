@@ -14,8 +14,7 @@
 -- !pos 199.38 -22.559 60
 -- !pos -200.679 -8.57 60
 -----------------------------------
-require("scripts/globals/missions")
-local ID = require("scripts/zones/Phomiuna_Aqueducts/IDs")
+local ID = zones[xi.zone.PHOMIUNA_AQUEDUCTS]
 -----------------------------------
 local entity = {}
 
@@ -84,10 +83,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 35 then
         xi.mission.setVar(player, xi.mission.log_id.COP, xi.mission.id.cop.DISTANT_BELIEFS, 'Status', 2)
     end

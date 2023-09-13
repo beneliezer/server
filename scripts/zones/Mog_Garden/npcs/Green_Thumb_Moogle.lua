@@ -2,10 +2,7 @@
 -- Area: Mog Garden
 --  NPC: Green Thumb Moogle
 -----------------------------------
-local ID = require("scripts/zones/Mog_Garden/IDs")
-require('scripts/globals/items')
-require("scripts/globals/moghouse")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.MOG_GARDEN]
 -----------------------------------
 local entity = {}
 
@@ -17,16 +14,16 @@ entity.onTrigger = function(player, npc)
     player:startEvent(1016)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 1016 and option == 0xFFF00FF then -- Show the Mog House menu
         -- Print the expire time for mog locker if exists
         local lockerLease = xi.moghouse.getMogLockerExpiryTimestamp(player)
         if lockerLease ~= nil then
             if lockerLease == -1 then -- Lease expired..
-                player:messageSpecial(ID.text.MOGLOCKER_MESSAGE_OFFSET + 2, xi.items.IMPERIAL_BRONZE_PIECE)
+                player:messageSpecial(ID.text.MOGLOCKER_MESSAGE_OFFSET + 2, xi.item.IMPERIAL_BRONZE_PIECE)
             else
                 player:messageSpecial(ID.text.MOGLOCKER_MESSAGE_OFFSET + 1, lockerLease)
             end

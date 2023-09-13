@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos -0.866    -5.999    36.942 53
 -----------------------------------
-local ID = require("scripts/zones/Nashmau/IDs")
+local ID = zones[xi.zone.NASHMAU]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

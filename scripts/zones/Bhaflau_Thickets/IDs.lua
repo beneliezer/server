@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Bhaflau_Thickets
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.BHAFLAU_THICKETS] =
@@ -62,20 +59,12 @@ zones[xi.zone.BHAFLAU_THICKETS] =
             [16990398] = 16990403, -- -119 -15 -651
         },
         HARVESTMAN         = 16990252,
-        LIVIDROOT_AMOOSHAH = GetFirstID("Lividroot_Amooshah"),
-        DEA                = GetFirstID("Dea"),
+        LIVIDROOT_AMOOSHAH = GetFirstID('Lividroot_Amooshah'),
+        DEA                = GetFirstID('Dea'),
     },
     npc =
     {
-        HARVESTING =
-        {
-            16990640,
-            16990641,
-            16990642,
-            16990643,
-            16990644,
-            16990645,
-        },
+        HARVESTING = GetTableOfIDs('Harvesting_Point'),
     },
 }
 

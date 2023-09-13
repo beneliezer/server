@@ -22,8 +22,8 @@
 #ifndef _COMMAND_HANDLER_H
 #define _COMMAND_HANDLER_H
 
-#include "../common/cbasetypes.h"
-#include "../common/logging.h"
+#include "common/cbasetypes.h"
+#include "common/logging.h"
 
 #include <list>
 #include <string>
@@ -38,7 +38,6 @@ class CCommandHandler
 {
 public:
     static int32 call(sol::state& lua, CCharEntity* PChar, const std::string& commandline);
-    static void  registerCommand(std::string const& commandName, std::string const& path);
 };
 
 #endif // _COMMAND_HANDLER_H

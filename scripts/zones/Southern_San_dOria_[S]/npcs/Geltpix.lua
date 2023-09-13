@@ -3,10 +3,8 @@
 --  NPC: Geltpix
 -- !pos 154 -2 103 80
 -----------------------------------
-local ID = require("scripts/zones/Southern_San_dOria_[S]/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.SOUTHERN_SAN_DORIA_S]
 -----------------------------------
-
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -25,10 +23,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

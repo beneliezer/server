@@ -1,9 +1,6 @@
 -----------------------------------
 -- Zone: Stellar_Fulcrum
 -----------------------------------
-local ID = require('scripts/zones/Stellar_Fulcrum/IDs')
-require('scripts/globals/conquest')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -45,10 +42,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 8 and option == 1 then
         player:setPos(-370, -178, -40, 243, 158)
     end

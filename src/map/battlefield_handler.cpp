@@ -49,9 +49,9 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "zone.h"
 
 CBattlefieldHandler::CBattlefieldHandler(CZone* PZone)
+: m_PZone(PZone)
+, m_MaxBattlefields(luautils::OnBattlefieldHandlerInitialise(PZone))
 {
-    m_PZone           = PZone;
-    m_MaxBattlefields = luautils::OnBattlefieldHandlerInitialise(PZone);
 }
 
 void CBattlefieldHandler::HandleBattlefields(time_point tick)
@@ -380,5 +380,5 @@ uint8 CBattlefieldHandler::MaxBattlefieldAreas() const
 void CBattlefieldHandler::addOrphanedPlayer(CCharEntity* PChar)
 {
     auto orphan = std::make_pair(PChar->id, server_clock::now() + 5s);
-    m_orphanedPlayers.push_back(orphan);
+    m_orphanedPlayers.emplace_back(orphan);
 }

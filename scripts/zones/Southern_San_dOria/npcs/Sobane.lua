@@ -6,9 +6,6 @@
 -- !pos -190 -3 97 230
 -- csid: 52  732  733  734  735  736  737  738  739  740  741
 -----------------------------------
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,18 +13,18 @@ end
 
 entity.onTrigger = function(player, npc)
     -- SHARPENING THE SWORD
-    if player:getCharVar("sharpeningTheSwordCS") >= 2 then
+    if player:getCharVar('sharpeningTheSwordCS') >= 2 then
         player:startEvent(52)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- SHARPENING THE SWORD
     if csid == 52 then
-        player:setCharVar("sharpeningTheSwordCS", 3)
+        player:setCharVar('sharpeningTheSwordCS', 3)
     end
 end
 

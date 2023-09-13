@@ -3,9 +3,7 @@
 --  NPC: Nightflowers
 -- !pos -264.775 -3.718 28.767 126
 -----------------------------------
-require('scripts/globals/utils')
------------------------------------
-local ID = require('scripts/zones/Qufim_Island/IDs')
+local ID = zones[xi.zone.QUFIM_ISLAND]
 -----------------------------------
 local entity = {}
 
@@ -25,10 +23,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -4,20 +4,20 @@
 -- Starts and Finishes Quest: Blackmail (R)
 -- !zone 231
 -----------------------------------
-require("scripts/globals/titles")
-require("scripts/globals/shop")
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Northern_San_dOria/IDs")
+local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     local black = player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.BLACKMAIL)
-    local questState = player:getCharVar("BlackMailQuest")
+    local questState = player:getCharVar('BlackMailQuest')
 
     if black == QUEST_ACCEPTED and questState == 2 or black == QUEST_COMPLETED then
-        if trade:hasItemQty(530, 1) and trade:getItemCount() == 1 then
-            player:startEvent(648, 0, 530) --648
+        if
+            trade:hasItemQty(xi.item.COPY_OF_THE_CASTLE_FLOOR_PLANS, 1) and
+            trade:getItemCount() == 1
+        then
+            player:startEvent(648, 0, xi.item.COPY_OF_THE_CASTLE_FLOOR_PLANS)
         end
     end
 end
@@ -27,7 +27,7 @@ entity.onTrigger = function(player, npc)
     local blackMail = player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.BLACKMAIL)
     local sanFame = player:getFameLevel(xi.quest.fame_area.SANDORIA)
     local homeRank = player:getRank(player:getNation())
-    local questState = player:getCharVar("BlackMailQuest")
+    local questState = player:getCharVar('BlackMailQuest')
 
     if blackMail == QUEST_AVAILABLE and sanFame >= 3 and homeRank >= 3 then
         player:startEvent(643) -- 643 gives me letter
@@ -38,10 +38,10 @@ entity.onTrigger = function(player, npc)
         player:startEvent(645)  -- 645 recap, take envelope!
 
     elseif blackMail == QUEST_ACCEPTED and questState == 1 then
-        player:startEvent(646, 0, 530) --646  after giving letter to H, needs param
+        player:startEvent(646, 0, xi.item.COPY_OF_THE_CASTLE_FLOOR_PLANS)
 
     elseif blackMail == QUEST_ACCEPTED and questState == 2 then
-        player:startEvent(647, 0, 530) --647 recap of 646
+        player:startEvent(647, 0, xi.item.COPY_OF_THE_CASTLE_FLOOR_PLANS)
 
     else
         if player:needToZone() then
@@ -53,16 +53,16 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 643 then
         player:addQuest(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.BLACKMAIL)
         player:addKeyItem(xi.ki.SUSPICIOUS_ENVELOPE)
         player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.SUSPICIOUS_ENVELOPE)
     elseif csid == 646 and option == 1 then
-        player:setCharVar("BlackMailQuest", 2)
+        player:setCharVar('BlackMailQuest', 2)
     elseif csid == 648 then
         player:tradeComplete()
         npcUtil.giveCurrency(player, 'gil', 900)

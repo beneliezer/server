@@ -4,9 +4,8 @@
 -- Note: Spawns Phantom Worm
 -- position changes every 5 seconds
 -----------------------------------
-local ID = require("scripts/zones/Kuftal_Tunnel/IDs")
-local kuftalGlobal = require("scripts/zones/Kuftal_Tunnel/globals")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.KUFTAL_TUNNEL]
+local kuftalGlobal = require('scripts/zones/Kuftal_Tunnel/globals')
 -----------------------------------
 local entity = {}
 
@@ -18,10 +17,9 @@ end
 
 entity.onTrade = function(player, npc, trade)
     if
-        npcUtil.tradeHas(trade, 645) and
+        npcUtil.tradeHas(trade, xi.item.CHUNK_OF_DARKSTEEL_ORE) and
         npcUtil.popFromQM(player, npc, ID.mob.PHANTOM_WORM, { radius = 1 })
     then
-        -- Darksteel Ore
         player:confirmTrade()
     end
 end

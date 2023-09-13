@@ -4,8 +4,7 @@
 -- Guild Merchant NPC: Blacksmithing Guild
 -- !pos -64.278 -16.624 34.120 249
 -----------------------------------
-local ID = require("scripts/zones/Mhaura/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.MHAURA]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.SMITHING_GUILD)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

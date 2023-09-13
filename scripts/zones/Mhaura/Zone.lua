@@ -1,10 +1,7 @@
 -----------------------------------
 -- Zone: Mhaura (249)
 -----------------------------------
-local ID = require('scripts/zones/Mhaura/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.MHAURA]
 -----------------------------------
 local zoneObject = {}
 
@@ -19,11 +16,11 @@ zoneObject.onGameHour = function(zone)
         GetNPCByID(ID.npc.LAUGHING_BISON):setAnimationSub(0)
     end
 
-    SetServerVariable("Mhaura_Deastination", math.random(1, 100))
+    SetServerVariable('Mhaura_Deastination', math.random(1, 100))
 end
 
 zoneObject.onInitialize = function(zone)
-    SetExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
+    xi.server.setExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
 end
 
 zoneObject.onZoneIn = function(player, prevZone)
@@ -48,9 +45,9 @@ zoneObject.onZoneIn = function(player, prevZone)
 
     if
         player:getCurrentMission(xi.mission.log_id.COP) == xi.mission.id.cop.DAWN and
-        player:getCharVar("PromathiaStatus") == 3 and
-        player:getCharVar("Promathia_kill_day") < os.time() and
-        player:getCharVar("COP_shikarees_story") == 0
+        player:getCharVar('PromathiaStatus') == 3 and
+        player:getCharVar('Promathia_kill_day') < os.time() and
+        player:getCharVar('COP_shikarees_story') == 0
     then
         cs = 322
     end
@@ -78,15 +75,15 @@ zoneObject.onTransportEvent = function(player, transport)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 200 then
         local DepartureTime = VanadielHour()
 
         if DepartureTime % 8 == 0 then
-            if GetServerVariable("Mhaura_Deastination") > 89 then
+            if GetServerVariable('Mhaura_Deastination') > 89 then
                 player:setPos(0, 0, 0, 0, xi.zone.SHIP_BOUND_FOR_SELBINA_PIRATES)
             else
                 player:setPos(0, 0, 0, 0, xi.zone.SHIP_BOUND_FOR_SELBINA)
@@ -97,7 +94,7 @@ zoneObject.onEventFinish = function(player, csid, option)
             player:setPos(8, -1, 5, 62, 249) -- Something went wrong, dump them on the dock for safety.
         end
     elseif csid == 322 then
-        player:setCharVar("COP_shikarees_story", 1)
+        player:setCharVar('COP_shikarees_story', 1)
     end
 end
 

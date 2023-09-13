@@ -3,9 +3,7 @@
 --  NPC: Mahogany Door
 -- !pos 299 0.1 349 163
 -----------------------------------
-require("scripts/globals/bcnm")
-require("scripts/globals/missions")
-local ID = require("scripts/zones/Sacrificial_Chamber/IDs")
+local ID = zones[xi.zone.SACRIFICIAL_CHAMBER]
 -----------------------------------
 local entity = {}
 
@@ -23,8 +21,8 @@ entity.onEventUpdate = function(player, csid, option, extras)
     xi.bcnm.onEventUpdate(player, csid, option, extras)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.bcnm.onEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.bcnm.onEventFinish(player, csid, option, npc)
 end
 
 return entity

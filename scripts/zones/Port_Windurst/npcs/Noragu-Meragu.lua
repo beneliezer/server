@@ -2,9 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Noragu-Meragu
 -----------------------------------
-require("scripts/globals/npc_util")
-require("scripts/globals/magic")
------------------------------------
 local entity = {}
 
 entity.onSpawn = function(npc)
@@ -18,10 +15,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(236)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

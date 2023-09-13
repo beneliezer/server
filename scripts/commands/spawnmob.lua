@@ -2,23 +2,22 @@
 -- func: spawnmob
 -- desc: Spawns a mob.
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
+local commandObj = {}
 
-cmdprops =
+commandObj.cmdprops =
 {
-    permission = 3,
+    permission = 5,
     parameters = "iii"
 }
 
-function error(player, msg)
+local function error(player, msg)
     player:PrintToPlayer(msg)
     player:PrintToPlayer("!spawnmob <mob ID> (despawntime) (respawntime)")
 end
 
-function onTrigger(player, mobId, despawntime, respawntime)
+commandObj.onTrigger = function(player, mobId, despawntime, respawntime)
     local zone = player:getZone()
-    if zone:getType() == xi.zoneType.INSTANCED then
+    if zone:getTypeMask() == xi.zoneType.INSTANCED then
         local instance = player:getInstance()
 
         -- validate mobId
@@ -73,3 +72,5 @@ function onTrigger(player, mobId, despawntime, respawntime)
         player:PrintToPlayer(string.format("Spawned %s %s.", targ:getName(), mobId))
     end
 end
+
+return commandObj

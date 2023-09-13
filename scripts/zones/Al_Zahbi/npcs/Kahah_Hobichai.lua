@@ -5,8 +5,7 @@
 -- TODO: Stock needs to be modified based on
 --       status of Astral Candescence
 -----------------------------------
-local ID = require("scripts/zones/Al_Zahbi/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.AL_ZAHBI]
 -----------------------------------
 local entity = {}
 
@@ -28,10 +27,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -4,8 +4,7 @@
 -- Guild Merchant NPC: Clothcrafting Guild
 -- !pos -76.471 -3.55 -128.341 241
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Woods/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.MERIRI_DIALOG)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

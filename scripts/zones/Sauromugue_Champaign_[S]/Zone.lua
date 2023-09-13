@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Sauromugue_Champaign_[S] (98)
 -----------------------------------
-local ID = require('scripts/zones/Sauromugue_Champaign_[S]/IDs')
-require('scripts/globals/quests')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.SAUROMUGUE_CHAMPAIGN_S]
 -----------------------------------
 local zoneObject = {}
 
@@ -24,27 +22,16 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:setPos(-104, -25.36, -410, 195)
     end
 
-    if
-        prevZone == xi.zone.ROLANBERRY_FIELDS_S and
-        player:getQuestStatus(xi.quest.log_id.CRYSTAL_WAR, xi.quest.id.crystalWar.DOWNWARD_HELIX) == QUEST_ACCEPTED and
-        player:getCharVar("DownwardHelix") == 2
-    then
-        cs = 3
-    end
-
     return cs
 end
 
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
 zoneObject.onEventFinish = function(player, csid, option)
-    if csid == 3 then
-        player:setCharVar("DownwardHelix", 3)
-    end
 end
 
 return zoneObject

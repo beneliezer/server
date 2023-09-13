@@ -6,7 +6,7 @@
 -- !pos 460.339 -29.137 220.311 5
 -- !pos 180.207 -77.147 500.276 5
 -----------------------------------
-local ID = require("scripts/zones/Uleguerand_Range/IDs")
+local ID = zones[xi.zone.ULEGUERAND_RANGE]
 -----------------------------------
 local entity = {}
 
@@ -29,10 +29,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if (csid == 2 or csid == 3 or csid == 4) and option == 2 then
         player:delKeyItem(xi.ki.MYSTIC_ICE)
     end

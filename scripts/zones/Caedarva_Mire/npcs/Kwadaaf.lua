@@ -4,11 +4,13 @@
 -- Type: Entry to Alzadaal Undersea Ruins
 -- !pos -639.000 12.323 -260.000 79
 -----------------------------------
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if trade:getItemCount() == 1 and trade:hasItemQty(2185, 1) then -- Silver
+    if
+        trade:getItemCount() == 1 and
+        trade:hasItemQty(xi.item.IMPERIAL_SILVER_PIECE, 1)
+    then
         player:tradeComplete()
         player:startEvent(223)
     end
@@ -22,10 +24,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 223 then
         player:setPos(-235, -4, 220, 0, 72)
     end

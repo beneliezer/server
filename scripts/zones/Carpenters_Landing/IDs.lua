@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Carpenters_Landing
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.CARPENTERS_LANDING] =
@@ -62,13 +59,8 @@ zones[xi.zone.CARPENTERS_LANDING] =
             16785734,
             16785735,
         },
-        LOGGING =
-        {
-            16785773,
-            16785774,
-            16785775,
-            16785776,
-        },
+
+        LOGGING = GetTableOfIDs('Logging_Point'),
     },
 }
 

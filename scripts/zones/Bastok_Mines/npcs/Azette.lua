@@ -4,8 +4,6 @@
 -- Type: Chocobo Renter
 -- !pos 43.882 0.750 -108.629 234
 -----------------------------------
-require("scripts/globals/chocobo")
------------------------------------
 local entity = {}
 
 local eventSucceed = 61
@@ -18,10 +16,10 @@ entity.onTrigger = function(player, npc)
     xi.chocobo.renterOnTrigger(player, eventSucceed, eventFail)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.chocobo.renterOnEventFinish(player, csid, option, eventSucceed)
 end
 

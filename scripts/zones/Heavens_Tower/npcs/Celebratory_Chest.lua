@@ -4,8 +4,7 @@
 -- Type: Merchant NPC
 -- !pos -7.600 0.249 25.239 242
 -----------------------------------
-local ID = require("scripts/zones/Heavens_Tower/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.HEAVENS_TOWER]
 -----------------------------------
 local entity = {}
 
@@ -17,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.CELEBRATORY_GOODS)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

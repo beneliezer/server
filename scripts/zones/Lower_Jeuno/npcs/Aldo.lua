@@ -4,8 +4,6 @@
 -- Involved in Mission: Magicite, Return to Delkfutt's Tower (Zilart)
 -- !pos 20 3 -58 245
 -----------------------------------
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -23,12 +21,12 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10057 then
-        player:setCharVar("ApocalypseNigh", 6)
+        player:setCharVar('ApocalypseNigh', 6)
     end
 end
 

@@ -2,9 +2,7 @@
 -- Area: Full Moon Fountain
 -- Name: The Moonlit Path
 -----------------------------------
-local ID = require("scripts/zones/Full_Moon_Fountain/IDs")
-require("scripts/globals/battlefield")
-require("scripts/globals/quests")
+local ID = zones[xi.zone.FULL_MOON_FOUNTAIN]
 -----------------------------------
 local battlefieldObject = {}
 
@@ -22,16 +20,16 @@ battlefieldObject.onBattlefieldLeave = function(player, battlefield, leavecode)
     if leavecode == xi.battlefield.leaveCode.WON then
         local _, clearTime, partySize = battlefield:getRecord()
         local arg8 = (player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.THE_MOONLIT_PATH) == QUEST_COMPLETED) and 1 or 0
-        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 1, battlefield:getLocalVar("[cs]bit"), arg8)
+        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 1, battlefield:getLocalVar('[cs]bit'), arg8)
     elseif leavecode == xi.battlefield.leaveCode.LOST then
         player:startEvent(32002)
     end
 end
 
-battlefieldObject.onEventUpdate = function(player, csid, option)
+battlefieldObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-battlefieldObject.onEventFinish = function(player, csid, option)
+battlefieldObject.onEventFinish = function(player, csid, option, npc)
     if csid == 32001 then
         player:delKeyItem(xi.ki.MOON_BAUBLE)
         player:addKeyItem(xi.ki.WHISPER_OF_THE_MOON)

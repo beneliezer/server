@@ -1,18 +1,14 @@
 -----------------------------------
 -- Area: Oldton Movalpolos
 --  NPC: Tarnotik
--- Type: Standard NPC
 -- !pos 160.896 10.999 -55.659 11
------------------------------------
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
         player:getCurrentMission(xi.mission.log_id.COP) >= xi.mission.id.cop.THREE_PATHS and
-        npcUtil.tradeHas(trade, 1725)
+        npcUtil.tradeHas(trade, xi.item.SNOW_LILY)
     then
         player:startEvent(32)
     end
@@ -26,10 +22,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 32 then
         player:confirmTrade()
         player:setPos(-116, -119, -620, 253, 13)

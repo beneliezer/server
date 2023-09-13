@@ -4,8 +4,7 @@
 -- Type: Abyssea Service NPC
 -- !pos 2.3 0 -65 243
 -----------------------------------
-require("scripts/globals/abyssea")
-----------------------------------
+-----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,8 +14,8 @@ entity.onTrigger = function(player, npc)
     xi.abyssea.traverserNPCOnTrigger(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    xi.abyssea.traverserNPCOnUpdate(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.abyssea.traverserNPCOnUpdate(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

@@ -7,17 +7,19 @@
 -- The devs did not intend for this to happen and it was quickly patched.
 -- But for a glorious few days, BRDs could tank surprisingly well.
 -----------------------------------
-require("modules/module_utils")
-require("scripts/globals/spell_data")
+require('modules/module_utils')
 -----------------------------------
-local m = Module:new("mazurka_generates_enmity")
+local m = Module:new('mazurka_generates_enmity')
 
 local chocoboMazurkaPower = 1.0
 local raptorMazurkaPower = 1.1
 
 local mazurkaProvoke = function(caster, target, spell, power)
     -- If not Mazurka, bail out
-    if spell:getID() ~= xi.magic.spell.CHOCOBO_MAZURKA and spell:getID() ~= xi.magic.spell.RAPTOR_MAZURKA then
+    if
+        spell:getID() ~= xi.magic.spell.CHOCOBO_MAZURKA and
+        spell:getID() ~= xi.magic.spell.RAPTOR_MAZURKA
+    then
         return
     end
 
@@ -35,13 +37,13 @@ local mazurkaProvoke = function(caster, target, spell, power)
     battleTarget:addEnmity(caster, 0, enmity)
 end
 
-m:addOverride("xi.globals.spells.songs.chocobo_mazurka.onSpellCast", function(caster, target, spell)
+m:addOverride('xi.actions.spells.songs.chocobo_mazurka.onSpellCast', function(caster, target, spell)
     local songEffect = super(caster, target, spell)
     mazurkaProvoke(caster, target, spell, chocoboMazurkaPower)
     return songEffect
 end)
 
-m:addOverride("xi.globals.spells.songs.raptor_mazurka.onSpellCast", function(caster, target, spell)
+m:addOverride('xi.actions.spells.songs.raptor_mazurka.onSpellCast', function(caster, target, spell)
     local songEffect = super(caster, target, spell)
     mazurkaProvoke(caster, target, spell, raptorMazurkaPower)
     return songEffect

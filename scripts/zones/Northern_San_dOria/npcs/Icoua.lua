@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Northern San d'Oria
 --  NPC: Icoua
--- Type: Standard NPC
 -- !pos 87.719 -1 9.256 231
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(674)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

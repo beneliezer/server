@@ -3,9 +3,7 @@
 --  NPC: Corroded Door
 -- !pos -385.602 21.970 456.359 90
 -----------------------------------
-local ID = require("scripts/zones/Pashhow_Marshlands_[S]/IDs")
-require("scripts/globals/instance")
-require("scripts/globals/zone")
+local ID = zones[xi.zone.PASHHOW_MARSHLANDS_S]
 -----------------------------------
 local entity = {}
 
@@ -18,12 +16,12 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    xi.instance.onEventUpdate(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.instance.onEventUpdate(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.instance.onEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.instance.onEventFinish(player, csid, option, npc)
 end
 
 return entity

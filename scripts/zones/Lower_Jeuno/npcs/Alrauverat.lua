@@ -3,8 +3,6 @@
 --  NPC:Alrauverat
 -- !pos -101 0 -182 245
 -----------------------------------
-require("scripts/globals/conquest")
------------------------------------
 local entity = {}
 
 local guardNation = xi.nation.OTHER
@@ -19,11 +17,11 @@ entity.onTrigger = function(player, npc)
     xi.conq.overseerOnTrigger(player, npc, guardNation, guardType, guardEvent)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.conq.overseerOnEventUpdate(player, csid, option, guardNation)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.conq.overseerOnEventFinish(player, csid, option, guardNation, guardType)
 end
 

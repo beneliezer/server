@@ -1,15 +1,10 @@
 -----------------------------------
 -- Zone: Bastok_Markets (235)
 -----------------------------------
-require('scripts/globals/events/harvest_festivals')
-require('scripts/globals/cutscenes')
-require('scripts/globals/zone')
-local ID = require('scripts/zones/Bastok_Markets/IDs')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
-    applyHalloweenNpcCostumes(zone:getID())
+    xi.events.harvestFestival.applyHalloweenNpcCostumes(zone:getID())
 end
 
 zoneObject.onZoneIn = function(player, prevZone)
@@ -32,17 +27,12 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
 zoneObject.onGameDay = function()
-    -- Removes daily the bit mask that tracks the treats traded for Harvest Festival.
-    if isHalloweenEnabled() ~= 0 then
-        clearVarFromAll("harvestFestTreats")
-        clearVarFromAll("harvestFestTreats2")
-    end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

@@ -2,8 +2,7 @@
 -- Area: Inner Horutoto Ruins
 --   NM: Slendlix Spindlethumb
 -----------------------------------
-require("scripts/globals/hunts")
-mixins = { require("scripts/mixins/job_special") }
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
 local entity = {}
 

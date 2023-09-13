@@ -2,9 +2,6 @@
 -- Area: RaKaznar Turris
 --  NPC: Seismic Tower
 -----------------------------------
-require("scripts/globals/zone")
-require("scripts/globals/status")
-
 local entity = {}
 
 entity.onTrigger = function(player, npc)

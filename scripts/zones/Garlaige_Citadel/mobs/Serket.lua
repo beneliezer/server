@@ -2,12 +2,7 @@
 -- Area: Garlaige Citadel (200)
 --   NM: Serket
 -----------------------------------
-mixins = 
-{
-    require("scripts/mixins/rage"),
-    require("scripts/mixins/claim_shield")
-}
-require("scripts/globals/titles")
+mixins = { require('scripts/mixins/rage') }
 -----------------------------------
 local entity = {}
 
@@ -16,7 +11,7 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
+    mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
 end
 
 entity.onMobDeath = function(mob, player, optParams)

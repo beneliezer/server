@@ -4,10 +4,7 @@
 -- Starts and Finishes Quest: Trial by Water
 -- !pos -13 1 -20 252
 -----------------------------------
-require("scripts/globals/titles")
-require("scripts/globals/shop")
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Norg/IDs")
+local ID = zones[xi.zone.NORG]
 -----------------------------------
 local entity = {}
 
@@ -20,9 +17,9 @@ entity.onTrigger = function(player, npc)
 
     if
         (trialByWater == QUEST_AVAILABLE and player:getFameLevel(xi.quest.fame_area.NORG) >= 4) or
-        (trialByWater == QUEST_COMPLETED and os.time() > player:getCharVar("TrialByWater_date"))
+        (trialByWater == QUEST_COMPLETED and os.time() > player:getCharVar('TrialByWater_date'))
     then
-        player:startEvent(109, 0, xi.ki.TUNING_FORK_OF_WATER) -- Start and restart quest "Trial by Water"
+        player:startEvent(109, 0, xi.ki.TUNING_FORK_OF_WATER) -- Start and restart quest 'Trial by Water'
     elseif
         trialByWater == QUEST_ACCEPTED and
         not player:hasKeyItem(xi.ki.TUNING_FORK_OF_WATER) and
@@ -34,23 +31,23 @@ entity.onTrigger = function(player, npc)
     elseif trialByWater == QUEST_ACCEPTED and hasWhisperOfTides then
         local numitem = 0
 
-        if player:hasItem(17439) then
+        if player:hasItem(xi.item.LEVIATHANS_ROD) then
             numitem = numitem + 1
-        end  -- Leviathan's Rod
+        end
 
-        if player:hasItem(13246) then
+        if player:hasItem(xi.item.WATER_BELT) then
             numitem = numitem + 2
-        end  -- Water Belt
+        end
 
-        if player:hasItem(13565) then
+        if player:hasItem(xi.item.WATER_RING) then
             numitem = numitem + 4
-        end  -- Water Ring
+        end
 
-        if player:hasItem(1204) then
+        if player:hasItem(xi.item.EYE_OF_NEPT) then
             numitem = numitem + 8
-        end   -- Eye of Nept
+        end
 
-        if player:hasSpell(300) then
+        if player:hasSpell(xi.magic.spell.LEVIATHAN) then
             numitem = numitem + 32
         end  -- Ability to summon Leviathan
 
@@ -60,17 +57,17 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 109 and option == 1 then
         if player:getQuestStatus(xi.quest.log_id.OUTLANDS, xi.quest.id.outlands.TRIAL_BY_WATER) == QUEST_COMPLETED then
             player:delQuest(xi.quest.log_id.OUTLANDS, xi.quest.id.outlands.TRIAL_BY_WATER)
         end
 
         player:addQuest(xi.quest.log_id.OUTLANDS, xi.quest.id.outlands.TRIAL_BY_WATER)
-        player:setCharVar("TrialByWater_date", 0)
+        player:setCharVar('TrialByWater_date', 0)
         player:addKeyItem(xi.ki.TUNING_FORK_OF_WATER)
         player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.TUNING_FORK_OF_WATER)
     elseif csid == 190 then
@@ -79,13 +76,13 @@ entity.onEventFinish = function(player, csid, option)
     elseif csid == 112 then
         local item = 0
         if option == 1 then
-            item = 17439         -- Leviathan's Rod
+            item = xi.item.LEVIATHANS_ROD
         elseif option == 2 then
-            item = 13246  -- Water Belt
+            item = xi.item.WATER_BELT
         elseif option == 3 then
-            item = 13565  -- Water Ring
+            item = xi.item.WATER_RING
         elseif option == 4 then
-            item = 1204     -- Eye of Nept
+            item = xi.item.EYE_OF_NEPT
         end
 
         if player:getFreeSlotsCount() == 0 and (option ~= 5 or option ~= 6) then
@@ -94,7 +91,7 @@ entity.onEventFinish = function(player, csid, option)
             if option == 5 then
                 npcUtil.giveCurrency(player, 'gil', 10000)
             elseif option == 6 then
-                player:addSpell(300) -- Avatar
+                player:addSpell(xi.magic.spell.LEVIATHAN) -- Avatar
                 player:messageSpecial(ID.text.AVATAR_UNLOCKED, 0, 0, 2)
             else
                 player:addItem(item)
@@ -103,7 +100,7 @@ entity.onEventFinish = function(player, csid, option)
 
             player:addTitle(xi.title.HEIR_OF_THE_GREAT_WATER)
             player:delKeyItem(xi.ki.WHISPER_OF_TIDES) --Whisper of Tides, as a trade for the above rewards
-            player:setCharVar("TrialByWater_date", getMidnight())
+            player:setCharVar('TrialByWater_date', getMidnight())
             player:addFame(xi.quest.fame_area.NORG, 30)
             player:completeQuest(xi.quest.log_id.OUTLANDS, xi.quest.id.outlands.TRIAL_BY_WATER)
         end

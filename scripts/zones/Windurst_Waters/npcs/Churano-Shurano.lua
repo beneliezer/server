@@ -3,9 +3,6 @@
 --  NPC: Churano-Shurano
 -- !pos -60.8 -11.2 98.9 238
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Waters/IDs")
-require("scripts/globals/npc_util")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -14,7 +11,7 @@ end
 entity.onTrigger = function(player, npc)
     if not player:hasKeyItem(xi.ki.MAGICKED_ASTROLABE) then
         local cost = 10000
-        if player:getLocalVar("Astrolabe") == 0 then
+        if player:getLocalVar('Astrolabe') == 0 then
             player:startEvent(1080, cost)
         else
             player:startEvent(1081, cost)
@@ -24,7 +21,7 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     if csid == 1080 or csid == 1081 then
         if option == 1 and player:getGil() >= 10000 then
             player:updateEvent(xi.ki.MAGICKED_ASTROLABE)
@@ -34,9 +31,9 @@ entity.onEventUpdate = function(player, csid, option)
     end
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 1080 and option ~= xi.ki.MAGICKED_ASTROLABE then
-        player:setLocalVar("Astrolabe", 1)
+        player:setLocalVar('Astrolabe', 1)
     elseif
         (csid == 1080 or csid == 1081) and
         option == xi.ki.MAGICKED_ASTROLABE and

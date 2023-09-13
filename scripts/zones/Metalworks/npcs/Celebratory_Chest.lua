@@ -4,8 +4,7 @@
 -- Type: Merchant NPC
 -- !pos 88.029 -20.170 -11.086 237
 -----------------------------------
-local ID = require("scripts/zones/Metalworks/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.METALWORKS]
 -----------------------------------
 local entity = {}
 
@@ -17,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.CELEBRATORY_GOODS)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -10,8 +10,6 @@
 -- 140 = Camera test.
 -- 141 = "Press confirm button to proceed" nonworking test.
 -----------------------------------
-local ID = require('scripts/zones/GM_Home/IDs')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -23,10 +21,10 @@ zoneObject.onZoneIn = function(player, prevZone)
     return cs
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

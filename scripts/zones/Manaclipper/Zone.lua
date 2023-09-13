@@ -1,10 +1,7 @@
 -----------------------------------
 -- Zone: Manaclipper
 -----------------------------------
-local ID = require('scripts/zones/Manaclipper/IDs')
-require('scripts/globals/manaclipper')
-require('scripts/globals/conquest')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.MANACLIPPER]
 -----------------------------------
 local zoneObject = {}
 
@@ -24,8 +21,8 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:setPos(0, -3, -8, 60)
     end
 
-    local zoreRespawn = GetMobByID(ID.mob.ZOREDONITE):getLocalVar("respawn")
-    local zoneWindow = GetMobByID(ID.mob.ZOREDONITE):getLocalVar("zoneWindow")
+    local zoreRespawn = GetMobByID(ID.mob.ZOREDONITE):getLocalVar('respawn')
+    local zoneWindow = GetMobByID(ID.mob.ZOREDONITE):getLocalVar('zoneWindow')
 
     -- If Zoredonite respawn is up, 30% chance to spawn
     if
@@ -38,7 +35,7 @@ zoneObject.onZoneIn = function(player, prevZone)
 
     if os.time() > zoneWindow then
         -- Block multiple spawn chance rolls per boat ride
-        GetMobByID(ID.mob.ZOREDONITE):setLocalVar("zoneWindow", os.time() + 20)
+        GetMobByID(ID.mob.ZOREDONITE):setLocalVar('zoneWindow', os.time() + 20)
     end
 
     return cs
@@ -52,10 +49,10 @@ zoneObject.onConquestUpdate = function(zone, updatetype, influence, owner, ranki
     xi.conq.onConquestUpdate(zone, updatetype, influence, owner, ranking, isConquestAlliance)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 100 then
         player:setPos(0, 0, 0, 0, xi.zone.BIBIKI_BAY)
     end

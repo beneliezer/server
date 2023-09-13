@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos 61.074 -14.655 -7.1 248
 -----------------------------------
-local ID = require("scripts/zones/Selbina/IDs")
+local ID = zones[xi.zone.SELBINA]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -1,4 +1,4 @@
-local ID = require('scripts/zones/Port_Bastok/IDs')
+local ID = zones[xi.zone.PORT_BASTOK]
 
 return {
     ['Agapito']      = { event = 17 },
@@ -10,6 +10,7 @@ return {
     ['Ehrhard']      = { event = 47 },
     ['Ensetsu']      = { event = 27 },
     ['Evi']          = { event = 21 },
+    ['Ferrol']       = { event = 254 },
     ['Gudav']        = { event = 31 },
     ['Hilda']        = { event = 48 },
     ['Juroro']       = { event = 253 },

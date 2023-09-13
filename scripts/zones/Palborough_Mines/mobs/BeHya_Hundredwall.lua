@@ -2,8 +2,7 @@
 -- Area: Palborough Mines
 --   NM: Be'Hya Hundredwall
 -----------------------------------
-mixins = { require("scripts/mixins/job_special") }
-require("scripts/globals/hunts")
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
 local entity = {}
 

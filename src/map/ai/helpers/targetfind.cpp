@@ -34,26 +34,24 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "status_effect_container.h"
 #include "utils/zoneutils.h"
 
-#include "../../treasure_pool.h"
 #include <cmath>
 
 CTargetFind::CTargetFind(CBattleEntity* PBattleEntity)
+: isPlayer(false)
+, m_radius(0.0f)
+, m_PRadiusAround(nullptr)
+, m_PBattleEntity(PBattleEntity)
+, m_PMasterTarget(nullptr)
+, m_PTarget(nullptr)
+, m_zone(0)
+, m_findType{}
+, m_findFlags(0)
+, m_conal(false)
+, m_scalar(0.0f)
+, m_APoint(nullptr)
+, m_BPoint{}
+, m_CPoint{}
 {
-    isPlayer          = false;
-    m_scalar          = 0.f;
-    m_BPoint.x        = 0.f;
-    m_BPoint.y        = 0.f;
-    m_BPoint.z        = 0.f;
-    m_BPoint.moving   = 0;
-    m_BPoint.rotation = 0;
-    m_CPoint.x        = 0.f;
-    m_CPoint.y        = 0.f;
-    m_CPoint.z        = 0.f;
-    m_CPoint.moving   = 0;
-    m_CPoint.rotation = 0;
-
-    m_PBattleEntity = PBattleEntity;
-
     reset();
 }
 
@@ -339,7 +337,7 @@ void CTargetFind::addAllInRange(CBattleEntity* PTarget, float radius, ALLEGIANCE
                     if (PBattleEntity && isWithinArea(&(PBattleEntity->loc.p)) && !PBattleEntity->isDead() &&
                         PBattleEntity->allegiance == ALLEGIANCE_TYPE::PLAYER)
                     {
-                        m_targets.push_back(PBattleEntity);
+                        m_targets.emplace_back(PBattleEntity);
                     }
                 }
             }
@@ -351,7 +349,7 @@ void CTargetFind::addAllInRange(CBattleEntity* PTarget, float radius, ALLEGIANCE
             {
                 if (PChar && isWithinArea(&(PChar->loc.p)) && !PChar->isDead())
                 {
-                    m_targets.push_back(PChar);
+                    m_targets.emplace_back(PChar);
                 }
             });
             // clang-format on
@@ -363,13 +361,13 @@ void CTargetFind::addEntity(CBattleEntity* PTarget, bool withPet)
 {
     if (validEntity(PTarget))
     {
-        m_targets.push_back(PTarget);
+        m_targets.emplace_back(PTarget);
     }
 
     // add my pet too, if its allowed
     if (withPet && PTarget->PPet != nullptr && validEntity(PTarget->PPet))
     {
-        m_targets.push_back(PTarget->PPet);
+        m_targets.emplace_back(PTarget->PPet);
     }
 }
 
@@ -393,15 +391,6 @@ bool CTargetFind::isMobOwner(CBattleEntity* PTarget)
     if (PTarget->m_OwnerID.id == 0 || PTarget->m_OwnerID.id == m_PBattleEntity->id)
     {
         return true;
-    }
-
-    if (m_PBattleEntity->objtype == TYPE_PC)
-    {
-        CCharEntity* PChar = static_cast<CCharEntity*>(m_PBattleEntity);
-        if (PChar->PTreasurePool != nullptr && PChar->PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
-        {
-            return true;
-        }
     }
 
     bool found = false;

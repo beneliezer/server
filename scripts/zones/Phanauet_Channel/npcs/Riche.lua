@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Phanauet Channel
 --  NPC: Riche
--- Type: Standard NPC
 -- !pos 5.945 -3.75 13.612 1
 -----------------------------------
 local entity = {}
@@ -12,10 +11,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

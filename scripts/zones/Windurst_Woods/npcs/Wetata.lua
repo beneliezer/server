@@ -4,10 +4,7 @@
 -- Trust NPC
 -- !pos -23.825 2.533 -44.567 241
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Woods/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/trust")
+local ID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
 local entity = {}
 
@@ -39,16 +36,16 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if (csid == 863 or csid == 867) and option == 2 then
         player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.TRUST_WINDURST)
         npcUtil.giveKeyItem(player, xi.ki.GREEN_INSTITUTE_CARD)
     elseif csid == 862 or csid == 902 then
-        local spellID = player:getLocalVar("TradingTrustCipher")
-        player:setLocalVar("TradingTrustCipher", 0)
+        local spellID = player:getLocalVar('TradingTrustCipher')
+        player:setLocalVar('TradingTrustCipher', 0)
         player:addSpell(spellID, true, true)
         player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, spellID)
         player:tradeComplete()

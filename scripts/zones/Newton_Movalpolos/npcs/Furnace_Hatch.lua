@@ -2,13 +2,12 @@
 -- Area: Newton Movalpolos
 --  NPC: Furnace_Hatch
 -----------------------------------
-local ID = require("scripts/zones/Newton_Movalpolos/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.NEWTON_MOVALPOLOS]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 947) then
+    if npcUtil.tradeHas(trade, xi.item.JAR_OF_FIRESAND) then
         local offset = npc:getID() - ID.npc.FURNACE_HATCH_OFFSET
         player:confirmTrade()
         player:startEvent(21 + offset) -- THUD!
@@ -28,10 +27,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(20) -- no firesand message
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -5,7 +5,7 @@
 -- Involved in Quest: Lost Chick
 -- !pos 0.335 1.199 -28.404 230
 -----------------------------------
-local ID = require("scripts/zones/Southern_San_dOria/IDs")
+local ID = zones[xi.zone.SOUTHERN_SAN_DORIA]
 -----------------------------------
 local entity = {}
 
@@ -17,10 +17,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

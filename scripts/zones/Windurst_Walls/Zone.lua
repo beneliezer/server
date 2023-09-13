@@ -1,11 +1,6 @@
 -----------------------------------
 -- Zone: Windurst_Walls (239)
 -----------------------------------
-local ID = require('scripts/zones/Windurst_Walls/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/quests')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -44,10 +39,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 86 then
         player:setPos(0, 0, -22.40, 192, 242)
     end

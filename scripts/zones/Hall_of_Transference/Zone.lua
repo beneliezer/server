@@ -1,11 +1,6 @@
 -----------------------------------
 -- Zone: Hall_of_Transference
 -----------------------------------
-local ID = require('scripts/zones/Hall_of_Transference/IDs')
-require('scripts/globals/teleports')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -37,30 +32,30 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
     switch (triggerArea:GetTriggerAreaID()): caseof
     {
         [1] = function() -- Holla
-            player:setCharVar("option", 1)
+            player:setCharVar('option', 1)
             player:startEvent(103)
         end,
 
         [2] = function() -- Mea
-            player:setCharVar("option", 1)
+            player:setCharVar('option', 1)
             player:startEvent(104)
         end,
 
         [3] = function() -- Dem
-            player:setCharVar("option", 1)
+            player:setCharVar('option', 1)
             player:startEvent(105)
         end,
 
         [4] = function()
-            player:setCharVar("option", 2)
+            player:setCharVar('option', 2)
             player:startEvent(103)
         end,
 
         [5] = function()
-            if player:getCharVar("MeaChipRegistration") == 1 then
+            if player:getCharVar('MeaChipRegistration') == 1 then
                 if
                     math.random(1, 100) <= 95 or
-                    player:getCharVar("LastSkyWarpMea") < os.time()
+                    player:getCharVar('LastSkyWarpMea') < os.time()
                 then
                     -- 5% Chance chip breaks
                     player:startEvent(161) -- To Sky
@@ -73,10 +68,10 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
         end,
 
         [6] = function()
-            if player:getCharVar("HollaChipRegistration") == 1 then
+            if player:getCharVar('HollaChipRegistration') == 1 then
                 if
                     math.random(1, 100) <= 95 or
-                    player:getCharVar("LastSkyWarpHolla") < os.time()
+                    player:getCharVar('LastSkyWarpHolla') < os.time()
                 then
                     -- 5% Chance chip breaks
                     player:startEvent(161) -- To Sky
@@ -89,10 +84,10 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
         end,
 
         [7] = function()
-            if player:getCharVar("DemChipRegistration") == 1 then
+            if player:getCharVar('DemChipRegistration') == 1 then
                 if
                     math.random(1, 100) <= 95 or
-                    player:getCharVar("LastSkyWarpDem") < os.time()
+                    player:getCharVar('LastSkyWarpDem') < os.time()
                 then
                     -- 5% Chance chip breaks
                     player:startEvent(161) -- To Sky
@@ -109,10 +104,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 103 and option == 1 then
         player:setPos(340.082, 19.103, -59.979, 127, 102)     -- To La Theine Plateau (R)
     elseif csid == 104 and option == 1 then
@@ -123,22 +118,22 @@ zoneObject.onEventFinish = function(player, csid, option)
         local prevZone = player:getPreviousZone()
 
         if prevZone == xi.zone.LA_THEINE_PLATEAU then
-            player:setCharVar("LastSkyWarpHolla", getMidnight())
+            player:setCharVar('LastSkyWarpHolla', getMidnight())
         elseif prevZone == xi.zone.KONSCHTAT_HIGHLANDS then
-            player:setCharVar("LastSkyWarpDem", getMidnight())
+            player:setCharVar('LastSkyWarpDem', getMidnight())
         elseif prevZone == xi.zone.TAHRONGI_CANYON then
-            player:setCharVar("LastSkyWarpMea", getMidnight())
+            player:setCharVar('LastSkyWarpMea', getMidnight())
         end
 
         xi.teleport.to(player, xi.teleport.id.SKY)
     elseif csid == 169 and option == 1 then
-        player:setCharVar("MeaChipRegistration", 0)
+        player:setCharVar('MeaChipRegistration', 0)
         xi.teleport.to(player, xi.teleport.id.SKY)
     elseif csid == 170 and option == 1 then
-        player:setCharVar("HollaChipRegistration", 0)
+        player:setCharVar('HollaChipRegistration', 0)
         xi.teleport.to(player, xi.teleport.id.SKY)
     elseif csid == 171 and option == 1 then
-        player:setCharVar("DemChipRegistration", 0)
+        player:setCharVar('DemChipRegistration', 0)
         xi.teleport.to(player, xi.teleport.id.SKY)
     end
 end

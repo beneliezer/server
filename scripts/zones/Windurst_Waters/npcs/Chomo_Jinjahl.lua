@@ -4,8 +4,7 @@
 -- Guild Merchant NPC: Cooking Guild
 -- !pos -105.094 -2.222 73.791 238
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Waters/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.WINDURST_WATERS]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.CHOMOJINJAHL_SHOP_DIALOG)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

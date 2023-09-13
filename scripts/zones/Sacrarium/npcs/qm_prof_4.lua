@@ -4,7 +4,7 @@
 -- Notes: Used to spawn Old Prof. Mariselle
 -- !pos 62.668 -3.111 -127.310 28
 -----------------------------------
-local ID = require('scripts/zones/Sacrarium/IDs')
+local ID = zones[xi.zone.SACRARIUM]
 -----------------------------------
 local entity = {}
 
@@ -22,10 +22,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

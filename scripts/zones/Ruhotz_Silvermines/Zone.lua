@@ -1,8 +1,6 @@
 -----------------------------------
 -- Zone: Ruhotz_Silvermines
 -----------------------------------
-local ID = require('scripts/zones/Ruhotz_Silvermines/IDs')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -28,10 +26,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 10000 then
         player:setPos(-385.602, 21.970, 456.359, 0, 90)
     end

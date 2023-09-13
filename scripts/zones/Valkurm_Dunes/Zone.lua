@@ -1,12 +1,8 @@
 -----------------------------------
 -- Zone: Valkurm_Dunes (103)
 -----------------------------------
-local ID = require('scripts/zones/Valkurm_Dunes/IDs')
+local ID = zones[xi.zone.VALKURM_DUNES]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/conquest')
-require('scripts/globals/missions')
-require('scripts/globals/mog_tablets')
 require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
@@ -19,7 +15,7 @@ zoneObject.onInitialize = function(zone)
     xi.conq.setRegionalConquestOverseers(zone:getRegionID())
     xi.mogTablet.onZoneInitialize(zone)
 
-    local results = zone:queryEntitiesByName("qm2")
+    local results = zone:queryEntitiesByName('qm2')
     if results ~= nil and results[1] ~= nil then
         local qm2 = results[1]
 
@@ -65,17 +61,17 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 3 then
         quests.rainbow.onEventUpdate(player)
     end
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onGameHour = function(zone)
-    local results = zone:queryEntitiesByName("qm2")
+    local results = zone:queryEntitiesByName('qm2')
     if results ~= nil and results[1] ~= nil then
         local qm2 = results[1]
         if VanadielHour() == 5 then

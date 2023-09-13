@@ -2,42 +2,23 @@
 -- Area: Uleguerand Range
 --  Mob: Jormungand
 -----------------------------------
-mixins = 
-{
-    require("scripts/mixins/rage"),
-    require("scripts/mixins/claim_shield")
-}
-require("scripts/globals/titles")
------------------------------------
 local entity = {}
 
 local function setupFlightMode(mob, battleTime)
     mob:setAnimationSub(1)
     mob:addStatusEffectEx(xi.effect.ALL_MISS, 0, 1, 0, 0)
     mob:setMobSkillAttack(732)
-    mob:setLocalVar("changeTime", battleTime)
+    mob:setLocalVar('changeTime', battleTime)
 end
 
 entity.onMobInitialize = function(mob)
     mob:setCarefulPathing(true)
 end
 
-entity.onMobInitialize = function(mob)
-    -- prevent cheesiness
-    mob:setMod(xi.mod.SILENCERES, 50)
-    mob:setMod(xi.mod.STUNRES, 50)
-    mob:setMod(xi.mod.BINDRES, 50)
-    mob:setMod(xi.mod.GRAVITYRES, 50)
-    mob:setMod(xi.mod.SLEEPRES, 10000)
-    mob:setMod(xi.mod.POISONRES, 100)
-    mob:setMod(xi.mod.PARALYZERES, 100)
-    mob:setMod(xi.mod.LULLABYRES, 10000)
-end
 entity.onMobSpawn = function(mob)
     -- Reset animation so it starts grounded.
     mob:setMobSkillAttack(0)
     mob:setAnimationSub(0)
-	mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
 end
 
 entity.onMobFight = function(mob, target)
@@ -46,14 +27,14 @@ entity.onMobFight = function(mob, target)
         not mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) and
         mob:actionQueueEmpty()
     then
-        local changeTime  = mob:getLocalVar("changeTime")
-        local twohourTime = mob:getLocalVar("twohourTime")
+        local changeTime  = mob:getLocalVar('changeTime')
+        local twohourTime = mob:getLocalVar('twohourTime')
         local battleTime  = mob:getBattleTime()
         local animation   = mob:getAnimationSub()
 
         if twohourTime == 0 then
             twohourTime = math.random(8, 14)
-            mob:setLocalVar("twohourTime", twohourTime)
+            mob:setLocalVar('twohourTime', twohourTime)
         end
 
         -- Initial grounded mode.
@@ -74,13 +55,13 @@ entity.onMobFight = function(mob, target)
         then
             mob:useMobAbility(1292) -- This ability also handles animation change to 2.
 
-            mob:setLocalVar("changeTime", battleTime)
+            mob:setLocalVar('changeTime', battleTime)
 
         -- Subsequent grounded mode.
         elseif animation == 2 then
             if battleTime / 15 > twohourTime then -- 2-Hour logic.
                 mob:useMobAbility(695)
-                mob:setLocalVar("twohourTime", battleTime / 15 + 20)
+                mob:setLocalVar('twohourTime', battleTime / 15 + 20)
 
             elseif battleTime - changeTime > 60 then -- Change mode.
                 setupFlightMode(mob, battleTime)
@@ -91,13 +72,13 @@ end
 
 entity.onMobWeaponSkill = function(target, mob, skill)
     if skill:getID() == 1296 and mob:getHPP() <= 30 then
-        local roarCounter = mob:getLocalVar("roarCounter")
+        local roarCounter = mob:getLocalVar('roarCounter')
 
         roarCounter = roarCounter + 1
-        mob:setLocalVar("roarCounter", roarCounter)
+        mob:setLocalVar('roarCounter', roarCounter)
 
         if roarCounter > 2 then
-            mob:setLocalVar("roarCounter", 0)
+            mob:setLocalVar('roarCounter', 0)
         else
             mob:useMobAbility(1296)
         end

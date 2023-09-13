@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Windurst Waters (S)
 --  NPC: Pahpe Rauulih
--- Type: Standard NPC
 -- !pos -39.740 -4.499 53.223 94
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(427)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Bastok_Markets
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.BASTOK_MARKETS] =
@@ -69,6 +66,7 @@ zones[xi.zone.BASTOK_MARKETS] =
         HERE_TAKE_THIS                = 8301,  -- Here, take this...
         IF_YOU_WEAR_THIS              = 8302,  -- If you put this on and walk around, something...unexpected might happen...
         THANK_YOU                     = 8303,  -- Thank you...
+        EGG_HUNT_OFFSET               = 8310,  -- Egg-cellent! Here's your prize, kupo! Now if only somebody would bring me a super combo... Oh, egg-scuse me! Forget I said that, kupo!
         RETRIEVE_DIALOG_ID            = 12909, -- You retrieve <item> from the porter moogle's care.
         TURNING_IN_SPARKS             = 14234, -- Ohohoho... Turning in sparks, I see.
         DO_NOT_POSSESS_ENOUGH         = 14258, -- You do not possess enough <item> to complete the transaction.
@@ -83,7 +81,7 @@ zones[xi.zone.BASTOK_MARKETS] =
     },
     npc =
     {
-        AQUILLINA = GetFirstID("Aquillina"),
+        AQUILLINA = GetFirstID('Aquillina'),
 
         HALLOWEEN_SKINS =
         {

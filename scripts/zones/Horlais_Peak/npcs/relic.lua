@@ -3,19 +3,17 @@
 --  NPC: <this space intentionally left blank>
 -- !pos 450 -40 -31 139
 -----------------------------------
-local ID = require("scripts/zones/Horlais_Peak/IDs")
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.HORLAIS_PEAK]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
-        player:getCharVar("RELIC_IN_PROGRESS") == xi.items.TOTSUKANOTSURUGI and
-        npcUtil.tradeHas(trade, { xi.items.RANPERRE_GOLDPIECE, xi.items.DIVINE_FRAGMENT, xi.items.SHARD_OF_NECROPSYCHE, xi.items.TOTSUKANOTSURUGI })
+        player:getCharVar('RELIC_IN_PROGRESS') == xi.item.TOTSUKANOTSURUGI and
+        npcUtil.tradeHas(trade, { xi.item.RANPERRE_GOLDPIECE, xi.item.DIVINE_FRAGMENT, xi.item.SHARD_OF_NECROPSYCHE, xi.item.TOTSUKANOTSURUGI })
     then
         -- currency, shard, necropsyche, stage 4
-        player:startEvent(13, xi.items.AMANOMURAKUMO)
+        player:startEvent(13, xi.item.AMANOMURAKUMO)
     end
 end
 
@@ -23,16 +21,16 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if
         csid == 13 and
-        npcUtil.giveItem(player, { xi.items.AMANOMURAKUMO, { xi.items.MONTIONT_SILVERPIECE, 30 } })
+        npcUtil.giveItem(player, { xi.item.AMANOMURAKUMO, { xi.item.MONTIONT_SILVERPIECE, 30 } })
     then
         player:confirmTrade()
-        player:setCharVar("RELIC_IN_PROGRESS", 0)
+        player:setCharVar('RELIC_IN_PROGRESS', 0)
     end
 end
 

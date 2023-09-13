@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Kuftal_Tunnel (174)
 -----------------------------------
-local ID = require('scripts/zones/Kuftal_Tunnel/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
+local ID = zones[xi.zone.KUFTAL_TUNNEL]
 -----------------------------------
 local zoneObject = {}
 
@@ -35,10 +33,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 -- NOTE: Data order in these tables matters to determine the range that is being checked.

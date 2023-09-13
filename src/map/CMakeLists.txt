@@ -45,6 +45,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/char_recast_container.h
     ${CMAKE_CURRENT_SOURCE_DIR}/command_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/command_handler.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/conquest_data.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/conquest_data.h
     ${CMAKE_CURRENT_SOURCE_DIR}/conquest_system.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/conquest_system.h
     ${CMAKE_CURRENT_SOURCE_DIR}/daily_system.cpp
@@ -190,12 +192,15 @@ target_link_libraries(xi_map
 
 target_include_directories(xi_map
     PUBLIC
+        ${CMAKE_SOURCE_DIR}
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${module_include_dirs}
 )
 
-target_precompile_headers(xi_map PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/pch.h)
+if(NOT ${ENABLE_CLANG_TIDY})
+    target_precompile_headers(xi_map PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/pch.h)
+endif()
 
 if (APPLE)
     disable_lto(xi_map)

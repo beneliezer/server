@@ -2,8 +2,7 @@
 -- Area: Giddeus (145)
 --   NM: Vuu Puqu the Beguiler
 -----------------------------------
-require("scripts/globals/hunts")
-mixins = { require("scripts/mixins/job_special") }
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
 local entity = {}
 

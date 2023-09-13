@@ -4,9 +4,6 @@
 -- Type: Mission Giver
 -- !pos 66.200 -14.999 4.426 237
 -----------------------------------
-require("scripts/globals/missions")
-local ID = require("scripts/zones/Metalworks/IDs")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -27,10 +24,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

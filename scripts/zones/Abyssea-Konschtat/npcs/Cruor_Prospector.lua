@@ -4,8 +4,6 @@
 -- Type: Cruor NPC
 -- !pos 132.000 -75.856 -822.000 15
 -----------------------------------
-require("scripts/globals/abyssea")
------------------------------------
 local entity = {}
 
 local itemType = xi.abyssea.itemType
@@ -36,10 +34,10 @@ entity.onTrigger = function(player, npc)
     xi.abyssea.visionsCruorProspectorOnTrigger(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.abyssea.visionsCruorProspectorOnEventFinish(player, csid, option, localProspectorItems)
 end
 

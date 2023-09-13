@@ -346,6 +346,15 @@ enum ZONEID : uint16
     MAX_ZONEID                          = 300,
 };
 
+enum NATION_TYPE : uint8
+{
+    NATION_SANDORIA = 0x00,
+    NATION_BASTOK   = 0x01,
+    NATION_WINDURST = 0x02,
+    NATION_BEASTMEN = 0x03,
+    NATION_NEUTRAL  = 0xFF,
+};
+
 enum class REGION_TYPE : uint8
 {
     RONFAURE         = 0,
@@ -406,15 +415,18 @@ enum class CONTINENT_TYPE : uint8
     OTHER_AREAS            = 4
 };
 
-enum class ZONE_TYPE : uint8
+enum ZONE_TYPE : uint16
 {
-    NONE              = 0,
-    CITY              = 1,
-    OUTDOORS          = 2,
-    DUNGEON           = 3,
-    UNUSED            = 4, // formerly BATTLEFIELD
-    DYNAMIS           = 5,
-    DUNGEON_INSTANCED = 6,
+    UNKNOWN   = 0x0000,
+    CITY      = 0x0001,
+    OUTDOORS  = 0x0002,
+    DUNGEON   = 0x0004,
+    SIGNET    = 0x0008,
+    SANCTION  = 0x0010, // 16
+    SIGIL     = 0x0020, // 32
+    IONIS     = 0x0040, // 64
+    DYNAMIS   = 0x0080, // 128
+    INSTANCED = 0x0100, // 256
 };
 
 enum GLOBAL_MESSAGE_TYPE
@@ -521,7 +533,7 @@ class CZone
 {
 public:
     ZONEID             GetID();
-    ZONE_TYPE          GetType();
+    ZONE_TYPE          GetTypeMask();
     REGION_TYPE        GetRegionID();
     CONTINENT_TYPE     GetContinentID();
     uint8              getLevelRestriction();
@@ -549,7 +561,7 @@ public:
     void   SetLocalVar(const char* var, uint32 val);
     void   ResetLocalVars();
 
-    virtual CCharEntity* GetCharByName(std::string name); // finds the player if exists in zone
+    virtual CCharEntity* GetCharByName(std::string const& name); // finds the player if exists in zone
     virtual CCharEntity* GetCharByID(uint32 id);
 
     // Gets an entity - ignores instances (use CBaseEntity->GetEntity if possible)
@@ -602,13 +614,13 @@ public:
     virtual void ZoneServer(time_point tick);
     void         CheckTriggerAreas();
 
-    virtual void ForEachChar(std::function<void(CCharEntity*)> func);
-    virtual void ForEachCharInstance(CBaseEntity* PEntity, std::function<void(CCharEntity*)> func);
-    virtual void ForEachMob(std::function<void(CMobEntity*)> func);
-    virtual void ForEachMobInstance(CBaseEntity* PEntity, std::function<void(CMobEntity*)> func);
-    virtual void ForEachTrust(std::function<void(CTrustEntity*)> func);
-    virtual void ForEachTrustInstance(CBaseEntity* PEntity, std::function<void(CTrustEntity*)> func);
-    virtual void ForEachNpc(std::function<void(CNpcEntity*)> func);
+    virtual void ForEachChar(std::function<void(CCharEntity*)> const& func);
+    virtual void ForEachCharInstance(CBaseEntity* PEntity, std::function<void(CCharEntity*)> const& func);
+    virtual void ForEachMob(std::function<void(CMobEntity*)> const& func);
+    virtual void ForEachMobInstance(CBaseEntity* PEntity, std::function<void(CMobEntity*)> const& func);
+    virtual void ForEachTrust(std::function<void(CTrustEntity*)> const& func);
+    virtual void ForEachTrustInstance(CBaseEntity* PEntity, std::function<void(CTrustEntity*)> const& func);
+    virtual void ForEachNpc(std::function<void(CNpcEntity*)> const& func);
 
     CZone(ZONEID ZoneID, REGION_TYPE RegionID, CONTINENT_TYPE ContinentID, uint8 levelRestriction);
     virtual ~CZone();
@@ -631,8 +643,8 @@ private:
     CONTINENT_TYPE m_continentID;
     uint8          m_levelRestriction;
     std::string    m_zoneName;
-    uint16         m_zonePort;
-    uint32         m_zoneIP;
+    uint16         m_zonePort{};
+    uint32         m_zoneIP{};
     bool           m_useNavMesh;
 
     WEATHER m_Weather;
@@ -640,10 +652,10 @@ private:
 
     CZoneEntities* m_zoneEntities;
 
-    uint16 m_tax;
-    uint16 m_miscMask;
+    uint16 m_tax{};
+    uint16 m_miscMask{};
 
-    zoneMusic_t m_zoneMusic;
+    zoneMusic_t m_zoneMusic{};
 
     std::unordered_map<std::string, uint32> m_LocalVars;
 

@@ -5,10 +5,6 @@
 -- !addmission 12 27
 -- Chalvava : !pos -318.000 -1.000 -318.000 258
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SOA, xi.mission.id.soa.CALAMITY_IN_THE_KITCHEN)
 

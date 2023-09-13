@@ -1,10 +1,6 @@
 -----------------------------------
 -- Zone: Toraimarai Canal (169)
 -----------------------------------
-local ID = require('scripts/zones/Toraimarai_Canal/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -29,10 +25,10 @@ zoneObject.onConquestUpdate = function(zone, updatetype, influence, owner, ranki
     xi.conq.onConquestUpdate(zone, updatetype, influence, owner, ranking, isConquestAlliance)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

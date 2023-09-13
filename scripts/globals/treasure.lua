@@ -3,12 +3,9 @@
 -- http://ffxiclopedia.wikia.com/wiki/Picking_your_Coffers_and_Chests
 -- http://ffxiclopedia.wikia.com/wiki/Treasure_Chest_and_Coffer_Guide
 -----------------------------------
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/zone")
+require('scripts/globals/npc_util')
+require('scripts/globals/quests')
 -----------------------------------
-
 xi = xi or {}
 xi.treasure = xi.treasure or {}
 
@@ -29,9 +26,9 @@ local keyType =
 local thiefKeyInfo =
 {
 --   Key                       Item ID                       Success Modifier
-    [keyType.THIEF_TOOLS ] = { xi.items.SET_OF_THIEFS_TOOLS, 0.1  },
-    [keyType.SKELETON_KEY] = { xi.items.SKELETON_KEY,        0.2  },
-    [keyType.LIVING_KEY  ] = { xi.items.LIVING_KEY,          0.15 },
+    [keyType.THIEF_TOOLS ] = { xi.item.SET_OF_THIEFS_TOOLS, 0.1  },
+    [keyType.SKELETON_KEY] = { xi.item.SKELETON_KEY,        0.2  },
+    [keyType.LIVING_KEY  ] = { xi.item.LIVING_KEY,          0.15 },
 }
 
 xi.treasure.treasureInfo =
@@ -149,7 +146,8 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return player:getQuestStatus(xi.quest.log_id.BASTOK, xi.quest.id.bastok.FADED_PROMISES) == QUEST_ACCEPTED and
-                                player:getCharVar("FadedPromises") == 2 and not player:hasKeyItem(xi.ki.DIARY_OF_MUKUNDA)
+                                xi.quest.getVar(player, xi.quest.log_id.BASTOK, xi.quest.id.bastok.FADED_PROMISES, 'Prog') == 1 and
+                                not player:hasKeyItem(xi.ki.DIARY_OF_MUKUNDA)
                         end,
 
                         code = function(player)
@@ -257,11 +255,11 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return player:getQuestStatus(xi.quest.log_id.JEUNO, xi.quest.id.jeuno.SCATTERED_INTO_SHADOW) == QUEST_ACCEPTED and
-                                player:getCharVar("scatIntoShadowCS") == 1 and not player:hasItem(13121)
+                                player:getCharVar('scatIntoShadowCS') == 1 and not player:hasItem(xi.item.BEAST_COLLAR)
                         end,
 
                         code = function(player)
-                            npcUtil.giveItem(player, xi.items.BEAST_COLLAR)
+                            npcUtil.giveItem(player, xi.item.BEAST_COLLAR)
                         end,
                     },
                 },
@@ -362,7 +360,6 @@ xi.treasure.treasureInfo =
 
                         code = function(player)
                             npcUtil.giveKeyItem(player, xi.ki.UN_MOMENT)
-                            player:incrementCharVar("ATestOfTrueLoveProgress", 1)
                         end,
                     },
                 },
@@ -403,7 +400,6 @@ xi.treasure.treasureInfo =
 
                         code = function(player)
                             npcUtil.giveKeyItem(player, xi.ki.UN_MOMENT)
-                            player:incrementCharVar("ATestOfTrueLoveProgress", 1)
                         end,
                     },
                 },
@@ -431,7 +427,6 @@ xi.treasure.treasureInfo =
 
                         code = function(player)
                             npcUtil.giveKeyItem(player, xi.ki.LEPHEMERE)
-                            player:incrementCharVar("ATestOfTrueLoveProgress", 1)
                         end,
                     },
                 },
@@ -528,7 +523,7 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.SIGNED_IN_BLOOD) == QUEST_ACCEPTED and
-                                player:getCharVar("Quest[0][108]Prog") == 2 and
+                                player:getCharVar('Quest[0][108]Prog') == 2 and
                                 not player:hasKeyItem(xi.ki.TORN_OUT_PAGES)
                         end,
 
@@ -805,7 +800,6 @@ xi.treasure.treasureInfo =
 
                         code = function(player)
                             npcUtil.giveKeyItem(player, xi.ki.LANCIENNE)
-                            player:incrementCharVar("ATestOfTrueLoveProgress", 1)
                         end,
                     },
                 },
@@ -1077,7 +1071,7 @@ xi.treasure.treasureInfo =
                 {
                     {
                         test = function(player)
-                            return player:getCharVar("UnderOathCS") == 3
+                            return player:getCharVar('UnderOathCS') == 3
                         end,
 
                         code = function(player)
@@ -1113,12 +1107,12 @@ xi.treasure.treasureInfo =
                 {
                     {
                         test = function(player)
-                            return player:getCharVar("WildCard") == 2
+                            return player:getCharVar('WildCard') == 2
                         end,
 
                         code = function(player)
                             npcUtil.giveKeyItem(player, xi.ki.JOKER_CARD)
-                            player:setCharVar("WildCard", 3)
+                            player:setCharVar('WildCard', 3)
                         end,
                     },
                 },
@@ -1158,7 +1152,7 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return player:getQuestStatus(xi.quest.log_id.OUTLANDS, xi.quest.id.outlands.TRUE_WILL) == QUEST_ACCEPTED and
-                                player:getCharVar("trueWillCS") == 2 and
+                                player:getCharVar('trueWillCS') == 2 and
                                 not player:hasKeyItem(xi.ki.LARGE_TRICK_BOX)
                         end,
 
@@ -1170,7 +1164,7 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.KNIGHT_STALKER) == QUEST_ACCEPTED and
-                                player:getCharVar("KnightStalker_Progress") == 1
+                                player:getCharVar('KnightStalker_Progress') == 1
                         end,
 
                         code = function(player)
@@ -1438,7 +1432,7 @@ local function spawnMimic(player, npc)
         npcUtil.popFromQM(player, npc, mimicId, { claim = true, hide = 5 })
         moveChest(npc, zoneId, xi.treasure.type.COFFER, true)
     else
-        printf("treasure.lua MIMIC id missing in zoneId %i", zoneId)
+        printf('treasure.lua MIMIC id missing in zoneId %i', zoneId)
     end
 end
 
@@ -1522,8 +1516,8 @@ xi.treasure.onTrade = function(player, npc, trade, chestType)
     local msgBase = ID.text.CHEST_UNLOCKED
     local info = xi.treasure.treasureInfo[chestType].zone[zoneId]
     local mJob = player:getMainJob()
-    local activeHands = player:getCharVar("BorghertzAlreadyActiveWithJob")
-    local illusionCooldown  = npc:getLocalVar("illusionCooldown")
+    local activeHands = player:getCharVar('BorghertzAlreadyActiveWithJob')
+    local illusionCooldown  = npc:getLocalVar('illusionCooldown')
 
     -- NOTE: The client blocks actions like this while invisible, but it's very easy to inject an action packet to get
     -- around this restriction. Strip invisible to make sure that case is covered.
@@ -1663,9 +1657,9 @@ xi.treasure.onTrade = function(player, npc, trade, chestType)
 
     player:confirmTrade()
     if chestType == xi.treasure.type.CHEST then
-        npc:setLocalVar("illusionCooldown", os.time() + math.random(xi.settings.main.CHEST_MIN_ILLUSION_TIME, xi.settings.main.CHEST_MAX_ILLUSION_TIME))
+        npc:setLocalVar('illusionCooldown', os.time() + math.random(xi.settings.main.CHEST_MIN_ILLUSION_TIME, xi.settings.main.CHEST_MAX_ILLUSION_TIME))
     else
-        npc:setLocalVar("illusionCooldown", os.time() + math.random(xi.settings.main.COFFER_MIN_ILLUSION_TIME, xi.settings.main.COFFER_MAX_ILLUSION_TIME))
+        npc:setLocalVar('illusionCooldown', os.time() + math.random(xi.settings.main.COFFER_MIN_ILLUSION_TIME, xi.settings.main.COFFER_MAX_ILLUSION_TIME))
     end
 
     moveChest(npc, zoneId, chestType)

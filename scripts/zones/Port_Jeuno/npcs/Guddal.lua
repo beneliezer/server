@@ -4,16 +4,16 @@
 -- Starts and Finishes Quest: Kazham Airship Pass (This quest does not appear in your quest log) -- Becouse it isn't.
 -- !pos -14 8 44 246
 -----------------------------------
-local ID = require("scripts/zones/Port_Jeuno/IDs")
+local ID = zones[xi.zone.PORT_JEUNO]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if not player:hasKeyItem(xi.ki.AIRSHIP_PASS_FOR_KAZHAM) then
         if
-            trade:hasItemQty(1024, 1) and
-            trade:hasItemQty(1025, 1) and
-            trade:hasItemQty(1026, 1) and
+            trade:hasItemQty(xi.item.GHELSBA_CHEST_KEY, 1) and
+            trade:hasItemQty(xi.item.PALBOROUGH_CHEST_KEY, 1) and
+            trade:hasItemQty(xi.item.GIDDEUS_CHEST_KEY, 1) and
             trade:getGil() == 0 and
             trade:getItemCount() == 3
         then
@@ -32,7 +32,7 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     if csid == 300 and option == 99 then
         if player:delGil(148000) then
             player:addKeyItem(xi.ki.AIRSHIP_PASS_FOR_KAZHAM)
@@ -41,7 +41,7 @@ entity.onEventUpdate = function(player, csid, option)
     end
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if
         csid == 300 and option == 33 and
         player:hasKeyItem(xi.ki.AIRSHIP_PASS_FOR_KAZHAM)

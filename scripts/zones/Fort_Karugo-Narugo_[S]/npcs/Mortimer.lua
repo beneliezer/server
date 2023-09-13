@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos -24.08 -68.508 93.88 96
 -----------------------------------
-local ID = require("scripts/zones/Fort_Karugo-Narugo_[S]/IDs")
+local ID = zones[xi.zone.FORT_KARUGO_NARUGO_S]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

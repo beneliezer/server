@@ -1,17 +1,10 @@
 -----------------------------------
 -- Zone: Windurst_Woods (241)
 -----------------------------------
-local ID = require('scripts/zones/Windurst_Woods/IDs')
-require('scripts/globals/events/harvest_festivals')
-require('scripts/globals/conquest')
-require('scripts/globals/cutscenes')
-require('scripts/globals/chocobo')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
-    applyHalloweenNpcCostumes(zone:getID())
+    xi.events.harvestFestival.applyHalloweenNpcCostumes(zone:getID())
     xi.chocobo.initZone(zone)
     xi.conquest.toggleRegionalNPCs(zone)
 end
@@ -35,10 +28,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

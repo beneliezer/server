@@ -2,9 +2,6 @@
 -- Area: Qu'Bia Arena
 --  NPC: Armoury Crate
 -----------------------------------
-require("scripts/globals/battlefield")
-require("scripts/globals/bcnm")
------------------------------------
 local entity = {}
 
 local loot =
@@ -511,10 +508,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

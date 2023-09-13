@@ -1,8 +1,7 @@
 -----------------------------------
 -- A collection of frequently needed teleport shortcuts.
 -----------------------------------
-require("scripts/globals/utils")
-require("scripts/globals/zone")
+require('scripts/globals/utils')
 
 xi = xi or {}
 xi.teleport = xi.teleport or {}
@@ -462,7 +461,7 @@ xi.teleport.escape = function(player)
     if utils.hasKey(zone, escapeDestinations) then
         player:setPos(unpack(escapeDestinations[zone]))
     else
-        printf("WARNING: xi.teleport.escape received undefined escapeDestinations zone (%d)", zone)
+        printf('WARNING: xi.teleport.escape received undefined escapeDestinations zone (%d)', zone)
     end
 end
 

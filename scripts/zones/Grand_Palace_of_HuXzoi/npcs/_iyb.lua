@@ -11,7 +11,7 @@ end
 entity.onTrigger = function(player, npc)
     if
         player:getCurrentMission(xi.mission.log_id.COP) == xi.mission.id.cop.A_FATE_DECIDED and
-        player:getCharVar("PromathiaStatus") == 0
+        player:getCharVar('PromathiaStatus') == 0
     then
         player:startEvent(2)
     else
@@ -21,12 +21,12 @@ entity.onTrigger = function(player, npc)
     return 1
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 2 then
-        player:setCharVar("PromathiaStatus", 1)
+        player:setCharVar('PromathiaStatus', 1)
     end
 end
 

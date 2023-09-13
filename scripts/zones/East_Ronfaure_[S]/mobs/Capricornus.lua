@@ -1,11 +1,8 @@
 -----------------------------------
 --  Mob: Capricornus
 -----------------------------------
-require("scripts/globals/voidwalker")
-mixins = { require("scripts/mixins/job_special") }
-require("scripts/globals/hunts")
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
-
 local entity = {}
 
 entity.onMobInitialize = function(mob)

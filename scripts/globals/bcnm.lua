@@ -1,11 +1,9 @@
 -----------------------------------
 -- BCNM Functions
 -----------------------------------
-require("scripts/globals/battlefield")
-require("scripts/globals/missions")
-require("scripts/globals/quests")
-require("scripts/globals/zone")
-require("scripts/globals/msg")
+require('scripts/globals/battlefield')
+require('scripts/globals/missions')
+require('scripts/globals/quests')
 -----------------------------------
 xi = xi or {}
 xi.bcnm = xi.bcnm or {}
@@ -36,7 +34,7 @@ local battlefields =
     --  { 1,  673,    0 },   -- Like the Wind (ENM) -- TODO: mob constantly runs during battle
         { 2,  674,    0 },   -- Sheep in Antlion's Clothing (ENM)
     --  { 3,  675,    0 },   -- Shell We Dance? (ENM) -- TODO: Needs testing, cleanup, and mixin work
-    --  { 4,  676,    0 },   -- Totentanz (ENM)
+        { 4,  676,    0 },   -- Totentanz (ENM)
     --  { 5,  677,    0 },   -- Tango with a Tracker (Quest)
     --  { 6,  678,    0 },   -- Requiem of Sin (Quest)
     --  { 7,  679, 3454 },   -- Antagonistic Ambuscade (HKC30)
@@ -92,20 +90,20 @@ local battlefields =
     [xi.zone.RIVERNE_SITE_B01] =
     {
         { 0,  896,    0 },   -- Storms of Fate (Quest)
-    --  { 1,  897, 2108 },   -- The Wyrmking Descends (BCNM)
+        { 1,  897, 2108 },   -- The Wyrmking Descends (BCNM)
     },
 
     [xi.zone.RIVERNE_SITE_A01] =
     {
-    --  { 0,  928, 1842 },   -- Ouryu Cometh (BCNM)
+        { 0,  928, 1842 },   -- Ouryu Cometh (BCNM)
     },
 
     [xi.zone.MONARCH_LINN] =
     {
         { 0,  960,    0 },   -- Ancient Vows (PM2-5)
         { 1,  961,    0 },   -- The Savage (PM4-2)
-    --  { 2,  962,    0 },   -- Fire in the Sky (ENM)
-    --  { 3,  963,    0 },   -- Bad Seed (ENM)
+        { 2,  962,    0 },   -- Fire in the Sky (ENM)
+        { 3,  963,    0 },   -- Bad Seed (ENM)
     --  { 4,  964,    0 },   -- Bugard in the Clouds (ENM)
     --  { 5,  965,    0 },   -- Beloved of the Atlantes (ENM)
     --  { 6,  966,    0 },   -- Uninvited Guests (Quest)
@@ -554,7 +552,7 @@ local function checkReqs(player, npc, bfid, registrant)
 
     local nationStatus    = player:getMissionStatus(player:getNation())
     local zilartStatus    = player:getMissionStatus(xi.mission.log_id.ZILART)
-    local promathiaStatus = player:getCharVar("PromathiaStatus")
+    local promathiaStatus = player:getCharVar('PromathiaStatus')
     local toauStatus      = player:getMissionStatus(xi.mission.log_id.TOAU)
 
     local function getEntranceOffset(offset)
@@ -620,7 +618,7 @@ local function checkReqs(player, npc, bfid, registrant)
         end,
 
         [68] = function() -- Quest: A Thief in Norg!?
-            return player:getCharVar("Quest[5][142]Prog") == 6
+            return player:getCharVar('Quest[5][142]Prog') == 6
         end,
 
         [70] = function() -- Quest: Shattering Stars (RDM LB5)
@@ -751,7 +749,7 @@ local function checkReqs(player, npc, bfid, registrant)
         end,
 
         [417] = function() -- Quest: Carbuncle Debacle
-            return player:getCharVar("CarbuncleDebacleProgress") == 6
+            return player:getCharVar('CarbuncleDebacleProgress') == 6
         end,
 
         [418] = function() -- Quest: Trial-size Trial by Wind
@@ -768,7 +766,7 @@ local function checkReqs(player, npc, bfid, registrant)
         end,
 
         [449] = function() -- Quest: Carbuncle Debacle
-            return player:getCharVar("CarbuncleDebacleProgress") == 3
+            return player:getCharVar('CarbuncleDebacleProgress') == 3
         end,
 
         [450] = function() -- Quest: Trial-size Trial by Lightning
@@ -785,7 +783,7 @@ local function checkReqs(player, npc, bfid, registrant)
         end,
 
         [481] = function() -- Quest: Class Reunion
-            return player:getCharVar("ClassReunionProgress") == 5
+            return player:getCharVar('ClassReunionProgress') == 5
         end,
 
         [482] = function() -- Quest: Trial-size Trial by Ice
@@ -851,7 +849,7 @@ local function checkReqs(player, npc, bfid, registrant)
         end,
 
         [577] = function() -- Quest: The Puppet Master
-            return player:getCharVar("Quest[2][81]Prog") == 1
+            return player:getCharVar('Quest[2][81]Prog') == 1
         end,
 
         [578] = function() -- Quest: Trial-size Trial by Earth
@@ -1285,7 +1283,7 @@ local function checkSkip(player, bfid)
     local promathiaMission = player:getCurrentMission(xi.mission.log_id.COP)
 
     local nationStatus    = player:getMissionStatus(player:getNation())
-    local promathiaStatus = player:getCharVar("PromathiaStatus")
+    local promathiaStatus = player:getCharVar('PromathiaStatus')
 
     -- Requirements to skip a battlefield
     local skipReqs =
@@ -1513,7 +1511,7 @@ local function checkSkip(player, bfid)
             return stormsOfFateStatus == QUEST_COMPLETED or
                 (
                     stormsOfFateStatus == QUEST_ACCEPTED and
-                    player:getCharVar("StormsOfFate") > 2
+                    player:getCharVar('StormsOfFate') > 2
                 )
         end,
 
@@ -1663,22 +1661,11 @@ xi.bcnm.onTrade = function(player, npc, trade, onUpdate)
         return false
 
     -- Chips for limbus
-    elseif
-        trade:getItemCount() == 3 and
-        trade:hasItemQty(1907, 1) and
-        trade:hasItemQty(1908, 1) and
-        trade:hasItemQty(1986, 1)
-    then
+    elseif npcUtil.tradeHasExactly(trade, { xi.item.SILVER_CHIP, xi.item.CERULEAN_CHIP, xi.item.ORCHID_CHIP }) then
         itemId = -1
 
     -- Chips for limbus
-    elseif
-        trade:getItemCount() == 4 and
-        trade:hasItemQty(1909, 1) and
-        trade:hasItemQty(1910, 1) and
-        trade:hasItemQty(1987, 1) and
-        trade:hasItemQty(1988, 1)
-    then
+    elseif npcUtil.tradeHasExactly(trade, { xi.item.SMALT_CHIP, xi.item.SMOKY_CHIP, xi.item.CHARCOAL_CHIP, xi.item.MAGENTA_CHIP }) then
         itemId = -2
 
     -- Orbs / Testimonies
@@ -1796,7 +1783,7 @@ end
 -- onEventUpdate
 -----------------------------------
 xi.bcnm.onEventUpdate = function(player, csid, option, extras)
-    -- player:PrintToPlayer(string.format("EventUpdateBCNM csid=%i option=%i extras=%i", csid, option, extras))
+    -- player:PrintToPlayer(string.format('EventUpdateBCNM csid=%i option=%i extras=%i', csid, option, extras))
 
     -- Requesting a battlefield
     if csid == 32000 then
@@ -1808,7 +1795,7 @@ xi.bcnm.onEventUpdate = function(player, csid, option, extras)
             return 0
         end
 
-        local area = player:getLocalVar("[battlefield]area")
+        local area = player:getLocalVar('[battlefield]area')
         area       = area + 1
 
         local battlefieldIndex = bit.rshift(option, 4)
@@ -1817,7 +1804,7 @@ xi.bcnm.onEventUpdate = function(player, csid, option, extras)
         local skip             = checkSkip(player, id)
 
         local clearTime = 1
-        local name      = "Meme"
+        local name      = 'Meme'
         local partySize = 1
 
         local result = xi.battlefield.returnCode.REQS_NOT_MET
@@ -1827,7 +1814,7 @@ xi.bcnm.onEventUpdate = function(player, csid, option, extras)
         if result ~= xi.battlefield.returnCode.CUTSCENE then
             if result == xi.battlefield.returnCode.INCREMENT_REQUEST then
                 if area < 3 then
-                    player:setLocalVar("[battlefield]area", area)
+                    player:setLocalVar('[battlefield]area', area)
                 else
                     result = xi.battlefield.returnCode.WAIT
                     player:updateEvent(result)
@@ -1847,11 +1834,11 @@ xi.bcnm.onEventUpdate = function(player, csid, option, extras)
 
             -- Handle record
             local initiatorId   = 0
-            local initiatorName = ""
+            local initiatorName = ''
             local battlefield   = player:getBattlefield()
 
             if battlefield then
-                battlefield:setLocalVar("[cs]bit", battlefieldIndex)
+                battlefield:setLocalVar('[cs]bit', battlefieldIndex)
                 name, clearTime, partySize = battlefield:getRecord()
                 initiatorId, initiatorName = battlefield:getInitiator()
             end
@@ -1909,9 +1896,9 @@ end
 -- onEventFinish Action
 -----------------------------------
 
-xi.bcnm.onEventFinish = function(player, csid, option)
-    -- player:PrintToPlayer(string.format("EventFinishBCNM csid=%i option=%i", csid, option))
-    player:setLocalVar("[battlefield]area", 0)
+xi.bcnm.onEventFinish = function(player, csid, option, npc)
+    -- player:PrintToPlayer(string.format('EventFinishBCNM csid=%i option=%i', csid, option))
+    player:setLocalVar('[battlefield]area', 0)
 
     if player:hasStatusEffect(xi.effect.BATTLEFIELD) then
         if csid == 32003 and option == 4 then

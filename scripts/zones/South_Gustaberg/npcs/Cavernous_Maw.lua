@@ -4,9 +4,7 @@
 -- !pos 340 -0.5 -680
 -- Teleports Players to Abyssea - Altepa
 -----------------------------------
-local ID = require("scripts/zones/South_Gustaberg/IDs")
-require("scripts/globals/abyssea")
-require("scripts/globals/quests")
+local ID = zones[xi.zone.SOUTH_GUSTABERG]
 -----------------------------------
 local entity = {}
 
@@ -29,10 +27,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 0 then
         player:addQuest(xi.quest.log_id.ABYSSEA, xi.quest.id.abyssea.A_BEAKED_BLUSTERER)
     elseif csid == 1 then

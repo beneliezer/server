@@ -2,8 +2,7 @@
 -- TOAU-44: Nashmeira's Plea
 -- !instance 7701
 -----------------------------------
-local ID = require("scripts/zones/Nyzul_Isle/IDs")
-require("scripts/globals/instance")
+local ID = zones[xi.zone.NYZUL_ISLE]
 -----------------------------------
 local instanceObject = {}
 
@@ -87,7 +86,7 @@ instanceObject.onInstanceComplete = function(instance)
     end
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return instanceObject

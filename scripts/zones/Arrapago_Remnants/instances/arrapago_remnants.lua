@@ -1,8 +1,7 @@
 -----------------------------------
 -- Salvage: Arrapago Remnants
 -----------------------------------
-require("scripts/globals/instance")
-local ID = require("scripts/zones/Arrapago_Remnants/IDs")
+local ID = zones[xi.zone.ARRAPAGO_REMNANTS]
 -----------------------------------
 local instanceObject = {}
 
@@ -69,11 +68,11 @@ instanceObject.onInstanceProgressUpdate = function(instance, progress, elapsed)
     elseif instance:getStage() == 3 and progress == 1 then
         SpawnMob(ID.mob[2][0].astrologer, instance)
     elseif instance:getStage() == 6 and progress == 1 then
-        GetNPCByID(ID.npc[6].DOOR, instance):setLocalVar("start", os.time())
+        GetNPCByID(ID.npc[6].DOOR, instance):setLocalVar('start', os.time())
     elseif instance:getStage() == 7 and progress == 0 then
         local door = GetNPCByID(ID.npc[6].DOOR, instance)
-        door:setLocalVar("current", os.time())
-        if door:getLocalVar("current") - door:getLocalVar("start") <= 420 then
+        door:setLocalVar('current', os.time())
+        if door:getLocalVar('current') - door:getLocalVar('start') <= 420 then
             SpawnMob(ID.mob[6].treasure_hunter1, instance)
             SpawnMob(ID.mob[6].treasure_hunter2, instance)
             SpawnMob(ID.mob[6].qiqirn_mine_1, instance)
@@ -82,10 +81,10 @@ instanceObject.onInstanceProgressUpdate = function(instance, progress, elapsed)
     end
 end
 
-instanceObject.onEventUpdate = function(player, csid, option)
+instanceObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
     local instance = player:getInstance()
 
     if csid >= 200 and csid <= 203 and option == 1 then

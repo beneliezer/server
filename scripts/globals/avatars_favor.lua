@@ -1,9 +1,8 @@
 -----------------------------------
 -- Avatars Favor helper
 -----------------------------------
-require("scripts/globals/pets")
+require('scripts/globals/pets')
 -----------------------------------
-
 xi = xi or {}
 xi.avatarsFavor = xi.avatarsFavor or {}
 
@@ -88,12 +87,12 @@ local avatarsFavorEffect =
         effect = xi.effect.SIRENS_FAVOR
     },
 }
--------------------------------------------
+-----------------------------------
 -- Given a :getPetID petID (Not a getMobID)
 -- Returns if Avatars Favor should be applied
 -- This equates to is the pet not nil and should have avatars favor effect
 -- Does not account for Siren
--------------------------------------------
+-----------------------------------
 local shouldAvatarsFavorBeApplied = function(petId)
     local shouldApply = false
 
@@ -133,7 +132,7 @@ xi.avatarsFavor.applyAvatarsFavorAuraToPet = function(target, effect)
             local avatarEffect = avatarsFavorEffect[petId].effect
 
             --Useful debug message
-            --printf("Power %d, Effect %d", effect:getPower(), power)
+            --printf('Power %d, Effect %d', effect:getPower(), power)
 
             pet:addStatusEffectEx(avatarEffect, avatarEffect, 6, 3, 15, avatarEffect, power, xi.auraTarget.ALLIES, bit.bor(xi.effectFlag.NO_LOSS_MESSAGE, xi.effectFlag.AURA))
         end

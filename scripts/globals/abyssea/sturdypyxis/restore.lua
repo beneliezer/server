@@ -1,14 +1,13 @@
 -----------------------------------
 -- Abyssea Sturdy Pyxis - Restore HP/MP/JA
 -----------------------------------
-
 xi = xi or {}
 xi.pyxis = xi.pyxis or {}
 xi.pyxis.restore = {}
 
 xi.pyxis.restore.giveRestore = function(npc, player)
     local alliance = player:getAlliance()
-    local restore = npc:getLocalVar("RESTORE")
+    local restore = npc:getLocalVar('RESTORE')
 
     switch(restore) : caseof
     {

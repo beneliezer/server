@@ -4,8 +4,6 @@
 -- Type: Conquest Overseer
 -- !pos -227.956 -81.475 260.442 111
 -----------------------------------
-require("scripts/globals/conquest")
------------------------------------
 local entity = {}
 
 local guardNation = xi.nation.SANDORIA
@@ -21,11 +19,11 @@ entity.onTrigger = function(player, npc)
     xi.conq.overseerOnTrigger(player, npc, guardNation, guardType, guardEvent, guardRegion)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.conq.overseerOnEventUpdate(player, csid, option, guardNation)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.conq.overseerOnEventFinish(player, csid, option, guardNation, guardType, guardRegion)
 end
 

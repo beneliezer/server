@@ -1,12 +1,8 @@
 -----------------------------------
 -- Zone: Rolanberry_Fields (110)
 -----------------------------------
-local ID = require('scripts/zones/Rolanberry_Fields/IDs')
+local ID = zones[xi.zone.ROLANBERRY_FIELDS]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/conquest')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
 -----------------------------------
 local zoneObject = {}
 
@@ -57,13 +53,13 @@ zoneObject.onGameHour = function(zone)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 2 then
         quests.rainbow.onEventUpdate(player)
     end
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

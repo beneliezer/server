@@ -4,8 +4,6 @@
 -- Type: NPC Voidwalker
 -- !pos -32 0 -76 243
 -----------------------------------
-require("scripts/globals/voidwalker")
-
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,12 +13,12 @@ entity.onTrigger = function(player, npc)
     xi.voidwalker.npcOnTrigger(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    xi.voidwalker.npcOnEventUpdate(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.voidwalker.npcOnEventUpdate(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.voidwalker.npcOnEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.voidwalker.npcOnEventFinish(player, csid, option, npc)
 end
 
 return entity

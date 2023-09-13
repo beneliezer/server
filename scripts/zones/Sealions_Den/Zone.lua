@@ -1,10 +1,6 @@
 -----------------------------------
 -- Zone: Sealions_Den (32)
 -----------------------------------
-local ID = require('scripts/zones/Sealions_Den/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/quests')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -38,10 +34,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 29 then
         player:setCharVar('ApocalypseNigh', 2)
     end

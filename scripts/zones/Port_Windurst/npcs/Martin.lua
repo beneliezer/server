@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Port Windurst
 --  NPC: Martin
--- Type: Standard NPC
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(628, seconds, 0, 0, 0, 0, 0, 0, 0)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

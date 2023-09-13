@@ -2,8 +2,7 @@
 -- Area: Davoi
 --   NM: Hawkeyed Dnatbat
 -----------------------------------
-require("scripts/globals/hunts")
-mixins = { require("scripts/mixins/job_special") }
+mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
 local entity = {}
 

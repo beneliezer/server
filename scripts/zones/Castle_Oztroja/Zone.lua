@@ -2,10 +2,7 @@
 -- Zone: Castle_Oztroja (151)
 -----------------------------------
 local oztrojaGlobal = require('scripts/zones/Castle_Oztroja/globals')
-local ID = require('scripts/zones/Castle_Oztroja/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.CASTLE_OZTROJA]
 -----------------------------------
 local zoneObject = {}
 
@@ -50,10 +47,10 @@ zoneObject.onGameHour = function(zone)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

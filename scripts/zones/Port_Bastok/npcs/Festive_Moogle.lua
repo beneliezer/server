@@ -4,8 +4,6 @@
 -- Type: Event NPC
 --  !pos 46.902 8.499 -242.276 236
 -----------------------------------
-require("scripts/globals/npc_util")
------------------------------------
 local entity = {}
 
 local stock =
@@ -22,14 +20,14 @@ local stock =
 
 local festiveItemVars =
 {
-    [1] = "festiveMoogleNomadCap",
-    [2] = "festiveMoogleMoogleCap",
-    [3] = "festiveMoogleMoogleRod",
-    [4] = "festiveMoogleHarpsichord",
-    [5] = "festiveMooglestuffedChocobo",
-    [6] = "festiveMoogleTidalTalisman",
-    [7] = "festiveMoogleDestrierBeret",
-    [8] = "festiveMoogleChocoboShirt",
+    [1] = 'festiveMoogleNomadCap',
+    [2] = 'festiveMoogleMoogleCap',
+    [3] = 'festiveMoogleMoogleRod',
+    [4] = 'festiveMoogleHarpsichord',
+    [5] = 'festiveMooglestuffedChocobo',
+    [6] = 'festiveMoogleTidalTalisman',
+    [7] = 'festiveMoogleDestrierBeret',
+    [8] = 'festiveMoogleChocoboShirt',
 }
 
 local function getFestiveItems(player)
@@ -57,10 +55,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local festiveItems = getFestiveItems(player)
     if csid == 380 then
         if npcUtil.giveItem(player, festiveItems[option]) then

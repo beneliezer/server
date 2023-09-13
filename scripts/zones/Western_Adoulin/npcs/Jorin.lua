@@ -4,8 +4,7 @@
 -- Starts, Involved with, and Finishes Quest: 'The Old Man and the Harpoon'
 -- !pos 92 32 152 256
 -----------------------------------
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Western_Adoulin/IDs")
+local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
 local entity = {}
 
@@ -29,10 +28,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 2540 then
         -- Starting Quest: 'The Old Man and the Harpoon'
         player:addQuest(xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.THE_OLD_MAN_AND_THE_HARPOON)

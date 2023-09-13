@@ -4,14 +4,16 @@
 -- Type: Bonecraft Normal/Adv. Image Support
 -- !pos -57.056 -7 -88.377 48
 -----------------------------------
-require("scripts/globals/crafting")
-local ID = require("scripts/zones/Al_Zahbi/IDs")
+local ID = zones[xi.zone.AL_ZAHBI]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if xi.crafting.hasJoinedGuild(player, xi.crafting.guild.BONECRAFT) then
-        if trade:hasItemQty(2184, 1) and trade:getItemCount() == 1 then
+        if
+            trade:hasItemQty(xi.item.IMPERIAL_BRONZE_PIECE, 1) and
+            trade:getItemCount() == 1
+        then
             if not player:hasStatusEffect(xi.effect.BONECRAFT_IMAGERY) then
                 player:tradeComplete()
                 player:startEvent(225, 8, 0, 0, 0, 188, 0, 6, 0)
@@ -27,19 +29,19 @@ entity.onTrigger = function(player, npc)
 
     if xi.crafting.hasJoinedGuild(player, xi.crafting.guild.BONECRAFT) then
         if not player:hasStatusEffect(xi.effect.BONECRAFT_IMAGERY) then
-            player:startEvent(224, 8, skillLevel, 0, 511, 188, 0, 6, 2184)
+            player:startEvent(224, 8, skillLevel, 0, 511, 188, 0, 6, xi.item.IMPERIAL_BRONZE_PIECE)
         else
-            player:startEvent(224, 8, skillLevel, 0, 511, 188, 7121, 6, 2184)
+            player:startEvent(224, 8, skillLevel, 0, 511, 188, 7121, 6, xi.item.IMPERIAL_BRONZE_PIECE)
         end
     else
         player:startEvent(224, 0, 0, 0, 0, 0, 0, 6, 0) -- Standard Dialogue
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 224 and option == 1 then
         player:messageSpecial(ID.text.IMAGE_SUPPORT, 0, 6, 1)
         player:addStatusEffect(xi.effect.BONECRAFT_IMAGERY, 1, 0, 120)

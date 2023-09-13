@@ -3,8 +3,6 @@
 --  NPC: Shattered telepoint
 -- !pos 135 19 220 108
 -----------------------------------
-require("scripts/globals/missions")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,10 +14,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 913 and option == 0 then
         player:setPos(-267.194, -40.634, -280.019, 0, 14) -- To Hall of Transference (R)
     end

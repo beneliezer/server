@@ -4,12 +4,6 @@
 -- Log ID: 1, Quest ID: 11
 -- Malene : !pos -173 -5 64 235
 -----------------------------------
-require('scripts/globals/items')
-require('scripts/globals/npc_util')
-require('scripts/globals/quests')
-require('scripts/globals/zone')
-require('scripts/globals/interaction/quest')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.BASTOK, xi.quest.id.bastok.THE_COLD_LIGHT_OF_DAY)
 
@@ -52,7 +46,7 @@ quest.sections =
             ['Malene'] =
             {
                 onTrade = function(player, npc, trade)
-                    if npcUtil.tradeHasExactly(trade, xi.items.STEAM_CLOCK) then
+                    if npcUtil.tradeHasExactly(trade, xi.item.STEAM_CLOCK) then
                         return quest:progressEvent(104)
                     end
                 end,

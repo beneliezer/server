@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Windurst Waters (S)
 --  NPC: Upital-Lupital
--- Type: Standard NPC
 -- !pos -57.809 -13.339 122.753 94
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(439)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

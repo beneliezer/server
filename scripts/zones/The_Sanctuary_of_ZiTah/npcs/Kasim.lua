@@ -4,9 +4,6 @@
 -- Type: Outpost Vendor
 -- !pos -46 0 -148 121
 -----------------------------------
-require("scripts/globals/conquest")
-require("scripts/globals/shop")
------------------------------------
 local entity = {}
 
 local vendorRegion  = xi.region.LITELOR
@@ -19,11 +16,11 @@ entity.onTrigger = function(player, npc)
     xi.conquest.vendorOnTrigger(player, vendorRegion, vendorEvent)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.conquest.vendorOnEventUpdate(player, vendorRegion)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.conquest.vendorOnEventFinish(player, option, vendorRegion)
 end
 

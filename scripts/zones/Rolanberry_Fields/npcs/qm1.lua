@@ -4,7 +4,7 @@
 -- !pos -686.216 -31.556 -369.723 110
 -- Notes: Spawns Chuglix Berrypaws for ACP mission "Gatherer of Light (I)"
 -----------------------------------
-local ID = require("scripts/zones/Rolanberry_Fields/IDs")
+local ID = zones[xi.zone.ROLANBERRY_FIELDS]
 -----------------------------------
 local entity = {}
 
@@ -24,10 +24,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

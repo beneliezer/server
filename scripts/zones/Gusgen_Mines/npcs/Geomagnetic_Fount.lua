@@ -3,9 +3,6 @@
 --  NPC: Geomagnetic Fount
 -- !pos -79.402 -27.000 439.369 196
 -----------------------------------
-local ID = require("scripts/zones/Gusgen_Mines/IDs")
-require("scripts/globals/geomagnetic_fount")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,10 +12,10 @@ entity.onTrigger = function(player, npc)
     xi.geomagneticFount.checkFount(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

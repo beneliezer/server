@@ -1,8 +1,7 @@
 -----------------------------------
 -- Assault: Extermination
 -----------------------------------
-require("scripts/globals/instance")
-local ID = require("scripts/zones/Ilrusi_Atoll/IDs")
+local ID = zones[xi.zone.ILRUSI_ATOLL]
 -----------------------------------
 local instanceObject = {}
 
@@ -63,10 +62,10 @@ instanceObject.onInstanceComplete = function(instance)
     GetNPCByID(ID.npc.ANCIENT_LOCKBOX, instance):setStatus(xi.status.NORMAL)
 end
 
-instanceObject.onEventUpdate = function(player, csid, option)
+instanceObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return instanceObject

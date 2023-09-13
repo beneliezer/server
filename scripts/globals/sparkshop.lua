@@ -3,11 +3,8 @@
 -- TO DO: Add Naakaul Seven Treasures
 -----------------------------------
 require('scripts/globals/npc_util')
-require('scripts/globals/zone')
-require('scripts/globals/items')
 require('scripts/globals/extravaganza')
 -----------------------------------
-
 xi = xi or {}
 xi.sparkshop = xi.sparkshop or {}
 
@@ -571,11 +568,11 @@ local optionToItem =
 
     [12] = -- Alter Ego Extravaganza Trusts
     {
-        [10133] = { cost =  500, id = xi.items.CIPHER_OF_F_COFFINS_ALTER_EGO }, -- F. Coffin
-        [10138] = { cost =  500, id = xi.items.CIPHER_OF_CIDS_ALTER_EGO }, -- Cid
-        [10148] = { cost =  500, id = xi.items.CIPHER_OF_GILGAMESHS_ALTER_EGO }, -- Gilgamesh
-        [10152] = { cost =  500, id = xi.items.CIPHER_OF_QULTADAS_ALTER_EGO }, -- Qultada
-        [10181] = { cost =  500, id = xi.items.CIPHER_OF_KINGS_ALTER_EGO }, -- King
+        [10133] = { cost =  500, id = xi.item.CIPHER_OF_F_COFFINS_ALTER_EGO }, -- F. Coffin
+        [10138] = { cost =  500, id = xi.item.CIPHER_OF_CIDS_ALTER_EGO }, -- Cid
+        [10148] = { cost =  500, id = xi.item.CIPHER_OF_GILGAMESHS_ALTER_EGO }, -- Gilgamesh
+        [10152] = { cost =  500, id = xi.item.CIPHER_OF_QULTADAS_ALTER_EGO }, -- Qultada
+        [10181] = { cost =  500, id = xi.item.CIPHER_OF_KINGS_ALTER_EGO }, -- King
     },
 
     [20] = -- Currency Exchange
@@ -621,13 +618,13 @@ end
 
 function xi.sparkshop.onTrade(player, npc, trade, eventid)
     local copperVouchersStored = player:getCurrency("aman_vouchers")
-    local count = trade:getItemQty(8711)
+    local count = trade:getItemQty(xi.item.COPPER_AMAN_VOUCHER)
 
     if count > 0 then
-        trade:confirmItem(8711, count)
+        trade:confirmItem(xi.item.COPPER_AMAN_VOUCHER, count)
         player:addCurrency("aman_vouchers", count)
         player:confirmTrade()
-        player:startEvent(eventid, 8711, count + copperVouchersStored, 230)
+        player:startEvent(eventid, xi.item.COPPER_AMAN_VOUCHER, count + copperVouchersStored, 230)
     end
 end
 
@@ -727,7 +724,7 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
             end
             player:messageSpecial(zones[player:getZoneID()].text.YOU_NOW_HAVE_AMT_CURRENCY, selection, player:getCurrency(currency.name))
         else
-            player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, 8711)
+            player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, xi.item.COPPER_AMAN_VOUCHER)
         end
 
         player:updateEvent(sparks, player:getCurrency("aman_vouchers"))
@@ -742,12 +739,12 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
                 player:messageSpecial(zones[player:getZoneID()].text.ITEM_CANNOT_BE_OBTAINED, selection)
             end
         else
-            player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, 8711)
+            player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, xi.item.COPPER_AMAN_VOUCHER)
         end
 
         player:updateEvent(sparks, player:getCurrency("aman_vouchers"))
     end
 end
 
-function xi.sparkshop.onEventFinish(player, csid, option)
+function xi.sparkshop.onEventFinish(player, csid, option, npc)
 end

@@ -3,15 +3,14 @@
 --  NPC: Sahagin Key Door
 -- !pos 40 8.6 20.012 176
 -----------------------------------
-local ID = require("scripts/zones/Sea_Serpent_Grotto/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.SEA_SERPENT_GROTTO]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 1197) then
+    if npcUtil.tradeHas(trade, xi.item.SAHAGIN_KEY) then
         npc:openDoor(8) -- Open the door if a Sahagin key has been traded
-        player:messageSpecial(ID.text.SAHAGIN_DOOR_TRADED, 0, 1197) -- Give a message telling the PC the item is lost
+        player:messageSpecial(ID.text.SAHAGIN_DOOR_TRADED, 0, xi.item.SAHAGIN_KEY) -- Give a message telling the PC the item is lost
         player:confirmTrade()
     end
 end
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

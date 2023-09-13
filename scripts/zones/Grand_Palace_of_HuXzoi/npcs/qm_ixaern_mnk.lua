@@ -4,8 +4,7 @@
 -- !pos 460 0 540 34
 -- !pos 380 0 540 34
 -----------------------------------
-local ID = require("scripts/zones/Grand_Palace_of_HuXzoi/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.GRAND_PALACE_OF_HUXZOI]
 -----------------------------------
 local entity = {}
 
@@ -15,11 +14,11 @@ entity.onTrade = function(player, npc, trade)
     if not nm:isSpawned() then
         local chance = 0 -- percent chance that an item will drop.
 
-        if npcUtil.tradeHas(trade, { { 1900, 3 } }) then
+        if npcUtil.tradeHas(trade, { { xi.item.HIGH_QUALITY_AERN_ORGAN, 3 } }) then
             chance = 100
-        elseif npcUtil.tradeHas(trade, { { 1900, 2 } }) then
+        elseif npcUtil.tradeHas(trade, { { xi.item.HIGH_QUALITY_AERN_ORGAN, 2 } }) then
             chance = 66
-        elseif npcUtil.tradeHas(trade, 1900) then
+        elseif npcUtil.tradeHas(trade, xi.item.HIGH_QUALITY_AERN_ORGAN) then
             chance = 33
         end
 
@@ -31,7 +30,7 @@ entity.onTrade = function(player, npc, trade)
             nm:setSpawn(npc:getXPos(), npc:getYPos(), npc:getZPos())
             local mob = SpawnMob(ID.mob.IXAERN_MNK)
             mob:updateClaim(player)
-            mob:setLocalVar("[SEA]IxAern_DropRate", chance * 10)
+            mob:setLocalVar('[SEA]IxAern_DropRate', chance * 10)
 
             if chance >= 66 then
                 GetMobByID(ID.mob.IXAERN_MNK + 1):setSpawn(npc:getXPos(), npc:getYPos(), npc:getZPos() - 4)
@@ -49,10 +48,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

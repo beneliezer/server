@@ -1,12 +1,8 @@
 -----------------------------------
 -- Zone: Pashhow_Marshlands (109)
 -----------------------------------
-local ID = require('scripts/zones/Pashhow_Marshlands/IDs')
+local ID = zones[xi.zone.PASHHOW_MARSHLANDS]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/conquest')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
 require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
@@ -63,19 +59,19 @@ zoneObject.onZoneWeatherChange = function(weather)
             weather ~= xi.weather.SQUALL
         then
             DespawnMob(ID.mob.TOXIC_TAMLYN)
-            toxicTamlyn:setLocalVar("spawnTime", currentTime + 3600) -- 1 hour
+            toxicTamlyn:setLocalVar('spawnTime', currentTime + 3600) -- 1 hour
         end
     else
         if
             (weather == xi.weather.RAIN or weather == xi.weather.SQUALL) and
-            toxicTamlyn:getLocalVar("spawnTime") < currentTime
+            toxicTamlyn:getLocalVar('spawnTime') < currentTime
         then
             SpawnMob(ID.mob.TOXIC_TAMLYN)
         end
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 13 then
         quests.rainbow.onEventUpdate(player)
     end

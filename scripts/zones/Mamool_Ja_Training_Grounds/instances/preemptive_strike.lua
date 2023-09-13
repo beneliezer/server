@@ -1,8 +1,7 @@
 -----------------------------------
 -- Assault: Preemptive Strike
 -----------------------------------
-require("scripts/globals/instance")
-local ID = require("scripts/zones/Mamool_Ja_Training_Grounds/IDs")
+local ID = zones[xi.zone.MAMOOL_JA_TRAINING_GROUNDS]
 -----------------------------------
 local instanceObject = {}
 
@@ -58,10 +57,10 @@ instanceObject.onInstanceComplete = function(instance)
     GetNPCByID(ID.npc.ANCIENT_LOCKBOX, instance):setStatus(xi.status.NORMAL)
 end
 
-instanceObject.onEventUpdate = function(player, csid, option)
+instanceObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return instanceObject

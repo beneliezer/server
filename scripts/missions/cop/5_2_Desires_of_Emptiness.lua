@@ -9,13 +9,7 @@
 -- _0m0 (Flux 3) : !pos -340 -2.5 140 22
 -- Cid           : !pos -12 -12 1 237
 -----------------------------------
-require('scripts/globals/interaction/mission')
-require('scripts/globals/missions')
-require('scripts/globals/titles')
-require('scripts/globals/utils')
-require('scripts/globals/zone')
------------------------------------
-local promyvionVahzlID = require("scripts/zones/Promyvion-Vahzl/IDs")
+local promyvionVahzlID = zones[xi.zone.PROMYVION_VAHZL]
 -----------------------------------
 
 local mission = Mission:new(xi.mission.log_id.COP, xi.mission.id.cop.DESIRES_OF_EMPTINESS)

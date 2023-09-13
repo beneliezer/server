@@ -5,9 +5,7 @@
 -- Mission: ASA - SUGAR_COATED_DIRECTIVE
 -- !pos -19 -17 104 126
 -----------------------------------
-local ID = require("scripts/zones/Qufim_Island/IDs")
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.QUFIM_ISLAND]
 -----------------------------------
 local entity = {}
 
@@ -18,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.ASA_SNOW)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

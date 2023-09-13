@@ -4,9 +4,7 @@
 -- Entrance to Lufaise Meadows
 -- !pos 420.057 0.000 -199.905 103
 -----------------------------------
-require("scripts/globals/teleports")
-require("scripts/globals/missions")
-local ID = require("scripts/zones/Valkurm_Dunes/IDs")
+local ID = zones[xi.zone.VALKURM_DUNES]
 -----------------------------------
 local entity = {}
 
@@ -21,10 +19,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 12 and option == 1 then
         xi.teleport.to(player, xi.teleport.id.LUFAISE_VORTEX)
     end

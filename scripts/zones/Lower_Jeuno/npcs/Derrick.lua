@@ -4,7 +4,7 @@
 -- Involved in Quests and finish : Save the Clock Tower
 -- !pos -32 -1 -7 245
 -----------------------------------
-local ID = require("scripts/zones/Lower_Jeuno/IDs")
+local ID = zones[xi.zone.LOWER_JEUNO]
 -----------------------------------
 local entity = {}
 
@@ -19,7 +19,7 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     if csid == 230 and option == 10 then
         if player:delGil(500000) then
             player:addKeyItem(xi.ki.AIRSHIP_PASS)
@@ -30,7 +30,7 @@ entity.onEventUpdate = function(player, csid, option)
     end
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 230 and option == 10 then
         if player:hasKeyItem(xi.ki.AIRSHIP_PASS) then
             player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.AIRSHIP_PASS)

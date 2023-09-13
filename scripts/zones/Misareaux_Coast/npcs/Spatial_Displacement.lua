@@ -4,8 +4,6 @@
 -- Entrance to Riverne Site #A01 and #B01
 -- !pos -540 -30 360 25
 -----------------------------------
-require("scripts/globals/missions")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -19,10 +17,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if (csid == 551 or csid == 550) and option == 1 then
         player:setPos(732.55, -32.5, -506.544, 90, 30) -- Go to Riverne #A01 (R)
     elseif csid == 551 and option == 2 then

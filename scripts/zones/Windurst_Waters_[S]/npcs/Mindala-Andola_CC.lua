@@ -4,10 +4,7 @@
 -- Type: Sigil NPC
 -- !pos -31.869 -6.009 226.793 94
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Waters_[S]/IDs")
-require("scripts/globals/campaign")
-require("scripts/globals/utils")
-require("scripts/globals/extravaganza")
+local ID = zones[xi.zone.WINDURST_WATERS_S]
 -----------------------------------
 local entity = {}
 
@@ -15,7 +12,7 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local notes = player:getCurrency("allied_notes")
+    local notes = player:getCurrency('allied_notes')
     local freelances = 99 -- Faking it for now
     local cipher = xi.extravaganza.campaignActive() * 4
     -- 0 for not displaying ciphers
@@ -39,7 +36,7 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     local canEquip = 2 -- Faking it for now.
     -- 0 = Wrong job, 1 = wrong level, 2 = Everything is in order, 3 or greater = menu exits...
     if csid == 13 and option >= 2 and option <= 2306 then
@@ -54,7 +51,7 @@ local optionList =
     36865, 40961, 45057, 49153, 53249, 57345, 61441,
 }
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local medalRank = xi.campaign.getMedalRank(player)
     if csid == 13 then
         -- Note: the event itself already verifies the player has enough AN, so no check needed here.
@@ -66,7 +63,7 @@ entity.onEventFinish = function(player, csid, option)
             end
 
             if player:getFreeSlotsCount() >= 1 then
-                player:delCurrency("allied_notes", price)
+                player:delCurrency('allied_notes', price)
                 player:addItem(item)
                 player:messageSpecial(ID.text.ITEM_OBTAINED, item)
             else
@@ -109,7 +106,7 @@ entity.onEventFinish = function(player, csid, option)
             player:messageSpecial(ID.text.ALLIED_SIGIL)
 
             if cost > 0 then
-                player:delCurrency("allied_notes", cost)
+                player:delCurrency('allied_notes', cost)
             end
         end
     end

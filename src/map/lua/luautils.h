@@ -126,11 +126,12 @@ namespace luautils
 
     // Cache helpers
     auto getEntityCachedFunction(CBaseEntity* PEntity, std::string funcName) -> sol::function;
-    void CacheLuaObjectFromFile(std::string filename, bool overwriteCurrentEntry = false);
-    auto GetCacheEntryFromFilename(std::string filename) -> sol::table;
+    void CacheLuaObjectFromFile(std::string const& filename, bool overwriteCurrentEntry = false);
+    auto GetCacheEntryFromFilename(std::string const& filename) -> sol::table;
     void OnEntityLoad(CBaseEntity* PEntity);
 
-    void PopulateIDLookups(std::optional<uint16> maybeZoneId = std::nullopt);
+    void PopulateIDLookupsByFilename(std::optional<std::string> maybeFilename = std::nullopt);
+    void PopulateIDLookupsByZone(std::optional<uint16> maybeZoneId = std::nullopt);
 
     void SendEntityVisualPacket(uint32 npcid, const char* command);
     void InitInteractionGlobal();
@@ -159,8 +160,11 @@ namespace luautils
     auto GetMagianTrial(sol::variadic_args va) -> sol::table;
     auto GetMagianTrialsWithParent(int32 parentTrial) -> sol::table;
 
+    uint32 GetSystemTime();
     uint32 JstMidnight();
     uint32 JstWeekday();
+    uint32 NextGameTime(uint32 intervalSeconds);
+    uint32 NextJstWeek();
     uint32 VanadielTime();          // Gets the current Vanadiel Time in timestamp format (SE epoch in earth seconds)
     uint8  VanadielTOTD();          // текущее игровое время суток
     uint32 VanadielHour();          // текущие Vanadiel часы
@@ -183,13 +187,13 @@ namespace luautils
     int16  GetElevatorState(uint8 id); // Returns -1 if elevator is not found. Otherwise, returns the uint8 state.
 
     int32 GetServerVariable(std::string const& name);
-    void  SetServerVariable(std::string const& name, int32 value);
+    void  SetServerVariable(std::string const& name, int32 value, sol::object const& expiry);
     int32 GetVolatileServerVariable(std::string const& varName);
-    void  SetVolatileServerVariable(std::string const& varName, int32 value);
-    int32 GetCharVar(uint32 charId, std::string const& varName);              // Get player var directly from SQL DB
-    void  SetCharVar(uint32 charId, std::string const& varName, int32 value); // Set player var in SQL DB using charId
-    void  ClearCharVarFromAll(std::string const& varName);                    // Deletes a specific player variable from all players
-    void  Terminate();                                                        // Logs off all characters and terminates the server
+    void  SetVolatileServerVariable(std::string const& varName, int32 value, sol::object const& expiry);
+    int32 GetCharVar(uint32 charId, std::string const& varName);                                         // Get player var directly from SQL DB
+    void  SetCharVar(uint32 charId, std::string const& varName, int32 value, sol::object const& expiry); // Set player var in SQL DB using charId
+    void  ClearCharVarFromAll(std::string const& varName);                                               // Deletes a specific player variable from all players
+    void  Terminate();                                                                                   // Logs off all characters and terminates the server
 
     int32 GetTextIDVariable(uint16 ZoneID, const char* variable); // загружаем значение переменной TextID указанной зоны
     bool  IsContentEnabled(const char* content);                  // Check if the content is enabled in settings.lua
@@ -209,7 +213,7 @@ namespace luautils
     int32 OnTriggerAreaLeave(CCharEntity* PChar, CTriggerArea* PTriggerArea); // when player leaves a trigger area in a zone
     int32 OnTransportEvent(CCharEntity* PChar, uint32 TransportID);
     void  OnTimeTrigger(CNpcEntity* PNpc, uint8 triggerID);
-    int32 OnConquestUpdate(CZone* PZone, ConquestUpdate type, uint8 influence, uint8 owner, uint8 ranking, bool isConquestAlliance); // hourly conquest update
+    int32 OnConquestUpdate(CZone* PZone, ConquestUpdate type, uint8 influence, uint8 owner, uint8 ranking, bool isConquestAlliance); // conquest update (hourly or tally)
 
     void OnServerStart();
     void OnJSTMidnight();
@@ -310,11 +314,11 @@ namespace luautils
     int32 OnInstanceStageChange(CInstance* PInstance);                           // triggers when stage is changed in an instance
     int32 OnInstanceComplete(CInstance* PInstance);                              // triggers when an instance is completed
 
-    uint32 GetMobRespawnTime(uint32 mobid);                        // get the respawn time of a mob
-    void   DisallowRespawn(uint32 mobid, bool allowRespawn);       // Allow or prevent a mob from spawning
-    void   UpdateNMSpawnPoint(uint32 mobid);                       // Update the spawn point of an NM
-    void   SetDropRate(uint16 dropid, uint16 itemid, uint16 rate); // Set drop rate of a mob SetDropRate(dropid,itemid,newrate)
-    int32  UpdateServerMessage();                                  // update server message, first modify in conf and update
+    uint32 GetMobRespawnTime(uint32 mobid);                  // get the respawn time of a mob
+    void   DisallowRespawn(uint32 mobid, bool allowRespawn); // Allow or prevent a mob from spawning
+    void   UpdateNMSpawnPoint(uint32 mobid);                 // Update the spawn point of an NM
+
+    std::string GetServerMessage(uint8 language); // Get the message to be delivered to player on first zone in of a session
 
     int32 OnAdditionalEffect(CBattleEntity* PAttacker, CBattleEntity* PDefender, actionTarget_t* Action, int32 damage);                                      // for mobs with additional effects
     int32 OnSpikesDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, actionTarget_t* Action, int32 damage);                                          // for mobs with spikes
@@ -329,7 +333,7 @@ namespace luautils
     void OnPlayerLevelDown(CCharEntity* PChar);
     void OnPlayerMount(CCharEntity* PChar);
     void OnPlayerEmote(CCharEntity* PChar, Emote EmoteID);
-    void OnPlayerVolunteer(CCharEntity* PChar, std::string text);
+    void OnPlayerVolunteer(CCharEntity* PChar, std::string const& text);
 
     bool OnChocoboDig(CCharEntity* PChar, bool pre); // chocobo digging, pre = check
 
@@ -345,7 +349,7 @@ namespace luautils
 
     auto SetCustomMenuContext(CCharEntity* PChar, sol::table table) -> std::string;
     bool HasCustomMenuContext(CCharEntity* PChar);
-    void HandleCustomMenu(CCharEntity* PChar, std::string selection);
+    void HandleCustomMenu(CCharEntity* PChar, const std::string& selection);
 
     // Retrive the first itemId that matches a name
     uint16 GetItemIDByName(std::string const& name);

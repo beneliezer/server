@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Mhaura
 --  NPC: Emila
--- Type: Standard NPC
 -- !pos -30.578 -9 26.342 249
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(324)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

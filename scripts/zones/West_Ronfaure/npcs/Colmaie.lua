@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: West Ronfaure
 --  NPC: Colmaie
--- Type: Standard NPC
 -- !pos -133.627 -61.999 272.373 100
 -----------------------------------
 local entity = {}
@@ -12,10 +11,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

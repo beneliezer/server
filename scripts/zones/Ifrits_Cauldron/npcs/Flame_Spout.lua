@@ -3,13 +3,10 @@
 --  NPC: Flame Spout
 -- !pos 193.967 -0.400 19.492 205
 -----------------------------------
-local ID = require("scripts/zones/Ifrits_Cauldron/IDs")
-require("scripts/globals/npc_util")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 4105) then -- Ice Cluster Trade
+    if npcUtil.tradeHas(trade, xi.item.ICE_CLUSTER) then
         player:confirmTrade()
         GetNPCByID(npc:getID() + 5):openDoor(90)
     end
@@ -22,10 +19,10 @@ entity.onTrigger = function(player, npc)
     --]]
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

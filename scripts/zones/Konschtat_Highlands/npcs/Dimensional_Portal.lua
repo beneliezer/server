@@ -3,8 +3,7 @@
 --  NPC: Dimensional_Portal
 -- !pos 220.000 19.104 140.000 108
 -----------------------------------
-local ID = require("scripts/zones/Konschtat_Highlands/IDs")
-require("scripts/globals/missions")
+local ID = zones[xi.zone.KONSCHTAT_HIGHLANDS]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 915 and option == 1 then
         player:setPos(-635.599, -2.799, 163.8, 193, 33) -- To AlTaieu (R)
     end

@@ -4,8 +4,7 @@
 -- Reports the time remaining before boat arrival.
 -- !pos 17.979 -2.39 -58.800 248
 -----------------------------------
-local ID = require("scripts/zones/Selbina/IDs")
-require("scripts/globals/transport")
+local ID = zones[xi.zone.SELBINA]
 -----------------------------------
 local entity = {}
 
@@ -47,10 +46,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(231, timer, direction)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

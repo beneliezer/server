@@ -4,11 +4,7 @@
 -- Mamool Ja Teleporter Back to Aht Urhgan Whitegate
 -- !pos -211 -11 -818 52
 -----------------------------------
-local ID = require("scripts/zones/Bhaflau_Thickets/IDs")
------------------------------------
-require("scripts/globals/besieged")
-require("scripts/globals/missions")
-require("scripts/globals/teleports")
+local ID = zones[xi.zone.BHAFLAU_THICKETS]
 -----------------------------------
 local entity = {}
 
@@ -30,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if option == 1 then
         if csid == 111 then
             xi.besieged.addRunicPortal(player, xi.teleport.runic_portal.MAMOOL)

@@ -4,8 +4,7 @@
 -- Note: Used to spawn Habetrot
 -- !pos -57.434 -8.484 55.317 159
 -----------------------------------
-local ID = require("scripts/zones/Temple_of_Uggalepih/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.TEMPLE_OF_UGGALEPIH]
 -----------------------------------
 local entity = {}
 
@@ -26,10 +25,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.BITS_OF_VEGETABLE)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

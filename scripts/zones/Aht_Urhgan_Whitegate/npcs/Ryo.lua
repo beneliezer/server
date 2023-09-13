@@ -4,10 +4,6 @@
 -- Type: ZNM assistant
 -- !pos -127.086 0.999 22.693 50
 -----------------------------------
-require("scripts/globals/besieged")
-require("scripts/globals/znm")
-local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -18,12 +14,12 @@ entity.onTrigger = function(player, npc)
     xi.znm.ryo.onTrigger(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    xi.znm.ryo.onEventUpdate(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.znm.ryo.onEventUpdate(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.znm.ryo.onEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.znm.ryo.onEventFinish(player, csid, option, npc)
 end
 
 return entity

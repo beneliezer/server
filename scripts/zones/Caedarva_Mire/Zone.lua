@@ -1,11 +1,7 @@
 -----------------------------------
 -- Zone: Caedarva_Mire (79)
 -----------------------------------
-local ID = require('scripts/zones/Caedarva_Mire/IDs')
-require('scripts/globals/missions')
-require('scripts/globals/titles')
-require('scripts/globals/helm')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.CAEDARVA_MIRE]
 -----------------------------------
 local zoneObject = {}
 
@@ -40,19 +36,19 @@ zoneObject.onZoneIn = function(player, prevZone)
 end
 
 zoneObject.afterZoneIn = function(player)
-    player:entityVisualPacket("1pb1")
-    player:entityVisualPacket("2pb1")
-    player:entityVisualPacket("1pd1")
-    player:entityVisualPacket("2pc1")
+    player:entityVisualPacket('1pb1')
+    player:entityVisualPacket('2pb1')
+    player:entityVisualPacket('1pd1')
+    player:entityVisualPacket('2pc1')
 end
 
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 133 then -- enter instance, warp to periqia
         player:setPos(0, 0, 0, 0, 56)
     elseif csid == 130 then

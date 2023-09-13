@@ -1,9 +1,8 @@
 -----------------------------------
 -- Area: Al'Taieu
 --  NPC: Auroral Updraft
--- Type: Standard NPC
 -----------------------------------
-local ID = require("scripts/zones/AlTaieu/IDs")
+local ID = zones[xi.zone.ALTAIEU]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 155 and option == 1 then
         player:setPos(-25, -1 , -620 , 208 , 33)
     elseif csid == 150 and option == 1 then

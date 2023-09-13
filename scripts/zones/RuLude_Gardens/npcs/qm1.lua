@@ -3,7 +3,7 @@
 --  NPC: ???
 -- NPC for Dynamis Divergence Quest
 -----------------------------------
-local ID = require("scripts/zones/RuLude_Gardens/IDs")
+local ID = zones[xi.zone.RULUDE_GARDENS]
 -----------------------------------
 local entity = {}
 
@@ -14,10 +14,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

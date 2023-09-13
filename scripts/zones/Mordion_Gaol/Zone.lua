@@ -1,9 +1,6 @@
 -----------------------------------
 -- Zone: Mordion_Gaol
 -----------------------------------
-local ID = require('scripts/zones/Mordion_Gaol/IDs')
-require('scripts/globals/conquest')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -16,7 +13,7 @@ end
 zoneObject.onZoneIn = function(player, prevZone)
     local cs = -1
 
-    if player:getCharVar("inJail") > 0 then
+    if player:getCharVar('inJail') > 0 then
         player:jail()
     end
 
@@ -26,10 +23,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

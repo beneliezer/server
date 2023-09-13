@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Bastok_Markets_[S] (87)
 -----------------------------------
-local ID = require('scripts/zones/Bastok_Markets_[S]/IDs')
-require('scripts/globals/chocobo')
-require('scripts/globals/extravaganza')
+local ID = zones[xi.zone.BASTOK_MARKETS_S]
 -----------------------------------
 local zoneObject = {}
 
@@ -31,10 +29,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

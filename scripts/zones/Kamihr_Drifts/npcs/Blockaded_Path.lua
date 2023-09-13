@@ -3,9 +3,7 @@
 --  NPC: Blockaded Path
 -- !pos -222.779 40.597 -410.526 267
 -----------------------------------
-require('scripts/globals/missions')
------------------------------------
-local kamihrID = require('scripts/zones/Kamihr_Drifts/IDs')
+local kamihrID = zones[xi.zone.KAMIHR_DRIFTS]
 -----------------------------------
 local entity = {}
 
@@ -18,10 +16,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 57 and option == 1 then
         player:setPos(16.725, 0.493, -19.652, 131, xi.zone.LEAFALLIA)
     end

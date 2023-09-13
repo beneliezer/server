@@ -66,10 +66,11 @@ public:
     void customMenu(sol::object const& obj);
 
     // Variables
-    int32  getCharVar(std::string const& varName);                    // Returns a character variable
-    void   setCharVar(std::string const& varname, int32 value);       // Sets a character variable
-    void   incrementCharVar(std::string const& varname, int32 value); // Increments/decriments/sets a character variable
-    void   setVolatileCharVar(std::string const& varName, int32 value);
+    int32  getCharVar(std::string const& varName);                                         // Returns a character variable
+    void   setCharVar(std::string const& varname, int32 value, sol::object const& expiry); // Sets a character variable
+    void   setCharVarExpiration(std::string const& varName, uint32 expiry);                // Sets character variable expiration timestamp
+    void   incrementCharVar(std::string const& varname, int32 value);                      // Increments/decriments/sets a character variable
+    void   setVolatileCharVar(std::string const& varName, int32 value, sol::object const& expiry);
     uint32 getLocalVar(std::string const& var);
     void   setLocalVar(std::string const& var, uint32 val);
     void   resetLocalVars();
@@ -212,6 +213,7 @@ public:
     uint16 getEquipID(SLOTTYPE slot);                              // Gets the Item Id of the item in specified slot
     auto   getEquippedItem(uint8 slot) -> std::optional<CLuaItem>; // Returns the item object from specified slot
     bool   hasItem(uint16 itemID, sol::object const& location);    // Check to see if Entity has item in inventory (hasItem(itemNumber))
+    uint32 getItemCount(uint16 itemID);                            // Get total number of items the player has across all inventories
     bool   addItem(sol::variadic_args va);                         // Add item to Entity inventory (additem(itemNumber,quantity))
     bool   delItem(uint16 itemID, int32 quantity, sol::object const& containerID);
     bool   addUsedItem(uint16 itemID);                                                      // Add charged item with timer already on full cooldown
@@ -348,7 +350,8 @@ public:
     void   setRankPoints(uint16 rankpoints); // Set Current Rank points
 
     void  addQuest(uint8 questLogID, uint16 questID);          // Add Quest to Entity Quest Log
-    void  delQuest(uint8 questLogID, uint16 questID);          // Remove quest from quest log (should be used for debugging only)
+    void  delCurrentQuest(uint8 questLogID, uint16 questID);   // Removes active(current) quest from log
+    void  delQuest(uint8 questLogID, uint16 questID);          // Removes all references of quest from log (active + completed)
     uint8 getQuestStatus(uint8 questLogID, uint16 questID);    // Get Quest Status
     bool  hasCompletedQuest(uint8 questLogID, uint16 questID); // Checks if quest has been completed
     void  completeQuest(uint8 questLogID, uint16 questID);     // Set a quest status to complete
@@ -376,6 +379,10 @@ public:
     void   toggleReceivedDeedRewards();
     void   setClaimedDeed(uint16 deedBitNum);
     void   resetClaimedDeeds();
+
+    void setUniqueEvent(uint16 uniqueEventId);
+    void delUniqueEvent(uint16 uniqueEventId);
+    bool hasCompletedUniqueEvent(uint16 uniqueEventId);
 
     void  addAssault(uint8 missionID);          // Add Mission
     void  delAssault(uint8 missionID);          // Delete Mission from Mission Log
@@ -516,7 +523,7 @@ public:
 
     uint8 checkSoloPartyAlliance(); // Check if Player is in Party or Alliance 0=Solo 1=Party 2=Alliance
 
-    bool checkKillCredit(CLuaBaseEntity* PLuaBaseEntity, sol::object const& arg1, sol::object const& arg2);
+    bool checkKillCredit(CLuaBaseEntity* PLuaBaseEntity, sol::object const& minRange);
 
     uint8 checkDifficulty(CLuaBaseEntity* PLuaBaseEntity); // Checks difficulty of the mob
 
@@ -544,6 +551,8 @@ public:
     // Battle Utilities
     bool isAlive();
     bool isDead();
+
+    bool hasRaiseTractorMenu();
     void sendRaise(uint8 raiseLevel);
     void sendReraise(uint8 raiseLevel);
     void sendTractor(float xPos, float yPos, float zPos, uint8 rotation);
@@ -564,7 +573,7 @@ public:
     void resetRecast(uint8 rType, uint16 recastID); // Reset one recast ID
     void resetRecasts();                            // Reset recasts for the caller
 
-    void addListener(std::string const& eventName, std::string const& identifier, sol::function func);
+    void addListener(std::string const& eventName, std::string const& identifier, sol::function const& func);
     void removeListener(std::string const& identifier);
     void triggerListener(std::string const& eventName, sol::variadic_args args);
 
@@ -742,6 +751,8 @@ public:
     uint8 getActiveManeuverCount();
     void  removeOldestManeuver();
     void  removeAllManeuvers();
+    auto  getAttachment(uint8 slotId) -> std::optional<CLuaItem>;
+    auto  getAttachments() -> sol::table;
     void  updateAttachments();
     void  reduceBurden(float percentReduction, sol::object const& intReductionObj);
     bool  isExceedingElementalCapacity();
@@ -819,9 +830,9 @@ public:
 
     bool actionQueueEmpty(); // returns whether the action queue is empty or not
 
-    void castSpell(sol::object const& spell, sol::object entity); // forces a mob to cast a spell (parameter = spell ID, otherwise picks a spell from its list)
-    void useJobAbility(uint16 skillID, sol::object const& pet);   // forces a job ability use (players/pets only)
-    void useMobAbility(sol::variadic_args va);                    // forces a mob to use a mobability (parameter = skill ID)
+    void castSpell(sol::object const& spell, sol::object const& entity); // forces a mob to cast a spell (parameter = spell ID, otherwise picks a spell from its list)
+    void useJobAbility(uint16 skillID, sol::object const& pet);          // forces a job ability use (players/pets only)
+    void useMobAbility(sol::variadic_args va);                           // forces a mob to use a mobability (parameter = skill ID)
     bool hasTPMoves();
 
     void weaknessTrigger(uint8 level);
@@ -850,7 +861,7 @@ public:
     uint32 getHistory(uint8 index);
 
     auto getChocoboRaisingInfo() -> sol::table;
-    bool setChocoboRaisingInfo(sol::table table);
+    bool setChocoboRaisingInfo(sol::table const& table);
     bool deleteRaisedChocobo();
 
     void  setMannequinPose(uint16 itemID, uint8 race, uint8 pose);

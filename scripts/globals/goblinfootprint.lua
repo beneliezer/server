@@ -1,10 +1,9 @@
 -----------------------------------
 -- Goblin Footprint NPCs
 -----------------------------------
-require("scripts/globals/quests")
-require("scripts/globals/missions")
-require("scripts/globals/zone")
-require("scripts/globals/utils")
+require('scripts/globals/quests')
+require('scripts/globals/missions')
+require('scripts/globals/utils')
 -----------------------------------
 xi = xi or {}
 xi.goblinfootprint = xi.goblinfootprint or {}
@@ -145,16 +144,16 @@ local csReq = -- add checks to this table
         [3] = function(player)
             -- RELIC: Apocalypse
             -- TODO: Table items and iterate over table for this check
-            return player:hasItem(18306) or
-                player:hasItem(18307) or
-                player:hasItem(18644) or
-                player:hasItem(18658) or
-                player:hasItem(18672) or
-                player:hasItem(19753) or
-                player:hasItem(19846) or
-                player:hasItem(20880) or
-                player:hasItem(20881) or
-                player:hasItem(21808)
+            return player:hasItem(xi.item.APOCALYPSE) or
+                player:hasItem(xi.item.APOCALYPSE_80) or
+                player:hasItem(xi.item.APOCALYPSE_85) or
+                player:hasItem(xi.item.APOCALYPSE_90) or
+                player:hasItem(xi.item.APOCALYPSE_95) or
+                player:hasItem(xi.item.APOCALYPSE_99) or
+                player:hasItem(xi.item.APOCALYPSE_99_II) or
+                player:hasItem(xi.item.APOCALYPSE_119) or
+                player:hasItem(xi.item.APOCALYPSE_119_II) or
+                player:hasItem(xi.item.APOCALYPSE_119_III)
         end,
 
         [4] = function(player)
@@ -368,7 +367,7 @@ function xi.goblinfootprint.rewatch(player, trigger)
     end
 end
 
-function xi.goblinfootprint.startEvent(player, csid, option)
+function xi.goblinfootprint.startEvent(player, csid, option, npc)
     local zone = player:getZoneID()
     local ID = zones[zone]
     if csid == gobCS[zone] and cutscene[zone][option] ~= nil then

@@ -2,8 +2,6 @@
 -- Area: Lower Jeuno
 --  NPC: Omer
 -----------------------------------
-require("scripts/globals/pathfind")
------------------------------------
 local entity = {}
 
 local pathNodes =
@@ -20,10 +18,10 @@ entity.onSpawn = function(npc)
     npc:pathThrough(pathNodes, xi.path.flag.PATROL)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

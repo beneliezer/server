@@ -5,10 +5,6 @@
 -- !addmission 12 18
 -- RALA_WATERWAYS : !zone 258
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SOA, xi.mission.id.soa.HONOR_AND_AUDACITY)
 

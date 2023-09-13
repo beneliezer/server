@@ -8,13 +8,6 @@
 -- Echo Hawk   : !pos -0.965 5.999 -15.567 234
 -- qm1 (moves) : !pos 309.6 2.6 324 106
 -----------------------------------
-require('scripts/globals/items')
-require('scripts/globals/npc_util')
-require('scripts/globals/quests')
-require('scripts/globals/titles')
-require('scripts/globals/zone')
-require('scripts/globals/interaction/quest')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.BASTOK, xi.quest.id.bastok.THE_SIRENS_TEAR)
 
@@ -89,7 +82,7 @@ quest.sections =
                 onTrigger = function(player, npc)
                     if
                         quest:getVar(player, 'Prog') < 2 and
-                        not player:findItem(xi.items.SIRENS_TEAR)
+                        not player:findItem(xi.item.SIRENS_TEAR)
                     then
                         return quest:progressEvent(19)
                     end
@@ -116,7 +109,7 @@ quest.sections =
             ['Wahid'] =
             {
                 onTrade = function(player, npc, trade)
-                    if npcUtil.tradeHasExactly(trade, xi.items.SIRENS_TEAR) then
+                    if npcUtil.tradeHasExactly(trade, xi.item.SIRENS_TEAR) then
                         return quest:progressEvent(82)
                     end
                 end,

@@ -3,11 +3,7 @@
 -- Name: Mission 5-2
 -- !pos -111 -6 0.1 165
 -----------------------------------
-local ID = require("scripts/zones/Throne_Room/IDs")
-require("scripts/globals/battlefield")
-require("scripts/globals/missions")
-require("scripts/globals/titles")
-require("scripts/globals/zone")
+local ID = zones[xi.zone.THRONE_ROOM]
 -----------------------------------
 
 local content = BattlefieldMission:new({
@@ -17,15 +13,15 @@ local content = BattlefieldMission:new({
     levelCap      = 75,
     timeLimit     = utils.minutes(30),
     index         = 0,
-    entryNpc      = "_4l1",
-    exitNpcs      = { "_4l2", "_4l3", "_4l4" },
+    entryNpc      = '_4l1',
+    exitNpcs      = { '_4l2', '_4l3', '_4l4' },
 
     mission               = xi.mission.id.nation.SHADOW_LORD,
     requiredMissionStatus = 3,
     title                 = xi.title.SHADOW_BANISHER,
 })
 
-function content:onEventFinishBattlefield(player, csid, option)
+function content:onEventFinishBattlefield(player, csid, option, npc)
     local battlefield = player:getBattlefield()
     local area        = battlefield:getArea()
     local phaseTwoId  = ID.mob.SHADOW_LORD_PHASE_2_OFFSET + (area - 1)

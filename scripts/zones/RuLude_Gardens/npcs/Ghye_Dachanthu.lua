@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos -62.789 11.999 -25.959 243
 -----------------------------------
-local ID = require("scripts/zones/RuLude_Gardens/IDs")
+local ID = zones[xi.zone.RULUDE_GARDENS]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

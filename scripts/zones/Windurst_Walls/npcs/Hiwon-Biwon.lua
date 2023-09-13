@@ -3,11 +3,6 @@
 --  NPC: Hiwon-Biwon
 -- Involved In Quest: Making Headlines, Curses, Foiled...Again!?
 -----------------------------------
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/utils")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -20,7 +15,7 @@ entity.onTrigger = function(player, npc)
     -- Making Headlines
     if makingHeadlines == QUEST_ACCEPTED then
         -- bitmask of progress: 0 = Kyume-Romeh, 1 = Yuyuju, 2 = Hiwom-Gomoi, 3 = Umumu, 4 = Mahogany Door
-        local prog = player:getCharVar("QuestMakingHeadlines_var")
+        local prog = player:getCharVar('QuestMakingHeadlines_var')
 
         if not utils.mask.getBit(prog, 2) then
             if cursesFoiledAgain1 == QUEST_ACCEPTED then
@@ -54,14 +49,14 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- Making Headlines
     if csid == 281 or csid == 283 or csid == 284 then
         npcUtil.giveKeyItem(player, xi.ki.WINDURST_WALLS_SCOOP)
-        player:setCharVar("QuestMakingHeadlines_var", utils.mask.setBit(player:getCharVar("QuestMakingHeadlines_var"), 2, true))
+        player:setCharVar('QuestMakingHeadlines_var', utils.mask.setBit(player:getCharVar('QuestMakingHeadlines_var'), 2, true))
     end
 end
 

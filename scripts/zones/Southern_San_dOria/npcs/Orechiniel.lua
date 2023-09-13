@@ -3,8 +3,7 @@
 --  NPC: Orechiniel
 -- Type: Leathercraft Adv. Synthesis Image Support
 -----------------------------------
-require("scripts/globals/crafting")
-local ID = require("scripts/zones/Southern_San_dOria/IDs")
+local ID = zones[xi.zone.SOUTHERN_SAN_DORIA]
 -----------------------------------
 local entity = {}
 
@@ -26,10 +25,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local cost = xi.crafting.getAdvImageSupportCost(player, xi.skill.LEATHERCRAFT)
 
     if csid == 650 and option == 1 then

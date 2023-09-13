@@ -3,9 +3,6 @@
 --  NPC: Domenic
 -- BCNM/KSNM Teleporter
 -----------------------------------
-require("scripts/globals/teleports")
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -19,10 +16,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10115 then
         if option == 1 and player:getGil() >= 750 then
             player:delGil(750)

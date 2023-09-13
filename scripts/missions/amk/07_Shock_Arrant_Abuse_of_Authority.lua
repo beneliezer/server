@@ -6,9 +6,6 @@
 -- Note: KI aquisition is handled in chocobo_digging.lua
 -- MOLDY_WORM_EATEN_CHEST : !addkeyitem 1144
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
 require('scripts/missions/amk/helpers')
 -----------------------------------
 

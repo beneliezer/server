@@ -3,41 +3,49 @@
 -- Door: Iron Gate (Lamian Fang Key)
 -- !pos 580 -17 120
 -----------------------------------
-local ID = require("scripts/zones/Arrapago_Reef/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.ARRAPAGO_REMNANTS]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if npc:getAnimation() == xi.anim.CLOSE_DOOR then
-        if npcUtil.tradeHas(trade, 2219) then
+        if npcUtil.tradeHas(trade, xi.item.LAMIAN_FANG_KEY) then
             npc:openDoor()
-            player:messageSpecial(ID.text.KEY_BREAKS, 2219)
+            player:messageSpecial(ID.text.KEY_BREAKS, xi.item.LAMIAN_FANG_KEY)
             player:confirmTrade()
-        elseif npcUtil.tradeHas(trade, 1022) and player:getMainJob() == xi.job.THF then -- thief's tools
+        elseif
+            npcUtil.tradeHas(trade, xi.item.SET_OF_THIEFS_TOOLS) and
+            player:getMainJob() == xi.job.THF
+        then
             if math.random(1, 2) == 1 then -- TODO: figure out actual percentage chance to pick locks; 50% for now
-                player:messageSpecial(ID.text.LOCK_SUCCESS, 1022)
+                player:messageSpecial(ID.text.LOCK_SUCCESS, xi.item.SET_OF_THIEFS_TOOLS)
                 npc:openDoor()
             else
-                player:messageSpecial(ID.text.LOCK_FAIL, 1022)
+                player:messageSpecial(ID.text.LOCK_FAIL, xi.item.SET_OF_THIEFS_TOOLS)
             end
 
             player:confirmTrade()
-        elseif npcUtil.tradeHas(trade, 1023) and player:getMainJob() == xi.job.THF then -- living key
+        elseif
+            npcUtil.tradeHas(trade, xi.item.LIVING_KEY) and
+            player:getMainJob() == xi.job.THF
+        then
             if math.random(1, 2) == 1 then -- TODO: figure out actual percentage chance to pick locks; 50% for now
-                player:messageSpecial(ID.text.LOCK_SUCCESS, 1023)
+                player:messageSpecial(ID.text.LOCK_SUCCESS, xi.item.LIVING_KEY)
                 npc:openDoor()
             else
-                player:messageSpecial(ID.text.LOCK_FAIL, 1023)
+                player:messageSpecial(ID.text.LOCK_FAIL, xi.item.LIVING_KEY)
             end
 
             player:confirmTrade()
-        elseif npcUtil.tradeHas(trade, 1115) and player:getMainJob() == xi.job.THF then -- skeleton key
+        elseif
+            npcUtil.tradeHas(trade, xi.item.SKELETON_KEY) and
+            player:getMainJob() == xi.job.THF
+        then
             if math.random(1, 2) == 1 then -- TODO: figure out actual percentage chance to pick locks; 50% for now
-                player:messageSpecial(ID.text.LOCK_SUCCESS, 1115)
+                player:messageSpecial(ID.text.LOCK_SUCCESS, xi.item.SKELETON_KEY)
                 npc:openDoor()
             else
-                player:messageSpecial(ID.text.LOCK_FAIL, 1115)
+                player:messageSpecial(ID.text.LOCK_FAIL, xi.item.SKELETON_KEY)
             end
 
             player:confirmTrade()
@@ -48,20 +56,20 @@ end
 entity.onTrigger = function(player, npc)
     if player:getZPos() < 120 and npc:getAnimation() == xi.anim.CLOSE_DOOR then
         if player:getMainJob() == xi.job.THF then
-            player:messageSpecial(ID.text.DOOR_IS_LOCKED2, 2219, 1022) -- message only THF's get
+            player:messageSpecial(ID.text.DOOR_IS_LOCKED2, xi.item.LAMIAN_FANG_KEY, xi.item.SET_OF_THIEFS_TOOLS) -- message only THF's get
         else
-            player:messageSpecial(ID.text.DOOR_IS_LOCKED, 2219)
+            player:messageSpecial(ID.text.DOOR_IS_LOCKED, xi.item.LAMIAN_FANG_KEY)
         end
     elseif player:getZPos() >= 120 and npc:getAnimation() == xi.anim.CLOSE_DOOR then
-        player:messageSpecial(ID.text.YOU_UNLOCK_DOOR) -- message from "inside" of door
+        player:messageSpecial(ID.text.YOU_UNLOCK_DOOR) -- message from 'inside' of door
         npc:openDoor()
     end
 end
 
-entity.onEventUpdate = function(player, csid, option, target)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option, target)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

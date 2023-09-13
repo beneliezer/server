@@ -21,10 +21,10 @@
 
 #include "moduleutils.h"
 
-#include "../command_handler.h"
-#include "../lua/luautils.h"
+#include "command_handler.h"
 #include "common/cbasetypes.h"
 #include "common/utils.h"
+#include "lua/luautils.h"
 
 #include <filesystem>
 #include <fstream>
@@ -192,17 +192,18 @@ namespace moduleutils
                     continue;
                 }
 
+                // Check the file is a valid module
+                sol::table table = res;
+
                 // Check the file is a valid command
-                if (lua["cmdprops"].valid() && lua["onTrigger"].valid())
+                if (table["cmdprops"].valid() && table["onTrigger"].valid())
                 {
                     auto commandName = path.filename().replace_extension("").generic_string();
-                    DebugModules(fmt::format("Registering module command: !{}", commandName));
-                    CCommandHandler::registerCommand(commandName, relPath);
+                    ShowInfo(fmt::format("Registering module command: !{}", commandName));
+                    lua[sol::create_if_nil]["xi"]["commands"][commandName] = table;
                     continue;
                 }
 
-                // Check the file is a valid module
-                sol::table table = res;
                 if (table["overrides"].valid())
                 {
                     auto moduleName = table.get_or("name", std::string());

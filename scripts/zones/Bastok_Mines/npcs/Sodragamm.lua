@@ -4,7 +4,7 @@
 -- Type: Item Deliverer
 -- !pos -24.741 -1 -64.944 234
 -----------------------------------
-local ID = require("scripts/zones/Bastok_Mines/IDs")
+local ID = zones[xi.zone.BASTOK_MINES]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

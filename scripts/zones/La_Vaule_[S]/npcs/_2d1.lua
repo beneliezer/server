@@ -3,8 +3,7 @@
 --  NPC: _2d1 (Reinforced Gateway)
 -- !pos -114.386 -3.599 -179.804 85
 -----------------------------------
-require("scripts/globals/bcnm")
-local ID = require("scripts/zones/La_Vaule_[S]/IDs")
+local ID = zones[xi.zone.LA_VAULE_S]
 -----------------------------------
 local entity = {}
 
@@ -22,8 +21,8 @@ entity.onEventUpdate = function(player, csid, option, extras)
     xi.bcnm.onEventUpdate(player, csid, option, extras)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.bcnm.onEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.bcnm.onEventFinish(player, csid, option, npc)
 end
 
 return entity

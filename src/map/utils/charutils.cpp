@@ -144,7 +144,7 @@ namespace charutils
         int32 scaleOver60       = 2; // Column number with modifier for MP calculation after level 60
         int32 scaleOver75       = 3; // The speaker number with the modifier to calculate the stats after the 75th level
 
-        uint8 grade;
+        uint8 grade = 0;
 
         uint8      mlvl        = PChar->GetMLevel();
         uint8      slvl        = PChar->GetSLevel();
@@ -776,7 +776,7 @@ namespace charutils
 
         fmtQuery = "SELECT outpost_sandy, outpost_bastok, outpost_windy, runic_portal, maw, "
                    "campaign_sandy, campaign_bastok, campaign_windy, homepoints, survivals, "
-                   "abyssea_conflux, waypoints, eschan_portals, claimed_deeds "
+                   "abyssea_conflux, waypoints, eschan_portals, claimed_deeds, unique_event "
                    "FROM char_unlocks "
                    "WHERE charid = %u;";
 
@@ -822,6 +822,11 @@ namespace charutils
             buf    = nullptr;
             sql->GetData(13, &buf, &length);
             memcpy(&PChar->m_claimedDeeds, buf, (length > sizeof(PChar->m_claimedDeeds) ? sizeof(PChar->m_claimedDeeds) : length));
+
+            length = 0;
+            buf    = nullptr;
+            sql->GetData(14, &buf, &length);
+            memcpy(&PChar->m_uniqueEvents, buf, (length > sizeof(PChar->m_claimedDeeds) ? sizeof(PChar->m_claimedDeeds) : length));
         }
 
         PChar->PMeritPoints = new CMeritPoints(PChar);
@@ -1382,6 +1387,31 @@ namespace charutils
             }
         }
         return false;
+    }
+
+    uint32 getItemCount(CCharEntity* PChar, uint16 ItemID)
+    {
+        if (ItemID == 0)
+        {
+            return false;
+        }
+
+        uint32 itemCount = 0;
+        for (uint8 LocID = 0; LocID < CONTAINER_ID::MAX_CONTAINER_ID; ++LocID)
+        {
+            CItemContainer* PItemContainer = PChar->getStorage(LocID);
+            // clang-format off
+            PItemContainer->ForEachItem([&ItemID, &itemCount](CItem* PItem)
+            {
+                if (PItem->getID() == ItemID)
+                {
+                    itemCount++;
+                }
+            });
+            // clang-format on
+        }
+
+        return itemCount;
     }
 
     void UpdateSubJob(CCharEntity* PChar)
@@ -2294,6 +2324,58 @@ namespace charutils
         }
     }
 
+    void UpdateRemovedSlots(CCharEntity* PChar)
+    {
+        if (!PChar || !PChar->getStyleLocked())
+        {
+            return;
+        }
+
+        auto items = PChar->styleItems;
+        for (auto i = 0; i < 16; i++)
+        {
+            if (items[i] == 0)
+            {
+                continue;
+            }
+
+            auto PItem = dynamic_cast<CItemEquipment*>(itemutils::GetItem(items[i]));
+            if (!PItem)
+            {
+                continue;
+            }
+
+            auto removeSlotID = PItem->getRemoveSlotId();
+            if (removeSlotID > 0)
+            {
+                for (auto i = 4u; i <= 8u; i++)
+                {
+                    if (removeSlotID & (1 << i))
+                    {
+                        switch (i)
+                        {
+                            case SLOT_HEAD:
+                                PChar->mainlook.head = PItem->getModelId();
+                                break;
+                            case SLOT_BODY:
+                                PChar->mainlook.body = PItem->getModelId();
+                                break;
+                            case SLOT_HANDS:
+                                PChar->mainlook.hands = PItem->getModelId();
+                                break;
+                            case SLOT_LEGS:
+                                PChar->mainlook.legs = PItem->getModelId();
+                                break;
+                            case SLOT_FEET:
+                                PChar->mainlook.feet = PItem->getModelId();
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     void AddItemToRecycleBin(CCharEntity* PChar, uint32 container, uint8 slotID, uint8 quantity)
     {
         CItem*      PItem          = PChar->getStorage(container)->GetItem(slotID);
@@ -2710,7 +2792,7 @@ namespace charutils
     {
         memset(&PChar->m_WeaponSkills, 0, sizeof(PChar->m_WeaponSkills));
 
-        CItemWeapon* PItem;
+        CItemWeapon* PItem        = nullptr;
         int          main_ws      = 0;
         int          range_ws     = 0;
         int          main_ws_dyn  = 0;
@@ -3325,11 +3407,17 @@ namespace charutils
 
     void CheckWeaponSkill(CCharEntity* PChar, uint8 skill)
     {
-        auto* weapon = dynamic_cast<CItemWeapon*>(PChar->m_Weapons[SLOT_MAIN]);
-        if (!weapon || weapon->getSkillType() != skill)
+        auto* weapon       = dynamic_cast<CItemWeapon*>(PChar->m_Weapons[SLOT_MAIN]);
+        auto* rangedWeapon = dynamic_cast<CItemWeapon*>(PChar->m_Weapons[SLOT_RANGED]);
+
+        bool noOrInvalidMainWeapon   = !weapon || weapon->getSkillType() != skill;
+        bool noOrInvalidRangedWeapon = !rangedWeapon || rangedWeapon->getSkillType() != skill;
+
+        if (noOrInvalidMainWeapon && noOrInvalidRangedWeapon)
         {
             return;
         }
+
         const auto& WeaponSkillList = battleutils::GetWeaponSkills(skill);
         uint16      curSkill        = PChar->RealSkills.skill[skill] / 10;
 
@@ -3809,7 +3897,7 @@ namespace charutils
             {
                 if (PPartyMember->getZone() == PMob->getZone() && distanceSquared(PPartyMember->loc.p, PMob->loc.p) < square(100.f))
                 {
-                    members.push_back((CCharEntity*)PPartyMember);
+                    members.emplace_back((CCharEntity*)PPartyMember);
                 }
             });
             // clang-format on
@@ -4544,6 +4632,10 @@ namespace charutils
             exploss = (uint16)(exploss * settings::get<float>("map.EXP_LOSS_RATE"));
         }
 
+        // Save exp lost.
+        PChar->setCharVar("expLost", exploss);
+
+        // Handle deleveling
         if (PChar->jobs.exp[PChar->GetMJob()] < exploss)
         {
             if (PChar->jobs.job[PChar->GetMJob()] > 1)
@@ -5327,7 +5419,7 @@ namespace charutils
             return;
         }
 
-        const char* fmtQuery;
+        const char* fmtQuery = "";
 
         switch (job)
         {
@@ -5402,13 +5494,6 @@ namespace charutils
                 break;
         }
         sql->Query(fmtQuery, PChar->jobs.unlocked, PChar->jobs.job[job], PChar->id);
-
-        if (PChar->isNewPlayer() && PChar->jobs.job[job] >= 5)
-        {
-            PChar->menuConfigFlags.flags &= ~NFLAG_NEWPLAYER;
-            PChar->updatemask |= UPDATE_HP;
-            SaveMenuConfigFlags(PChar);
-        }
     }
 
     void SaveCharExp(CCharEntity* PChar, JOBTYPE job)
@@ -5421,7 +5506,7 @@ namespace charutils
             return;
         }
 
-        const char* Query;
+        const char* Query = "";
 
         switch (job)
         {
@@ -5747,7 +5832,8 @@ namespace charutils
 
         sql->Query("UPDATE chars SET playtime = '%u' WHERE charid = '%u' LIMIT 1;", playtime, PChar->id);
 
-        if (PChar->isNewPlayer() && playtime >= 36000)
+        // Removes new player icon if played for more than 240 hours
+        if (PChar->isNewPlayer() && playtime >= 864000)
         {
             PChar->menuConfigFlags.flags &= ~NFLAG_NEWPLAYER;
             PChar->updatemask |= UPDATE_HP;
@@ -5907,6 +5993,10 @@ namespace charutils
             if (PSpell->getAOE() == SPELLAOE_RADIAL_ACCE)
             {
                 PChar->StatusEffectContainer->DelStatusEffect(EFFECT_ACCESSION);
+            }
+            if (PSpell->getSkillType() == SKILL_ENHANCING_MAGIC)
+            {
+                PChar->StatusEffectContainer->DelStatusEffect(EFFECT_PERPETUANCE);
             }
         }
         else if (PSpell->getSpellGroup() == SPELLGROUP_BLACK)
@@ -6317,26 +6407,26 @@ namespace charutils
         return PChar->getCharVar(var);
     }
 
-    void SetCharVar(uint32 charId, std::string const& var, int32 value)
+    void SetCharVar(uint32 charId, std::string const& var, int32 value, uint32 expiry /* = 0 */)
     {
         if (auto player = zoneutils::GetChar(charId))
         {
-            player->setCharVar(var, value);
+            player->setCharVar(var, value, expiry);
             return;
         }
 
-        PersistCharVar(charId, var, value);
-        message::send_charvar_update(charId, var, value);
+        PersistCharVar(charId, var, value, expiry);
+        message::send_charvar_update(charId, var, value, expiry);
     }
 
-    void SetCharVar(CCharEntity* PChar, std::string const& var, int32 value)
+    void SetCharVar(CCharEntity* PChar, std::string const& var, int32 value, uint32 expiry /* = 0 */)
     {
         if (PChar == nullptr)
         {
             return;
         }
 
-        return PChar->setCharVar(var, value);
+        return PChar->setCharVar(var, value, expiry);
     }
 
     int32 ClearCharVarsWithPrefix(CCharEntity* PChar, std::string const& prefix)
@@ -6393,22 +6483,32 @@ namespace charutils
         PChar->removeFromCharVarCache(var);
     }
 
-    int32 FetchCharVar(uint32 charId, std::string const& varName)
+    auto FetchCharVar(uint32 charId, std::string const& varName) -> std::pair<int32, uint32>
     {
-        const char* fmtQuery = "SELECT value FROM char_vars WHERE charid = %u AND varname = '%s' LIMIT 1;";
+        const char* fmtQuery = "SELECT value, expiry FROM char_vars WHERE charid = %u AND varname = '%s' LIMIT 1;";
 
         int32 ret = sql->Query(fmtQuery, charId, varName);
 
-        int32 value = 0;
+        int32  value  = 0;
+        uint32 expiry = 0;
         if (ret != SQL_ERROR && sql->NumRows() != 0 && sql->NextRow() == SQL_SUCCESS)
         {
-            value = sql->GetIntData(0);
+            value  = sql->GetIntData(0);
+            expiry = sql->GetUIntData(1);
+
+            uint32 currentTimestamp = CVanaTime::getInstance()->getSysTime();
+
+            if (expiry > 0 && expiry <= currentTimestamp)
+            {
+                value = 0;
+                sql->Query("DELETE FROM char_vars WHERE charid = %u AND varname = '%s';", charId, varName);
+            }
         }
 
-        return value;
+        return { value, expiry };
     }
 
-    void PersistCharVar(uint32 charId, std::string const& var, int32 value)
+    void PersistCharVar(uint32 charId, std::string const& var, int32 value, uint32 expiry /* = 0 */)
     {
         if (value == 0)
         {
@@ -6416,7 +6516,7 @@ namespace charutils
         }
         else
         {
-            sql->Query("INSERT INTO char_vars SET charid = %u, varname = '%s', value = %i ON DUPLICATE KEY UPDATE value = %i;", charId, var, value, value);
+            sql->Query("INSERT INTO char_vars SET charid = %u, varname = '%s', value = %i, expiry = %d ON DUPLICATE KEY UPDATE value = %i, expiry = %i;", charId, var, value, expiry, value, expiry);
         }
     }
 

@@ -8,15 +8,12 @@
 -- http://ffxiclopedia.wikia.com/wiki/Field_Manual
 -- http://ffxiclopedia.wikia.com/wiki/Grounds_Tome
 -----------------------------------
-require("scripts/globals/teleports")
-require("scripts/globals/utils")
-require("scripts/globals/zone")
-require("scripts/globals/msg")
-require("scripts/globals/roe")
-require("scripts/globals/npc_util")
-require("scripts/globals/extravaganza")
+require('scripts/globals/teleports')
+require('scripts/globals/utils')
+require('scripts/globals/roe')
+require('scripts/globals/npc_util')
+require('scripts/globals/extravaganza')
 -----------------------------------
-
 xi = xi or {}
 xi.regime = xi.regime or {}
 
@@ -58,17 +55,17 @@ local regimeInfo =
         },
         finishOptions =
         {
-            [  3] = { act = "CANCEL_REGIME",   cost =  0, discounted =  0 },
-            [ 21] = { act = "REPATRIATION",    cost = 50, discounted = 10 },
-            [ 37] = { act = "RERAISE",         cost = 10, discounted =  5 },
-            [ 53] = { act = "REGEN",           cost = 20, discounted = 10 },
-            [ 69] = { act = "REFRESH",         cost = 20, discounted = 10 },
-            [ 85] = { act = "PROTECT",         cost = 15, discounted =  5 },
-            [101] = { act = "SHELL",           cost = 15, discounted =  5 },
-            [117] = { act = "DRIED_MEAT",      cost = 50, discounted = 25, food = true },
-            [133] = { act = "SALTED_FISH",     cost = 50, discounted = 25, food = true },
-            [149] = { act = "HARD_COOKIE",     cost = 50, discounted = 25, food = true },
-            [165] = { act = "INSTANT_NOODLES", cost = 50, discounted = 25, food = true },
+            [  3] = { act = 'CANCEL_REGIME',   cost =  0, discounted =  0 },
+            [ 21] = { act = 'REPATRIATION',    cost = 50, discounted = 10 },
+            [ 37] = { act = 'RERAISE',         cost = 10, discounted =  5 },
+            [ 53] = { act = 'REGEN',           cost = 20, discounted = 10 },
+            [ 69] = { act = 'REFRESH',         cost = 20, discounted = 10 },
+            [ 85] = { act = 'PROTECT',         cost = 15, discounted =  5 },
+            [101] = { act = 'SHELL',           cost = 15, discounted =  5 },
+            [117] = { act = 'DRIED_MEAT',      cost = 50, discounted = 25, food = true },
+            [133] = { act = 'SALTED_FISH',     cost = 50, discounted = 25, food = true },
+            [149] = { act = 'HARD_COOKIE',     cost = 50, discounted = 25, food = true },
+            [165] = { act = 'INSTANT_NOODLES', cost = 50, discounted = 25, food = true },
 
             -- TODO: implement elite training
             -- ELITE_INTRO     =  36,
@@ -470,26 +467,26 @@ local regimeInfo =
         },
         finishOptions =
         {
-            [  3] = { act = "CANCEL_REGIME",   cost =   0, discounted =   0 },
-            [ 20] = { act = "REPATRIATION",    cost =  50, discounted =  10 },
-            [ 36] = { act = "CIRCUMSPECTION",  cost =   5, discounted =   5 },
-            [ 52] = { act = "HOMING_INSTINCT", cost =  50, discounted =  25 },
-            [ 68] = { act = "RERAISE",         cost =  10, discounted =   5 },
-            [ 84] = { act = "RERAISE_II",      cost =  20, discounted =  10 },
-            [100] = { act = "RERAISE_III",     cost =  30, discounted =  15 },
-            [116] = { act = "REGEN",           cost =  20, discounted =  10 },
-            [132] = { act = "REFRESH",         cost =  20, discounted =  10 },
-            [148] = { act = "PROTECT",         cost =  15, discounted =   5 },
-            [164] = { act = "SHELL",           cost =  15, discounted =   5 },
-            [180] = { act = "HASTE",           cost =  20, discounted =  10 },
-            [196] = { act = "DRIED_MEAT",      cost =  50, discounted =  25, food = true },
-            [212] = { act = "SALTED_FISH",     cost =  50, discounted =  25, food = true },
-            [228] = { act = "HARD_COOKIE",     cost =  50, discounted =  25, food = true },
-            [244] = { act = "INSTANT_NOODLES", cost =  50, discounted =  25, food = true },
-            [260] = { act = "DRIED_AGARICUS",  cost =  50, discounted =  25, food = true },
-            [276] = { act = "INSTANT_RICE",    cost =  50, discounted =  25, food = true },
-            [292] = { act = "CIPHER_SAKURA",   cost = 300, discounted = 300 },
-            [308] = { act = "CIPHER_KORU",     cost = 300, discounted = 300 },
+            [  3] = { act = 'CANCEL_REGIME',   cost =   0, discounted =   0 },
+            [ 20] = { act = 'REPATRIATION',    cost =  50, discounted =  10 },
+            [ 36] = { act = 'CIRCUMSPECTION',  cost =   5, discounted =   5 },
+            [ 52] = { act = 'HOMING_INSTINCT', cost =  50, discounted =  25 },
+            [ 68] = { act = 'RERAISE',         cost =  10, discounted =   5 },
+            [ 84] = { act = 'RERAISE_II',      cost =  20, discounted =  10 },
+            [100] = { act = 'RERAISE_III',     cost =  30, discounted =  15 },
+            [116] = { act = 'REGEN',           cost =  20, discounted =  10 },
+            [132] = { act = 'REFRESH',         cost =  20, discounted =  10 },
+            [148] = { act = 'PROTECT',         cost =  15, discounted =   5 },
+            [164] = { act = 'SHELL',           cost =  15, discounted =   5 },
+            [180] = { act = 'HASTE',           cost =  20, discounted =  10 },
+            [196] = { act = 'DRIED_MEAT',      cost =  50, discounted =  25, food = true },
+            [212] = { act = 'SALTED_FISH',     cost =  50, discounted =  25, food = true },
+            [228] = { act = 'HARD_COOKIE',     cost =  50, discounted =  25, food = true },
+            [244] = { act = 'INSTANT_NOODLES', cost =  50, discounted =  25, food = true },
+            [260] = { act = 'DRIED_AGARICUS',  cost =  50, discounted =  25, food = true },
+            [276] = { act = 'INSTANT_RICE',    cost =  50, discounted =  25, food = true },
+            [292] = { act = 'CIPHER_SAKURA',   cost = 300, discounted = 300 },
+            [308] = { act = 'CIPHER_KORU',     cost = 300, discounted = 300 },
         },
         zone =
         {
@@ -568,9 +565,9 @@ local regimeInfo =
                     { 4, 2, 0, 0, 26, 30, 860, 604 },
                     { 4, 2, 0, 0, 26, 30, 860, 605 },
                     { 4, 2, 0, 0, 30, 34, 970, 606 },
-                    { 5, 2, 0, 0, 87, 92, 2260, 607 },
-                    { 3, 3, 0, 0, 88, 90, 2260, 608 },
-                    { 3, 3, 0, 0, 88, 90, 1850, 609 },
+                    { 5, 2, 0, 0, 25, 25, 700, 607 }, -- 2260 (80 -> 25)
+                    { 3, 3, 0, 0, 25, 25, 700, 608 }, -- 2260 (80 -> 25)
+                    { 3, 3, 0, 0, 25, 25, 600, 609 }, -- 2260 (80 -> 25)
                 },
             },
             [xi.zone.BOSTAUNIEUX_OUBLIETTE] =
@@ -581,11 +578,11 @@ local regimeInfo =
                     { 5, 0, 0, 0, 52, 54, 1110, 610 },
                     { 4, 2, 0, 0, 52, 59, 1320, 611 },
                     { 5, 1, 0, 0, 56, 63, 1430, 612 },
-                    { 9, 0, 0, 0, 65, 68, 2050, 613 },
-                    { 6, 1, 0, 0, 94, 97, 2300, 614 },
-                    { 6, 1, 0, 0, 95, 97, 2300, 615 },
-                    { 6, 0, 0, 0, 96, 97, 1960, 616 },
-                    { 2, 5, 0, 0, 95, 99, 2480, 617 },
+                    { 9, 0, 0, 0, 65, 68, 1550, 613 }, -- 2050
+                    { 6, 1, 0, 0, 65, 65, 1550, 614 }, -- 2300 (95 -> 65)
+                    { 6, 1, 0, 0, 65, 65, 1550, 615 }, -- 2300 (95 -> 65)
+                    { 6, 0, 0, 0, 65, 65, 1430, 616 }, -- 1960 (95 -> 65)
+                    { 2, 5, 0, 0, 65, 65, 1650, 617 }, -- 2480 (95 -> 65)
                 },
             },
             [xi.zone.TORAIMARAI_CANAL] =
@@ -597,10 +594,10 @@ local regimeInfo =
                     { 2, 2, 2, 0, 52, 57, 1410, 619 },
                     { 3, 3, 0, 0, 53, 57, 1500, 620 },
                     { 3, 4, 0, 0, 60, 65, 1690, 621 },
-                    { 4, 3, 0, 0, 95, 97, 2240, 622 },
-                    { 5, 2, 0, 0, 95, 98, 2170, 623 },
-                    { 5, 2, 0, 0, 96, 98, 2250, 624 },
-                    { 8, 2, 0, 0, 94, 99, 2050, 625 },
+                    { 4, 3, 0, 0, 65, 65, 1500, 622 }, -- 2240 (95 -> 65)
+                    { 5, 2, 0, 0, 25, 25,  600, 623 }, -- 2170 (95 -> 25)
+                    { 5, 2, 0, 0, 25, 25,  600, 624 }, -- 2250 (95 -> 25)
+                    { 8, 2, 0, 0, 65, 65, 1450, 625 }, -- 2050 (95 -> 65)
                 },
             },
             [xi.zone.ZERUHN_MINES] =
@@ -627,7 +624,7 @@ local regimeInfo =
                     { 3, 3, 0, 0, 29, 33, 930, 731 },
                     { 4, 0, 0, 0, 30, 33, 770, 732 },
                     { 6, 0, 0, 0, 35, 37, 1030, 733 },
-                    { 4, 3, 0, 0, 87, 91, 2140, 734 },
+                    { 4, 3, 0, 0, 32, 32, 920, 734 }, --2140 (91 -> 32)
                 },
             },
             [xi.zone.KUFTAL_TUNNEL] =
@@ -721,11 +718,11 @@ local regimeInfo =
                     { 4, 1, 0, 0,  3,  8, 280, 639 },
                     { 3, 2, 0, 0,  5,  9, 350, 640 },
                     { 3, 2, 0, 0, 11, 14, 490, 641 },
-                    { 4, 2, 0, 0, 86, 89, 1830, 642 },
-                    { 5, 2, 0, 0, 86, 90, 1650, 643 },
-                    { 5, 2, 0, 0, 86, 90, 1840, 644 },
-                    { 2, 2, 2, 0, 90, 91, 1860, 645 },
-                    { 5, 2, 0, 0, 90, 93, 2260, 646 },
+                    { 4, 2, 0, 0, 25, 25, 550, 642 }, -- 1830 (90 -> 25)
+                    { 5, 2, 0, 0, 25, 25, 550, 643 }, -- 1650 (90 -> 25)
+                    { 5, 2, 0, 0, 25, 25, 600, 644 }, -- 1840 (90 -> 25)
+                    { 2, 2, 2, 0, 25, 25, 600, 645 }, -- 1840 (90 -> 25)
+                    { 5, 2, 0, 0, 25, 25, 700, 646 }, -- 2260 (90 -> 25)
                 },
             },
             [xi.zone.INNER_HORUTOTO_RUINS] =
@@ -737,10 +734,10 @@ local regimeInfo =
                     { 2, 3, 0, 0,  1,  7, 270, 648 },
                     { 3, 2, 0, 0, 15, 20, 610, 649 },
                     { 4, 2, 0, 0, 22, 26, 840, 650 },
-                    { 3, 3, 0, 0, 78, 82, 1750, 651 },
-                    { 3, 3, 0, 0, 79, 82, 1760, 652 },
-                    { 2, 4, 0, 0, 81, 83, 1770, 653 },
-                    { 2, 4, 0, 0, 81, 84, 1780, 654 },
+                    { 3, 3, 0, 0, 25, 25, 750, 651 }, -- 1750 (82 -> 25)
+                    { 3, 3, 0, 0, 25, 25, 760, 652 }, -- 1760 (82 -> 25)
+                    { 2, 4, 0, 0, 25, 25, 770, 653 }, -- 1770 (82 -> 25)
+                    { 2, 4, 0, 0, 25, 25, 780, 654 }, -- 1780 (82 -> 25)
                 },
             },
             [xi.zone.ORDELLES_CAVES] =
@@ -754,8 +751,8 @@ local regimeInfo =
                     { 3, 3, 0, 0, 23, 26, 850, 658 },
                     { 4, 2, 0, 0, 26, 28, 950, 659 },
                     { 4, 1, 0, 0, 29, 34, 830, 660 },
-                    { 3, 3, 0, 0, 84, 86, 1810, 661 },
-                    { 3, 3, 0, 0, 86, 88, 1890, 662 },
+                    { 3, 3, 0, 0, 33, 33, 960, 661 }, -- 1810 (86 -> 33)
+                    { 3, 3, 0, 0, 33, 33, 920, 662 }, -- 1890 (88 -> 33)
                 },
             },
             [xi.zone.OUTER_HORUTOTO_RUINS] =
@@ -814,8 +811,8 @@ local regimeInfo =
                     { 4, 2, 0, 0, 50, 54, 1300, 690 },
                     { 2, 2, 2, 0, 53, 58, 1340, 691 },
                     { 3, 3, 0, 0, 59, 63, 1470, 692 },
-                    { 4, 3, 0, 0, 91, 93, 2190, 693 },
-                    { 4, 3, 0, 0, 92, 96, 2220, 694 },
+                    { 4, 3, 0, 0, 60, 60, 1420, 693 }, -- 2190 (93 -> 60)
+                    { 4, 3, 0, 0, 60, 60, 1480, 694 }, -- 2220 (96 -> 60)
                 },
             },
             [xi.zone.MAZE_OF_SHAKHRAMI] =
@@ -859,8 +856,8 @@ local regimeInfo =
                     { 4, 2, 0, 0, 50, 56, 1310, 714 },
                     { 5, 1, 0, 0, 50, 58, 1340, 715 },
                     { 3, 3, 0, 0, 59, 63, 1470, 716 },
-                    { 4, 2, 0, 0, 95, 99, 2060, 717 },
-                    { 4, 3, 0, 0, 95, 99, 2250, 718 },
+                    { 4, 2, 0, 0, 58, 58, 1440, 717 }, -- 2060 (99 -> 58)
+                    { 4, 3, 0, 0, 58, 58, 1480, 718 }, -- 2250 (99 -> 58)
                 },
             },
             [xi.zone.IFRITS_CAULDRON] =
@@ -1050,15 +1047,15 @@ end
 
 -- function made global to be called by hunts.lua
 xi.regime.clearRegimeVars = function(player)
-    player:setCharVar("[regime]type", 0)
-    player:setCharVar("[regime]zone", 0)
-    player:setCharVar("[regime]id", 0)
-    player:setCharVar("[regime]repeat", 0)
-    player:setCharVar("[regime]lastReward", 0)
+    player:setCharVar('[regime]type', 0)
+    player:setCharVar('[regime]zone', 0)
+    player:setCharVar('[regime]id', 0)
+    player:setCharVar('[regime]repeat', 0)
+    player:setCharVar('[regime]lastReward', 0)
 
     for i = 1, 4 do
-        player:setCharVar("[regime]needed" .. i, 0)
-        player:setCharVar("[regime]killed" .. i, 0)
+        player:setCharVar('[regime]needed' .. i, 0)
+        player:setCharVar('[regime]killed' .. i, 0)
     end
 end
 
@@ -1075,8 +1072,8 @@ xi.regime.bookOnTrigger = function(player, regimeType)
 
     local info = regimeInfo[regimeType].zone[player:getZoneID()]
     -- checks if hunt is active, if so prompts player to cancel
-    if player:getCharVar("[hunt]status") >= 1 then
-        player:startEvent(info.event, 0, 0, 3, 1, 0, 0, player:getCurrency("valor_point"), player:getCharVar("[hunt]id"))
+    if player:getCharVar('[hunt]status') >= 1 then
+        player:startEvent(info.event, 0, 0, 3, 1, 0, 0, player:getCurrency('valor_point'), player:getCharVar('[hunt]id'))
 
     elseif
         (regimeType == xi.regime.type.FIELDS and xi.settings.main.ENABLE_FIELD_MANUALS == 1) or
@@ -1099,14 +1096,14 @@ xi.regime.bookOnTrigger = function(player, regimeType)
             arg4 = 1
         end
 
-        player:startEvent(info.event, 0, arg2, cipher, arg4, 0, 0, player:getCurrency("valor_point"), player:getCharVar("[regime]id"))
+        player:startEvent(info.event, 0, arg2, cipher, arg4, 0, 0, player:getCurrency('valor_point'), player:getCharVar('[regime]id'))
     else
-        player:PrintToPlayer("Disabled.")
+        player:PrintToPlayer('Disabled.')
     end
 end
 
 xi.regime.bookOnEventUpdate = function(player, option, regimeType)
-    local page = getPageByRegimeId(player:getCharVar("[regime]type"), player:getCharVar("[regime]zone"), player:getCharVar("[regime]id"))
+    local page = getPageByRegimeId(player:getCharVar('[regime]type'), player:getCharVar('[regime]zone'), player:getCharVar('[regime]id'))
 
     -- check valid option
     local opts = getUpdateOpts(regimeType)
@@ -1118,10 +1115,10 @@ xi.regime.bookOnEventUpdate = function(player, option, regimeType)
 
     -- review current training regime: progress on mobs
     if opt.review and page then
-        local n1 = (page[1] ~= 0) and player:getCharVar("[regime]killed1") or 0
-        local n2 = (page[2] ~= 0) and player:getCharVar("[regime]killed2") or 0
-        local n3 = (page[3] ~= 0) and player:getCharVar("[regime]killed3") or 0
-        local n4 = (page[4] ~= 0) and player:getCharVar("[regime]killed4") or 0
+        local n1 = (page[1] ~= 0) and player:getCharVar('[regime]killed1') or 0
+        local n2 = (page[2] ~= 0) and player:getCharVar('[regime]killed2') or 0
+        local n3 = (page[3] ~= 0) and player:getCharVar('[regime]killed3') or 0
+        local n4 = (page[4] ~= 0) and player:getCharVar('[regime]killed4') or 0
         player:updateEvent(page[1], page[2], page[3], page[4], n1, n2, n3, n4)
 
     -- review current training regime: level range and training area
@@ -1144,7 +1141,7 @@ end
 xi.regime.bookOnEventFinish = function(player, option, regimeType)
     local zoneId       = player:getZoneID()
     local msgOffset    = zones[zoneId].text.REGIME_REGISTERED
-    local tabs         = player:getCurrency("valor_point")
+    local tabs         = player:getCurrency('valor_point')
     local regimeRepeat = bit.band(option, 0x80000000)
     local hasKI        = player:hasKeyItem(xi.ki.RHAPSODY_IN_WHITE)
 
@@ -1184,7 +1181,7 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
     -- purchase a service
     if opt.act then
         local act = opt.act
-        player:delCurrency("valor_point", cost)
+        player:delCurrency('valor_point', cost)
 
         switch (act) : caseof
         {
@@ -1236,9 +1233,9 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
             end,
 
             ['PROTECT'] = function()
-                local mLvl = player:getMainLvl()
-                local power = 0
-                local tier = 0
+                local mLvl  = player:getMainLvl()
+                local power = 220
+                local tier  = 5
 
                 if mLvl < 27 then
                     power = 20
@@ -1252,9 +1249,6 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
                 elseif mLvl < 76 then
                     power = 140
                     tier = 4
-                else
-                    power = 220
-                    tier = 5
                 end
 
                 local bonus = 0
@@ -1269,8 +1263,10 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
 
             ['SHELL'] = function()
                 local mLvl  = player:getMainLvl()
-                local power = 0
-                local tier  = 0
+
+                -- Shell V (75/256)
+                local power = 2930
+                local tier  = 5
 
                 if mLvl < 37 then
                     power = 1055 -- Shell I   (27/256)
@@ -1284,9 +1280,6 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
                 elseif mLvl < 76 then
                     power = 2617 -- Shell IV  (67/256)
                     tier = 4
-                else
-                    power = 2930 -- Shell V   (75/256)
-                    tier = 5
                 end
 
                 local bonus = 0
@@ -1329,14 +1322,14 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
             end,
 
             ['CIPHER_SAKURA'] = function()
-                if not npcUtil.giveItem(player, xi.items.CIPHER_OF_SAKURAS_ALTER_EGO) then
-                    player:addCurrency("valor_point", 300) --refund player if they can't obtain
+                if not npcUtil.giveItem(player, xi.item.CIPHER_OF_SAKURAS_ALTER_EGO) then
+                    player:addCurrency('valor_point', 300) --refund player if they can't obtain
                 end
             end,
 
             ['CIPHER_KORU'] = function()
-                if not npcUtil.giveItem(player, xi.items.CIPHER_OF_KORU_MORUS_ALTER_EGO) then
-                    player:addCurrency("valor_point", 300) --refund player if they can't obtain
+                if not npcUtil.giveItem(player, xi.item.CIPHER_OF_KORU_MORUS_ALTER_EGO) then
+                    player:addCurrency('valor_point', 300) --refund player if they can't obtain
                 end
             end,
         }
@@ -1350,14 +1343,14 @@ xi.regime.bookOnEventFinish = function(player, option, regimeType)
                 regimeRepeat = 1
             end
 
-            player:setCharVar("[regime]type", regimeType)
-            player:setCharVar("[regime]zone", zoneId)
-            player:setCharVar("[regime]id", page[8])
-            player:setCharVar("[regime]repeat", regimeRepeat)
+            player:setCharVar('[regime]type', regimeType)
+            player:setCharVar('[regime]zone', zoneId)
+            player:setCharVar('[regime]id', page[8])
+            player:setCharVar('[regime]repeat', regimeRepeat)
 
             for i = 1, 4 do
-                player:setCharVar("[regime]killed" .. i, 0)
-                player:setCharVar("[regime]needed" .. i, page[i])
+                player:setCharVar('[regime]killed' .. i, 0)
+                player:setCharVar('[regime]needed' .. i, page[i])
             end
 
             player:showText(player, msgOffset)
@@ -1382,7 +1375,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     if
         not player or
         player:getHP() == 0 or
-        player:getCharVar("[regime]id") ~= regimeId
+        player:getCharVar('[regime]id') ~= regimeId
     then
         return
     end
@@ -1411,8 +1404,8 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     end
 
     -- get number of this mob needed, and killed so far
-    local needed = player:getCharVar("[regime]needed" .. index)
-    local killed = player:getCharVar("[regime]killed" .. index)
+    local needed = player:getCharVar('[regime]needed' .. index)
+    local killed = player:getCharVar('[regime]killed' .. index)
 
     -- already finished with this mob
     if killed == needed then
@@ -1422,7 +1415,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     -- increment number killed
     killed = killed + 1
     player:messageBasic(xi.msg.basic.FOV_DEFEATED_TARGET, killed, needed)
-    player:setCharVar("[regime]killed" .. index, killed)
+    player:setCharVar('[regime]killed' .. index, killed)
 
     -- this mob is not yet finished
     if needed > killed then
@@ -1430,14 +1423,14 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     end
 
     -- get page information
-    local page = getPageByRegimeId(player:getCharVar("[regime]type"), player:getCharVar("[regime]zone"), player:getCharVar("[regime]id"))
+    local page = getPageByRegimeId(player:getCharVar('[regime]type'), player:getCharVar('[regime]zone'), player:getCharVar('[regime]id'))
     if not page then
         return
     end
 
     -- this page is not yet finished
     for i = 1, 4 do
-        if player:getCharVar("[regime]killed" .. i) < page[i] then
+        if player:getCharVar('[regime]killed' .. i) < page[i] then
             return
         end
     end
@@ -1485,7 +1478,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     local vanadielEpoch = VanadielUniqueDay()
     if
         xi.settings.main.REGIME_WAIT == 0 or
-        player:getCharVar("[regime]lastReward") < vanadielEpoch
+        player:getCharVar('[regime]lastReward') < vanadielEpoch
     then
         -- gil
         player:addGil(reward)
@@ -1493,21 +1486,24 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
 
         -- tabs
         local tabs = math.floor(reward / 10) * xi.settings.main.TABS_RATE
-        tabs       = utils.clamp(tabs, 0, 50000 - player:getCurrency("valor_point")) -- Retail caps players at 50000 tabs
+        tabs       = utils.clamp(tabs, 0, 50000 - player:getCurrency('valor_point')) -- Retail caps players at 50000 tabs
 
-        player:addCurrency("valor_point", tabs)
-        player:messageBasic(xi.msg.basic.FOV_OBTAINS_TABS, tabs, player:getCurrency("valor_point"))
+        player:addCurrency('valor_point', tabs)
+        player:messageBasic(xi.msg.basic.FOV_OBTAINS_TABS, tabs, player:getCurrency('valor_point'))
 
-        player:setCharVar("[regime]lastReward", vanadielEpoch)
+        player:setCharVar('[regime]lastReward', vanadielEpoch)
     end
 
-    -- award XP every page completion
-    player:addExp(reward * xi.settings.main.BOOK_EXP_RATE)
+    -- award XP every page completion.  If the player is more than REGIME_REWARD_THRESHOLD below
+    -- the minimum suggested level, then do not award.
+    if player:getMainLvl() < math.max(1, page[5] - xi.settings.main.REGIME_REWARD_THRESHOLD) then
+        player:addExp(reward * xi.settings.main.BOOK_EXP_RATE)
+    end
 
     -- repeating regimes
-    if player:getCharVar("[regime]repeat") == 1 then
+    if player:getCharVar('[regime]repeat') == 1 then
         for i = 1, 4 do
-            player:setCharVar("[regime]killed" .. i, 0)
+            player:setCharVar('[regime]killed' .. i, 0)
         end
 
         player:messageBasic(xi.msg.basic.FOV_REGIME_BEGINS_ANEW)

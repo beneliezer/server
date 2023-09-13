@@ -4,8 +4,7 @@
 -- Involved In Quest: EVIL_AT_THE_INLET
 -- !pos -636 -51 -454 83
 -----------------------------------
-local ID = require("scripts/zones/Vunkerl_Inlet_[S]/IDs")
-require("scripts/globals/quests")
+local ID = zones[xi.zone.VUNKERL_INLET_S]
 -----------------------------------
 local entity = {}
 
@@ -22,10 +21,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 112 then
         player:delKeyItem(xi.ki.EVIL_WARDING_SEAL)
     end

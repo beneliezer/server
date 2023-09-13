@@ -2,7 +2,7 @@
 -- Area: AlTaieu
 --  NPC: Dimensional Portal
 -----------------------------------
-local ID = require("scripts/zones/AlTaieu/IDs")
+local ID = zones[xi.zone.ALTAIEU]
 -----------------------------------
 local entity = {}
 
@@ -16,10 +16,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 151 and option == 1 then
         player:setPos(420, 19, -140, 63, 102)     -- To La Theine Plateau (R)
     elseif csid == 152 and option == 1 then

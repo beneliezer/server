@@ -4,15 +4,11 @@
 -- Starts and Finishes Quest: Fear of the dark
 -- !pos -160 -0 137 231
 -----------------------------------
-require("scripts/globals/shop")
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Northern_San_dOria/IDs")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.FEAR_OF_THE_DARK) ~= QUEST_AVAILABLE then
-        if trade:hasItemQty(922, 2) and trade:getItemCount() == 2 then
+        if trade:hasItemQty(xi.item.BAT_WING, 2) and trade:getItemCount() == 2 then
             player:startEvent(18)
         end
     end
@@ -28,10 +24,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 19 and option == 1 then
         player:addQuest(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.FEAR_OF_THE_DARK)
     elseif csid == 18 then

@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Norg
 --  NPC: Sohyon
--- Type: Standard NPC
 -- !pos 47.286 -7.282 13.873 252
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(212)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

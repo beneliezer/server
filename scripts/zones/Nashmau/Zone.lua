@@ -1,10 +1,6 @@
 -----------------------------------
 -- Zone: Nashmau (53)
 -----------------------------------
-local ID = require('scripts/zones/Nashmau/IDs')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -41,10 +37,10 @@ zoneObject.onTransportEvent = function(player, transport)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 200 then
         player:setPos(0, -2, 0, 0, 59)
     end

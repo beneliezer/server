@@ -4,8 +4,7 @@
 -- Involved in Mission: Infiltrate Davoi
 -- !pos 23 0.1 -23 149
 -----------------------------------
-local ID = require("scripts/zones/Davoi/IDs")
-require("scripts/globals/pathfind")
+local ID = zones[xi.zone.DAVOI]
 -----------------------------------
 local entity = {}
 
@@ -35,7 +34,7 @@ entity.onTrigger = function(player, npc)
     npc:continuePath()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

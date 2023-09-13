@@ -3,9 +3,7 @@
 -- Door: Runic Seal
 -- !pos 36 -10 620 54
 -----------------------------------
-local ID = require("scripts/zones/Arrapago_Reef/IDs")
-require("scripts/globals/besieged")
-require("scripts/globals/missions")
+local ID = zones[xi.zone.ARRAPAGO_REMNANTS]
 -----------------------------------
 local entity = {}
 
@@ -30,7 +28,7 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.NOTHING_HAPPENS)
 end
 
-entity.onEventUpdate = function(player, csid, option, target)
+entity.onEventUpdate = function(player, csid, option, npc)
     local assaultid = player:getCurrentAssault()
 
     local cap = bit.band(option, 0x03)
@@ -44,7 +42,7 @@ entity.onEventUpdate = function(player, csid, option, target)
         cap = 50
     end
 
-    player:setCharVar("AssaultCap", cap)
+    player:setCharVar('AssaultCap', cap)
 
     local party = player:getParty()
 
@@ -54,12 +52,12 @@ entity.onEventUpdate = function(player, csid, option, target)
                 not v:hasKeyItem(xi.ki.ILRUSI_ASSAULT_ORDERS and
                 v:getCurrentAssault() == assaultid)
             then
-                player:messageText(target, ID.text.MEMBER_NO_REQS, false)
-                player:instanceEntry(target, 1)
+                player:messageText(npc, ID.text.MEMBER_NO_REQS, false)
+                player:instanceEntry(npc, 1)
                 return
             elseif v:getZoneID() == player:getZoneID() and v:checkDistance(player) > 50 then
-                player:messageText(target, ID.text.MEMBER_TOO_FAR, false)
-                player:instanceEntry(target, 1)
+                player:messageText(npc, ID.text.MEMBER_TOO_FAR, false)
+                player:instanceEntry(npc, 1)
                 return
             end
         end
@@ -68,7 +66,7 @@ entity.onEventUpdate = function(player, csid, option, target)
     player:createInstance(player:getCurrentAssault())
 end
 
-entity.onEventFinish = function(player, csid, option, target)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 108 or (csid == 219 and option == 4) then
         player:setPos(0, 0, 0, 0, 55)
     end
@@ -76,8 +74,8 @@ end
 
 entity.onInstanceCreated = function(player, target, instance)
     if instance then
-        instance:setLevelCap(player:getCharVar("AssaultCap"))
-        player:setCharVar("AssaultCap", 0)
+        instance:setLevelCap(player:getCharVar('AssaultCap'))
+        player:setCharVar('AssaultCap', 0)
         player:setInstance(instance)
         player:instanceEntry(target, 4)
         player:delKeyItem(xi.ki.ILRUSI_ASSAULT_ORDERS)

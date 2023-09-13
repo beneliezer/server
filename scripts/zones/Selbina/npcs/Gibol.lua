@@ -4,8 +4,7 @@
 -- Guild Merchant NPC: Clothcrafting Guild
 -- !pos 13.591 -7.287 8.569 248
 -----------------------------------
-local ID = require("scripts/zones/Selbina/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.SELBINA]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.CLOTHCRAFT_SHOP_DIALOG)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

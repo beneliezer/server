@@ -1,10 +1,6 @@
 -----------------------------------
 -- Zone: Upper_Delkfutts_Tower (158)
 -----------------------------------
-local ID = require('scripts/zones/Upper_Delkfutts_Tower/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -36,12 +32,12 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
     switch (triggerArea:GetTriggerAreaID()): caseof
     {
         [1] = function()
-            --player:setCharVar("porter_lock", 1)
+            --player:setCharVar('porter_lock', 1)
             player:startEvent(0)
         end,
 
         [2] = function()
-            --player:setCharVar("porter_lock", 1)
+            --player:setCharVar('porter_lock', 1)
             player:startEvent(1)
         end,
     }
@@ -50,10 +46,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 0 and option == 1 then
         player:setPos(-490, -130, 81, 231, 157)
     elseif csid == 1 and option == 1 then

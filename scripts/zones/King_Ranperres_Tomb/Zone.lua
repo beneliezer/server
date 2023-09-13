@@ -1,10 +1,7 @@
 -----------------------------------
 -- Zone: King Ranperres Tomb (190)
 -----------------------------------
-local ID = require('scripts/zones/King_Ranperres_Tomb/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.KING_RANPERRES_TOMB]
 -----------------------------------
 local zoneObject = {}
 
@@ -47,10 +44,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onGameHour = function(zone)

@@ -4,8 +4,7 @@
 -- Type: Cooking Image Support
 -- !pos -125.890 -2.999 62.499 238
 -----------------------------------
-require("scripts/globals/crafting")
-local ID = require("scripts/zones/Windurst_Waters/IDs")
+local ID = zones[xi.zone.WINDURST_WATERS]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10016 and option == 1 then
         player:messageSpecial(ID.text.COOKING_SUPPORT, 0, 8, 1)
         player:addStatusEffect(xi.effect.COOKING_IMAGERY, 1, 0, 120)

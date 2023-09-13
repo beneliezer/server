@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Port Windurst
 -- NPC : Tohopka
--- Type: Standard NPC
 -- !pos -105.723 -10 83.813 240
------------------------------------
-require("scripts/globals/quests")
 -----------------------------------
 local entity = {}
 
@@ -21,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

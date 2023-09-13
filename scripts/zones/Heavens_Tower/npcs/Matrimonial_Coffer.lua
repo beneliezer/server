@@ -4,8 +4,6 @@
 -- Type: NPC
 -- !pos -5.955 0.249 24.360 242
 -----------------------------------
-require("scripts/globals/matrimonialcoffer")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,11 +13,11 @@ entity.onTrigger = function(player, npc)
     xi.matrimonialcoffer.startEvent(player)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.matrimonialcoffer.finishEvent(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.matrimonialcoffer.finishEvent(player, csid, option, npc)
 end
 
 return entity

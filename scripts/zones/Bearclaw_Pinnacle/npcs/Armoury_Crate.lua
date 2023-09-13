@@ -2,8 +2,6 @@
 -- Area: Bearclaw Pinnacle
 --  NPC: Armoury Crate
 -----------------------------------
-require("scripts/globals/battlefield")
------------------------------------
 local entity = {}
 
 -- Leaving this loot here until their respective battlefields are implemented
@@ -86,10 +84,10 @@ end
 entity.onTrigger = function(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

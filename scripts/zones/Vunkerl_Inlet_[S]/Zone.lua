@@ -1,7 +1,7 @@
 -----------------------------------
 -- Zone: Vunkerl_Inlet_[S] (83)
 -----------------------------------
-local ID = require('scripts/zones/Vunkerl_Inlet_[S]/IDs')
+local ID = zones[xi.zone.VUNKERL_INLET_S]
 -----------------------------------
 local zoneObject = {}
 
@@ -51,10 +51,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

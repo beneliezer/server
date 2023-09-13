@@ -1,8 +1,6 @@
 -----------------------------------
 -- Zone: Eastern Adoulin (257)
 -----------------------------------
-local ID = require('scripts/zones/Eastern_Adoulin/IDs')
------------------------------------
 local zoneObject = {}
 
 local defineZoneAroundXYZ = function(zone, id, x, y, z, distance)
@@ -34,10 +32,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

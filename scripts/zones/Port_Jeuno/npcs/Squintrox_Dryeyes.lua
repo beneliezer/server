@@ -4,20 +4,18 @@
 -- Type: Addon Mission Merchant
 -- !pos -100.071 -1 11.869 246
 -----------------------------------
-require("scripts/globals/quests")
-require("scripts/globals/missions")
-local ID = require("scripts/zones/Port_Jeuno/IDs")
+local ID = zones[xi.zone.PORT_JEUNO]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     local count         = trade:getItemCount()
-    local sLux          = trade:hasItemQty(2740, 1)
-    local sLuna         = trade:hasItemQty(2741, 1)
-    local sAstrum       = trade:hasItemQty(2742, 1)
+    local sLux          = trade:hasItemQty(xi.item.SEEDSPALL_LUX, 1)
+    local sLuna         = trade:hasItemQty(xi.item.SEEDSPALL_LUNA, 1)
+    local sAstrum       = trade:hasItemQty(xi.item.SEEDSPALL_ASTRUM, 1)
     local acpMission    = player:getCurrentMission(xi.mission.log_id.ACP)
     local hasCrimsonKey = player:hasKeyItem(xi.ki.CRIMSON_KEY)
-    local lastCrimson   = player:getCharVar("LastCrimsonKey") -- When last Crimson key was obtained
+    local lastCrimson   = player:getCharVar('LastCrimsonKey') -- When last Crimson key was obtained
 
     if
         xi.settings.main.ENABLE_ACP == 0 and
@@ -40,7 +38,7 @@ entity.onTrade = function(player, npc, trade)
         then -- and timer stuff here) then
             player:tradeComplete()
             player:addKeyItem(xi.ki.CRIMSON_KEY)
-            player:setCharVar("LastCrimsonKey", getMidnight())
+            player:setCharVar('LastCrimsonKey', getMidnight())
             player:messageSpecial(ID.text.DRYEYES_2)
             player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.CRIMSON_KEY)
 
@@ -71,16 +69,16 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local acpMission     = player:getCurrentMission(xi.mission.log_id.ACP)
     local salad          = player:hasKeyItem(xi.ki.BOWL_OF_BLAND_GOBLIN_SALAD)
     local juice          = player:hasKeyItem(xi.ki.JUG_OF_GREASY_GOBLIN_JUICE)
     local grub           = player:hasKeyItem(xi.ki.CHUNK_OF_SMOKED_GOBLIN_GRUB)
     local hasViridianKey = player:hasKeyItem(xi.ki.VIRIDIAN_KEY)
-    local lastViridian   = player:getCharVar("LastViridianKey") -- When last Viridian key was obtained
+    local lastViridian   = player:getCharVar('LastViridianKey') -- When last Viridian key was obtained
 
     if csid == 323 then
         if option == 1 then
@@ -98,7 +96,7 @@ entity.onEventFinish = function(player, csid, option)
                 player:delKeyItem(xi.ki.BOWL_OF_BLAND_GOBLIN_SALAD)
                 player:delKeyItem(xi.ki.JUG_OF_GREASY_GOBLIN_JUICE)
                 player:delKeyItem(xi.ki.CHUNK_OF_SMOKED_GOBLIN_GRUB)
-                player:setCharVar("LastViridianKey", getMidnight())
+                player:setCharVar('LastViridianKey', getMidnight())
                 player:showText(player, ID.text.DRYEYES_2)
                 player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.VIRIDIAN_KEY)
 

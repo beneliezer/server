@@ -2,18 +2,10 @@
 -- Area: Al'Taieu
 --   NM: Jailer of Justice
 -----------------------------------
-require("scripts/globals/magic")
------------------------------------
 local entity = {}
 
-entity.onMobInitialize = function(mob)
-end
-
-entity.onMobSpawn = function(mob)
-end
-
 entity.onMobFight = function(mob, target)
-    local popTime = mob:getLocalVar("lastPetPop")
+    local popTime = mob:getLocalVar('lastPetPop')
     -- ffxiclopedia says 30 sec, bgwiki says 1-2 min..
     -- Going with 60 seconds until I see proof of retails timing.
     if os.time() - popTime > 60 then
@@ -24,18 +16,12 @@ entity.onMobFight = function(mob, target)
             else
                 if not GetMobByID(Xzomit):isSpawned() then
                     SpawnMob(Xzomit, 300):updateEnmity(target)
-                    mob:setLocalVar("lastPetPop", os.time())
+                    mob:setLocalVar('lastPetPop', os.time())
                     alreadyPopped = true
                 end
             end
         end
     end
-end
-
-entity.onMobWeaponSkill = function(target, mob, skill)
-end
-
-entity.onMobDespawn = function(mob)
 end
 
 entity.onMobDeath = function(mob, player, optParams)

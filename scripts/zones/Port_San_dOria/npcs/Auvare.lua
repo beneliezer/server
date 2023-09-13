@@ -2,7 +2,7 @@
 -- Area: Port San d'Oria
 --  NPC: Auvare
 -----------------------------------
-require("scripts/quests/flyers_for_regine")
+require('scripts/quests/flyers_for_regine')
 -----------------------------------
 local entity = {}
 
@@ -14,10 +14,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(598)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

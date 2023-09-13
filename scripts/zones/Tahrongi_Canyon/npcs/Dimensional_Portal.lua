@@ -3,8 +3,7 @@
 --  NPC: Dimensional_Portal
 -- !pos 260.000 35.150 340.000 117
 -----------------------------------
-local ID = require("scripts/zones/Tahrongi_Canyon/IDs")
-require("scripts/globals/missions")
+local ID = zones[xi.zone.TAHRONGI_CANYON]
 -----------------------------------
 local entity = {}
 
@@ -19,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 915 and option == 1 then
         player:setPos(654.200, -2.799, 100.700, 193, 33) -- To AlTaieu (R)
     end

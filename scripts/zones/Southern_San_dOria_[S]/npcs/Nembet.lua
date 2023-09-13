@@ -3,7 +3,7 @@
 --  NPC: Nembet
 -- !pos 147 -3 110 80
 -----------------------------------
-local ID = require("scripts/zones/Southern_San_dOria_[S]/IDs")
+local ID = zones[xi.zone.SOUTHERN_SAN_DORIA_S]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +15,10 @@ entity.onTrigger = function(player, npc)
     player:openSendBox()
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

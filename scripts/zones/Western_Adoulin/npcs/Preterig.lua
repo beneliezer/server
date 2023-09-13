@@ -4,8 +4,7 @@
 -- Type: Shop NPC
 -- !pos 6 0 -53 256
 -----------------------------------
-require("scripts/globals/shop")
-local ID = require("scripts/zones/Western_Adoulin/IDs")
+local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
 local entity = {}
 
@@ -25,10 +24,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

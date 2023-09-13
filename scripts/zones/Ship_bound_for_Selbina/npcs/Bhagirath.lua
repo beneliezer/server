@@ -4,7 +4,7 @@
 -- Notes: Tells ship ETA time
 -- !pos 0.278 -14.707 -1.411 220
 -----------------------------------
-local ID = require("scripts/zones/Ship_bound_for_Selbina/IDs")
+local ID = zones[xi.zone.SHIP_BOUND_FOR_SELBINA]
 -----------------------------------
 local entity = {}
 
@@ -44,10 +44,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(message, math.abs(math.floor((2.4 * ((vHour * 60) + 40 - vMin)) / 60)), vHour)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

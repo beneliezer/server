@@ -12,7 +12,7 @@ xi.settings = xi.settings or {}
 xi.settings.login =
 {
     -- Expected Client version (wrong version cannot log in)
-    CLIENT_VER = "30230606_0",
+    CLIENT_VER = "30230801_0",
 
     -- 0 - disabled (every version allowed)
     -- 1 - enabled - strict (only exact CLIENT_VER allowed)
@@ -33,6 +33,9 @@ xi.settings.login =
 
     -- Allow character deletion through the lobby (true/false)
     CHARACTER_DELETION = false,
+
+    -- Allow character creation through the lobby (true/false)
+    CHARACTER_CREATION = false,
 
     -- Number of simultaneous game sessions per IP (0 for no limit)
     LOGIN_LIMIT = 2,

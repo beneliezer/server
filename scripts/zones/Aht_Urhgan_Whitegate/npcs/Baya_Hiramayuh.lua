@@ -14,7 +14,7 @@ entity.onTrigger = function(player, npc)
     local waiting = 195 -- Offset for Mhaura
 
     if timer <= waiting then
-        direction = 1 -- Ship arrived, switch dialog from "arrive" to "depart"
+        direction = 1 -- Ship arrived, switch dialog from 'arrive' to 'depart'
     else
         timer = timer - waiting -- Ship hasn't arrived, subtract waiting time to get time to arrival
     end
@@ -22,10 +22,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(232, timer, direction)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

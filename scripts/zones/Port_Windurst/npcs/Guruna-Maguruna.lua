@@ -3,8 +3,7 @@
 --  NPC: Guruna-Maguruna
 -- Standard Merchant NPC
 -----------------------------------
-local ID = require("scripts/zones/Port_Windurst/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.PORT_WINDURST]
 -----------------------------------
 local entity = {}
 
@@ -33,10 +32,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.nation(player, stock, xi.nation.WINDURST)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

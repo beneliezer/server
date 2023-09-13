@@ -4,8 +4,7 @@
 -- Starts, Involved with, and Finishes Quest: 'A Pioneers Best (Imaginary) Friend'
 -- !pos 34 0 -131 256
 -----------------------------------
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Western_Adoulin/IDs")
+local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 2520 then
         -- Starting Quest: 'A Pioneers Best (Imaginary) Friend'
         player:addQuest(xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.A_PIONEERS_BEST_IMAGINARY_FRIEND)

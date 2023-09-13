@@ -3,19 +3,20 @@
 -- desc: If no name is specified, resets your own JA timers.
 -- If a player name is specified, resets all of that players JA timers.
 -----------------------------------
+local commandObj = {}
 
-cmdprops =
+commandObj.cmdprops =
 {
-    permission = 2,
+    permission = 3,
     parameters = "s"
 }
 
-function error(player, msg)
+local function error(player, msg)
     player:PrintToPlayer(msg)
     player:PrintToPlayer("!reset (player)")
 end
 
-function onTrigger(player, target)
+commandObj.onTrigger = function(player, target)
     -- validate target
     local targ
     if not target then
@@ -53,9 +54,12 @@ function onTrigger(player, target)
         xi.effect.CHARM_I,
         xi.effect.CHARM_II,
         xi.effect.POISON,
+        xi.effect.PETRIFICATION,
     }
 
     for _, v in pairs(effects) do
         player:delStatusEffect(v)
     end
 end
+
+return commandObj

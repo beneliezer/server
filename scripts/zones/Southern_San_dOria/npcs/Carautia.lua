@@ -4,8 +4,7 @@
 -- Standard Merchant NPC
 -- !pos 70 0 39 230
 -----------------------------------
-local ID = require("scripts/zones/Southern_San_dOria/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.SOUTHERN_SAN_DORIA]
 -----------------------------------
 local entity = {}
 
@@ -35,10 +34,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.nation(player, stock, xi.nation.SANDORIA)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

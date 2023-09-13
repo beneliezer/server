@@ -1,10 +1,6 @@
 -----------------------------------
 -- Zone: Outer Ra’Kanzar (274)
 -----------------------------------
-require('scripts/globals/npc_util')
------------------------------------
-local ID = require('scripts/zones/Outer_RaKaznar/IDs')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -36,10 +32,10 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
     }
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 50 then
         npcUtil.giveKeyItem(player, xi.ki.SILVERY_PLATE)
     end

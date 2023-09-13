@@ -1,15 +1,12 @@
 -----------------------------------
 -- Zone: Port_Windurst (240)
 -----------------------------------
-local ID = require('scripts/zones/Port_Windurst/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/cutscenes')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.PORT_WINDURST]
 -----------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
-    SetExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
+    xi.server.setExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
 end
 
 zoneObject.onZoneIn = function(player, prevZone)
@@ -40,10 +37,10 @@ zoneObject.onTransportEvent = function(player, transport)
     player:startEvent(10002)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 10002 then
         player:setPos(0, 0, 0, 0, 225)
     end

@@ -12,9 +12,7 @@ mixins = {
 require("scripts/mixins/job_special"),
 require("scripts/mixins/rage")}
 require("scripts/globals/mobs")
-require("scripts/globals/status")
 require("scripts/globals/magic")
-require("scripts/globals/titles")
 -----------------------------------
 local entity = {}
 local despawnMobTable =

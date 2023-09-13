@@ -2,8 +2,7 @@
 -- Ambuscade
 -- !instance 30000
 -----------------------------------
-local ID = require("scripts/zones/Maquette_Abdhaljs-Legion_B/IDs")
-require("scripts/globals/instance")
+local ID = zones[xi.zone.MAQUETTE_ABDHALJS_LEGION_B]
 -----------------------------------
 local instanceObject = {}
 
@@ -28,7 +27,7 @@ instanceObject.afterInstanceRegister = function(player)
     player:countdown(instance:getTimeLimit() * 60)
 end
 
--- Instance "tick"
+-- Instance 'tick'
 instanceObject.onInstanceTimeUpdate = function(instance, elapsed)
     --xi.instance.updateInstanceTime(instance, elapsed, ID.text)
 
@@ -60,10 +59,10 @@ instanceObject.onInstanceComplete = function(instance)
     xi.ambuscade.onInstanceComplete(instance)
 end
 
-instanceObject.onEventUpdate = function(player, csid, option)
+instanceObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
     if csid == 10001 then
         player:setPos(-34.2, -16, 58, 32, 249)
     end

@@ -1,11 +1,8 @@
 -----------------------------------
 -- Area: Windurst Woods
 --  NPC: Cha Lebagta
--- Type: Standard NPC
 -- !pos 58.385 -6.249 216.670 241
 -- Involved in Quests: As Thick as Thieves, Mihgo's Amigo
------------------------------------
-require("scripts/globals/quests")
 -----------------------------------
 local entity = {}
 
@@ -22,10 +19,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

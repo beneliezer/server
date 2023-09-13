@@ -3,9 +3,6 @@
 -- Waughroon Shrine quest battlefield
 -- !pos -345 104 -260 144
 -----------------------------------
-require("scripts/globals/battlefield")
-require("scripts/globals/npc_util")
------------------------------------
 local battlefieldObject = {}
 
 battlefieldObject.onBattlefieldTick = function(battlefield, tick)
@@ -29,16 +26,16 @@ battlefieldObject.onBattlefieldLeave = function(player, battlefield, leavecode)
             player:setLocalVar('battlefieldWin', battlefield:getID())
         end
 
-        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 1, battlefield:getLocalVar("[cs]bit"), 4)
+        player:startEvent(32001, battlefield:getArea(), clearTime, partySize, battlefield:getTimeInside(), 1, battlefield:getLocalVar('[cs]bit'), 4)
     elseif leavecode == xi.battlefield.leaveCode.LOST then
         player:startEvent(32002)
     end
 end
 
-battlefieldObject.onEventUpdate = function(player, csid, option)
+battlefieldObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-battlefieldObject.onEventFinish = function(player, csid, option)
+battlefieldObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return battlefieldObject

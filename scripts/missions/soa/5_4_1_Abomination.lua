@@ -5,10 +5,6 @@
 -- !addmission 12 123
 -- Ominous Postern : !pos 118 37.5 20 277
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SOA, xi.mission.id.soa.ABOMINATION)
 

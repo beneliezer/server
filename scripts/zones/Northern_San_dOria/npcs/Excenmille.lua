@@ -4,11 +4,7 @@
 -- Type: Trust NPC, Ballista Pursuivant
 -- !pos -229.344 6.999 22.976 231
 -----------------------------------
-local ID = require("scripts/zones/Northern_San_dOria/IDs")
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
+local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 -----------------------------------
 local entity = {}
 
@@ -38,8 +34,8 @@ entity.onTrigger = function(player, npc)
     local trustSandoria = player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.TRUST_SANDORIA)
     local trustBastok = player:getQuestStatus(xi.quest.log_id.BASTOK, xi.quest.id.bastok.TRUST_BASTOK)
     local trustWindurst = player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.TRUST_WINDURST)
-    local sandoriaFirstTrust = player:getCharVar("SandoriaFirstTrust")
-    local excenmilleTrustChatFlag = player:getLocalVar("ExcenmilleTrustChatFlag")
+    local sandoriaFirstTrust = player:getCharVar('SandoriaFirstTrust')
+    local excenmilleTrustChatFlag = player:getLocalVar('ExcenmilleTrustChatFlag')
     local rank3 = player:getRank(player:getNation()) >= 3 and 1 or 0
 
     if
@@ -55,42 +51,42 @@ entity.onTrigger = function(player, npc)
         excenmilleTrustChatFlag == 0
     then
         player:startEvent(894)
-        player:setLocalVar("ExcenmilleTrustChatFlag", 1)
+        player:setLocalVar('ExcenmilleTrustChatFlag', 1)
     elseif trustSandoria == QUEST_ACCEPTED and sandoriaFirstTrust == 2 then
         player:startEvent(895)
     elseif
         trustSandoria == QUEST_COMPLETED and
-        not player:hasSpell(902) and
+        not player:hasSpell(xi.magic.spell.CURILLA) and
         excenmilleTrustChatFlag == 0
     then
         player:startEvent(896, 0, 0, 0, 0, 0, 0, 0, rank3)
-        player:setLocalVar("ExcenmilleTrustChatFlag", 1)
+        player:setLocalVar('ExcenmilleTrustChatFlag', 1)
     else
         player:startEvent(29)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     -- TRUST
     if csid == 893 then
-        player:addSpell(899, true, true)
-        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, 899)
-        player:setCharVar("SandoriaFirstTrust", 1)
+        player:addSpell(xi.magic.spell.EXCENMILLE, true, true)
+        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, xi.magic.spell.EXCENMILLE)
+        player:setCharVar('SandoriaFirstTrust', 1)
     elseif csid == 895 then
         player:delKeyItem(xi.ki.RED_INSTITUTE_CARD)
         player:messageSpecial(ID.text.KEYITEM_LOST, xi.ki.RED_INSTITUTE_CARD)
         npcUtil.completeQuest(player, xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.TRUST_SANDORIA, {
             ki = xi.ki.SAN_DORIA_TRUST_PERMIT,
             title = xi.title.THE_TRUSTWORTHY,
-            var = "SandoriaFirstTrust"
+            var = 'SandoriaFirstTrust'
         })
         player:messageSpecial(ID.text.CALL_MULTIPLE_ALTER_EGO)
     elseif csid == 897 then
-        player:addSpell(899, true, true)
-        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, 899)
+        player:addSpell(xi.magic.spell.EXCENMILLE, true, true)
+        player:messageSpecial(ID.text.YOU_LEARNED_TRUST, 0, xi.magic.spell.EXCENMILLE)
         player:delKeyItem(xi.ki.RED_INSTITUTE_CARD)
         player:messageSpecial(ID.text.KEYITEM_LOST, xi.ki.RED_INSTITUTE_CARD)
         npcUtil.completeQuest(player, xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.TRUST_SANDORIA, {

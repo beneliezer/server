@@ -75,7 +75,6 @@
 #include "battleutils.h"
 #include "charutils.h"
 #include "zoneutils.h"
-#include "../treasure_pool.h"
 
 /************************************************************************
  *   lists used in battleutils                                           *
@@ -180,9 +179,9 @@ namespace battleutils
                 PWeaponSkill->setUnlockId(sql->GetIntData(14));
 
                 g_PWeaponSkillList[PWeaponSkill->getID()] = PWeaponSkill;
-                g_PWeaponSkillsList[PWeaponSkill->getType()].push_back(PWeaponSkill);
+                g_PWeaponSkillsList[PWeaponSkill->getType()].emplace_back(PWeaponSkill);
 
-                auto filename = fmt::format("./scripts/globals/weaponskills/{}.lua", PWeaponSkill->getName());
+                auto filename = fmt::format("./scripts/actions/weaponskills/{}.lua", PWeaponSkill->getName());
                 luautils::CacheLuaObjectFromFile(filename);
             }
         }
@@ -225,7 +224,7 @@ namespace battleutils
                 PMobSkill->setMsg(185); // standard damage message. Scripters will change this.
                 g_PMobSkillList[PMobSkill->getID()] = PMobSkill;
 
-                auto filename = fmt::format("./scripts/globals/mobskills/{}.lua", PMobSkill->getName());
+                auto filename = fmt::format("./scripts/actions/mobskills/{}.lua", PMobSkill->getName());
                 luautils::CacheLuaObjectFromFile(filename);
             }
         }
@@ -243,7 +242,7 @@ namespace battleutils
 
                 uint16 skillId = sql->GetIntData(1);
 
-                g_PMobSkillLists[skillListId].push_back(skillId);
+                g_PMobSkillLists[skillListId].emplace_back(skillId);
             }
         }
     }
@@ -286,7 +285,7 @@ namespace battleutils
                 PPetSkill->setTertiarySkillchain(sql->GetUIntData(15));
                 g_PPetSkillList[PPetSkill->getID()] = PPetSkill;
 
-                auto filename = fmt::format("./scripts/globals/abilities/pet/{}.lua", PPetSkill->getName());
+                auto filename = fmt::format("./scripts/actions/abilities/pet/{}.lua", PPetSkill->getName());
                 luautils::CacheLuaObjectFromFile(filename);
             }
         }
@@ -945,7 +944,7 @@ namespace battleutils
                     CItemEquipment* PItem = PCharDef->getEquip(slot);
                     if (PItem && !PItem->isType(ITEM_WEAPON))
                     {
-                        uint8 chance;
+                        uint8 chance = 0;
 
                         Action->spikesEffect = (SUBEFFECT)0;
                         auto spikes_type     = battleutils::GetScaledItemModifier(PDefender, PItem, Mod::ITEM_SUBEFFECT);
@@ -1500,6 +1499,12 @@ namespace battleutils
     {
         int acc     = 0;
         int hitrate = 75;
+
+        // Check to see if distance is greater than 25 and force hitrate to be 0
+        if (distance(PAttacker->loc.p, PDefender->loc.p) > 25)
+        {
+            return 0;
+        }
 
         if (PAttacker->objtype == TYPE_PC)
         {
@@ -2601,12 +2606,6 @@ namespace battleutils
             // https://www.bluegartr.com/threads/68786-Dexterity-s-impact-on-critical-hits?p=3209015&viewfull=1#post3209015
 
             uint16 attackerAcc = PAttacker->ACC(attackNumber, offsetAccuracy);
-
-            // Enlight gives an ACC bonus not a hit rate bonus, ACC bonus is equal to damage dealt
-            if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ENLIGHT))
-            {
-                attackerAcc += PAttacker->getMod(Mod::ENSPELL_DMG);
-            }
 
             hitrate += static_cast<int32>(std::floor((attackerAcc - PDefender->EVA()) / 2));
 
@@ -3776,23 +3775,23 @@ namespace battleutils
             // Chainbound active on target
             if (PCBEffect)
             {
-                if (PCBEffect->GetStartTime() + 3s < server_clock::now())
+                if (PCBEffect->GetStartTime() + 2s < server_clock::now())
                 {
                     // Konzen-Ittai
                     if (PCBEffect->GetPower() > 1)
                     {
-                        resonanceProperties.push_back(SC_LIGHT);
-                        resonanceProperties.push_back(SC_DARKNESS);
-                        resonanceProperties.push_back(SC_GRAVITATION);
-                        resonanceProperties.push_back(SC_FRAGMENTATION);
-                        resonanceProperties.push_back(SC_DISTORTION);
-                        resonanceProperties.push_back(SC_FUSION);
+                        resonanceProperties.emplace_back(SC_LIGHT);
+                        resonanceProperties.emplace_back(SC_DARKNESS);
+                        resonanceProperties.emplace_back(SC_GRAVITATION);
+                        resonanceProperties.emplace_back(SC_FRAGMENTATION);
+                        resonanceProperties.emplace_back(SC_DISTORTION);
+                        resonanceProperties.emplace_back(SC_FUSION);
                     }
-                    resonanceProperties.push_back(SC_LIQUEFACTION);
-                    resonanceProperties.push_back(SC_INDURATION);
-                    resonanceProperties.push_back(SC_REVERBERATION);
-                    resonanceProperties.push_back(SC_IMPACTION);
-                    resonanceProperties.push_back(SC_COMPRESSION);
+                    resonanceProperties.emplace_back(SC_LIQUEFACTION);
+                    resonanceProperties.emplace_back(SC_INDURATION);
+                    resonanceProperties.emplace_back(SC_REVERBERATION);
+                    resonanceProperties.emplace_back(SC_IMPACTION);
+                    resonanceProperties.emplace_back(SC_COMPRESSION);
 
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
@@ -3815,16 +3814,16 @@ namespace battleutils
                     // actually the ID of the opening weaponskill.  We need all 3
                     // of the possible skillchain properties on the initial link.
                     auto properties = PSCEffect->GetPower();
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
+                    resonanceProperties.emplace_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                    resonanceProperties.emplace_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                    resonanceProperties.emplace_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
                 else
                 {
                     // Previous effect is not an opening effect, meaning the power is
                     // The skill chain ID resonating.
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)PSCEffect->GetPower());
+                    resonanceProperties.emplace_back((SKILLCHAIN_ELEMENT)PSCEffect->GetPower());
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
             }
@@ -6299,15 +6298,6 @@ namespace battleutils
             return true;
         }
 
-        if (PEntity->objtype == TYPE_PC)
-        {
-            CCharEntity* PChar = static_cast<CCharEntity*>(PEntity);
-            if (PChar->PTreasurePool != nullptr && PChar->PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
-            {
-                return true;
-            }
-        }
-
         bool found = false;
 
         // clang-format off
@@ -6498,7 +6488,7 @@ namespace battleutils
     {
         if (PSpell == nullptr)
         {
-            ShowWarning("battleutils::CalculateMPCost Spell is NULL");
+            ShowWarning("battleutils::CalculateMPCost Spell is nullptr");
             return 0;
         }
 

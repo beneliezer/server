@@ -1,9 +1,6 @@
 -----------------------------------
 -- Zone: Promyvion-Mea (20)
 -----------------------------------
-local ID = require('scripts/zones/Promyvion-Mea/IDs')
-require('scripts/globals/promyvion')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -36,10 +33,10 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 46 and option == 1 then
         player:setPos(279.988, -86.459, -25.994, 63, 14) -- To Hall of Transferance (R)
     end

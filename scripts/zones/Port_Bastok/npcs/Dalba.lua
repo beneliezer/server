@@ -4,8 +4,6 @@
 -- Type: Past Event Watcher
 -- !pos -174.101 -7 -19.611 236
 -----------------------------------
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -160,12 +158,12 @@ entity.onTrigger = function(player, npc)
     player:startEvent(260, bastokMissions, bastokQuests, otherQuests, promathiaMissions, addonScenarios, 0xFFFFFFFE, 10, gil)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     if not player:delGil(10) then
-        player:setLocalVar("Dalba_PlayCutscene", 2)  -- Cancel the cutscene.
+        player:setLocalVar('Dalba_PlayCutscene', 2)  -- Cancel the cutscene.
         player:updateEvent(0)
     else
-        player:setLocalVar("Dalba_PlayCutscene", 1)
+        player:setLocalVar('Dalba_PlayCutscene', 1)
     end
 end
 
@@ -213,8 +211,8 @@ local eventByOption =
     [129] = { 30025, 0, 0, 0, 0, 0, 0, 236 }, -- Drenched! It Began with a Raindrop
 }
 
-entity.onEventFinish = function(player, csid, option)
-    if player:getLocalVar("Dalba_PlayCutscene") < 2 then
+entity.onEventFinish = function(player, csid, option, npc)
+    if player:getLocalVar('Dalba_PlayCutscene') < 2 then
         for k, eventData in pairs(eventByOption) do
             if option == k then
                 player:startEvent(unpack(eventData))
@@ -222,7 +220,7 @@ entity.onEventFinish = function(player, csid, option)
         end
     end
 
-    player:setLocalVar("Dalba_PlayCutscene", 0)
+    player:setLocalVar('Dalba_PlayCutscene', 0)
 end
 
 return entity

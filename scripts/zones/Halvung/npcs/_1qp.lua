@@ -2,9 +2,7 @@
 -- Area: Halvung
 --  NPC: Decorative Bronze Gate (_1qp)
 -----------------------------------
-local ID = require("scripts/zones/Halvung/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/items")
+local ID = zones[xi.zone.HALVUNG]
 -----------------------------------
 local entity = {}
 
@@ -12,17 +10,17 @@ entity.onTrade = function(player, npc, trade)
     if
         npcUtil.tradeHasExactly(trade,
         {
-            xi.items.HALVUNG_SHAKUDO_KEY,
-            xi.items.HALVUNG_BRONZE_KEY,
-            xi.items.HALVUNG_BRASS_KEY
+            xi.item.HALVUNG_SHAKUDO_KEY,
+            xi.item.HALVUNG_BRONZE_KEY,
+            xi.item.HALVUNG_BRASS_KEY
         })
     then
         player:confirmTrade()
         npc:openDoor()
         player:messageSpecial(ID.text.KEY_BREAKS,
-            xi.items.HALVUNG_SHAKUDO_KEY,
-            xi.items.HALVUNG_BRONZE_KEY,
-            xi.items.HALVUNG_BRASS_KEY
+            xi.item.HALVUNG_SHAKUDO_KEY,
+            xi.item.HALVUNG_BRONZE_KEY,
+            xi.item.HALVUNG_BRASS_KEY
         )
     end
 end
@@ -35,10 +33,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

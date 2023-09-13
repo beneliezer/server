@@ -4,9 +4,6 @@
 -- Involved With Quest: 'A Pioneers Best (Imaginary) Friend'
 -- !pos -144 4 -10 256
 -----------------------------------
-require("scripts/globals/missions")
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -24,10 +21,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 2523 then
         -- Progresses Quest: 'A Pioneers Best (Imaginary) Friend'
         player:delStatusEffectsByFlag(xi.effectFlag.INFLUENCE, true)

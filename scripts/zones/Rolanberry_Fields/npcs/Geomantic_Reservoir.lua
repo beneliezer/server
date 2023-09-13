@@ -4,9 +4,6 @@
 -- Unlocks: Geo-MND
 -- !pos 243.900 -31.194 -255.254 110
 -----------------------------------
-require("scripts/globals/geomantic_reservoir")
-require("scripts/globals/spell_data")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,10 +13,10 @@ entity.onTrigger = function(player, npc)
     xi.geomanticReservoir.onTrigger(player, npc, xi.magic.spell.GEO_MND)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.geomanticReservoir.onEventFinish(player, csid, xi.magic.spell.GEO_MND)
 end
 

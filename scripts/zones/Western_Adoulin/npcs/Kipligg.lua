@@ -1,11 +1,7 @@
 -----------------------------------
 -- Area: Western Adoulin
 --  NPC: Kipligg
--- Type: Standard NPC and Mission NPC,
--- Involved with Missions: '...Into the Fire', 'Done and Delivered'
 -- !pos -32 0 22 256
------------------------------------
-require("scripts/globals/missions")
 -----------------------------------
 local entity = {}
 
@@ -22,10 +18,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

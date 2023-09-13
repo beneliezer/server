@@ -4,9 +4,7 @@
 -- Entrance to Qufim Island
 -- !pos -436.000 -13.499 340.117 126
 -----------------------------------
-local ID = require("scripts/zones/Qufim_Island/IDs")
-require("scripts/globals/teleports")
-require("scripts/globals/missions")
+local ID = zones[xi.zone.QUFIM_ISLAND]
 -----------------------------------
 local entity = {}
 
@@ -21,10 +19,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 300 and option == 1 then
         xi.teleport.to(player, xi.teleport.id.MISAREAUX_VORTEX)
     end

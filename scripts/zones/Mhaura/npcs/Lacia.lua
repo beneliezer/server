@@ -3,19 +3,17 @@
 --  NPC: Lacia
 -- Starts Quest: Trial Size Trial By Lightning
 -----------------------------------
-require("scripts/globals/quests")
-require("scripts/globals/teleports")
-local ID = require("scripts/zones/Mhaura/IDs")
+local ID = zones[xi.zone.MHAURA]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
-        trade:hasItemQty(1548, 1) and
+        trade:hasItemQty(xi.item.MINI_TUNING_FORK_OF_LIGHTNING, 1) and
         player:getQuestStatus(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.TRIAL_SIZE_TRIAL_BY_LIGHTNING) == QUEST_ACCEPTED and
         player:getMainJob() == xi.job.SMN
     then
-        player:startEvent(10026, 0, 1548, 5, 20)
+        player:startEvent(10026, 0, xi.item.MINI_TUNING_FORK_OF_LIGHTNING, 5, 20)
     end
 end
 
@@ -29,38 +27,38 @@ entity.onTrigger = function(player, npc)
         player:getFameLevel(xi.quest.fame_area.WINDURST) >= 2
     then
         --Requires player to be Summoner at least lvl 20
-        player:startEvent(10025, 0, 1548, 5, 20)     --mini tuning fork of lightning, zone, level
+        player:startEvent(10025, 0, xi.item.MINI_TUNING_FORK_OF_LIGHTNING, 5, 20)     --mini tuning fork of lightning, zone, level
     elseif trialSizeLightning == QUEST_ACCEPTED then
-        local hasLightningFork = player:hasItem(1548)
+        local hasLightningFork = player:hasItem(xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
 
         if hasLightningFork then
             player:startEvent(10018) --Dialogue given to remind player to be prepared
         else
-            player:startEvent(10029, 0, 1548, 5, 20) --Need another mini tuning fork
+            player:startEvent(10029, 0, xi.item.MINI_TUNING_FORK_OF_LIGHTNING, 5, 20) --Need another mini tuning fork
         end
     elseif trialSizeLightning == QUEST_COMPLETED then
         player:startEvent(10028) --Defeated Ramuh
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10025 and option == 1 then
         if player:getFreeSlotsCount() == 0 then
-            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 1548) --Mini tuning fork
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
         else
             player:addQuest(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.TRIAL_SIZE_TRIAL_BY_LIGHTNING)
-            player:addItem(1548)
-            player:messageSpecial(ID.text.ITEM_OBTAINED, 1548)
+            player:addItem(xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
+            player:messageSpecial(ID.text.ITEM_OBTAINED, xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
         end
     elseif csid == 10029 and option == 1 then
         if player:getFreeSlotsCount() == 0 then
-            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, 1548) --Mini tuning fork
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
         else
-            player:addItem(1548)
-            player:messageSpecial(ID.text.ITEM_OBTAINED, 1548)
+            player:addItem(xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
+            player:messageSpecial(ID.text.ITEM_OBTAINED, xi.item.MINI_TUNING_FORK_OF_LIGHTNING)
         end
     elseif csid == 10026 and option == 1 then
         xi.teleport.to(player, xi.teleport.id.CLOISTER_OF_STORMS)

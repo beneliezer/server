@@ -8,19 +8,12 @@
 -- MINE_SHAFT_KEY : !addkeyitem 961
 -- Corroded Door  : !pos -385.602 21.970 456.359 90
 -----------------------------------
-require('scripts/globals/interaction/quest')
-require('scripts/globals/items')
-require('scripts/globals/npc_util')
-require('scripts/globals/quests')
-require('scripts/globals/titles')
-require('scripts/globals/zone')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.CRYSTAL_WAR, xi.quest.id.crystalWar.LIGHT_IN_THE_DARKNESS)
 
 quest.reward =
 {
-    item = xi.items.ADAMAN_INGOT,
+    item = xi.item.ADAMAN_INGOT,
 }
 
 quest.sections =
@@ -129,8 +122,8 @@ quest.sections =
 
                 onTrade = function(player, npc, trade)
                     if
-                        npcUtil.tradeHasExactly(trade, { { xi.items.CHUNK_OF_GOBLIN_CHOCOLATE, 30 } }) or
-                        npcUtil.tradeHasExactly(trade, { { "gil", 5000 } })
+                        npcUtil.tradeHasExactly(trade, { { xi.item.CHUNK_OF_GOBLIN_CHOCOLATE, 30 } }) or
+                        npcUtil.tradeHasExactly(trade, { { 'gil', 5000 } })
                     then
                         return quest:progressEvent(23)
                     end
@@ -277,8 +270,8 @@ quest.sections =
 
                 onTrade = function(player, npc, trade)
                     if
-                        npcUtil.tradeHasExactly(trade, { { xi.items.CHUNK_OF_GOBLIN_CHOCOLATE, 10 } }) or
-                        npcUtil.tradeHasExactly(trade, { { "gil", 1000 } })
+                        npcUtil.tradeHasExactly(trade, { { xi.item.CHUNK_OF_GOBLIN_CHOCOLATE, 10 } }) or
+                        npcUtil.tradeHasExactly(trade, { { 'gil', 1000 } })
                     then
                         return quest:progressEvent(23)
                     end

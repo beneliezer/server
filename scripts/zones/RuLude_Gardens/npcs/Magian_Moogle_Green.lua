@@ -4,8 +4,7 @@
 -- Type: Magian Trials NPC (Job Emotes)
 -- !pos -4.558 2.451 111.305 64
 -----------------------------------
-local ID = require("scripts/zones/RuLude_Gardens/IDs")
-require("scripts/globals/magiantrials")
+local ID = zones[xi.zone.RULUDE_GARDENS]
 -----------------------------------
 local entity = {}
 
@@ -37,7 +36,7 @@ entity.onTrigger = function(player, npc)
     if player:getMainLvl() < 30 then
         player:startEvent(10151)
     elseif
-        player:getCharVar("MetGreenMagianMog") == 0 and
+        player:getCharVar('MetGreenMagianMog') == 0 and
         not player:hasKeyItem(xi.ki.MAGIAN_LEARNERS_LOG)
     then
         if not player:hasKeyItem(xi.ki.MAGIAN_TRIAL_LOG) then
@@ -50,17 +49,17 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10160 and option == 1 then
         if not player:hasKeyItem(xi.ki.MAGIAN_TRIAL_LOG) then
             player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.MAGIAN_LEARNERS_LOG)
             player:addKeyItem(xi.ki.MAGIAN_LEARNERS_LOG)
         end
 
-        player:setCharVar("MetGreenMagianMog", 1)
+        player:setCharVar('MetGreenMagianMog', 1)
     end
 end
 

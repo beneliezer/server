@@ -3,7 +3,7 @@
 --  NPC: Heih Porhiaap
 -- !pos -118.876 -4.088 -515.731 116
 -----------------------------------
-local ID = require("scripts/zones/East_Sarutabaruta/IDs")
+local ID = zones[xi.zone.EAST_SARUTABARUTA]
 -----------------------------------
 local entity = {}
 
@@ -14,10 +14,10 @@ entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.HEIH_PORHIAAP_DIALOG)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

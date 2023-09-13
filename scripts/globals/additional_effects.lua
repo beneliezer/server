@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------
+-----------------------------------
 -- This global is intended to handle additional effects from item sources of:
 -- melee attacks, ranged attacks, auto-spikes
 -- Notes:
@@ -10,12 +10,11 @@
 -- In testing my fire sword had the same damage ranges no matter my level vs same mob.
 -- Weakness/resistance to element would swing damage range a lot
 -- For status effects is it possible to land on highly resistant mobs because of flooring.
-------------------------------------------------------------------------------
-require("scripts/globals/teleports") -- For warp weapon proc.
-require("scripts/globals/magic") -- For resist functions
-require("scripts/globals/utils") -- For clamping function
-require("scripts/globals/msg")
---------------------------------------
+-----------------------------------
+require('scripts/globals/teleports') -- For warp weapon proc.
+require('scripts/globals/magic') -- For resist functions
+require('scripts/globals/utils') -- For clamping function
+-----------------------------------
 xi = xi or {}
 xi.additionalEffect = xi.additionalEffect or {}
 
@@ -25,10 +24,10 @@ xi.additionalEffect.isRanged = function(item)
 end
 
 xi.additionalEffect.calcRangeBonus = function(attacker, defender, element, damage)
-    -- Copied from existing scripts.
+    -- Copied from existing scripts. Todo: rework into additional modifier for dStat?
     local bonus = 0
 
-    if element == xi.magic.ele.LIGHT then
+    if element == xi.element.LIGHT then
         bonus = attacker:getStat(xi.mod.MND) - defender:getStat(xi.mod.MND)
         if bonus > 40 then
             bonus = bonus + (bonus - 40) / 2
@@ -113,6 +112,7 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
     local duration  = item:getMod(xi.mod.ITEM_ADDEFFECT_DURATION)
     local msgID     = 0
     local msgParam  = 0
+    local drainRoll = math.random(1, 3) -- Temp, being refactored out
 
     local procType =
     {
@@ -124,11 +124,12 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
         HP_DRAIN      = 5,
         MP_DRAIN      = 6,
         TP_DRAIN      = 7,
-        HPMPTP_DRAIN  = 8,
-        DISPEL        = 9,
-        ABSORB_STATUS = 10,
-        SELF_BUFF     = 11,
-        DEATH         = 12,
+        HPMP_DRAIN    = 8,
+        HPMPTP_DRAIN  = 9,
+        DISPEL        = 10,
+        ABSORB_STATUS = 11,
+        SELF_BUFF     = 12,
+        DEATH         = 13,
     }
 
     -- If player is level synced below the level of the item, do no proc
@@ -141,7 +142,6 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
         return 0, 0, 0
     end
 
-    --------------------------------------
     -- Modifications for proc's sourced from ranged attacks. See notes at top of script.
     if xi.additionalEffect.isRanged(item) then
         if element then
@@ -150,8 +150,6 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
 
         chance = xi.additionalEffect.levelCorrection(defender:getMainLvl(), attacker:getMainLvl(), chance)
     end
-
-    --------------------------------------
 
     if addType == procType.DAMAGE then
         damage = xi.additionalEffect.calcDamage(attacker, element, defender, damage)
@@ -187,7 +185,7 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
 
     elseif
         addType == procType.HP_DRAIN or
-        (addType == procType.HPMPTP_DRAIN and math.random(1, 3) == 1)
+        (addType == procType.HPMPTP_DRAIN and drainRoll == 1)
     then
         damage = xi.additionalEffect.calcDamage(attacker, element, defender, damage)
 
@@ -197,12 +195,11 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
 
         msgID    = xi.msg.basic.ADD_EFFECT_HP_DRAIN
         msgParam = damage
-        defender:addHP(-damage)
         attacker:addHP(damage)
 
     elseif
         addType == procType.MP_DRAIN or
-        (addType == procType.HPMPTP_DRAIN and math.random(1, 3) == 2)
+        (addType == procType.HPMPTP_DRAIN and drainRoll == 2)
     then
         damage = xi.additionalEffect.calcDamage(attacker, element, defender, damage)
 
@@ -217,7 +214,7 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
 
     elseif
         addType == procType.TP_DRAIN or
-        (addType == procType.HPMPTP_DRAIN and math.random(1, 3) == 3)
+        (addType == procType.HPMPTP_DRAIN and drainRoll == 3)
     then
         damage = xi.additionalEffect.calcDamage(attacker, element, defender, damage)
 
@@ -272,7 +269,7 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
             msgID    = xi.msg.basic.ADD_EFFECT_SELFBUFF
             msgParam = xi.effect.HASTE
         else
-            print("scripts/globals/additional_effects.lua : unhandled additional effect selfbuff! Effect ID: "..addStatus)
+            print('scripts/globals/additional_effects.lua : unhandled additional effect selfbuff! Effect ID: '..addStatus)
         end
 
     elseif addType == procType.DEATH then
@@ -292,11 +289,11 @@ xi.additionalEffect.attack = function(attacker, defender, baseAttackDamage, item
 
     --[[
     if msgID == nil then
-        print("Additional effect has a nil msgID !!")
+        print('Additional effect has a nil msgID !!')
     elseif msgParam == nil then
-        print("Additional effect has a nil msgParam !!")
+        print('Additional effect has a nil msgParam !!')
     end
-    print("subEffect: "..subEffect.." msgID: "..msgID.." msgParam: "..msgParam)
+    print('subEffect: '..subEffect..' msgID: '..msgID..' msgParam: '..msgParam)
     ]]
     return subEffect, msgID, msgParam
 end

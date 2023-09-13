@@ -4,9 +4,7 @@
 -- The ship for The Black Coffin Battle (TOAU-15)
 -- !pos -462 -2 -394 54
 -----------------------------------
-local ID = require("scripts/zones/Arrapago_Reef/IDs")
-require("scripts/globals/instance")
-require("scripts/globals/missions")
+local ID = zones[xi.zone.ARRAPAGO_REMNANTS]
 -----------------------------------
 local entity = {}
 
@@ -19,12 +17,12 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option, target)
-    xi.instance.onEventUpdate(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.instance.onEventUpdate(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.instance.onEventFinish(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.instance.onEventFinish(player, csid, option, npc)
 end
 
 return entity

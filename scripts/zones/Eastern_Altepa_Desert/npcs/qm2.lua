@@ -4,7 +4,7 @@
 -- Involved In Quest: 20 in Pirate Years
 -- !pos 47.852 -7.808 403.391 114
 -----------------------------------
-local ID = require("scripts/zones/Eastern_Altepa_Desert/IDs")
+local ID = zones[xi.zone.EASTERN_ALTEPA_DESERT]
 -----------------------------------
 local entity = {}
 
@@ -12,8 +12,8 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local twentyInPirateYearsCS = player:getCharVar("twentyInPirateYearsCS")
-    local tsuchigumoKilled = player:getCharVar("TsuchigumoKilled")
+    local twentyInPirateYearsCS = player:getCharVar('twentyInPirateYearsCS')
+    local tsuchigumoKilled = player:getCharVar('TsuchigumoKilled')
 
     if
         twentyInPirateYearsCS == 3 and
@@ -27,17 +27,15 @@ entity.onTrigger = function(player, npc)
     elseif twentyInPirateYearsCS == 3 and tsuchigumoKilled >= 2 then
         player:addKeyItem(xi.ki.TRICK_BOX)
         player:messageSpecial(ID.text.KEYITEM_OBTAINED, xi.ki.TRICK_BOX)
-        player:setCharVar("twentyInPirateYearsCS", 4)
-        player:setCharVar("TsuchigumoKilled", 0)
-    else
-        player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY)
+        player:setCharVar('twentyInPirateYearsCS', 4)
+        player:setCharVar('TsuchigumoKilled', 0)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

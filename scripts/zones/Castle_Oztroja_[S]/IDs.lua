@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Castle_Oztroja_[S]
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.CASTLE_OZTROJA_S] =
@@ -31,7 +28,11 @@ zones[xi.zone.CASTLE_OZTROJA_S] =
         },
         ZHUU_BUXU_THE_SILENT_PH =
         {
-            [17182813] = 17182813,
+            [17182804] = 17182813,
+            [17182805] = 17182813,
+            [17182808] = 17182813,
+            [17182809] = 17182813,
+            [17182812] = 17182813,
         },
         DUU_MASA_THE_ONECUT    = 17182790,
         DEE_ZELKO_THE_ESOTERIC = 17183031,

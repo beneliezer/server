@@ -1,8 +1,7 @@
 -----------------------------------
 -- Zone: Grauberg_[S] (89)
 -----------------------------------
-local ID = require('scripts/zones/Grauberg_[S]/IDs')
-require('scripts/globals/helm')
+local ID = zones[xi.zone.GRAUBERG_S]
 -----------------------------------
 local zoneObject = {}
 
@@ -42,10 +41,10 @@ zoneObject.onZoneWeatherChange = function(weather)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

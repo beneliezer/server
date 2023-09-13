@@ -3,7 +3,7 @@
 -- Door: _6le (Presidential Suite)
 -- !pos 113 -20 8 237
 -----------------------------------
-local ID = require("scripts/zones/Metalworks/IDs")
+local ID = zones[xi.zone.METALWORKS]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +15,10 @@ entity.onTrigger = function(player, npc)
     return 1
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

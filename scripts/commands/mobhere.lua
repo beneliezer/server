@@ -3,23 +3,22 @@
 -- desc: Spawns a MOB and then moves it to the current position, if in same zone.
 --       Errors will despawn the MOB unless "noDepop" was specified (any value works).
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
+local commandObj = {}
 
-cmdprops =
+commandObj.cmdprops =
 {
-    permission = 3,
+    permission = 5,
     parameters = "is"
 }
 
-function error(player, msg)
+local function error(player, msg)
     player:PrintToPlayer(msg)
     player:PrintToPlayer("!mobhere (mobID) (noDepop)")
 end
 
-function onTrigger(player, mobId, noDepop)
+commandObj.onTrigger = function(player, mobId, noDepop)
     local zone = player:getZone()
-    if zone:getType() == xi.zoneType.INSTANCED then
+    if zone:getTypeMask() == xi.zoneType.INSTANCED then
         local instance = player:getInstance()
         local targ
 
@@ -80,3 +79,5 @@ function onTrigger(player, mobId, noDepop)
         end
     end
 end
+
+return commandObj

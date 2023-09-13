@@ -4,8 +4,6 @@
 -- Type: Manaclipper Timekeeper
 -- !pos -392 -3 -385 4
 -----------------------------------
-require("scripts/globals/manaclipper")
------------------------------------
 local entity = {}
 
 local timekeeperLocation = xi.manaclipper.location.PURGONORGO_ISLE
@@ -18,10 +16,10 @@ entity.onTrigger = function(player, npc)
     xi.manaclipper.timekeeperOnTrigger(player, timekeeperLocation, timekeeperEventId)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

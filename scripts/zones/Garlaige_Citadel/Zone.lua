@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Garlaige_Citadel (200)
 -----------------------------------
-local ID = require('scripts/zones/Garlaige_Citadel/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
+local ID = zones[xi.zone.GARLAIGE_CITADEL]
 -----------------------------------
 local zoneObject = {}
 
@@ -86,10 +84,10 @@ zoneObject.onTriggerAreaLeave = function(player, triggerArea)
     GetNPCByID(ID.npc.BANISHING_GATE_OFFSET + triggerArea:GetTriggerAreaID()):setAnimation(xi.anim.CLOSE_DOOR)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

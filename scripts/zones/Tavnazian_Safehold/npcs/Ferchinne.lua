@@ -3,11 +3,6 @@
 --  NPC: Ferchinne
 -- Note: Involved in quest: "Fly High"
 -----------------------------------
-require("scripts/globals/items")
-require("scripts/globals/missions")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,13 +10,13 @@ entity.onTrade = function(player, npc, trade)
 
     if
         flyHigh == QUEST_ACCEPTED and
-        npcUtil.tradeHas(trade, { { xi.items.HIPPOGRYPH_TAILFEATHER, 2 } })
+        npcUtil.tradeHas(trade, { { xi.item.HIPPOGRYPH_TAILFEATHER, 2 } })
     then
         -- 2x Hippogryph Tailfeather
         player:startEvent(243)
     elseif
         flyHigh == QUEST_COMPLETED and
-        npcUtil.tradeHas(trade, { { xi.items.HIPPOGRYPH_TAILFEATHER, 2 } })
+        npcUtil.tradeHas(trade, { { xi.item.HIPPOGRYPH_TAILFEATHER, 2 } })
     then
         -- 2x Hippogryph Tailfeather
         player:startEvent(245)
@@ -45,19 +40,19 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 241 then
         player:addQuest(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.FLY_HIGH)
     elseif
         csid == 243 and
-        npcUtil.completeQuest(player, xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.FLY_HIGH, { item = xi.items.MISTMELT })
+        npcUtil.completeQuest(player, xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.FLY_HIGH, { item = xi.item.MISTMELT })
     then
         -- Mistmelt
         player:confirmTrade()
-    elseif csid == 245 and npcUtil.giveItem(player, xi.items.MISTMELT) then -- Mistmelt
+    elseif csid == 245 and npcUtil.giveItem(player, xi.item.MISTMELT) then -- Mistmelt
         player:confirmTrade()
     end
 end

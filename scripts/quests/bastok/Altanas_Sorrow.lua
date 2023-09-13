@@ -6,13 +6,6 @@
 -- qm1     : !pos -282.339 0.001 261.707 200
 -- Eperdur : !pos 129 -6 96 231
 -----------------------------------
-require('scripts/globals/items')
-require('scripts/globals/npc_util')
-require('scripts/globals/quests')
-require('scripts/globals/titles')
-require('scripts/globals/zone')
-require('scripts/globals/interaction/quest')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.BASTOK, xi.quest.id.bastok.ALTANAS_SORROW)
 
@@ -20,7 +13,7 @@ quest.reward =
 {
     fame     = 30,
     fameArea = xi.quest.fame_area.BASTOK,
-    item     = xi.items.SCROLL_OF_TELEPORT_DEM,
+    item     = xi.item.SCROLL_OF_TELEPORT_DEM,
     title    = xi.title.PILGRIM_TO_DEM,
 }
 

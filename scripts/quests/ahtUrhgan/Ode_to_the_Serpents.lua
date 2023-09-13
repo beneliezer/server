@@ -4,18 +4,12 @@
 -- Log ID: 6, Quest ID: 44
 -- Fari-Wari: !pos 80 -6 -137 50
 -----------------------------------
-require("scripts/globals/items")
-require("scripts/globals/quests")
-require("scripts/globals/npc_util")
-require('scripts/globals/interaction/quest')
-require("scripts/globals/zone")
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.AHT_URHGAN, xi.quest.id.ahtUrhgan.ODE_TO_THE_SERPENTS)
 
 quest.reward =
 {
-    item = xi.items.IMPERIAL_GOLD_PIECE,
+    item = xi.item.IMPERIAL_GOLD_PIECE,
 }
 
 quest.sections =

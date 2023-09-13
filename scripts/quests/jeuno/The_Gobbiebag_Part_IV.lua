@@ -4,10 +4,9 @@
 --  Log ID: 3, Quest ID: 27
 --  NPC: Bluffnix:  !pos -43 6 -115 245
 -----------------------------------
-require('scripts/globals/items')
 require('scripts/quests/jeuno/helpers')
 -----------------------------------
-local lowerJeunoID = require('scripts/zones/Lower_Jeuno/IDs')
+local lowerJeunoID = zones[xi.zone.LOWER_JEUNO]
 -----------------------------------
 
 local params =
@@ -17,14 +16,14 @@ local params =
     message            = lowerJeunoID.text.INVENTORY_INCREASED,
     startInventorySize = 45,
     fame               = 1,
-    tradeStew          = xi.items.BOWL_OF_GOBLIN_STEW_880,
+    tradeStew          = xi.item.BOWL_OF_GOBLIN_STEW_880,
 
     tradeItems =
     {
-        xi.items.CERMET_CHUNK,
-        xi.items.DARKSTEEL_INGOT,
-        xi.items.SQUARE_OF_SILK_CLOTH,
-        xi.items.GOSHENITE,
+        xi.item.CERMET_CHUNK,
+        xi.item.DARKSTEEL_INGOT,
+        xi.item.SQUARE_OF_SILK_CLOTH,
+        xi.item.GOSHENITE,
     },
 
     reward =

@@ -2,7 +2,7 @@
 -- Area: Riverne Site #A01
 --  NPC: Unstable Displacement
 -----------------------------------
-local riverneAGlobal = require("scripts/zones/Riverne-Site_A01/globals")
+local riverneAGlobal = require('scripts/zones/Riverne-Site_A01/globals')
 -----------------------------------
 local entity = {}
 
@@ -14,10 +14,10 @@ entity.onTrigger = function(player, npc)
     riverneAGlobal.unstableDisplacementTrigger(player, npc, 17)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

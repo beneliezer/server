@@ -1,7 +1,7 @@
 -----------------------------------
 -- Zone: Open_sea_route_to_Al_Zahbi (46)
 -----------------------------------
-local ID = require('scripts/zones/Open_sea_route_to_Al_Zahbi/IDs')
+local ID = zones[xi.zone.OPEN_SEA_ROUTE_TO_AL_ZAHBI]
 -----------------------------------
 local zoneObject = {}
 
@@ -31,10 +31,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 1028 then
         player:setPos(0, 0, 0, 0, 50)
     end

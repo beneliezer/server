@@ -24,9 +24,9 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 
 #include "common/cbasetypes.h"
 
-#include "../entities/charentity.h"
-#include "../items/item_equipment.h"
-#include "../trait.h"
+#include "entities/charentity.h"
+#include "items/item_equipment.h"
+#include "trait.h"
 
 class CPetEntity;
 class CMobEntity;
@@ -108,6 +108,7 @@ namespace charutils
 
     void   CheckWeaponSkill(CCharEntity* PChar, uint8 skill);
     bool   HasItem(CCharEntity* PChar, uint16 ItemID);
+    uint32 getItemCount(CCharEntity* PChar, uint16 ItemID);
     uint8  AddItem(CCharEntity* PChar, uint8 LocationID, CItem* PItem, bool silence = false);
     uint8  AddItem(CCharEntity* PChar, uint8 LocationID, uint16 itemID, uint32 quantity = 1, bool silence = false);
     uint8  MoveItem(CCharEntity* PChar, uint8 LocationID, uint8 SlotID, uint8 NewSlotID);
@@ -126,6 +127,7 @@ namespace charutils
     void   SetStyleLock(CCharEntity* PChar, bool isStyleLocked);
     void   UpdateWeaponStyle(CCharEntity* PChar, uint8 equipSlotID, CItemEquipment* PItem);
     void   UpdateArmorStyle(CCharEntity* PChar, uint8 equipSlotID);
+    void   UpdateRemovedSlots(CCharEntity* PChar);
     void   AddItemToRecycleBin(CCharEntity* PChar, uint32 container, uint8 slotID, uint8 quantity);
     void   EmptyRecycleBin(CCharEntity* PChar);
 
@@ -237,15 +239,15 @@ namespace charutils
     bool  AddWeaponSkillPoints(CCharEntity*, SLOTTYPE, int);
 
     int32 GetCharVar(CCharEntity* PChar, std::string const& var);
-    void  SetCharVar(uint32 charId, std::string const& var, int32 value);
-    void  SetCharVar(CCharEntity* PChar, std::string const& var, int32 value);
+    void  SetCharVar(uint32 charId, std::string const& var, int32 value, uint32 expiry = 0);
+    void  SetCharVar(CCharEntity* PChar, std::string const& var, int32 value, uint32 expiry = 0);
     int32 ClearCharVarsWithPrefix(CCharEntity* PChar, std::string const& prefix);
     int32 RemoveCharVarsWithTag(CCharEntity* PChar, std::string const& varsTag);
     void  ClearCharVarFromAll(std::string const& varName, bool localOnly = false);
     void  IncrementCharVar(CCharEntity* PChar, std::string const& var, int32 value);
 
-    int32 FetchCharVar(uint32 charId, std::string const& var);
-    void  PersistCharVar(uint32 charId, std::string const& var, int32 value);
+    auto FetchCharVar(uint32 charId, std::string const& var) -> std::pair<int32, uint32>;
+    void PersistCharVar(uint32 charId, std::string const& var, int32 value, uint32 expiry = 0);
 
     uint16 getWideScanRange(JOBTYPE job, uint8 level);
     uint16 getWideScanRange(CCharEntity* PChar);

@@ -4,8 +4,7 @@
 -- Reports the time remaining before boat arrival.
 -- !pos 7.057 -2.364 2.489 249
 -----------------------------------
-local ID = require("scripts/zones/Mhaura/IDs")
-require("scripts/globals/transport")
+local ID = zones[xi.zone.MHAURA]
 -----------------------------------
 local entity = {}
 
@@ -73,10 +72,10 @@ entity.onTrigger = function(player, npc)
     Users knowing which ferry is which > using all CSs.]]
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

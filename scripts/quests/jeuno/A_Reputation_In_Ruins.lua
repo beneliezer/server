@@ -4,11 +4,8 @@
 -- Log ID: 3, Quest ID: 73
 -- Migliorozz    !pos -37.76 -1.5 12.9 244
 -----------------------------------
-require('scripts/globals/items')
 require('scripts/globals/quests')
-require('scripts/globals/status')
 require("scripts/globals/missions")
-require('scripts/globals/zone')
 require('scripts/globals/interaction/quest')
 -----------------------------------
 local ID = require("scripts/zones/PsoXja/IDs")

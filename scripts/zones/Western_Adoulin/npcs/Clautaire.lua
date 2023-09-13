@@ -4,8 +4,7 @@
 -- Starts, Involved with, and Finishes Quest: 'F.A.I.L.ure Is Not an Option'
 -- !pos 44 4 -159 256
 -----------------------------------
-require("scripts/globals/quests")
-local ID = require("scripts/zones/Western_Adoulin/IDs")
+local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
 local entity = {}
 
@@ -32,10 +31,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 78 then
         -- Starting Quest: 'F.A.I.L.ure Is Not an Option'
         player:addQuest(xi.quest.log_id.ADOULIN, xi.quest.id.adoulin.FAILURE_IS_NOT_AN_OPTION)

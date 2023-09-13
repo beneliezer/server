@@ -2,19 +2,18 @@
 -- func: setStage
 -- desc: changes stage inside an instance
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
+local commandObj = {}
 
-cmdprops =
+commandObj.cmdprops =
 {
-    permission = 3,
+    permission = 5,
     parameters = "i"
 }
 
-function onTrigger(player, stage)
+commandObj.onTrigger = function(player, stage)
     local zone = player:getZone()
 
-    if zone:getType() == xi.zoneType.INSTANCED then
+    if zone:getTypeMask() == xi.zoneType.INSTANCED then
         local instance = player:getInstance()
         local startStage = instance:getStage()
 
@@ -25,3 +24,5 @@ function onTrigger(player, stage)
         player:PrintToPlayer("Must be in an Instanced zone")
     end
 end
+
+return commandObj

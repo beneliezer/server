@@ -3,7 +3,7 @@
 --  NPC: _5ch (Gate of Thunder)
 -- !pos -331 0 139 192
 -----------------------------------
-local ID = require("scripts/zones/Inner_Horutoto_Ruins/IDs")
+local ID = zones[xi.zone.INNER_HORUTOTO_RUINS]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +15,10 @@ entity.onTrigger = function(player, npc)
     return 1
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -1,11 +1,9 @@
 -----------------------------------
 -- Zone: Batallia_Downs (105)
 -----------------------------------
-local ID = require('scripts/zones/Batallia_Downs/IDs')
+local ID = zones[xi.zone.BATALLIA_DOWNS]
 require('scripts/quests/full_speed_ahead')
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/zone')
 -----------------------------------
 local zoneObject = {}
 
@@ -49,10 +47,10 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:setPos(457, 8, -156, 142)
     end
 
-    if player:getCharVar("[QUEST]FullSpeedAhead") == 1 then -- Normal Mode
+    if player:getCharVar('[QUEST]FullSpeedAhead') == 1 then -- Normal Mode
         player:addStatusEffect(xi.effect.FULL_SPEED_AHEAD, 0, 3, xi.fsa.duration)
         return -1
-    elseif player:getCharVar("[QUEST]FullSpeedAhead") == 2 then -- Easy Mode
+    elseif player:getCharVar('[QUEST]FullSpeedAhead') == 2 then -- Easy Mode
         player:addStatusEffect(xi.effect.FULL_SPEED_AHEAD, 1, 3, xi.fsa.duration)
         return -1
     end
@@ -74,26 +72,26 @@ zoneObject.onTriggerAreaEnter = function(player, triggerArea)
     end
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 901 then
         quests.rainbow.onEventUpdate(player)
     end
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 24 then
         xi.fsa.completeGame(player)
     elseif
         csid == 26 and
         option == 0
     then
-        player:setCharVar("[QUEST]FullSpeedAhead", 1)
+        player:setCharVar('[QUEST]FullSpeedAhead', 1)
         player:setPos(475, 8.8, -159, 128, 105)
     elseif
         csid == 26 and
         option == 1
     then
-        player:setCharVar("[QUEST]FullSpeedAhead", 2)
+        player:setCharVar('[QUEST]FullSpeedAhead', 2)
         player:setPos(475, 8.8, -159, 128, 105)
     end
 end

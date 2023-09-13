@@ -38,6 +38,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include <thread>
 
 #include "ability.h"
+#include "common/vana_time.h"
 #include "job_points.h"
 #include "linkshell.h"
 #include "message.h"
@@ -182,7 +183,7 @@ int32 do_init(int32 argc, char** argv)
     {
         if (strcmp(argv[i], "--ip") == 0)
         {
-            uint32 ip;
+            uint32 ip = 0;
             inet_pton(AF_INET, argv[i + 1], &ip);
             map_ip.s_addr = ip;
         }
@@ -250,7 +251,7 @@ int32 do_init(int32 argc, char** argv)
     battleutils::LoadSkillChainDamageModifiers();
     petutils::LoadPetList();
     trustutils::LoadTrustList();
-    mobutils::LoadCustomMods();
+    mobutils::LoadSqlModifiers();
     jobpointutils::LoadGifts();
     daily::LoadDailyItems();
     roeutils::UpdateUnityRankings();
@@ -285,6 +286,11 @@ int32 do_init(int32 argc, char** argv)
     CTaskMgr::getInstance()->AddTask("garbage_collect", server_clock::now(), nullptr, CTaskMgr::TASK_INTERVAL, map_garbage_collect, 15min);
     CTaskMgr::getInstance()->AddTask("persist_server_vars", server_clock::now(), nullptr, CTaskMgr::TASK_INTERVAL, serverutils::PersistVolatileServerVars, 1min);
 
+    ShowInfo("do_init: Removing expired database variables");
+    uint32 currentTimestamp = CVanaTime::getInstance()->getSysTime();
+    sql->Query("DELETE FROM char_vars WHERE expiry > 0 AND expiry <= %d", currentTimestamp);
+    sql->Query("DELETE FROM server_variables WHERE expiry > 0 AND expiry <= %d", currentTimestamp);
+
     g_PBuff   = new int8[MAX_BUFFER_SIZE + 20];
     PTempBuff = new int8[MAX_BUFFER_SIZE + 20];
 
@@ -306,13 +312,13 @@ int32 do_init(int32 argc, char** argv)
     gConsoleService = std::make_unique<ConsoleService>();
 
     gConsoleService->RegisterCommand("crash", "Force-crash the process.",
-    [](std::vector<std::string> inputs)
+    [](std::vector<std::string>& inputs)
     {
         crash();
     });
 
     gConsoleService->RegisterCommand("gm", "Change a character's GM level.",
-    [](std::vector<std::string> inputs)
+    [](std::vector<std::string>& inputs)
     {
         if (inputs.size() != 3)
         {
@@ -348,14 +354,14 @@ int32 do_init(int32 argc, char** argv)
     });
 
     gConsoleService->RegisterCommand("reload_settings", "Reload settings files.",
-    [&](std::vector<std::string> inputs)
+    [&](std::vector<std::string>& inputs)
     {
         fmt::print("Reloading settings files\n");
         settings::init();
     });
 
     gConsoleService->RegisterCommand("exit", "Terminate the program.",
-    [&](std::vector<std::string> inputs)
+    [&](std::vector<std::string>& inputs)
     {
         fmt::print("> Goodbye!\n");
         gConsoleService->stop();
@@ -410,7 +416,7 @@ void do_final(int code)
 
     if (code != EXIT_SUCCESS)
     {
-        exit(code);
+        std::exit(code);
     }
 }
 
@@ -478,8 +484,10 @@ int32 do_sockets(fd_set* rfd, duration next)
 {
     message::handle_incoming();
 
-    struct timeval timeout;
-    int32          ret;
+    struct timeval timeout
+    {
+    };
+    int32 ret = 0;
     memcpy(rfd, &readfds, sizeof(*rfd));
 
     timeout.tv_sec  = std::chrono::duration_cast<std::chrono::seconds>(next).count();
@@ -500,8 +508,10 @@ int32 do_sockets(fd_set* rfd, duration next)
 
     if (sFD_ISSET(map_fd, rfd))
     {
-        struct sockaddr_in from;
-        socklen_t          fromlen = sizeof(from);
+        struct sockaddr_in from
+        {
+        };
+        socklen_t fromlen = sizeof(from);
 
         ret = recvudp(map_fd, g_PBuff, MAX_BUFFER_SIZE, 0, (struct sockaddr*)&from, &fromlen);
         if (ret != -1)
@@ -572,8 +582,8 @@ int32 map_decipher_packet(int8* buff, size_t size, sockaddr_in* from, map_sessio
 {
     TracyZoneScoped;
 
-    uint16 tmp;
-    uint16 i;
+    uint16 tmp = 0;
+    uint16 i   = 0;
 
     // counting blocks whose size = 4 byte
     tmp = (uint16)((size - FFXI_HEADER_SIZE) / 4);
@@ -776,7 +786,8 @@ int32 parse(int8* buff, size_t* buffsize, sockaddr_in* from, map_session_data_t*
                 // NOTE:
                 // CBasicPacket is incredibly light when constructed from a pointer like we're doing here.
                 // It is just a bag of offsets to the data in SmallPD_ptr so its safe to construct.
-                PacketParser[SmallPD_Type](map_session_data, PChar, CBasicPacket(reinterpret_cast<uint8*>(SmallPD_ptr)));
+                auto basicPacket = CBasicPacket(reinterpret_cast<uint8*>(SmallPD_ptr));
+                PacketParser[SmallPD_Type](map_session_data, PChar, basicPacket);
             }
         }
         else
@@ -857,7 +868,7 @@ int32 send_parse(int8* buff, size_t* buffsize, sockaddr_in* from, map_session_da
     CCharEntity* PChar = map_session_data->PChar;
     TracyZoneString(PChar->name);
 
-    CBasicPacket* PSmallPacket;
+    CBasicPacket* PSmallPacket = nullptr;
 
     uint32 PacketSize  = UINT32_MAX;
     size_t PacketCount = std::clamp<size_t>(PChar->getPacketCount(), 0, MAX_PACKETS_PER_COMPRESSION);
@@ -1100,8 +1111,9 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
 
                         ShowDebug("map_cleanup: %s timed out, closing session", PChar->GetName());
 
-                        PChar->status = STATUS_TYPE::SHUTDOWN;
-                        PacketParser[0x00D](map_session_data, PChar, CBasicPacket());
+                        PChar->status    = STATUS_TYPE::SHUTDOWN;
+                        auto basicPacket = CBasicPacket();
+                        PacketParser[0x00D](map_session_data, PChar, basicPacket);
                     }
                     else
                     {
@@ -1174,7 +1186,7 @@ int32 map_garbage_collect(time_point tick, CTaskMgr::CTask* PTask)
 
     ShowInfo("CTaskMgr Active Tasks: %i", CTaskMgr::getInstance()->getTaskList().size());
 
-    luautils::garbageCollectStep();
+    luautils::garbageCollectFull();
     return 0;
 }
 

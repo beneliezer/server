@@ -5,18 +5,12 @@
 -- Starts and Finishes Quest: Tenshodo Membership
 -- !pos 16 0 -5 245
 -----------------------------------
-local ID = require("scripts/zones/Lower_Jeuno/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/titles")
-require("scripts/globals/quests")
-require("scripts/globals/shop")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
         player:getQuestStatus(xi.quest.log_id.JEUNO, xi.quest.id.jeuno.TENSHODO_MEMBERSHIP) ~= QUEST_COMPLETED and
-        npcUtil.tradeHas(trade, 548)
+        npcUtil.tradeHas(trade, xi.item.TENSHODO_INVITE)
     then
         -- Finish Quest: Tenshodo Membership (Invitation)
         player:startEvent(108)
@@ -38,10 +32,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 106 and option == 0 then
         local stock =
         {

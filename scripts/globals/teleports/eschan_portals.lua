@@ -1,12 +1,10 @@
--------------------------------------------
+-----------------------------------
 -- Escha/Reisenjima Portals Global
--------------------------------------------
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
-require("scripts/globals/teleports")
-require("scripts/globals/utils")
-require("scripts/globals/zone")
--------------------------------------------
+-----------------------------------
+require('scripts/globals/npc_util')
+require('scripts/globals/teleports')
+require('scripts/globals/utils')
+-----------------------------------
 xi = xi or {}
 xi.escha = xi.escha or {}
 xi.escha.portals = xi.escha.portals or {}
@@ -35,12 +33,12 @@ local portalOffsets =
     [xi.zone.REISENJIMA ] = { 23, 31 },
 }
 
--------------------------------------------------------------------------------------------------------------
+-----------------------------------
 -- Notes:
 -- Portal base cost is 50 in every escha zone.
 -- Vorseal Luck+ (Portal Cost per unpgrade) -5%, -10%, -15%, -20%, -25%, -30%, -35%, -40%, -45%, -50%, -55%
 -- Vorseal status effect = 602
--------------------------------------------------------------------------------------------------------------
+-----------------------------------
 local function getPortalCost(player)
     local cost             = 50
     local luckVorsealPower = 0
@@ -68,7 +66,7 @@ xi.escha.portals.eschanPortalOnTrigger = function(player, npc, portalGlobalNumbe
         end
 
         -- Ethereal droplet. Warps you to Portal #1.
-        if player:hasItem(xi.items.ETHEREAL_DROPLET, xi.inv.TEMPITEMS) then
+        if player:hasItem(xi.item.ETHEREAL_DROPLET, xi.inv.TEMPITEMS) then
             lockValue = lockValue + 2
         end
     end
@@ -104,23 +102,25 @@ xi.escha.portals.eschanPortalOnTrigger = function(player, npc, portalGlobalNumbe
         end
     end
 
-    player:startEvent(9100, 0, portalBitMask, zoneId, portalGlobalNumber, lockValue, player:getCurrency("escha_beads"), getPortalCost(player), 0)
+    player:startEvent(9100, 0, portalBitMask, zoneId, portalGlobalNumber, lockValue, player:getCurrency('escha_silt'), getPortalCost(player), 0)
 end
 
-xi.escha.portals.eschanPortalEventUpdate = function(player, csid, option)
+xi.escha.portals.eschanPortalEventUpdate = function(player, csid, option, npc)
 end
 
 xi.escha.portals.eschanPortalEventFinish = function(player, csid, option, npc)
     local portalCost = getPortalCost(player)
 
     if option == 3 then-- Ethereal droplet usage.
-        player:delItem(xi.items.ETHEREAL_DROPLET, 1, xi.inv.TEMPITEMS)
-        player:messageSpecial(ID.text.YOU_HAVE_USED, xi.items.ETHEREAL_DROPLET)
+        local ID = zones[player:getZoneID()]
+
+        player:delItem(xi.item.ETHEREAL_DROPLET, 1, xi.inv.TEMPITEMS)
+        player:messageSpecial(ID.text.YOU_HAVE_USED, xi.item.ETHEREAL_DROPLET)
     elseif
         option ~= 0 and
         option ~= 4 and -- Scintillating Rhapsody usage.
         option ~= 1073741824
     then
-        player:delCurrency("escha_beads", portalCost)
+        player:delCurrency('escha_silt', portalCost)
     end
 end

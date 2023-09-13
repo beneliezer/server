@@ -4,19 +4,16 @@
 -- Quest: Your Crystal Ball
 -- !pos -18 -13 181 198
 -----------------------------------
-local ID = require("scripts/zones/Maze_of_Shakhrami/IDs")
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
+local ID = zones[xi.zone.MAZE_OF_SHAKHRAMI]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
         player:getQuestStatus(xi.quest.log_id.JEUNO, xi.quest.id.jeuno.YOUR_CRYSTAL_BALL) == QUEST_ACCEPTED and
-        npcUtil.tradeHas(trade, xi.items.AHRIMAN_LENS)
+        npcUtil.tradeHas(trade, xi.item.AHRIMAN_LENS)
     then
-        player:setCharVar("QuestYourCrystalBall_prog", 1)
+        player:setCharVar('QuestYourCrystalBall_prog', 1)
         player:confirmTrade(trade)
     end
 end
@@ -24,7 +21,7 @@ end
 entity.onTrigger = function(player, npc)
     if
         player:getQuestStatus(xi.quest.log_id.JEUNO, xi.quest.id.jeuno.YOUR_CRYSTAL_BALL) == QUEST_ACCEPTED and
-        player:getCharVar("QuestYourCrystalBall_prog") == 1
+        player:getCharVar('QuestYourCrystalBall_prog') == 1
     then
         player:startEvent(52)
     else
@@ -32,12 +29,12 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    if csid == 52 and npcUtil.giveItem(player, xi.items.DIVINATION_SPHERE) then
-        player:setCharVar("QuestYourCrystalBall_prog", 0)
+entity.onEventFinish = function(player, csid, option, npc)
+    if csid == 52 and npcUtil.giveItem(player, xi.item.DIVINATION_SPHERE) then
+        player:setCharVar('QuestYourCrystalBall_prog', 0)
     end
 end
 

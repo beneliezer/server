@@ -21,12 +21,12 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 
 #include "attack_state.h"
 
-#include "../../entities/battleentity.h"
+#include "entities/battleentity.h"
 
-#include "../../packets/action.h"
-#include "../../packets/lock_on.h"
-#include "../../utils/battleutils.h"
-#include "../ai_container.h"
+#include "ai/ai_container.h"
+#include "packets/action.h"
+#include "packets/lock_on.h"
+#include "utils/battleutils.h"
 
 CAttackState::CAttackState(CBattleEntity* PEntity, uint16 targid)
 : CState(PEntity, targid)
@@ -170,5 +170,5 @@ bool CAttackState::CanAttack(CBattleEntity* PTarget)
 
 bool CAttackState::AttackReady()
 {
-    return m_attackTime < 0ms;
+    return m_attackTime < 0ms && m_PEntity->isAlive();
 }

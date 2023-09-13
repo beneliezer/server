@@ -33,10 +33,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local lvlCap = 0
 
     if option == 1 then
@@ -58,7 +58,7 @@ entity.onEventFinish = function(player, csid, option)
         end
 
         if xi.settings.main.ENABLE_COP_ZONE_CAP == 1 then
-            player:setCharVar("PSOXJA_RESTRICTION_LVL", lvlCap)
+            player:setCharVar('PSOXJA_RESTRICTION_LVL', lvlCap)
         end
     end
 end

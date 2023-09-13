@@ -1,12 +1,10 @@
 -----------------------------------
 -- Area: Riverne Site #B01
 --  NPC: Unstable Displacement
--- Note: entrance for "Storms of Fate" and "The Wyrmking Descends"
+-- Note: entrance for 'Storms of Fate' and 'The Wyrmking Descends'
 -- !pos -612.800 1.750 693.190 29
 -----------------------------------
-local ID = require("scripts/zones/Riverne-Site_B01/IDs")
-require("scripts/globals/quests")
-require("scripts/globals/bcnm")
+local ID = zones[xi.zone.RIVERNE_SITE_B01]
 -----------------------------------
 local entity = {}
 
@@ -29,12 +27,12 @@ entity.onEventUpdate = function(player, csid, option, extras)
     xi.bcnm.onEventUpdate(player, csid, option, extras)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 1 then
         player:setCharVar('StormsOfFate', 2)
     end
 
-    xi.bcnm.onEventFinish(player, csid, option)
+    xi.bcnm.onEventFinish(player, csid, option, npc)
 end
 
 return entity

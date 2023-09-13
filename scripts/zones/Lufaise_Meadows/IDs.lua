@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Lufaise_Meadows
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.LUFAISE_MEADOWS] =
@@ -57,15 +54,7 @@ zones[xi.zone.LUFAISE_MEADOWS] =
     npc =
     {
         OVERSEER_BASE = GetFirstID('Jemmoquel_RK'),
-        LOGGING       =
-        {
-            16875883,
-            16875884,
-            16875885,
-            16875886,
-            16875887,
-            16875888,
-        },
+        LOGGING       = GetTableOfIDs('Logging_Point'),
     },
 }
 

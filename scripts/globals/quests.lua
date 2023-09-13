@@ -1,4 +1,3 @@
-require("scripts/globals/zone")
 
 xi = xi or {}
 xi.quest = xi.quest or {}
@@ -73,7 +72,7 @@ xi.quest.fame_area =
 xi.quest.id =
 {
     -----------------------------------
-    --  San d'Oria
+    --  San d'Oria - 0
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.SANDORIA]] =
     {
@@ -162,7 +161,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Bastok
+    --  Bastok - 1
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.BASTOK]] =
     {
@@ -227,10 +226,10 @@ xi.quest.id =
         DARK_PUPPET                     = 58, -- ± Converted
         BLADE_OF_EVIL                   = 59, -- ± Converted
         AYAME_AND_KAEDE                 = 60, -- ± Converted
-        TRIAL_BY_EARTH                  = 61, -- ±
-        A_TEST_OF_TRUE_LOVE             = 62, -- ±
-        LOVERS_IN_THE_DUSK              = 63, -- ±
-        WISH_UPON_A_STAR                = 64, -- ±
+        TRIAL_BY_EARTH                  = 61, -- ± Converted
+        A_TEST_OF_TRUE_LOVE             = 62, -- ± Converted
+        LOVERS_IN_THE_DUSK              = 63, -- ± Converted
+        WISH_UPON_A_STAR                = 64, -- ± Converted
         ECO_WARRIOR                     = 65, -- ±
         THE_WEIGHT_OF_YOUR_LIMITS       = 66, -- + Converted
         SHOOT_FIRST_ASK_QUESTIONS_LATER = 67, -- + Converted
@@ -238,9 +237,9 @@ xi.quest.id =
         THE_WALLS_OF_YOUR_MIND          = 69, -- + Converted
         ESCORT_FOR_HIRE                 = 70,
         A_DISCERNING_EYE                = 71,
-        TRIAL_SIZE_TRIAL_BY_EARTH       = 72, -- +
-        FADED_PROMISES                  = 73, -- ±
-        BRYGID_THE_STYLIST_RETURNS      = 74, -- ±
+        TRIAL_SIZE_TRIAL_BY_EARTH       = 72, -- + Converted
+        FADED_PROMISES                  = 73, -- ± Converted
+        BRYGID_THE_STYLIST_RETURNS      = 74, -- ± Converted
         OUT_OF_THE_DEPTHS               = 75,
         ALL_BY_MYSELF                   = 76,
         A_QUESTION_OF_FAITH             = 77,
@@ -262,7 +261,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Windurst
+    --  Windurst - 2
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.WINDURST]] =
     {
@@ -323,7 +322,7 @@ xi.quest.id =
         THE_AMAZIN_SCORPIO              = 61, -- +
         TWINSTONE_BONDING               = 62, -- +
         CURSES_FOILED_A_GOLEM           = 63, -- + Converted
-        ACTING_IN_GOOD_FAITH            = 64, -- ±
+        ACTING_IN_GOOD_FAITH            = 64, -- ± Converted
         FLOWER_CHILD                    = 65, -- ± Converted
         THE_THREE_MAGI                  = 66, -- ±
         RECOLLECTIONS                   = 67, -- ±
@@ -359,7 +358,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Jeuno
+    --  Jeuno - 3
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.JEUNO]] =
     {
@@ -514,7 +513,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Other Areas
+    --  Other Areas - 4
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.OTHER_AREAS]] =
     {
@@ -539,7 +538,7 @@ xi.quest.id =
         THE_REAL_GIFT                   = 22, -- +
         THE_RESCUE                      = 23, -- +
         ELDER_MEMORIES                  = 24, -- +
-        TEST_MY_METTLE                  = 25,
+        TEST_MY_METTLE                  = 25, -- + Converted
         INSIDE_THE_BELLY                = 26, -- ±
         TRIAL_BY_LIGHTNING              = 27, -- ±
         TRIAL_SIZE_TRIAL_BY_LIGHTNING   = 28, -- +
@@ -570,7 +569,7 @@ xi.quest.id =
         REQUIEM_OF_SIN                  = 83,
         VW_OP_026_TAVNAZIAN_TERRORS     = 84,
         VW_OP_004_BIBIKI_BOMBARDMENT    = 85,
-        BOMBS_AWAY                      = 96,
+        BOMBS_AWAY                      = 96, -- + Converted
         MITHRAN_DELICACIES              = 97,
         GIVE_A_MOOGLE_A_BREAK           = 100, -- ±
         THE_MOOGLE_PICNIC               = 101, -- ±
@@ -587,7 +586,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Outlands
+    --  Outlands - 5
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.OUTLANDS]] =
     {
@@ -622,8 +621,8 @@ xi.quest.id =
         STOP_YOUR_WHINING               = 132, -- + Converted
         TRIAL_BY_WATER                  = 133, -- +
         EVERYONES_GRUDGE                = 134,
-        SECRET_OF_THE_DAMP_SCROLL       = 135, -- ±
-        THE_SAHAGINS_STASH              = 136, -- +
+        SECRET_OF_THE_DAMP_SCROLL       = 135, -- ± Converted
+        THE_SAHAGINS_STASH              = 136, -- + Converted
         ITS_NOT_YOUR_VAULT              = 137, -- +
         LIKE_A_SHINING_SUBLIGAR         = 138, -- +
         LIKE_A_SHINING_LEGGINGS         = 139, -- +
@@ -659,7 +658,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Aht Urhgan
+    --  Aht Urhgan - 6
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.AHT_URHGAN]] =
     {
@@ -674,7 +673,7 @@ xi.quest.id =
         FINDING_FAULTS                   = 8,
         GIVE_PEACE_A_CHANCE              = 9, -- + Converted
         THE_ART_OF_WAR                   = 10,
-        -- AT QUEST 00                   = 11,
+        -- JP ENTRIES OR INVALID
         A_TASTE_OF_HONEY                 = 12, -- + Converted
         SUCH_SWEET_SORROW                = 13, -- + Converted
         FEAR_OF_THE_DARK_II              = 14, -- + Converted
@@ -696,11 +695,17 @@ xi.quest.id =
         MOMENT_OF_TRUTH                  = 30,
         THREE_MEN_AND_A_CLOSET           = 31, -- + Converted
         FIVE_SECONDS_OF_FAME             = 32,
+        -- JP ENTRIES OR INVALID
+        THE_BEAST_WITHIN                 = 40,
+        BREAKING_THE_BONDS_OF_FATE       = 41,
+        -- JP ENTRIES OR INVALID
         SAGA_OF_THE_SKYSERPENT           = 43, -- + Converted
         ODE_TO_THE_SERPENTS              = 44, -- + Converted
         WHEN_THE_BOW_BREAKS              = 45, -- + Converted
         FIST_OF_THE_PEOPLE               = 46, -- + Converted
         SOOTHING_WATERS                  = 47, -- + Converted
+        -- JP ENTRIES OR INVALID
+        THE_PRANKSTER                    = 60,
         DELIVERING_THE_GOODS             = 61, -- + Converted
         VANISHING_ACT                    = 62, -- + Converted
         STRIKING_A_BALANCE               = 63, -- + Converted
@@ -719,6 +724,7 @@ xi.quest.id =
         THE_RIDER_COMETH                 = 76,
         UNWAVERING_RESOLVE               = 77,
         A_STYGIAN_PACT                   = 78,
+        -- JP ENTRIES OR INVALID
         PROMOTION_PRIVATE_FIRST_CLASS    = 90, -- + Converted
         PROMOTION_SUPERIOR_PRIVATE       = 91, -- + Converted
         PROMOTION_LANCE_CORPORAL         = 92,
@@ -729,13 +735,14 @@ xi.quest.id =
         PROMOTION_SECOND_LIEUTENANT      = 97,
         PROMOTION_FIRST_LIEUTENANT       = 98,
         PROMOTION_CAPTAIN                = 99,
+        -- JP ENTRIES OR INVALID
         SCOUTING_THE_ASHU_TALIF          = 101,
         ROYAL_PAINTER_ESCORT             = 102,
         TARGETING_THE_CAPTAIN            = 103,
     },
 
     -----------------------------------
-    --  Crystal War
+    --  Crystal War - 7
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.CRYSTAL_WAR]] =
     {
@@ -745,7 +752,7 @@ xi.quest.id =
         HEALING_HERBS                    = 3,
         REDEEMING_ROCKS                  = 4,
         THE_DAWN_OF_DELECTABILITY        = 5,  -- + Converted
-        A_LITTLE_KNOWLEDGE               = 6,  -- +
+        A_LITTLE_KNOWLEDGE               = 6,  -- + Converted
         THE_FIGHTING_FOURTH              = 7,
         SNAKE_ON_THE_PLAINS              = 8,  -- +
         STEAMED_RAMS                     = 9,  -- +
@@ -837,7 +844,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Abyssea
+    --  Abyssea - 8
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.ABYSSEA]] =
     {
@@ -930,43 +937,43 @@ xi.quest.id =
         THE_UNMARKED_TOMB               = 84,
         PROOF_OF_THE_LION               = 85,
         BRYGID_THE_STYLIST_STRIKES_BACK = 86,
-        DOMINION_OP_01_ALTEPA           = 87,
-        DOMINION_OP_02_ALTEPA           = 88,
-        DOMINION_OP_03_ALTEPA           = 89,
-        DOMINION_OP_04_ALTEPA           = 90,
-        DOMINION_OP_05_ALTEPA           = 91,
-        DOMINION_OP_06_ALTEPA           = 92,
-        DOMINION_OP_07_ALTEPA           = 93,
-        DOMINION_OP_08_ALTEPA           = 94,
-        DOMINION_OP_09_ALTEPA           = 95,
-        DOMINION_OP_10_ALTEPA           = 96,
-        DOMINION_OP_11_ALTEPA           = 97,
-        DOMINION_OP_12_ALTEPA           = 98,
-        DOMINION_OP_13_ALTEPA           = 99,
-        DOMINION_OP_14_ALTEPA           = 100,
-        DOMINION_OP_01_ULEGUERAND       = 101,
-        DOMINION_OP_02_ULEGUERAND       = 102,
-        DOMINION_OP_03_ULEGUERAND       = 103,
-        DOMINION_OP_04_ULEGUERAND       = 104,
-        DOMINION_OP_05_ULEGUERAND       = 105,
-        DOMINION_OP_06_ULEGUERAND       = 106,
-        DOMINION_OP_07_ULEGUERAND       = 107,
-        DOMINION_OP_08_ULEGUERAND       = 108,
-        DOMINION_OP_09_ULEGUERAND       = 109,
-        DOMINION_OP_10_ULEGUERAND       = 110,
-        DOMINION_OP_11_ULEGUERAND       = 111,
-        DOMINION_OP_12_ULEGUERAND       = 112,
-        DOMINION_OP_13_ULEGUERAND       = 113,
-        DOMINION_OP_14_ULEGUERAND       = 114,
-        DOMINION_OP_01_GRAUBERG         = 115,
-        DOMINION_OP_02_GRAUBERG         = 116,
-        DOMINION_OP_03_GRAUBERG         = 117,
-        DOMINION_OP_04_GRAUBERG         = 118,
-        DOMINION_OP_05_GRAUBERG         = 119,
-        DOMINION_OP_06_GRAUBERG         = 120,
-        DOMINION_OP_07_GRAUBERG         = 121,
-        DOMINION_OP_08_GRAUBERG         = 122,
-        DOMINION_OP_09_GRAUBERG         = 123,
+        DOMINION_OP_01_ALTEPA           = 87,  -- + Converted
+        DOMINION_OP_02_ALTEPA           = 88,  -- + Converted
+        DOMINION_OP_03_ALTEPA           = 89,  -- + Converted
+        DOMINION_OP_04_ALTEPA           = 90,  -- + Converted
+        DOMINION_OP_05_ALTEPA           = 91,  -- + Converted
+        DOMINION_OP_06_ALTEPA           = 92,  -- + Converted
+        DOMINION_OP_07_ALTEPA           = 93,  -- + Converted
+        DOMINION_OP_08_ALTEPA           = 94,  -- + Converted
+        DOMINION_OP_09_ALTEPA           = 95,  -- + Converted
+        DOMINION_OP_10_ALTEPA           = 96,  -- + Converted
+        DOMINION_OP_11_ALTEPA           = 97,  -- + Converted
+        DOMINION_OP_12_ALTEPA           = 98,  -- + Converted
+        DOMINION_OP_13_ALTEPA           = 99,  -- + Converted
+        DOMINION_OP_14_ALTEPA           = 100, -- + Converted
+        DOMINION_OP_01_ULEGUERAND       = 101, -- + Converted
+        DOMINION_OP_02_ULEGUERAND       = 102, -- + Converted
+        DOMINION_OP_03_ULEGUERAND       = 103, -- + Converted
+        DOMINION_OP_04_ULEGUERAND       = 104, -- + Converted
+        DOMINION_OP_05_ULEGUERAND       = 105, -- + Converted
+        DOMINION_OP_06_ULEGUERAND       = 106, -- + Converted
+        DOMINION_OP_07_ULEGUERAND       = 107, -- + Converted
+        DOMINION_OP_08_ULEGUERAND       = 108, -- + Converted
+        DOMINION_OP_09_ULEGUERAND       = 109, -- + Converted
+        DOMINION_OP_10_ULEGUERAND       = 110, -- + Converted
+        DOMINION_OP_11_ULEGUERAND       = 111, -- + Converted
+        DOMINION_OP_12_ULEGUERAND       = 112, -- + Converted
+        DOMINION_OP_13_ULEGUERAND       = 113, -- + Converted
+        DOMINION_OP_14_ULEGUERAND       = 114, -- + Converted
+        DOMINION_OP_01_GRAUBERG         = 115, -- + Converted
+        DOMINION_OP_02_GRAUBERG         = 116, -- + Converted
+        DOMINION_OP_03_GRAUBERG         = 117, -- + Converted
+        DOMINION_OP_04_GRAUBERG         = 118, -- + Converted
+        DOMINION_OP_05_GRAUBERG         = 119, -- + Converted
+        DOMINION_OP_06_GRAUBERG         = 120, -- + Converted
+        DOMINION_OP_07_GRAUBERG         = 121, -- + Converted
+        DOMINION_OP_08_GRAUBERG         = 122, -- + Converted
+        DOMINION_OP_09_GRAUBERG         = 123, -- + Converted
         WARD_WARDEN_I_ATTOHWA           = 124,
         WARD_WARDEN_I_MISAREAUX         = 125,
         WARD_WARDEN_I_VUNKERL           = 126,
@@ -1030,15 +1037,15 @@ xi.quest.id =
         THE_WYRM_GOD                    = 184,
         MEANWHILE_BACK_ON_ABYSSEA       = 185,
         A_MOONLIGHT_REQUITE             = 186,
-        DOMINION_OP_10_GRAUBERG         = 187,
-        DOMINION_OP_11_GRAUBERG         = 188,
-        DOMINION_OP_12_GRAUBERG         = 189,
-        DOMINION_OP_13_GRAUBERG         = 190,
-        DOMINION_OP_14_GRAUBERG         = 191,
+        DOMINION_OP_10_GRAUBERG         = 187, -- + Converted
+        DOMINION_OP_11_GRAUBERG         = 188, -- + Converted
+        DOMINION_OP_12_GRAUBERG         = 189, -- + Converted
+        DOMINION_OP_13_GRAUBERG         = 190, -- + Converted
+        DOMINION_OP_14_GRAUBERG         = 191, -- + Converted
     },
 
     -----------------------------------
-    --  Adoulin
+    --  Adoulin - 9
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.ADOULIN]] =
     {
@@ -1144,7 +1151,7 @@ xi.quest.id =
     },
 
     -----------------------------------
-    --  Coalition
+    --  Coalition - 10
     -----------------------------------
     [xi.quest.area[xi.quest.log_id.COALITION]] =
     {
@@ -1249,7 +1256,7 @@ xi.quest.id =
 }
 
 local function getVarPrefix(areaId, questId)
-    return string.format("Quest[%d][%d]", areaId, questId)
+    return string.format('Quest[%d][%d]', areaId, questId)
 end
 
 -- Interaction Framework Helper Functions
@@ -1261,8 +1268,12 @@ xi.quest.getVar = function(player, areaId, questId, name)
     return player:getVar(getVarPrefix(areaId, questId) .. name)
 end
 
-xi.quest.setVar = function(player, areaId, questId, name, value)
-    return player:setVar(getVarPrefix(areaId, questId) .. name, value)
+xi.quest.setVar = function(player, areaId, questId, name, value, expiry)
+    return player:setVar(getVarPrefix(areaId, questId) .. name, value, expiry)
+end
+
+xi.quest.setVarExpiration = function(player, areaId, questId, name, expiry)
+    return player:setCharVarExpiration(getVarPrefix(areaId, questId) .. name, expiry)
 end
 
 xi.quest.getLocalVar = function(player, areaId, questId, name)
@@ -1274,9 +1285,9 @@ xi.quest.setLocalVar = function(player, areaId, questId, name, value)
 end
 
 xi.quest.getMustZone = function(player, areaId, questId)
-    return player:getLocalVar(getVarPrefix(areaId, questId) .. "mustZone") == 1 and true or false
+    return player:getLocalVar(getVarPrefix(areaId, questId) .. 'mustZone') == 1 and true or false
 end
 
 xi.quest.setMustZone = function(player, areaId, questId)
-    player:setLocalVar(getVarPrefix(areaId, questId) .. "mustZone", 1)
+    player:setLocalVar(getVarPrefix(areaId, questId) .. 'mustZone', 1)
 end

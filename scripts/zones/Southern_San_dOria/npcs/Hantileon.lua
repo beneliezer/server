@@ -4,8 +4,6 @@
 -- Type: VCS Chocobo Trainer
 -- !pos -2.675 -1.1 -105.287 230
 -----------------------------------
-require("scripts/globals/chocobo_raising")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,12 +14,12 @@ entity.onTrigger = function(player, npc)
     xi.chocoboRaising.onTriggerVCSTrainer(player, npc)
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    xi.chocoboRaising.onEventUpdateVCSTrainer(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
+    xi.chocoboRaising.onEventUpdateVCSTrainer(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.chocoboRaising.onEventFinishVCSTrainer(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.chocoboRaising.onEventFinishVCSTrainer(player, csid, option, npc)
 end
 
 return entity

@@ -4,8 +4,6 @@
 -- Type: Crystal Storage NPC
 -- !pos -185.750 -2.000 -3.860 230
 -----------------------------------
-require("scripts/globals/ephemeral")
------------------------------------
 local entity = {}
 
 local triggerEvent = 617
@@ -20,11 +18,11 @@ entity.onTrigger = function(player, npc)
     xi.ephemeral.onTrigger(player, triggerEvent)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.ephemeral.onEventUpdate(player)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.ephemeral.onEventFinish(player, option, csid == tradeEvent)
 end
 

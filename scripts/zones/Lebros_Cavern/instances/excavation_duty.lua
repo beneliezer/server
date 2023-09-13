@@ -1,17 +1,14 @@
 -----------------------------------
 -- Assault: Excavation Duty
 -----------------------------------
-local ID = require("scripts/zones/Lebros_Cavern/IDs")
-require("scripts/globals/assault")
-require("scripts/globals/instance")
-require("scripts/globals/items")
+local ID = zones[xi.zone.LEBROS_CAVERN]
 -----------------------------------
 local instanceObject = {}
 
 instanceObject.registryRequirements = function(player)
     return player:hasKeyItem(xi.ki.LEBROS_ASSAULT_ORDERS) and
         player:getCurrentAssault() == xi.assault.mission.EXCAVATION_DUTY and
-        player:getCharVar("assaultEntered") == 0 and
+        player:getCharVar('assaultEntered') == 0 and
         player:hasKeyItem(xi.ki.ASSAULT_ARMBAND) and
         player:getMainLvl() > 50
 end
@@ -19,7 +16,7 @@ end
 instanceObject.entryRequirements = function(player)
     return player:hasKeyItem(xi.ki.LEBROS_ASSAULT_ORDERS) and
         player:getCurrentAssault() == xi.assault.mission.EXCAVATION_DUTY and
-        player:getCharVar("assaultEntered") == 0 and
+        player:getCharVar('assaultEntered') == 0 and
         player:getMainLvl() > 50
 end
 
@@ -34,7 +31,7 @@ end
 instanceObject.afterInstanceRegister = function(player)
     local instance = player:getInstance()
 
-    xi.assault.afterInstanceRegister(player, xi.items.CAGE_OF_ZHAYOLM_FIREFLIES)
+    xi.assault.afterInstanceRegister(player, xi.item.CAGE_OF_ZHAYOLM_FIREFLIES)
     GetNPCByID(ID.npc.RUNE_OF_RELEASE, instance):setPos(49.999, -40.837, 96.999, 0)
     GetNPCByID(ID.npc.ANCIENT_LOCKBOX, instance):setPos(50.000, -40.070, 99.999, 0)
 end
@@ -57,7 +54,7 @@ instanceObject.onInstanceComplete = function(instance)
     xi.assault.onInstanceComplete(instance, 5, 10)
 end
 
-instanceObject.onEventFinish = function(player, csid, option)
+instanceObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return instanceObject

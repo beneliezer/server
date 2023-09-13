@@ -9,11 +9,7 @@
 -- Heillal    : !pos 30.8 -5.8 2.3 252
 -- Oaken Door : !pos 97 -7 -12 252
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
-local norgID = require("scripts/zones/Norg/IDs")
+local norgID = zones[xi.zone.NORG]
 -----------------------------------
 
 local mission = Mission:new(xi.mission.log_id.ROV, xi.mission.id.rov.THE_BEGINNING)

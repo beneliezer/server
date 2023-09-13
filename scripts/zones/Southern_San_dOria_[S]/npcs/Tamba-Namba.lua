@@ -10,14 +10,13 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
---    player:startEvent(305)
-    player:PrintToPlayer("Title changer NPC's have been disabled to prevent exploiting of weekly hunts")
+    player:startEvent(305)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

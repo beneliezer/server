@@ -10,8 +10,8 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    if player:getCharVar("rootProblem") == 2 then
-        if player:getCharVar("rootProblemQ1") <= 1 then
+    if player:getCharVar('rootProblem') == 2 then
+        if player:getCharVar('rootProblemQ1') <= 1 then
             player:startEvent(42)
         else
             player:startEvent(42)
@@ -19,12 +19,12 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 42 then
-        player:setCharVar("rootProblemQ1", 2)
+        player:setCharVar('rootProblemQ1', 2)
     end
 end
 

@@ -3,8 +3,7 @@
 --  NPC: Nuh Celodehki
 -- Standard Merchant NPC
 -----------------------------------
-local ID = require("scripts/zones/Kazham/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.KAZHAM]
 -----------------------------------
 local entity = {}
 
@@ -24,10 +23,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

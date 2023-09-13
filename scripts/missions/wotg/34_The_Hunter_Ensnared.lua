@@ -5,10 +5,6 @@
 -- !addmission 5 33
 -- Rally Point: Red : !pos -106.071 -25.5 -52.841 137
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.WOTG, xi.mission.id.wotg.THE_HUNTER_ENSNARED)
 

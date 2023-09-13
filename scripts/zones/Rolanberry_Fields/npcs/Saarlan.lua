@@ -4,9 +4,7 @@
 -- Legion NPC
 -- !pos 242 24.395 468 110
 -----------------------------------
-local ID = require("scripts/zones/Rolanberry_Fields/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/titles")
+local ID = zones[xi.zone.ROLANBERRY_FIELDS]
 -----------------------------------
 local entity = {}
 
@@ -56,9 +54,9 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    if player:getCharVar("LegionStatus") == 0 then
+    if player:getCharVar('LegionStatus') == 0 then
         player:startEvent(8004)
-    elseif player:getCharVar("LegionStatus") == 1 then
+    elseif player:getCharVar('LegionStatus') == 1 then
         local maximus = player:hasKeyItem(xi.ki.LEGION_TOME_PAGE_MAXIMUS) and 1 or 0
         local minimus = player:hasKeyItem(xi.ki.LEGION_TOME_PAGE_MINIMUS) and 1 or 0
         local title =
@@ -68,16 +66,16 @@ entity.onTrigger = function(player, npc)
             (player:hasTitle(xi.title.SUBJUGATOR_OF_THE_VEILED)  and  8 or 0) +
             (player:hasTitle(xi.title.LEGENDARY_LEGIONNAIRE)     and 16 or 0)
 
-        player:startEvent(8005, 0, title, maximus, player:getCurrency("legion_point"), minimus)
+        player:startEvent(8005, 0, title, maximus, player:getCurrency('legion_point'), minimus)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 8004 then
-        player:setCharVar("LegionStatus", 1)
+        player:setCharVar('LegionStatus', 1)
     elseif csid == 8005 then
         local ware = wares[option]
 
@@ -92,7 +90,7 @@ entity.onEventFinish = function(player, csid, option)
                     player:messageSpecial(ID.text.NOT_ENOUGH_GIL)
                 end
             elseif ware.lp then
-                if player:getCurrency("legion_point") >= ware.lp then
+                if player:getCurrency('legion_point') >= ware.lp then
                     afford = true
                 else
                     player:messageSpecial(ID.text.LACK_LEGION_POINTS)
@@ -115,7 +113,7 @@ entity.onEventFinish = function(player, csid, option)
                 if ware.gil then
                     player:delGil(ware.gil)
                 elseif ware.lp then
-                    player:delCurrency("legion_point", ware.lp)
+                    player:delCurrency('legion_point', ware.lp)
                 end
             end
         end

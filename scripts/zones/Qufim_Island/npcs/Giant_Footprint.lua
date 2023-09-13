@@ -4,7 +4,7 @@
 -- Involved in quest: Regaining Trust
 -- !pos 501 -11 354 126
 -----------------------------------
-local ID = require("scripts/zones/Qufim_Island/IDs")
+local ID = zones[xi.zone.QUFIM_ISLAND]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +15,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.GIGANTIC_FOOTPRINT)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

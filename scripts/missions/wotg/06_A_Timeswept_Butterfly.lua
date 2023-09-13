@@ -6,10 +6,6 @@
 -- JUGNER_FOREST_S : !zone 82
 -- LA_VAULE_S       : !zone 85
 -----------------------------------
-require('scripts/globals/missions')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.WOTG, xi.mission.id.wotg.A_TIMESWEPT_BUTTERFLY)
 

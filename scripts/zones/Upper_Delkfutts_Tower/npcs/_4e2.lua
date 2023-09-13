@@ -3,13 +3,12 @@
 --  NPC: Elevator
 -- !pos -294 -143 27 158
 -----------------------------------
-local ID = require("scripts/zones/Upper_Delkfutts_Tower/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.UPPER_DELKFUTTS_TOWER]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 549) then -- Delkfutt Key
+    if npcUtil.tradeHas(trade, xi.item.DELKFUTT_KEY) then -- Delkfutt Key
         player:startEvent(6)
     end
 end
@@ -22,10 +21,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 6 then
         if not player:hasKeyItem(xi.ki.DELKFUTT_KEY) then
             player:confirmTrade()

@@ -4,17 +4,15 @@
 -- Notes: Spawn Wailer Floor 4
 -- !pos 339.000 -1.883 144.000 22
 -----------------------------------
-local ID = require("scripts/zones/Promyvion-Vahzl/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.PROMYVION_VAHZL]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
-        npcUtil.tradeHas(trade, 1757) and
+        npcUtil.tradeHas(trade, xi.item.REMNANT_OF_A_COVETER) and
         npcUtil.popFromQM(player, npc, ID.mob.WAILER)
     then
-        -- Coveter Remnant
         player:messageSpecial(ID.text.ON_NM_SPAWN)
         player:confirmTrade()
     end

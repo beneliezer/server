@@ -11,13 +11,7 @@
 -- _5a0: Heavy Stone Dr : !pos -39 4.823 20 190
 -- Tombstone            : !pos -73.594 7.585 20.130 190
 -----------------------------------
-require('scripts/globals/items')
-require('scripts/globals/missions')
-require('scripts/globals/npc_util')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
-local krtID = require('scripts/zones/King_Ranperres_Tomb/IDs')
+local krtID = zones[xi.zone.KING_RANPERRES_TOMB]
 -----------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SANDORIA, xi.mission.id.sandoria.RANPERRES_FINAL_REST)

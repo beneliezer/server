@@ -4,12 +4,6 @@
 -- Starts & Finishes Quest: The Amazin' Scorpio
 -- !pos -17.073 1.749 -59.327 241
 -----------------------------------
-require("scripts/globals/npc_util")
-require("scripts/globals/pathfind")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
-require("scripts/globals/utils")
------------------------------------
 local entity = {}
 
 local pathNodes =
@@ -35,7 +29,7 @@ end
 entity.onTrade = function(player, npc, trade)
     if
         player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.THE_AMAZIN_SCORPIO) == QUEST_ACCEPTED and
-        npcUtil.tradeHas(trade, 1017)
+        npcUtil.tradeHas(trade, xi.item.SCORPION_STINGER)
     then
         player:startEvent(484)
     end
@@ -43,7 +37,7 @@ end
 
 entity.onTrigger = function(player, npc)
     local amazinScorpio = player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.THE_AMAZIN_SCORPIO)
-    local wildcatWindurst = player:getCharVar("WildcatWindurst")
+    local wildcatWindurst = player:getCharVar('WildcatWindurst')
 
     if
         player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and
@@ -53,21 +47,21 @@ entity.onTrigger = function(player, npc)
     elseif amazinScorpio == QUEST_COMPLETED then
         player:startEvent(485)
     elseif amazinScorpio == QUEST_ACCEPTED then
-        player:startEvent(482, 0, 0, 1017)
+        player:startEvent(482, 0, 0, xi.item.SCORPION_STINGER)
     elseif
         amazinScorpio == QUEST_AVAILABLE and
         player:getFameLevel(xi.quest.fame_area.WINDURST) >= 2
     then
-        player:startEvent(481, 0, 0, 1017)
+        player:startEvent(481, 0, 0, xi.item.SCORPION_STINGER)
     else
         player:startEvent(421)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 481 then
         player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.THE_AMAZIN_SCORPIO)
     elseif
@@ -76,7 +70,7 @@ entity.onEventFinish = function(player, csid, option)
     then
         player:confirmTrade()
     elseif csid == 735 then
-        player:setCharVar("WildcatWindurst", utils.mask.setBit(player:getCharVar("WildcatWindurst"), 0, true))
+        player:setCharVar('WildcatWindurst', utils.mask.setBit(player:getCharVar('WildcatWindurst'), 0, true))
     end
 end
 

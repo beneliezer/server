@@ -1,11 +1,6 @@
 -----------------------------------
 -- Zone: Bibiki_Bay (4)
 -----------------------------------
-local ID = require('scripts/zones/Bibiki_Bay/IDs')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/manaclipper')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onChocoboDig = function(player, precheck)
@@ -51,10 +46,10 @@ zoneObject.onTransportEvent = function(player, transport)
     xi.manaclipper.onTransportEvent(player, transport)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 12 then
         player:startEvent(10) -- arrive at Sunset Docks CS
     elseif csid == 13 then

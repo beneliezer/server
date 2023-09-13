@@ -6,9 +6,9 @@
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 2127) then
+    if npcUtil.tradeHas(trade, xi.item.METAL_CHIP) then
         player:startEvent(221, 65)
-    elseif npcUtil.tradeHas(trade, { 1909, 1910, 1987, 1988 }) then
+    elseif npcUtil.tradeHas(trade, { xi.item.SMALT_CHIP, xi.item.SMOKY_CHIP, xi.item.CHARCOAL_CHIP, xi.item.MAGENTA_CHIP }) then
         player:startEvent(221, 33)
     end
 end
@@ -17,19 +17,19 @@ entity.onTrigger = function(player, npc)
     player:startEvent(221, 31)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     player:updateEvent(
         0,
-        GetServerVariable("[SE_APOLLYON]Time"),      -- SW Apollyon
-        GetServerVariable("[NW_APOLLYON]Time"),      -- NW Apollyon
-        GetServerVariable("[SE_APOLLYON]Time"),      -- SE Apollyon
-        GetServerVariable("[NE_APOLLYON]Time"),      -- NE Apollyon
-        GetServerVariable("[CENTRAL_APOLLYON]Time"), -- Central Apollyon
-        GetServerVariable("[CS_Apollyon]Time")       -- CS Apollyon
+        GetServerVariable('[SW_APOLLYON]Time'),      -- SW Apollyon
+        GetServerVariable('[NW_APOLLYON]Time'),      -- NW Apollyon
+        GetServerVariable('[SE_APOLLYON]Time'),      -- SE Apollyon
+        GetServerVariable('[NE_APOLLYON]Time'),      -- NE Apollyon
+        GetServerVariable('[CENTRAL_APOLLYON]Time'), -- Central Apollyon
+        GetServerVariable('[CS_Apollyon]Time')       -- CS Apollyon
     )
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

@@ -1,8 +1,6 @@
 -----------------------------------
 -- Zone: Silver_Sea_route_to_Nashmau
 -----------------------------------
-local ID = require('scripts/zones/Silver_Sea_route_to_Nashmau/IDs')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -21,10 +19,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 1025 then
         player:setPos(0, 0, 0, 0, 53)
     end

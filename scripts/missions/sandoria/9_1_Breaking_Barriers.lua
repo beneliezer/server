@@ -11,13 +11,7 @@
 -- qm5 (Xarcabard)       : !pos 179 -33 82 112
 -- qm3 (Batallia Downs)  : !pos 210 17 -615 105
 -----------------------------------
-require('scripts/globals/items')
-require('scripts/globals/missions')
-require('scripts/globals/npc_util')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
-local batalliaID = require('scripts/zones/Batallia_Downs/IDs')
+local batalliaID = zones[xi.zone.BATALLIA_DOWNS]
 -----------------------------------
 
 local mission = Mission:new(xi.mission.log_id.SANDORIA, xi.mission.id.sandoria.BREAKING_BARRIERS)

@@ -4,11 +4,7 @@
 -- Involved in quest: No Strings Attached
 -- !pos 34.325 -7.804 57.511 50
 -----------------------------------
-require("scripts/globals/items")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
------------------------------------
-local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs")
+local ID = zones[xi.zone.AHT_URHGAN_WHITEGATE]
 -----------------------------------
 local entity = {}
 
@@ -17,20 +13,20 @@ local entity = {}
 -- event parameters (numUnlockedHeads).
 local automatonHeads =
 {
-    xi.items.VALOREDGE_HEAD,
-    xi.items.SHARPSHOT_HEAD,
-    xi.items.STORMWAKER_HEAD,
-    xi.items.SOULSOOTHER_HEAD,
-    xi.items.SPIRITREAVER_HEAD,
+    xi.item.VALOREDGE_HEAD,
+    xi.item.SHARPSHOT_HEAD,
+    xi.item.STORMWAKER_HEAD,
+    xi.item.SOULSOOTHER_HEAD,
+    xi.item.SPIRITREAVER_HEAD,
 }
 
 local unlockCost =
 {
-    [0] = { xi.items.IMPERIAL_SILVER_PIECE,  3 },
-    [1] = { xi.items.IMPERIAL_MYTHRIL_PIECE, 3 },
-    [2] = { xi.items.IMPERIAL_GOLD_PIECE,    1 },
-    [3] = { xi.items.IMPERIAL_MYTHRIL_PIECE, 2 },
-    [4] = { xi.items.IMPERIAL_MYTHRIL_PIECE, 4 },
+    [0] = { xi.item.IMPERIAL_SILVER_PIECE,  3 },
+    [1] = { xi.item.IMPERIAL_MYTHRIL_PIECE, 3 },
+    [2] = { xi.item.IMPERIAL_GOLD_PIECE,    1 },
+    [3] = { xi.item.IMPERIAL_MYTHRIL_PIECE, 2 },
+    [4] = { xi.item.IMPERIAL_MYTHRIL_PIECE, 4 },
 }
 
 -- This table is keyed by the initial attachmentStatus for each Head/Frame
@@ -39,26 +35,26 @@ local headAndFrameItems =
 {
     [2] =
     {
-        xi.items.BRASS_SHEET,
-        xi.items.WAMOURA_COCOON,
-        xi.items.CHUNK_OF_IMPERIAL_CERMET,
-        xi.items.PATAS
+        xi.item.BRASS_SHEET,
+        xi.item.WAMOURA_COCOON,
+        xi.item.CHUNK_OF_IMPERIAL_CERMET,
+        xi.item.PATAS
     },
 
     [3] =
     {
-        xi.items.ROSEWOOD_LUMBER,
-        xi.items.SQUARE_OF_KARAKUL_CLOTH,
-        xi.items.SQUARE_OF_KARAKUL_LEATHER,
-        xi.items.HEAVY_CROSSBOW
+        xi.item.PIECE_OF_ROSEWOOD_LUMBER,
+        xi.item.SQUARE_OF_KARAKUL_CLOTH,
+        xi.item.SQUARE_OF_KARAKUL_LEATHER,
+        xi.item.HEAVY_CROSSBOW
     },
 
     [4] =
     {
-        xi.items.GOLD_THREAD,
-        xi.items.SQUARE_OF_VELVET_CLOTH,
-        xi.items.SQUARE_OF_WAMOURA_CLOTH,
-        xi.items.BRASS_RING
+        xi.item.SPOOL_OF_GOLD_THREAD,
+        xi.item.SQUARE_OF_VELVET_CLOTH,
+        xi.item.SQUARE_OF_WAMOURA_CLOTH,
+        xi.item.BRASS_RING
     },
 }
 
@@ -66,18 +62,18 @@ local headAndFrameItems =
 -- Vana'diel days to wait until completed.
 local turbanItems =
 {
-    [xi.items.WHITE_PUPPET_TURBAN] =
+    [xi.item.WHITE_PUPPET_TURBAN] =
     {
-        [xi.items.SCROLL_OF_CURE_V ] = { 2, 4 },
-        [xi.items.SCROLL_OF_REGEN  ] = { 3, 4 },
-        [xi.items.SCROLL_OF_CURE_II] = { 5, 5 },
+        [xi.item.SCROLL_OF_CURE_V ] = { 2, 4 },
+        [xi.item.SCROLL_OF_REGEN  ] = { 3, 4 },
+        [xi.item.SCROLL_OF_CURE_II] = { 5, 5 },
     },
 
-    [xi.items.BLACK_PUPPET_TURBAN] =
+    [xi.item.BLACK_PUPPET_TURBAN] =
     {
-        [xi.items.SCROLL_OF_STONE_IV  ] = { 2, 4 },
-        [xi.items.SCROLL_OF_ABSORB_INT] = { 3, 4 },
-        [xi.items.SCROLL_OF_FIRE      ] = { 5, 5 },
+        [xi.item.SCROLL_OF_STONE_IV  ] = { 2, 4 },
+        [xi.item.SCROLL_OF_ABSORB_INT] = { 3, 4 },
+        [xi.item.SCROLL_OF_FIRE      ] = { 5, 5 },
     },
 }
 
@@ -127,8 +123,8 @@ end
 
 local function satisfy_attachment(player, newAttachmentStatus)
     player:tradeComplete()
-    player:setCharVar("PUP_AttachmentStatus", newAttachmentStatus)
-    player:setCharVar("PUP_AttachmentReady", VanadielUniqueDay() + 1)
+    player:setCharVar('PUP_AttachmentStatus', newAttachmentStatus)
+    player:setCharVar('PUP_AttachmentReady', VanadielUniqueDay() + 1)
     player:startEvent(625)
 end
 
@@ -139,16 +135,16 @@ local function play_event902(player, newAttachmentStatus, waitDays)
     end
 
     player:tradeComplete()
-    player:setCharVar("PUP_AttachmentStatus", newAttachmentStatus)
-    player:setCharVar("PUP_AttachmentReady", VanadielUniqueDay() + waitDays)
-    player:setCharVar("PUP_nextCoffeeTrade", VanadielUniqueDay() + 1)
+    player:setCharVar('PUP_AttachmentStatus', newAttachmentStatus)
+    player:setCharVar('PUP_AttachmentReady', VanadielUniqueDay() + waitDays)
+    player:setCharVar('PUP_nextCoffeeTrade', VanadielUniqueDay() + 1)
     player:startEvent(902)
 end
 
 entity.onTrade = function(player, npc, trade)
-    local attachmentStatus = player:getCharVar("PUP_AttachmentStatus")
+    local attachmentStatus = player:getCharVar('PUP_AttachmentStatus')
     local numUnlockedHeads = getNumUnlockedHeads(player)
-    local attachmentReadyDay = player:getCharVar("PUP_AttachmentReady")
+    local attachmentReadyDay = player:getCharVar('PUP_AttachmentReady')
     local attachmentReady = attachmentReadyDay ~= 0 and attachmentReadyDay <= VanadielUniqueDay()
     local tradeHasPayment = trade:getItemQty(unlockCost[numUnlockedHeads][1]) == unlockCost[numUnlockedHeads][2]
 
@@ -159,7 +155,7 @@ entity.onTrade = function(player, npc, trade)
 
             if slotCount == 4 then
                 player:tradeComplete()
-                player:setCharVar("PUP_AttachmentStatus", attachmentStatus + 3)
+                player:setCharVar('PUP_AttachmentStatus', attachmentStatus + 3)
                 player:startEvent(624, 0, 0, 0, 0, 0, unlockCost[numUnlockedHeads][1], unlockCost[numUnlockedHeads][2])
             elseif slotCount == 5 and tradeHasPayment then
                 satisfy_attachment(player, attachmentStatus + 6)
@@ -183,17 +179,17 @@ entity.onTrade = function(player, npc, trade)
         if trade:getSlotCount() == 3 then
             if tradeHasPayment then
                 if
-                    trade:getItemQty(xi.items.WHITE_PUPPET_TURBAN) == 1 and
-                    not player:hasAttachment(xi.items.SOULSOOTHER_HEAD)
+                    trade:getItemQty(xi.item.WHITE_PUPPET_TURBAN) == 1 and
+                    not player:hasAttachment(xi.item.SOULSOOTHER_HEAD)
                 then
-                    local range = getWaitRange(xi.items.WHITE_PUPPET_TURBAN, trade)
+                    local range = getWaitRange(xi.item.WHITE_PUPPET_TURBAN, trade)
 
                     play_event902(player, 12, math.random(range[1], range[2]))
                 elseif
-                    trade:getItemQty(xi.items.BLACK_PUPPET_TURBAN) == 1 and
-                    not player:hasAttachment(xi.items.SPIRITREAVER_HEAD)
+                    trade:getItemQty(xi.item.BLACK_PUPPET_TURBAN) == 1 and
+                    not player:hasAttachment(xi.item.SPIRITREAVER_HEAD)
                 then
-                    local range = getWaitRange(xi.items.BLACK_PUPPET_TURBAN, trade)
+                    local range = getWaitRange(xi.item.BLACK_PUPPET_TURBAN, trade)
 
                     play_event902(player, 13, math.random(range[1], range[2]))
                 end
@@ -204,12 +200,12 @@ entity.onTrade = function(player, npc, trade)
     elseif
         (attachmentStatus == 12 or attachmentStatus == 13) and
         not attachmentReady and
-        player:getCharVar("PUP_nextCoffeeTrade") <= VanadielUniqueDay()
+        player:getCharVar('PUP_nextCoffeeTrade') <= VanadielUniqueDay()
     then
-        if npcUtil.tradeHasExactly(trade, xi.items.CUP_OF_IMPERIAL_COFFEE) then
+        if npcUtil.tradeHasExactly(trade, xi.item.CUP_OF_IMPERIAL_COFFEE) then
             player:confirmTrade()
-            player:setCharVar("PUP_AttachmentReady", player:getCharVar("PUP_AttachmentReady") - 1)
-            player:setCharVar("PUP_nextCoffeeTrade", VanadielUniqueDay() + 1)
+            player:setCharVar('PUP_AttachmentReady', player:getCharVar('PUP_AttachmentReady') - 1)
+            player:setCharVar('PUP_nextCoffeeTrade', VanadielUniqueDay() + 1)
             player:startEvent(904)
         end
     end
@@ -234,9 +230,9 @@ entity.onTrigger = function(player, npc)
 
     local automatonName = player:getAutomatonName()
     local numUnlockedHeads = getNumUnlockedHeads(player)
-    local attachmentStatus = player:getCharVar("PUP_AttachmentStatus")
+    local attachmentStatus = player:getCharVar('PUP_AttachmentStatus')
     local unlockedAttachments = getHeadMask(player)
-    local attachmentReadyDay = player:getCharVar("PUP_AttachmentReady")
+    local attachmentReadyDay = player:getCharVar('PUP_AttachmentReady')
     local attachmentReady = attachmentReadyDay ~= 0 and attachmentReadyDay <= VanadielUniqueDay()
     local attachmentDaysRemaining = attachmentReadyDay - VanadielUniqueDay()
 
@@ -263,7 +259,7 @@ entity.onTrigger = function(player, npc)
         player:hasCompletedQuest(xi.quest.log_id.AHT_URHGAN, xi.quest.id.ahtUrhgan.NO_STRINGS_ATTACHED) and
         player:getMainJob() == xi.job.PUP
     then
-        local requiredLevel = numUnlockedHeads * 10
+        local requiredLevel = (numUnlockedHeads + 1) * 10
 
         -- Has not Accepted or Declined a new Head (or Head/Frame combination)
         if attachmentStatus == 0 and player:getMainLvl() >= requiredLevel then
@@ -295,8 +291,7 @@ entity.onTrigger = function(player, npc)
 
         -- Accepted a Head/Frame Combination, but has not provided any payment
         elseif attachmentStatus >= 2 and attachmentStatus <= 4 then
-            local option = player:getCharVar("PUP_AttachmentOption")
-            player:startEvent(622, 0, option, 0, 0, 0, unlockCost[numUnlockedHeads][1], unlockCost[numUnlockedHeads][2])
+            player:startEvent(622, 0, 1, 0, 0, 0, unlockCost[numUnlockedHeads][1], unlockCost[numUnlockedHeads][2])
 
         -- Paid Mats for Head/Frame Combination, but needs to provide Currency
         elseif attachmentStatus >= 5 and attachmentStatus <= 7 then
@@ -341,68 +336,49 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
-    if csid == 620 then -- Collecting option for CS 622 param 2
-        if option == 1 then
-            player:setCharVar("PUP_AttachmentOption", option)
-        elseif option == 2 then
-            player:setCharVar("PUP_AttachmentOption", option)
-        elseif option == 3 then
-            player:setCharVar("PUP_AttachmentOption", option)
-        end
-    end
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 620 or csid == 621 then
-        player:setCharVar("PUP_AttachmentStatus", option + 1)
+        player:setCharVar('PUP_AttachmentStatus', option + 1)
     elseif csid == 627 then
-        local attachmentStatus = player:getCharVar("PUP_AttachmentStatus")
+        local attachmentStatus = player:getCharVar('PUP_AttachmentStatus')
 
         if attachmentStatus == 8 then
-            player:unlockAttachment(xi.items.VALOREDGE_FRAME)
-            player:unlockAttachment(xi.items.VALOREDGE_HEAD)
+            player:unlockAttachment(xi.item.VALOREDGE_FRAME)
+            player:unlockAttachment(xi.item.VALOREDGE_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_VALOREDGE_UNLOCK)
-            player:setCharVar("PUP_AttachmentOption", 0)
         elseif attachmentStatus == 9 then
-            player:unlockAttachment(xi.items.SHARPSHOT_FRAME)
-            player:unlockAttachment(xi.items.SHARPSHOT_HEAD)
+            player:unlockAttachment(xi.item.SHARPSHOT_FRAME)
+            player:unlockAttachment(xi.item.SHARPSHOT_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_SHARPSHOT_UNLOCK)
-            player:setCharVar("PUP_AttachmentOption", 0)
         elseif attachmentStatus == 10 then
-            player:unlockAttachment(xi.items.STORMWAKER_FRAME)
-            player:unlockAttachment(xi.items.STORMWAKER_HEAD)
+            player:unlockAttachment(xi.item.STORMWAKER_FRAME)
+            player:unlockAttachment(xi.item.STORMWAKER_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_STORMWAKER_UNLOCK)
-            player:setCharVar("PUP_AttachmentOption", 0)
         end
 
-        player:setCharVar("PUP_AttachmentStatus", 0)
-        player:setCharVar("PUP_AttachmentReady", 0)
+        player:setCharVar('PUP_AttachmentStatus', 0)
+        player:setCharVar('PUP_AttachmentReady', 0)
     elseif csid == 900 then
-        player:setCharVar("PUP_AttachmentStatus", 11)
+        player:setCharVar('PUP_AttachmentStatus', 11)
     elseif csid == 901 then
-        player:setCharVar("PUP_AttachmentStatus", 14)
+        player:setCharVar('PUP_AttachmentStatus', 14)
     elseif csid == 905 then
-        local attachmentStatus = player:getCharVar("PUP_AttachmentStatus")
-        local unlockedAttachments = getHeadMask(player)
+        local attachmentStatus = player:getCharVar('PUP_AttachmentStatus')
 
         if attachmentStatus == 12 then
-            player:unlockAttachment(xi.items.SOULSOOTHER_HEAD)
+            player:unlockAttachment(xi.item.SOULSOOTHER_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_SOULSOOTHER_UNLOCK)
         elseif attachmentStatus == 13 then
-            player:unlockAttachment(xi.items.SPIRITREAVER_HEAD)
+            player:unlockAttachment(xi.item.SPIRITREAVER_HEAD)
             player:messageSpecial(ID.text.AUTOMATON_SPIRITREAVER_UNLOCK)
-        elseif attachmentStatus == 14 and unlockedAttachments == 30 then
-            player:unlockAttachment(xi.items.SPIRITREAVER_HEAD)
-            player:messageSpecial(ID.text.AUTOMATON_SPIRITREAVER_UNLOCK)
-        elseif attachmentStatus == 14 and unlockedAttachments == 46 then
-            player:unlockAttachment(xi.items.SOULSOOTHER_HEAD)
-            player:messageSpecial(ID.text.AUTOMATON_SOULSOOTHER_UNLOCK)
         end
 
-        player:setCharVar("PUP_AttachmentStatus", 0)
-        player:setCharVar("PUP_AttachmentReady", 0)
-        player:setCharVar("PUP_nextCoffeeTrade", 0)
+        player:setCharVar('PUP_AttachmentStatus', 0)
+        player:setCharVar('PUP_AttachmentReady', 0)
+        player:setCharVar('PUP_nextCoffeeTrade', 0)
     end
 end
 

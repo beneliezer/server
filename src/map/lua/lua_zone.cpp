@@ -159,9 +159,9 @@ REGION_TYPE CLuaZone::getRegionID()
     return m_pLuaZone->GetRegionID();
 }
 
-ZONE_TYPE CLuaZone::getType()
+ZONE_TYPE CLuaZone::getTypeMask()
 {
-    return m_pLuaZone->GetType();
+    return m_pLuaZone->GetTypeMask();
 }
 
 std::optional<CLuaBattlefield> CLuaZone::getBattlefieldByInitiator(uint32 charID)
@@ -261,7 +261,7 @@ std::optional<CLuaBaseEntity> CLuaZone::insertDynamicEntity(sol::table table)
     auto lookupName = "DE_" + name;
 
     PEntity->name       = lookupName;
-    PEntity->packetName = name;
+    PEntity->packetName = table.get_or<std::string>("packetName", name);
 
     PEntity->isRenamed = true;
 
@@ -453,7 +453,7 @@ void CLuaZone::Register()
     SOL_REGISTER("getID", CLuaZone::getID);
     SOL_REGISTER("getName", CLuaZone::getName);
     SOL_REGISTER("getRegionID", CLuaZone::getRegionID);
-    SOL_REGISTER("getType", CLuaZone::getType);
+    SOL_REGISTER("getTypeMask", CLuaZone::getTypeMask);
     SOL_REGISTER("getBattlefieldByInitiator", CLuaZone::getBattlefieldByInitiator);
     SOL_REGISTER("battlefieldsFull", CLuaZone::battlefieldsFull);
     SOL_REGISTER("getWeather", CLuaZone::getWeather);

@@ -3,7 +3,6 @@
 --  NPC: Engraved Tablet
 -- !pos 320 -15.35 -379 61
 -----------------------------------
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -17,10 +16,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 12 and option == 1 then
         player:delKeyItem(xi.ki.SILVER_SEA_SALT)
     end

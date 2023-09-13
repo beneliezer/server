@@ -4,8 +4,6 @@
 -- Title Change NPC
 -- !pos -22 -4 -24 250
 -----------------------------------
-require("scripts/globals/titles")
------------------------------------
 local entity = {}
 
 local eventId = 10013
@@ -111,15 +109,14 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
---    xi.title.changerOnTrigger(player, eventId, titleInfo)
-    player:PrintToPlayer("Title NPC's have been disabled to prevent exploiting weekly HNM hunts.")
+    xi.titleChanger.onTrigger(player, eventId, titleInfo)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
-    xi.title.changerOnEventFinish(player, csid, option, eventId, titleInfo)
+entity.onEventFinish = function(player, csid, option, npc)
+    xi.titleChanger.onEventFinish(player, csid, option, eventId, titleInfo)
 end
 
 return entity

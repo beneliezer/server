@@ -4,8 +4,7 @@
 -- Type: Smithing Synthesis Image Support
 -- !pos -106.336 2.000 26.117 237
 -----------------------------------
-local ID = require("scripts/zones/Metalworks/IDs")
-require("scripts/globals/crafting")
+local ID = zones[xi.zone.METALWORKS]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 105 and option == 1 then
         player:delStatusEffectsByFlag(xi.effectFlag.SYNTH_SUPPORT, true)
         player:addStatusEffect(xi.effect.SMITHING_IMAGERY, 1, 0, 120)

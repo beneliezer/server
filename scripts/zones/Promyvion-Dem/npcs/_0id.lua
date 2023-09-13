@@ -2,8 +2,7 @@
 -- Area: Promyvion Dem
 --  NPC: Memory Flux 4th floor
 -----------------------------------
-local ID = require("scripts/zones/Promyvion-Dem/IDs")
-require("scripts/globals/quests")
+local ID = zones[xi.zone.PROMYVION_DEM]
 -----------------------------------
 local entity = {}
 
@@ -21,10 +20,10 @@ end
 entity.onTrade = function(player, npc, trade)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

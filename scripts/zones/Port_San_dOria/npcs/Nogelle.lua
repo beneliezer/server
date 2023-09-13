@@ -3,15 +3,14 @@
 --  NPC: Nogelle
 -- Starts Lufet's Lake Salt
 -----------------------------------
-local ID = require("scripts/zones/Port_San_dOria/IDs")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if player:getQuestStatus(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.LUFET_S_LAKE_SALT) == QUEST_ACCEPTED then
-        if trade:hasItemQty(1019, 3) and trade:getItemCount() == 3 then
+        if
+            trade:hasItemQty(xi.item.CHUNK_OF_LUFET_SALT, 3) and
+            trade:getItemCount() == 3
+        then
             player:startEvent(11)
         end
     end
@@ -29,10 +28,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 12 and option == 1 then
         player:addQuest(xi.quest.log_id.SANDORIA, xi.quest.id.sandoria.LUFET_S_LAKE_SALT)
     elseif csid == 11 then

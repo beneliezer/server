@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Kazham
 --  NPC: Romaa Mihgo
--- Type: Standard NPC
 -- !pos 29.000 -13.023 -176.500 250
------------------------------------
-require("scripts/globals/missions")
 -----------------------------------
 local entity = {}
 
@@ -12,7 +9,7 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local tuningOutProgress = player:getCharVar("TuningOut_Progress")
+    local tuningOutProgress = player:getCharVar('TuningOut_Progress')
 
     if tuningOutProgress == 2 then
         player:startEvent(295) -- Ildy meets Romaa. Romaa tells player to go to waterfall
@@ -27,14 +24,14 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 295 then
-        player:setCharVar("TuningOut_Progress", 3)
+        player:setCharVar('TuningOut_Progress', 3)
     elseif csid == 297 then
-        player:setCharVar("TuningOut_Progress", 6)
+        player:setCharVar('TuningOut_Progress', 6)
     end
 end
 

@@ -1,9 +1,7 @@
 -----------------------------------
 -- Zone: Attohwa_Chasm (7)
 -----------------------------------
-local ID = require('scripts/zones/Attohwa_Chasm/IDs')
-require('scripts/globals/helm')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.ATTOHWA_CHASM]
 -----------------------------------
 local zoneObject = {}
 
@@ -93,10 +91,10 @@ zoneObject.onGameHour = function(zone)
     --]]
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

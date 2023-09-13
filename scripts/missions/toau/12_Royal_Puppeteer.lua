@@ -6,13 +6,6 @@
 -- Naja Salaheem : !pos 22.700 -8.804 -45.591 50
 -- Pyopyoroon    : !pos 22.112 0 24.682 53
 -----------------------------------
-require("scripts/globals/besieged")
-require('scripts/globals/items')
-require('scripts/globals/missions')
-require('scripts/globals/npc_util')
-require('scripts/globals/interaction/mission')
-require('scripts/globals/zone')
------------------------------------
 
 local mission = Mission:new(xi.mission.log_id.TOAU, xi.mission.id.toau.ROYAL_PUPPETEER)
 
@@ -43,7 +36,7 @@ mission.sections =
                 onTrade = function(player, npc, trade)
                     if
                         player:getMissionStatus(mission.areaId) == 1 and
-                        npcUtil.tradeHasExactly(trade, xi.items.VIAL_OF_JODYS_ACID)
+                        npcUtil.tradeHasExactly(trade, xi.item.VIAL_OF_JODYS_ACID)
                     then
                         return mission:progressEvent(279)
                     end

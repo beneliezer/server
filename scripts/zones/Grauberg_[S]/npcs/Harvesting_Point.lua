@@ -2,8 +2,7 @@
 -- Area: Grauberg [S]
 --  NPC: Harvesting Point
 -----------------------------------
-local ID = require("scripts/zones/Grauberg_[S]/IDs")
-require("scripts/globals/helm")
+local ID = zones[xi.zone.GRAUBERG_S]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +14,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.HARVESTING_IS_POSSIBLE_HERE, 1020)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

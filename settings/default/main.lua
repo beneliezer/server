@@ -108,7 +108,7 @@ xi.settings.main =
     CAPACITY_RATE   = 1.000, -- Multiplies capacy points gained.
     BOOK_EXP_RATE   = 1.000, -- Multiplies exp from FoV/GoV book pages.
     TABS_RATE       = 3.000, -- Multiplies tabs earned from fov.
-    ROE_EXP_RATE    = 1.250, -- Multiplies exp earned from records of eminence.
+    ROE_EXP_RATE    = 1.000, -- Multiplies exp earned from records of eminence.
     SPARKS_RATE     = 1.500, -- Multiplies sparks earned from records of eminence.
     CURE_POWER      = 1.000, -- Multiplies amount healed from Healing Magic, including the relevant Blue Magic.
     ELEMENTAL_POWER = 1.000, -- Multiplies damage dealt by Elemental and non-drain Dark Magic.
@@ -120,6 +120,7 @@ xi.settings.main =
     WEAPON_SKILL_POWER  = 1.000, -- Multiplies damage dealt by Weapon Skills.
     USE_ADOULIN_WEAPON_SKILL_CHANGES = false, -- true/false. Change to toggle new Adoulin weapon skill damage calculations
     DISABLE_PARTY_EXP_PENALTY        = true, -- true/false.
+    ENABLE_IMMUNOBREAK               = true,  -- true/false. Allow/Disallow immunobreaks to happen.
 
     -- TRUSTS
     ENABLE_TRUST_CASTING           = 1,
@@ -170,6 +171,15 @@ xi.settings.main =
     -- Multiplier to NM lottery cooldown time (Default 1.0) eg. 2.0 = twice as long. 0 = no cooldowns.
     NM_LOTTERY_COOLDOWN = 1.0,
 
+    -- GARRISON SETTINGS
+    ENABLE_GARRISON        = true,  -- If true, enables garrison functionality
+    GARRISON_LOCKOUT       = 1800,  -- Time in seconds before a new garrison can be started (default: 1800)
+    GARRISON_TIME_LIMIT    = 1800,  -- Time in seconds before lose ongoing garrison (default: 1800)
+    GARRISON_ONCE_PER_WEEK = false, -- Set to false to bypass the limit of one garrison per Conquest Tally Week.
+    GARRISON_PARTY_LIMIT   = 18,    -- Set to max party members you want to do garrison (default: 18).
+    GARRISON_NATION_BYPASS = true,  -- Set to true to bypass the nation requirement.
+    GARRISON_RANK          = 1,     -- Set to minimum Nation Rank to start Garrison (default: 2).
+
     -- DYNAMIS SETTINGS
     BETWEEN_2DYNA_WAIT_TIME     = 0,       -- Hours before player can re-enter Dynamis. Default is 1 Earthday (24 hours).
     DYNA_MIDNIGHT_RESET         = true,     -- If true, makes the wait time count by number of server midnights instead of full 24 hour intervals
@@ -177,6 +187,7 @@ xi.settings.main =
     TIMELESS_HOURGLASS_COST     = 500000,   -- Refund for the timeless hourglass for Dynamis.
     PRISMATIC_HOURGLASS_COST    = 50000,    -- Cost of the prismatic hourglass for Dynamis.
     CURRENCY_EXCHANGE_RATE      = 100,      -- X Tier 1 ancient currency -> 1 Tier 2, and so on. Certain values may conflict with shop items. Not designed to exceed 198.
+    ENABLE_EXCHANGE_100S_TO_1S  = false,    -- true/false. Allow exchange of 100s to 1s, like you can with 10Ks to 100s.
     RELIC_2ND_UPGRADE_WAIT_TIME = 7200,     -- Wait time for 2nd relic upgrade (stage 2 -> stage 3) in seconds. 7200s = 2 hours.
     RELIC_3RD_UPGRADE_WAIT_TIME = 3600,     -- Wait time for 3rd relic upgrade (stage 3 -> stage 4) in seconds. 3600s = 1 hour.
     FREE_COP_DYNAMIS            = 0,        -- Authorize player to entering inside COP Dynamis without completing COP mission (1 = enable 0 = disable)
@@ -211,24 +222,55 @@ xi.settings.main =
     EXPLORER_MOOGLE_LV              = 10, -- Enables Explorer Moogle teleports and sets required level. Zero to disable.
     HALLOWEEN_2005                  = 0,  -- Set to 1 to Enable the 2005 version of Harvest Festival, will start on Oct. 20 and end Nov. 1.
     HALLOWEEN_YEAR_ROUND            = 0,  -- Set to 1 to have Harvest Festival initialize outside of normal times.
+    EGG_HUNT                        =
+    {
+        START                       = { DAY = 6,  MONTH = 4 },
+        FINISH                      = { DAY = 17, MONTH = 4 },
+
+        -- Default era is 2005
+        ERA_2006 = false, -- Orphic Egg
+        ERA_2007 = false, -- Jeweled Egg and Egg Helm
+        ERA_2008 = false, -- Tier 2 nation eggs, allows trading Hard-Boiled Eggs
+        ERA_2009 = false, -- Egg Buffet set
+        -- 2009, 2010, 2011 and 2012 are identical
+        ERA_2013 = false, -- Prinseggstarta
+        ERA_2014 = false, -- Hatchling Shield, Copse Candy, Cracker
+        ERA_2015 = false, -- Rabbit Cap, show Rabbit Cap wearing NPCs
+        ERA_2018 = false, -- Allows trading Sairui-Ran x99 and Imperial Egg
+        ERA_2019 = false, -- Allows trading Apkallu Egg
+
+        -- Consolation prizes for repeating combinations where
+        -- the player has already received the relevant reward
+        MINOR_REWARDS = true,
+
+        -- Set custom combinations, eg. WORD = 12345
+        -- Where WORD  is an arrangement of lettered eggs
+        -- Where 12345 is the itemID for the reward
+        BONUS_WORDS =
+        {
+            -- WORD = 12345,
+        },
+    },
 
     -- Login Campaign (Set to 0 if you don't want to run a Login Campaign)
     -- Please visit scripts/globals/events/login_campaign.lua for assigning the correct campaign dates.
     ENABLE_LOGIN_CAMPAIGN = 1,
-
-    -- GARRISON
-    GARRISON_LOCKOUT             = 1800,  -- Time in seconds before a new garrison can be started (default: 1800)
-    GARRISON_TIME_LIMIT          = 1800,  -- Time in seconds before lose ongoing garrison (default: 1800)
-    GARRISON_ONCE_PER_WEEK       = 0,     -- Set to 1 to bypass the limit of one garrison per Conquest Tally Week.
-    GARRISON_PARTY_LIMIT         = 18,    -- Set to max party members you want to do garrison (default: 18).
-    GARRISON_NATION_BYPASS       = 0,     -- Set to 1 to bypass the nation requirement.
-    GARRISON_RANK                = 2,     -- Set to minumum Nation Rank to start Garrison (default: 2).
 
     -- NYZUL
     RUNIC_DISK_SAVE      = true, -- Allow anyone participating in Nyzul to save progress. Set to false so only initiator can save progress.
     ENABLE_NYZUL_CASKETS = true, -- Enable Treasure casket pops from NMs.
     ENABLE_VIGIL_DROPS   = true, -- Enable Vigil Weapon drops from NMs.
     ACTIVATE_LAMP_TIME   = 6000, -- Time in miliseconds for lamps to stay lit. TODO: Get retail confirmation.
+
+    -- CHOCOBO RAISING (HEAVILY-IN-DEVELOPMENT, USE AT YOUR OWN RISK)
+    -- GM command: `!chocoboraising`
+    ENABLE_CHOCOBO_RAISING              = false, -- true/false. Enable Chocobo Raising features.
+    DEBUG_CHOCOBO_RAISING               = false, -- true/false. Enable verbose debug logging for Chocobo Raising (visible by players).
+    CHOCOBO_RAISING_STAT_POS_MULTIPLIER = 1.0,   -- float. Multiplier for positive stat changes. Default 1.0.
+    CHOCOBO_RAISING_STAT_NEG_MULTIPLIER = 1.0,   -- float. Multiplier for negative stat changes. Default 1.0.
+    CHOCOBO_RAISING_GIL_MULTIPLIER      = 1.0,   -- float. Multiplier for gil recieved through chocobo actions (care plans, etc.). Default 1.0.
+    CHOCOBO_RAISING_DISABLE_RETIREMENT  = false, -- true/false.
+    CHOCOBO_RAISING_STAT_GROWTH_CAP     = 512,   -- int.
 
     -- MISC
     AVATAR_DAMAGE_MOD            = .6,
@@ -247,6 +289,7 @@ xi.settings.main =
     FORCE_SPAWN_QM_RESET_TIME    = 180,   -- Number of seconds the ??? remains hidden for after the despawning of the mob it force spawns.
     GOBBIE_BOX_MIN_AGE           = 14,    -- Minimum character age in days before a character can sign up for Gobbie Mystery Box
     EQUIP_FROM_OTHER_CONTAINERS  = false, -- true/false. Allows equipping items from Mog Satchel, Sack, and Case. Only possible with the use of client addons.
+    REGIME_REWARD_THRESHOLD      = 15,    -- If the player is more than N levels below the minimum suggested range, do not award experience.
 
     -- SYSTEM
     DISABLE_INACTIVITY_WATCHDOG = false, -- true/false. If this is enabled, the watchdog which detects if the main loop isn't being ticked will no longer be able to kill the process.

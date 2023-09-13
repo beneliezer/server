@@ -4,8 +4,7 @@
 -- Warp NPC
 -- !pos 62.768 -1.98 -51.299 48
 -----------------------------------
-local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs")
-require("scripts/globals/besieged")
+local ID = zones[xi.zone.AHT_URHGAN_WHITEGATE]
 -----------------------------------
 local entity = {}
 
@@ -20,16 +19,16 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 103 and option == 1 then
-        local shihuDanhuEncounters = player:getCharVar("ShihuDanhu_Encounters")
+        local shihuDanhuEncounters = player:getCharVar('ShihuDanhu_Encounters')
         -- If you use TP, you need to wait 1 real day for using Kaduru TP
-        player:setCharVar("ShihuDanhu_TP_date", getVanaMidnight())
+        player:setCharVar('ShihuDanhu_TP_date', getVanaMidnight())
         -- Update total number of Shihu-Danhu encounters.
-        player:setCharVar("ShihuDanhu_Encounters", (shihuDanhuEncounters + 1))
+        player:setCharVar('ShihuDanhu_Encounters', (shihuDanhuEncounters + 1))
 
         -- Random TP positions
         -- Coordinates marked (R) have been obtained by packet capture from retail. Don't change them.

@@ -19,8 +19,8 @@
 ===========================================================================
 */
 
-#include "../common/logging.h"
-#include "../common/timer.h"
+#include "common/logging.h"
+#include "common/timer.h"
 #include "roe.h"
 
 #include "packets/treasure_find_item.h"
@@ -42,10 +42,9 @@ static constexpr duration treasure_livetime  = 5min;
  ************************************************************************/
 
 CTreasurePool::CTreasurePool(TREASUREPOOLTYPE PoolType)
+: m_count(0)
+, m_TreasurePoolType(PoolType)
 {
-    m_count            = 0;
-    m_TreasurePoolType = PoolType;
-
     for (uint8 i = 0; i < TREASUREPOOL_SIZE; ++i)
     {
         m_PoolItems[i].ID     = 0;
@@ -85,7 +84,7 @@ void CTreasurePool::AddMember(CCharEntity* PChar)
         return;
     }
 
-    members.push_back(PChar);
+    members.emplace_back(PChar);
 
     if (m_TreasurePoolType == TREASUREPOOL_SOLO && members.size() > 1)
     {
@@ -163,7 +162,7 @@ void CTreasurePool::DelMember(CCharEntity* PChar)
 
 uint8 CTreasurePool::AddItem(uint16 ItemID, CBaseEntity* PEntity)
 {
-    uint8      SlotID;
+    uint8      SlotID     = 0;
     uint8      FreeSlotID = -1;
     time_point oldest     = time_point::max();
 
@@ -301,7 +300,7 @@ void CTreasurePool::LotItem(CCharEntity* PChar, uint8 SlotID, uint16 Lot)
     li.lot    = Lot;
     li.member = PChar;
 
-    m_PoolItems[SlotID].Lotters.push_back(li);
+    m_PoolItems[SlotID].Lotters.emplace_back(li);
 
     // Find the highest lotter
     CCharEntity* highestLotter = nullptr;
@@ -359,7 +358,7 @@ void CTreasurePool::PassItem(CCharEntity* PChar, uint8 SlotID)
 
     if (!hasLottedBefore)
     {
-        m_PoolItems[SlotID].Lotters.push_back(li);
+        m_PoolItems[SlotID].Lotters.emplace_back(li);
     }
 
     // Find the highest lotter
@@ -511,7 +510,7 @@ void CTreasurePool::CheckTreasureItem(time_point tick, uint8 SlotID)
 
                 if (member->getStorage(LOC_INVENTORY)->GetFreeSlotsCount() != 0 && !HasPassedItem(member, SlotID))
                 {
-                    candidates.push_back(member);
+                    candidates.emplace_back(member);
                 }
             }
 

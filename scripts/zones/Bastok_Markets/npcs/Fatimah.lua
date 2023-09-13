@@ -4,8 +4,7 @@
 -- Type: Goldsmithing Adv. Synthesis Image Support
 -- !pos -193.849 -7.824 -56.372 235
 -----------------------------------
-local ID = require("scripts/zones/Bastok_Markets/IDs")
-require("scripts/globals/crafting")
+local ID = zones[xi.zone.BASTOK_MARKETS]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     local cost = xi.crafting.getAdvImageSupportCost(player, xi.skill.GOLDSMITHING)
 
     if csid == 302 and option == 1 then

@@ -4,8 +4,7 @@
 -- Type: Tenshodo Merchant
 -- !pos 5.801 0.020 -18.739 252
 -----------------------------------
-require("scripts/globals/shop")
-local ID = require("scripts/zones/Norg/IDs")
+local ID = zones[xi.zone.NORG]
 -----------------------------------
 local entity = {}
 
@@ -22,10 +21,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

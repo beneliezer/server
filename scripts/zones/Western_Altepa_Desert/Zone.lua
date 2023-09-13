@@ -1,12 +1,8 @@
 -----------------------------------
 -- Zone: Western_Altepa_Desert (125)
 -----------------------------------
-local ID = require('scripts/zones/Western_Altepa_Desert/IDs')
+local ID = zones[xi.zone.WESTERN_ALTEPA_DESERT]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/conquest')
-require('scripts/globals/zone')
-require('scripts/globals/beastmentreasure')
 require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
@@ -56,13 +52,13 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 2 then
         quests.rainbow.onEventUpdate(player)
     end
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onZoneWeatherChange = function(weather)

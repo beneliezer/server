@@ -4,9 +4,6 @@
 -- Unlocks: Geo-Haste
 -- !pos 189.015 -40.000 241.025 266
 -----------------------------------
-require("scripts/globals/geomantic_reservoir")
-require("scripts/globals/spell_data")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -16,10 +13,10 @@ entity.onTrigger = function(player, npc)
     xi.geomanticReservoir.onTrigger(player, npc, xi.magic.spell.GEO_HASTE)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.geomanticReservoir.onEventFinish(player, csid, xi.magic.spell.GEO_HASTE)
 end
 

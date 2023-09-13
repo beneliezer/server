@@ -1,10 +1,9 @@
 -----------------------------------
 -- Area: Port Bastok
 --  NPC: Klaus
--- Type: Standard NPC
 -- !pos -89.355 -3.611 -15.256 236
 -----------------------------------
-local ID = require("scripts/zones/Port_Bastok/IDs")
+local ID = zones[xi.zone.PORT_BASTOK]
 -----------------------------------
 local entity = {}
 
@@ -15,10 +14,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.DEPARTING_PASSENGER_DIALOG)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

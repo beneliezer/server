@@ -1,9 +1,6 @@
 -----------------------------------
 -- Area: Batallia_Downs_[S]
 -----------------------------------
-require("scripts/globals/zone")
------------------------------------
-
 zones = zones or {}
 
 zones[xi.zone.BATALLIA_DOWNS_S] =
@@ -54,7 +51,7 @@ zones[xi.zone.BATALLIA_DOWNS_S] =
             [17121602] = 17121603,
         },
 
-        MENECHME = GetFirstID("Menechme"),
+        MENECHME = GetFirstID('Menechme'),
 
         VOIDWALKER =
         {

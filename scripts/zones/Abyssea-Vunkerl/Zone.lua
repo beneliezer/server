@@ -1,9 +1,6 @@
 -----------------------------------
 -- Zone: Abyssea - Vunkerl
 -----------------------------------
-local ID = require('scripts/zones/Abyssea-Vunkerl/IDs')
-require('scripts/globals/abyssea')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -50,11 +47,11 @@ zoneObject.onTriggerAreaLeave = function(player, triggerArea)
     }
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
-    xi.abyssea.onEventFinish(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
+    xi.abyssea.onEventFinish(player, csid, option, npc)
 end
 
 return zoneObject

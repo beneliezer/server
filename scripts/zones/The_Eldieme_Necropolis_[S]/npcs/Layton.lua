@@ -5,8 +5,7 @@
 -- Note: Available during Campaign battles
 -- !pos 382.679 -39.999 3.541 175
 -----------------------------------
-local ID = require("scripts/zones/The_Eldieme_Necropolis_[S]/IDs")
-require("scripts/globals/shop")
+local ID = zones[xi.zone.THE_ELDIEME_NECROPOLIS_S]
 -----------------------------------
 local entity = {}
 
@@ -38,10 +37,10 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

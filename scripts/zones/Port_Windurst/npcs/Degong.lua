@@ -4,8 +4,7 @@
 -- Type: Fishing Synthesis Image Support
 -- !pos -178.400 -3.835 60.480 240
 -----------------------------------
-require("scripts/globals/crafting")
-local ID = require("scripts/zones/Port_Windurst/IDs")
+local ID = zones[xi.zone.PORT_WINDURST]
 -----------------------------------
 local entity = {}
 
@@ -27,10 +26,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 10013 and option == 1 then
         player:messageSpecial(ID.text.FISHING_SUPPORT, 0, 0, 2)
         player:addStatusEffect(xi.effect.FISHING_IMAGERY, 1, 0, 3600)

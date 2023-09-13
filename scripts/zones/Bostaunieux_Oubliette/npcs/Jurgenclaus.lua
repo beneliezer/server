@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Bostaunieux Oubliette
 --  NPC: Jurgenclaus
--- Type: Standard NPC
 -- !pos 69.735 -24.989 7.741 167
 -----------------------------------
 local entity = {}
@@ -13,10 +12,10 @@ entity.onTrigger = function(player, npc)
     player:startEvent(18)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

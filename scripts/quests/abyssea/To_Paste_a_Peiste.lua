@@ -3,12 +3,6 @@
 -----------------------------------
 -- !addquest 8 164
 -----------------------------------
-require('scripts/globals/interaction/quest')
-require('scripts/globals/abyssea')
-require('scripts/globals/npc_util')
-require('scripts/globals/quests')
-require('scripts/globals/titles')
------------------------------------
 
 local quest = Quest:new(xi.quest.log_id.ABYSSEA, xi.quest.id.abyssea.TO_PASTE_A_PEISTE)
 
@@ -57,7 +51,7 @@ quest.sections =
 
             onEventUpdate =
             {
-                [1] = function(player, csid, option)
+                [1] = function(player, csid, option, npc)
                     if option == 1 then
                         player:updateEvent(xi.abyssea.getZoneKIReward(player))
                     end

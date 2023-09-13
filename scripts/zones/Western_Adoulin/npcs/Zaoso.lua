@@ -1,11 +1,7 @@
 -----------------------------------
 -- Area: Western Adoulin
 --  NPC: Zaoso
--- Type: Standard NPC and Quest NPC
---  Involved with Quest: 'A Certain Substitute Patrolman'
 -- !pos -94 3 -11 256
------------------------------------
-require("scripts/globals/missions")
 -----------------------------------
 local entity = {}
 
@@ -21,10 +17,10 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

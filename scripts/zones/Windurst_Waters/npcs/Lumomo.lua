@@ -4,23 +4,18 @@
 -- Type: Quest NPC - Involved in Eco-Warrior (Windurst)
 -- !pos -55.770 -5.499 18.914 238
 -----------------------------------
-local ID = require("scripts/zones/Windurst_Waters/IDs")
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
------------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local ecoStatus = player:getCharVar("EcoStatus")
+    local ecoStatus = player:getCharVar('EcoStatus')
 
     if
         ecoStatus == 0 and
         player:getFameLevel(xi.quest.fame_area.WINDURST) >= 1 and
-        player:getCharVar("EcoReset") < os.time()
+        player:getCharVar('EcoReset') < os.time()
     then
         player:startEvent(818) -- Offer Eco-Warrior quest
     elseif ecoStatus == 201 then
@@ -34,16 +29,16 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 818 and option == 1 then
         if player:getQuestStatus(xi.quest.log_id.WINDURST, xi.quest.id.windurst.ECO_WARRIOR) == QUEST_AVAILABLE then
             player:addQuest(xi.quest.log_id.WINDURST, xi.quest.id.windurst.ECO_WARRIOR)
         end
 
-        player:setCharVar("EcoStatus", 201) -- EcoStatus var:  1 to 3 for sandy // 101 to 103 for bastok // 201 to 203 for windurst
+        player:setCharVar('EcoStatus', 201) -- EcoStatus var:  1 to 3 for sandy // 101 to 103 for bastok // 201 to 203 for windurst
     elseif
         csid == 822 and
         npcUtil.completeQuest(player, xi.quest.log_id.WINDURST, xi.quest.id.windurst.ECO_WARRIOR, {
@@ -52,11 +47,11 @@ entity.onEventFinish = function(player, csid, option)
             title = xi.title.EMERALD_EXTERMINATOR,
             fame = 80,
             fameArea = xi.quest.fame_area.WINDURST,
-            var = "EcoStatus"
+            var = 'EcoStatus'
         })
     then
         player:delKeyItem(xi.ki.INDIGESTED_MEAT)
-        player:setCharVar("EcoReset", getConquestTally())
+        player:setCharVar('EcoReset', getConquestTally())
     end
 end
 

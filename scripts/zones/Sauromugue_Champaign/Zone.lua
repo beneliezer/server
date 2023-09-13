@@ -1,12 +1,8 @@
 -----------------------------------
 -- Zone: Sauromugue_Champaign (120)
 -----------------------------------
-local ID = require('scripts/zones/Sauromugue_Champaign/IDs')
+local ID = zones[xi.zone.SAUROMUGUE_CHAMPAIGN]
 require('scripts/quests/i_can_hear_a_rainbow')
-require('scripts/globals/chocobo_digging')
-require('scripts/globals/conquest')
-require('scripts/globals/missions')
-require('scripts/globals/zone')
 -----------------------------------
 local zoneObject = {}
 
@@ -54,7 +50,7 @@ zoneObject.onGameDay = function(zone)
     GetNPCByID(ID.npc.QM2 + math.random(0, 5)):setLocalVar('Quest[2][70]Option', 1) -- Determine which QM is active today for THF AF2
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
     if csid == 3 then
         quests.rainbow.onEventUpdate(player)
     end

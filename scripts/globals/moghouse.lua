@@ -1,13 +1,9 @@
 -----------------------------------
 -- Mog House related functions
 -----------------------------------
-require('scripts/globals/items')
-require("scripts/globals/npc_util")
-require("scripts/globals/quests")
-require("scripts/globals/titles")
-require("scripts/globals/zone")
+require('scripts/globals/npc_util')
+require('scripts/globals/quests')
 -----------------------------------
-
 xi = xi or {}
 xi.moghouse = xi.moghouse or {}
 
@@ -15,11 +11,11 @@ xi.moghouse = xi.moghouse or {}
 -- Mog Locker constants
 -----------------------------------
 local mogLockerStartTimestamp   = 1009810800 -- unix timestamp for 2001/12/31 15:00
-local mogLockerTimestampVarName = "mog-locker-expiry-timestamp"
+local mogLockerTimestampVarName = 'mog-locker-expiry-timestamp'
 
 xi.moghouse.MOGLOCKER_ALZAHBI_VALID_DAYS    = 7
 xi.moghouse.MOGLOCKER_ALLAREAS_VALID_DAYS   = 5
-xi.moghouse.MOGLOCKER_PLAYERVAR_ACCESS_TYPE = "mog-locker-access-type"
+xi.moghouse.MOGLOCKER_PLAYERVAR_ACCESS_TYPE = 'mog-locker-access-type'
 
 xi.moghouse.lockerAccessType =
 {
@@ -159,12 +155,31 @@ end
 
 xi.moghouse.moogleTrade = function(player, npc, trade)
     if player:isInMogHouse() then
-        local numBronze = trade:getItemQty(xi.items.IMPERIAL_BRONZE_PIECE)
+        local numBronze = trade:getItemQty(xi.item.IMPERIAL_BRONZE_PIECE)
 
         if numBronze > 0 then
             if xi.moghouse.addMogLockerExpiryTime(player, numBronze) then
                 player:tradeComplete()
                 player:messageSpecial(zones[player:getZoneID()].text.MOG_LOCKER_OFFSET + 2, xi.moghouse.getMogLockerExpiryTimestamp(player))
+            end
+        end
+
+        local eggComponents =
+        {
+            xi.item.EGG_LOCKER,
+            xi.item.EGG_TABLE,
+            xi.item.EGG_STOOL,
+            xi.item.EGG_LANTERN,
+        }
+
+        if npcUtil.tradeHasExactly(trade, eggComponents) then
+            if npcUtil.giveItem(player, xi.item.EGG_BUFFET) then
+                player:confirmTrade()
+            end
+
+        elseif npcUtil.tradeHasExactly(trade, xi.item.EGG_BUFFET) then
+            if npcUtil.giveItem(player, eggComponents) then
+                player:confirmTrade()
             end
         end
     end
@@ -176,7 +191,7 @@ xi.moghouse.moogleTrigger = function(player, npc)
 
         if lockerTs ~= nil then
             if lockerTs == -1 then -- Expired
-                player:messageSpecial(zones[player:getZoneID()].text.MOG_LOCKER_OFFSET + 1, xi.items.IMPERIAL_BRONZE_PIECE)
+                player:messageSpecial(zones[player:getZoneID()].text.MOG_LOCKER_OFFSET + 1, xi.item.IMPERIAL_BRONZE_PIECE)
             else
                 player:messageSpecial(zones[player:getZoneID()].text.MOG_LOCKER_OFFSET, lockerTs)
             end
@@ -186,10 +201,10 @@ xi.moghouse.moogleTrigger = function(player, npc)
     end
 end
 
-xi.moghouse.moogleEventUpdate = function(player, csid, option)
+xi.moghouse.moogleEventUpdate = function(player, csid, option, npc)
 end
 
-xi.moghouse.moogleEventFinish = function(player, csid, option)
+xi.moghouse.moogleEventFinish = function(player, csid, option, npc)
 end
 
 -- Unlocks a mog locker for a player. Returns the 'expired' timestamp (-1)

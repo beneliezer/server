@@ -3,17 +3,15 @@
 --  NPC: ??? (Spawn Achamoth(ZNM T3))
 -- !pos -34 10 336 62
 -----------------------------------
-local ID = require("scripts/zones/Halvung/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.HALVUNG]
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
     if
-        npcUtil.tradeHas(trade, 2586) and
+        npcUtil.tradeHas(trade, xi.item.JAR_OF_ROCK_JUICE) and
         npcUtil.popFromQM(player, npc, ID.mob.ACHAMOTH)
     then
-        -- Trade Rock Juice
         player:confirmTrade()
         player:messageSpecial(ID.text.DRAWS_NEAR)
     end
@@ -23,10 +21,10 @@ entity.onTrigger = function(player, npc)
     player:messageSpecial(ID.text.SICKLY_SWEET)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

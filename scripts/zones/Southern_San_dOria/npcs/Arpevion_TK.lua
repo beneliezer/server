@@ -3,8 +3,6 @@
 --  NPC: Arpevion, T.K.
 -- !pos 105.163 0.000 -52.980 230
 -----------------------------------
-require("scripts/globals/conquest")
------------------------------------
 local entity = {}
 
 local guardNation = xi.nation.SANDORIA
@@ -19,11 +17,11 @@ entity.onTrigger = function(player, npc)
     xi.conq.overseerOnTrigger(player, npc, guardNation, guardType, guardEvent)
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
     xi.conq.overseerOnEventUpdate(player, csid, option, guardNation)
 end
 
-entity.onEventFinish = function(player, csid, option)
+entity.onEventFinish = function(player, csid, option, npc)
     xi.conq.overseerOnEventFinish(player, csid, option, guardNation, guardType)
 end
 

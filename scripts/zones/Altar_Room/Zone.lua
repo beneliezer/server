@@ -1,12 +1,6 @@
 -----------------------------------
 -- Zone: Altar_Room (152)
 -----------------------------------
-local ID = require('scripts/zones/Altar_Room/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/quests')
-require('scripts/globals/npc_util')
-require('scripts/globals/zone')
------------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -17,19 +11,19 @@ zoneObject.onZoneIn = function(player, prevZone)
     local head = player:getEquipID(xi.slot.HEAD)
 
     if
-        player:getCharVar("FickblixCS") == 1 and
+        player:getCharVar('FickblixCS') == 1 and
         player:getNation() ~= xi.nation.SANDORIA
     then
         cs = 10000
     elseif
         player:getQuestStatus(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.A_MORAL_MANIFEST) == QUEST_AVAILABLE and
         player:getMainLvl() >= 60 and
-        player:getCharVar("moraldecline") <= os.time()
+        player:getCharVar('moraldecline') <= os.time()
     then
         cs = 46
-    elseif player:getCharVar("moral") == 4 and head == 15202 then -- Yagudo Headgear
+    elseif player:getCharVar('moral') == 4 and head == 15202 then -- Yagudo Headgear
         cs = 47
-    elseif player:getCharVar("moral") == 8 and head == 15216 then -- Tsoo Headgear
+    elseif player:getCharVar('moral') == 8 and head == 15216 then -- Tsoo Headgear
         cs = 51
     end
 
@@ -51,25 +45,25 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 10000 then
-        player:setCharVar("FickblixCS", 0)
+        player:setCharVar('FickblixCS', 0)
     elseif csid == 46 and option == 0 then
-        player:setCharVar("moral", 1)
+        player:setCharVar('moral', 1)
         player:addQuest(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.A_MORAL_MANIFEST)
     elseif csid == 46 and option == 1 then
-        player:setCharVar("moraldecline", getConquestTally())
+        player:setCharVar('moraldecline', getConquestTally())
     elseif csid == 47 then
         npcUtil.giveKeyItem(player, xi.ki.VAULT_QUIPUS)
-        player:setCharVar("moral", 5)
+        player:setCharVar('moral', 5)
     elseif csid == 51 then
-        player:setCharVar("moralrebuy", 1)
+        player:setCharVar('moralrebuy', 1)
         npcUtil.completeQuest(player, xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.A_MORAL_MANIFEST, {
             item = 748,
-            var = "moral"
+            var = 'moral'
         })
     end
 end

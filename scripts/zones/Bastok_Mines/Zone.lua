@@ -1,19 +1,14 @@
 -----------------------------------
 -- Zone: Bastok_Mines (234)
 -----------------------------------
-local ID = require('scripts/zones/Bastok_Mines/IDs')
-require('scripts/globals/events/harvest_festivals')
-require('scripts/globals/conquest')
-require('scripts/globals/cutscenes')
-require('scripts/globals/chocobo')
-require('scripts/globals/zone')
+local ID = zones[xi.zone.BASTOK_MINES]
 -----------------------------------
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
-    SetExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
+    xi.server.setExplorerMoogles(ID.npc.EXPLORER_MOOGLE)
 
-    applyHalloweenNpcCostumes(zone:getID())
+    xi.events.harvestFestival.applyHalloweenNpcCostumes(zone:getID())
     xi.chocobo.initZone(zone)
 end
 
@@ -36,10 +31,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 return zoneObject

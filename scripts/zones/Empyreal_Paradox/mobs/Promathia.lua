@@ -3,8 +3,7 @@
 --  Mob: Promathia
 -- Note: Phase 1
 -----------------------------------
-local ID = require("scripts/zones/Empyreal_Paradox/IDs")
-require("scripts/globals/titles")
+local ID = zones[xi.zone.EMPYREAL_PARADOX]
 -----------------------------------
 local entity = {}
 
@@ -17,11 +16,11 @@ end
 entity.onMobEngaged = function(mob, target)
     local bcnmAllies = mob:getBattlefield():getAllies()
     for i, v in pairs(bcnmAllies) do
-        if v:getName() == "Prishe" then
+        if v:getName() == 'Prishe' then
             if not v:getTarget() then
-                v:entityAnimationPacket("prov")
+                v:entityAnimationPacket('prov')
                 v:showText(v, ID.text.PRISHE_TEXT)
-                v:setLocalVar("ready", mob:getID())
+                v:setLocalVar('ready', mob:getID())
             end
         else
             v:addEnmity(mob, 0, 1)
@@ -61,13 +60,13 @@ entity.onMobDeath = function(mob, player, optParams)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option)
+entity.onEventUpdate = function(player, csid, option, npc)
 end
 
-entity.onEventFinish = function(player, csid, option, target)
+entity.onEventFinish = function(player, csid, option, npc)
     if csid == 32004 then
-        DespawnMob(target:getID())
-        local mob = SpawnMob(target:getID() + 1)
+        DespawnMob(npc:getID())
+        local mob = SpawnMob(npc:getID() + 1)
         local bcnmAllies = mob:getBattlefield():getAllies()
         for i, v in pairs(bcnmAllies) do
             v:resetLocalVars()

@@ -1,10 +1,7 @@
 -----------------------------------
 -- Zone: Gusgen Mines (196)
 -----------------------------------
-local ID = require('scripts/zones/Gusgen_Mines/IDs')
-require('scripts/globals/conquest')
-require('scripts/globals/treasure')
-require('scripts/globals/helm')
+local ID = zones[xi.zone.GUSGEN_MINES]
 -----------------------------------
 local zoneObject = {}
 
@@ -34,10 +31,10 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option)
+zoneObject.onEventUpdate = function(player, csid, option, npc)
 end
 
-zoneObject.onEventFinish = function(player, csid, option)
+zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onGameHour = function(zone)
@@ -57,7 +54,7 @@ zoneObject.onGameHour = function(zone)
 
         for i = 1, 6 do
             ghost = ghostTable[i].nm
-            if not ghost:isSpawned() and os.time() > ghost:getLocalVar("cooldown") then
+            if not ghost:isSpawned() and os.time() > ghost:getLocalVar('cooldown') then
                 SpawnMob(ghostTable[i].id)
             end
         end
