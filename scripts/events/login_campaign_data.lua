@@ -430,7 +430,7 @@ local prizes =
         -- Crafting items, leave these here until we can modify our skillup rates again
 
         -- static item
-            11009, -- Shapers Shawl
+        -- 11009, -- Shapers Shawl
             25637, -- Midrass Helm +1
             28585, -- Craftkeepers Ring
             28586, -- Craftmasters Ring
