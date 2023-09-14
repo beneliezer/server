@@ -110,7 +110,7 @@ xi.settings.map =
 
     -- Multiplier for skillup amounts. Using anything above 1 will break the 0.5 cap, the cap will become 0.9 (For maximum, set to 5)
     SKILLUP_AMOUNT_MULTIPLIER = 2,
-    CRAFT_AMOUNT_MULTIPLIER   = 2,
+    CRAFT_AMOUNT_MULTIPLIER   = 1,
 
     -- Gardening Factors. DO NOT change defaults without verifiable proof that your change IS how retail does it. Myths need to be optional.
     GARDEN_DAY_MATTERS       = false,
@@ -131,7 +131,7 @@ xi.settings.map =
     FISHING_ENABLE = 1,
 
     -- Multiplier for fishing skill-up chance. Default = 1.0, very hard.
-    FISHING_SKILL_MULTIPLIER = 3.0,
+    FISHING_SKILL_MULTIPLIER = 4.0,
 
     -- Enable/disable skill-ups from bloodpacts
     SKILLUP_BLOODPACT = true,
