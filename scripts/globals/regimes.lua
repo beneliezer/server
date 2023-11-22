@@ -1450,8 +1450,8 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         reward = math.floor(reward * avgCapLevel / avgMobLevel)
     end
 
-    -- Preserve baseReward amount for CW EXP
-    local baseReward = reward
+    -- Preserve baseReward amount for CW EXP and scale on EXP_BONUS mod
+    local baseReward = reward * player:getMod(xi.mod.EXP_BONUS)
 
     -- prowess buffs from completing Grounds regimes
     if regimeType == xi.regime.type.GROUNDS then
@@ -1506,9 +1506,11 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     -- Award EXP for page completion
     -- Player must be equal or greater than REGIME_REWARD_THRESHOLD levels below the minimum suggested level
     if player:getMainLvl() >= math.max(1, page[5] - xi.settings.main.REGIME_REWARD_THRESHOLD) then
+        local highestLevel = player:partyHighestLevel()
+        local pageLevelDiff = 2 + math.ceil(highestLevel / 20)
         if
             (player:isCrystalWarrior() or player:isClassicMode()) and
-            (player:partyHighestLevel() >= page[6] - 6)
+            (page[6] - highestLevel < pageLevelDiff)
         then
             local completions = player:getCharVar("[regime]repeatedToday")
 
