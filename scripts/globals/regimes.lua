@@ -1451,7 +1451,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     end
 
     -- Preserve baseReward amount for CW EXP and scale on EXP_BONUS mod
-    local baseReward = reward * player:getMod(xi.mod.EXP_BONUS) / 100
+    local baseReward = reward * (1 + player:getMod(xi.mod.EXP_BONUS) / 100)
 
     -- prowess buffs from completing Grounds regimes
     if regimeType == xi.regime.type.GROUNDS then
