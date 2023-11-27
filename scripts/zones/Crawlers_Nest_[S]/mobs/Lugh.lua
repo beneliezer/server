@@ -38,7 +38,7 @@ entity.onMobSpawn = function(mob)
     mob:addStatusEffect(xi.effect.ENFIRE_II, 20, 0, 0)
 
     -- Revamping Movement Speed Bonus
-    mob:addMod(xi.mod.MOVE, 12)
+    mob:addMod(xi.mod.MOVE_SPEED_OVERIDE, 12)
     mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
 end
 

@@ -41,7 +41,7 @@ entity.onMobSpawn = function(mob)
     mob:setMod(xi.mod.ICE_SDT, 25)
     mob:setMod(xi.mod.WIND_SDT, 25)
     mob:setMod(xi.mod.FASTCAST, 10)
-    mob:addMod(xi.mod.MOVE, 12)
+    mob:addMod(xi.mod.MOVE_SPEED_OVERIDE, 12)
     mob:setAnimationSub(0)
 end
 
