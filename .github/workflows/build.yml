@@ -19,6 +19,10 @@ jobs:
   Sanity_Checks:
     runs-on: ubuntu-22.04
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -138,9 +142,7 @@ jobs:
         for changed_file in ${{ steps.changed-files.outputs.all }}; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.lua ]]; then
-              if [[ $changed_file != scripts/mixins/claim_shield.lua ]]; then
-                bash tools/ci/lua.sh ${changed_file} >> lua_checks.txt || true
-              fi
+              bash tools/ci/lua.sh ${changed_file} >> lua_checks.txt || true
             fi
           fi
         done
@@ -195,6 +197,10 @@ jobs:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -209,9 +215,6 @@ jobs:
     #    key: ${{ runner.os }}-clang
     - name: Configure CMake
       run: |
-        pwd
-        mkdir -p modules/catseyexi/cpp
-        mv modules/custom/cpp/* modules/catseyexi/cpp/
         export CC=/usr/bin/clang-14
         export CXX=/usr/bin/clang++-14
         mkdir -p build
@@ -233,6 +236,10 @@ jobs:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -264,6 +271,10 @@ jobs:
     needs: Sanity_Checks
     runs-on: ubuntu-22.04
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -280,8 +291,6 @@ jobs:
       run: |
         export CC=/usr/bin/gcc-12
         export CXX=/usr/bin/g++-12
-        mkdir -p modules/catseyexi/cpp
-        mv modules/custom/cpp/* modules/catseyexi/cpp/
         mkdir -p build
         CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 cmake -S . -B build
     - name: Build
@@ -305,11 +314,8 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
-          pwd
-          mkdir -p modules\catseyexi\cpp
-          move modules\custom\cpp\*.* modules\catseyexi\cpp\
           mkdir -p build
-          cmake -S . -B build -A Win32 -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -A Win32
       - name: Build
         shell: cmd
         run: |
@@ -332,9 +338,6 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
-          pwd
-          mkdir -p modules\catseyexi\cpp
-          move modules\custom\cpp\*.* modules\catseyexi\cpp\
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Debug
       - name: Build
@@ -408,9 +411,6 @@ jobs:
           key: ${{ runner.os }}-osx
       - name: Configure CMake
         run: |
-          pwd
-          mkdir -p modules/catseyexi/cpp
-          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build
       - name: Build
@@ -430,6 +430,10 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -454,10 +458,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Enable Modules
       shell: bash
       run: |
@@ -611,6 +611,10 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
+    # workaround for broken clang on ubuntu runner until fixed: https://github.com/actions/runner-images/issues/8659
+    - uses: mjp41/workaround8649@7929373c0fe5caf844d8115adccef39e3b5362e7
+      with:
+        os: ubuntu-22.04
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
@@ -638,10 +642,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Startup checks
       env:
         MYSQL_HOST: mysql
@@ -706,10 +706,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Install Python Dependencies
       run: |
         pip install -r tools/requirements.txt
