@@ -120,11 +120,9 @@ local prizes =
         --  26889, -- Heart Apron
         --  26954, -- Behemoth Suit
         --  26956, -- Poroggo Coat
-        --  27715, -- Goblin Masque
         --  27765, -- Chocobo Masque
         --  27854, -- Mandragora Suit
         --  27859, -- Kengyu Happi
-        --  27866, -- Goblin Suit
         --  27911, -- Chocobo Suit
 
         -- Cycle #2
