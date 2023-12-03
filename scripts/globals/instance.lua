@@ -136,7 +136,13 @@ xi.instance.lookup =
 
     [xi.zone.ZHAYOLM_REMNANTS] =
     {
-        -- Salvage
+        { 62, { 407, 0, 0, 0, 0, 0, 0 }, { 411, 4 }, { 108, 0 } },
+            --[[
+            instanceIdInDatabase,
+            onTrigger startEvent args (to be unpacked),
+            onEventFinish valid entry args for registrant (to be unpacked),
+            event args for joining party members (to be unpacked)
+            ]]--
     },
 
     [xi.zone.ARRAPAGO_REMNANTS] =

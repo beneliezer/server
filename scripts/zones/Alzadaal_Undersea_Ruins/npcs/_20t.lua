@@ -7,81 +7,22 @@ local ID = zones[xi.zone.ALZADAAL_UNDERSEA_RUINS]
 -----------------------------------
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
+entity.onTrigger = function(player,npc)
+    xi.salvageUtil.onSalvageTrigger(player, npc, 410, 10)
 end
 
-entity.onTrigger = function(player, npc)
-    -- TODO: Fix, implement & balance Remnants
-    --[[
-    if player:hasKeyItem(xi.ki.REMNANTS_PERMIT) then
-        local mask = -2
-        if player:getMainLvl() >= 96 then
-            mask = -14
-        elseif player:getMainLvl() >= 65 then
-            mask = -6
-        end
-
-        player:startEvent(410, 0, mask, 0, 0, 10)
-    else
-        player:messageSpecial(ID.text.NOTHING_HAPPENS)
-    end
-    ]]
-    player:messageSpecial(ID.text.NOTHING_HAPPENS)
+entity.onEventUpdate = function(player,csid,option,target)
+    xi.salvageUtil.onSalvageUpdate(player, csid, option, target, 70, xi.zone.SILVER_SEA_REMNANTS)
 end
 
-entity.onEventUpdate = function(player, csid, option, npc)
-    local instanceid = bit.rshift(option, 19) + 70
-
-    local party = player:getParty()
-
-    if party ~= nil then
-        for i, v in pairs(party) do
-            if not v:hasKeyItem(xi.ki.REMNANTS_PERMIT) then
-                player:messageText(npc, ID.text.MEMBER_NO_REQS, false)
-                player:instanceEntry(npc, 1)
-                return
-            elseif v:getZoneID() == player:getZoneID() and v:checkDistance(player) > 50 then
-                player:messageText(npc, ID.text.MEMBER_TOO_FAR, false)
-                player:instanceEntry(npc, 1)
-                return
-            elseif v:checkImbuedItems() then
-                player:messageText(npc, ID.text.MEMBER_IMBUED_ITEM, false)
-                player:instanceEntry(npc, 1)
-                return
-            end
-        end
-    end
-
-    player:createInstance(instanceid)
-end
-
-entity.onEventFinish = function(player, csid, option, npc)
-    if (csid == 410 and option == 4) or csid == 116 then
-        player:setPos(0, 0, 0, 0, 76)
+entity.onEventFinish = function(player,csid,option,target)
+    if csid == 410 and option == 4 then
+        player:setPos(0, 0, 0, 0, xi.zone.SILVER_SEA_REMNANTS)
     end
 end
 
-entity.onInstanceCreated = function(player, target, instance)
-    if instance then
-        player:setInstance(instance)
-        player:instanceEntry(target, 4)
-        player:delKeyItem(xi.ki.REMNANTS_PERMIT)
-
-        local party = player:getParty()
-        if party ~= nil then
-            for i, v in pairs(party) do
-                if v:getID() ~= player:getID() and v:getZoneID() == player:getZoneID() then
-                    v:setInstance(instance)
-                    v:startEvent(116, 2)
-                    v:delKeyItem(xi.ki.REMNANTS_PERMIT)
-                    v:setLocalVar('SalvageSilverSea', 1)
-                end
-            end
-        end
-    else
-        player:messageText(target, ID.text.CANNOT_ENTER, false)
-        player:instanceEntry(target, 3)
-    end
+entity.onInstanceCreated = function(player,target,instance)
+    xi.salvageUtil.onInstanceCreated(player, target, instance, 411, 10)
 end
 
 return entity

@@ -1,10 +1,27 @@
 -----------------------------------
 -- Area: Bhaflau Remnants
---  Mob: Long-Bowed Chariot
+--  MOB: Long-Bowed_Chariot
 -----------------------------------
-local entity = {}
+mixins = {require("scripts/mixins/families/chariot")}
+-----------------------------------
+entity = {}
 
-entity.onMobDeath = function(mob, player, optParams)
+entity.onMobSpawn = function(mob)
+    local instance = mob:getInstance()
+
+    mob:addImmunity(xi.immunity.BIND)
+    mob:addImmunity(xi.immunity.SLEEP)
+    mob:addMobMod(xi.mobMod.NO_ROAM, 1)
+    mob:addResist({ xi.resist.ENFEEBLING_STUN, 75, 0 })
+    if instance:getLocalVar("bossModifier") == 1 then
+        mob:addMod(xi.mod.DEF, -100)
+        mob:addMod(xi.mod.MDEF, -100)
+    elseif instance:getLocalVar("bossModifier") == 2 then
+        mob:addMod(xi.mod.ATTACK, -100)
+    end
+end
+
+entity.onMobDeath = function(mob, player, isKiller, firstCall)
     player:addTitle(xi.title.COMET_CHARIOTEER)
 end
 
