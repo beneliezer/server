@@ -44,7 +44,7 @@ entity.onMobInitialize = function(mob)
     mob:addStatusEffect(xi.effect.REGAIN, 5, 3, 0)
     mob:addStatusEffect(xi.effect.REGEN, 5, 3, 0)
     mob:addStatusEffect(xi.effect.REFRESH, 50, 3, 0)
-    mob:addMod(xi.mod.MOVE, 12)
+    mob:addMod(xi.mod.MOVE_SPEED_OVERIDE, 12)
     mob:setAnimationSub(0)
 end
 

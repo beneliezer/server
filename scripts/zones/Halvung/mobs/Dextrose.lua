@@ -38,7 +38,7 @@ entity.onMobSpawn = function(mob)
     mob:setMod(xi.mod.DOUBLE_ATTACK, 5)
     mob:addStatusEffect(xi.effect.REGAIN, 2, 3, 0)
     mob:addStatusEffect(xi.effect.REGEN, 5, 3, 0)
-    mob:addMod(xi.mod.MOVE, 12)
+    mob:addMod(xi.mod.MOVE_SPEED_OVERIDE, 12)
     mob:setAnimationSub(0)
     mob:setMod(xi.mod.FASTCAST, 10)
 end

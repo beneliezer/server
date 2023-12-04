@@ -41,7 +41,7 @@ entity.onMobSpawn = function(mob)
     -- Increasing Enaero for Standard Attack Round to Equal 100 (http://wiki.ffo.jp/wiki.cgi?Command=HDetail&articleid=129696&id=18300)
     mob:addStatusEffect(xi.effect.ENAERO, 20, 0, 0)
     -- Revamping Movement Speed Bonus
-    mob:addMod(xi.mod.MOVE, 12)
+    mob:addMod(xi.mod.MOVE_SPEED_OVERIDE, 12)
     mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
 end
 
