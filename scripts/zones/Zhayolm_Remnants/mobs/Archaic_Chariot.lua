@@ -13,7 +13,7 @@ entity.onMobSpawn = function(mob)
         mob:setMobMod(xi.mobMod.SUBLINK, 0)
         mob:setMobMod(xi.mobMod.NO_AGGRO, 1)
     else
-        mob:setMobMod(xi.mobMod.NO_ROAM, 1)
+        mob:setMobMod(xi.mobMod.NO_MOVE, 1)
     end
 end
 
@@ -26,20 +26,19 @@ entity.onMobEngaged = function(mob, target)
     end
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
-        local stage = instance:getStage()
-        local progress = instance:getProgress()
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
+    local stage = instance:getStage()
+    local progress = instance:getProgress()
 
-        if stage == 6 then
-            instance:setLocalVar("6th Door",instance:getLocalVar("6th Door") + 1)
-        end
-        if math.random(1,1000) >= 960 then
-            local params = {}
-			
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    if stage == 6 then
+        instance:setLocalVar("6th Door",instance:getLocalVar("6th Door") + 1)
+    end
+	
+    if math.random(1,1000) >= 960 then
+        local params = {}
+
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

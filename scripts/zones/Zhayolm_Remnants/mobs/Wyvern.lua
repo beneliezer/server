@@ -6,11 +6,11 @@ local ID = require("scripts/zones/Zhayolm_Remnants/IDs")
 -----------------------------------
 local entity = {}
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
+entity.onMobDeath = function(mob, player, optParams)
     local instance = mob:getInstance()
     local stage = instance:getStage()
 
-    if firstCall and stage == 2 then
+    if stage == 2 then
         if xi.salvageUtil.groupKilled(mob, ID.mob[2][3].STAGE_START.SOUTH_WEST) then
             local stageBoss = ID.mob[2][3].MAMOOL_JA
             if instance:getEntity(bit.band(stageBoss, 0xFFF), xi.objType.MOB):getLocalVar("spawned") == 0 then

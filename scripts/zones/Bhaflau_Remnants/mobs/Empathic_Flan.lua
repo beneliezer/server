@@ -65,24 +65,22 @@ entity.onMobSpawn = function(mob)
     end)
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
-        local dormant = instance:getEntity(bit.band(ID.npc[2].DORMANT, 0xFFF), xi.objType.NPC)
-        local spawn = dormant:getLocalVar("spawn")
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
+    local dormant = instance:getEntity(bit.band(ID.npc[2].DORMANT, 0xFFF), xi.objType.NPC)
+    local spawn = dormant:getLocalVar("spawn")
 
-        if mob:getLocalVar("Damage") == 1 then
-            dormant:setLocalVar("spawn", spawn + 1)
-            if dormant:getLocalVar("spawn") == 4 then
-                dormant:setStatus(xi.status.NORMAL)
-                dormant:untargetable(false)
-            end
+    if mob:getLocalVar("Damage") == 1 then
+        dormant:setLocalVar("spawn", spawn + 1)
+        if dormant:getLocalVar("spawn") == 4 then
+            dormant:setStatus(xi.status.NORMAL)
+            dormant:setUntargetable(false)
         end
-		
-        if math.random(1,1000) >= 960 then
-            local params = {}
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    end
+
+    if math.random(1,1000) >= 960 then
+        local params = {}
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

@@ -1,9 +1,8 @@
 -----------------------------------
 -- Area: Alzadaal Undersea Ruins
--- Door: Gilded Gateway (Arrapago)
--- !pos -580 0 -159 72
+-- Door: Gilded Gateway (Silver Sea)
+-- !pos 580 -2 442 72
 -----------------------------------
-local ID = zones[xi.zone.ALZADAAL_UNDERSEA_RUINS]
 -----------------------------------
 local entity = {}
 

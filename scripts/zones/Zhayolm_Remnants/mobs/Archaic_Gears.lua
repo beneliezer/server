@@ -63,20 +63,19 @@ entity.onMobRoam = function(mob)
     end
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
-        local stage = instance:getStage()
-        local progress = instance:getProgress()
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
+    local stage = instance:getStage()
+    local progress = instance:getProgress()
 
-        if stage == 6 then
-            instance:setLocalVar("6th Door",instance:getLocalVar("6th Door") + 1)
-        end
-        if math.random(1,1000) >= 960 then
-            local params = {}
-			
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    if stage == 6 then
+        instance:setLocalVar("6th Door",instance:getLocalVar("6th Door") + 1)
+    end
+
+    if math.random(1,1000) >= 960 then
+        local params = {}
+
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

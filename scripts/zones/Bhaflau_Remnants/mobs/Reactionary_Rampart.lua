@@ -64,7 +64,7 @@ entity.onMobFight = function(mob, target)
     end
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
+entity.onMobDeath = function(mob, player, optParams)
     if mob:getLocalVar("Dead") == 0 then
         mob:setLocalVar("Dead", 1)
         local instance = mob:getInstance()

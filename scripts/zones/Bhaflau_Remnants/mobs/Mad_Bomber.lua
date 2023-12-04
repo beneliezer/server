@@ -31,16 +31,14 @@ entity.onMobFight = function(mob, target)
     end
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-	if firstCall then
-        local instance = mob:getInstance()
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
 
-        if mob:getLocalVar("timeUp") == 0 then
-            local dormant = instance:getEntity(bit.band(ID.npc[1].DORMANT, 0xFFF), xi.objType.NPC)
-			
-            dormant:setStatus(xi.status.NORMAL)
-            dormant:untargetable(false)
-        end
+    if mob:getLocalVar("timeUp") == 0 then
+        local dormant = instance:getEntity(bit.band(ID.npc[1].DORMANT, 0xFFF), xi.objType.NPC)
+
+        dormant:setStatus(xi.status.NORMAL)
+        dormant:setUntargetable(false)
     end
 end
 

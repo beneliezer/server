@@ -50,20 +50,19 @@ entity.onMobFight = function(mob, target)
     end
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
 
-        if instance:getStage() == 4 then
-            instance:setLocalVar("gearsKilled", instance:getLocalVar("gearsKilled") + 1)
-            if instance:getLocalVar("gearsKilled") >= 10 then
-                instance:getEntity(bit.band(ID.npc[4].DORMANT, 0xFFF), xi.objType.NPC):setStatus(xi.status.NORMAL)
-            end
+    if instance:getStage() == 4 then
+        instance:setLocalVar("gearsKilled", instance:getLocalVar("gearsKilled") + 1)
+        if instance:getLocalVar("gearsKilled") >= 10 then
+            instance:getEntity(bit.band(ID.npc[4].DORMANT, 0xFFF), xi.objType.NPC):setStatus(xi.status.NORMAL)
         end
-        if math.random(1,1000) >= 960 then
-            local params = {}
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    end
+	
+    if math.random(1,1000) >= 960 then
+        local params = {}
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

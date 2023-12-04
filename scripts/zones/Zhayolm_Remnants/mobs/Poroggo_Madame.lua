@@ -22,22 +22,20 @@ entity.onMobSpawn = function(mob)
     mob:addMod(xi.mod.SPELLINTERRUPT, -20)
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
-        local stage = instance:getStage()
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
+    local stage = instance:getStage()
 
-        instance:setLocalVar("killedNMs", instance:getLocalVar("killedNMs") + 1)
+    instance:setLocalVar("killedNMs", instance:getLocalVar("killedNMs") + 1)
 
-        if stage == 2 then
-            xi.salvageUtil.handleSocketCells(mob, player)
-        end
-		
-        if math.random(1,1000) >= 960 then
-            local params = {}
-			
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    if stage == 2 then
+        xi.salvageUtil.handleSocketCells(mob, player)
+    end
+
+    if math.random(1,1000) >= 960 then
+        local params = {}
+
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

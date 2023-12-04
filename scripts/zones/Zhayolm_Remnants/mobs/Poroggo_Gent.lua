@@ -6,20 +6,20 @@ local ID = require("scripts/zones/Zhayolm_Remnants/IDs")
 -----------------------------------
 local entity = {}
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        local instance = mob:getInstance()
-        if instance:getStage() == 1 then
-            instance:setProgress(2)
-            if noCellUsage(player) then
-                SpawnMob(ID.mob[1].POROGGO_MADAME, instance)
-            end
+entity.onMobDeath = function(mob, player, optParams)
+    local instance = mob:getInstance()
+
+    if instance:getStage() == 1 then
+        instance:setProgress(2)
+        if noCellUsage(player) then
+            SpawnMob(ID.mob[1].POROGGO_MADAME, instance)
         end
-        if math.random(1,1000) >= 960 then
-            local params = {}
-			
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+    end
+
+    if math.random(1,1000) >= 960 then
+        local params = {}
+
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

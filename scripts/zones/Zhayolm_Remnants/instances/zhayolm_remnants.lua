@@ -130,10 +130,10 @@ instanceObject.onEventFinish = function(player, csid, option)
     local stage    = instance:getStage()
     local progress = instance:getProgress()
     local chars    = instance:getChars()
-
+    print(stage)
     if option == 1 then
         if csid >= 200 and csid <= 210 then
-            salvageUtil.teleportGroup(entity)
+            xi.salvageUtil.teleportGroup(player)
             xi.salvageUtil.spawnStage(player)
             -- 2nd floor
             if csid == 200 then
@@ -171,7 +171,7 @@ instanceObject.onEventFinish = function(player, csid, option)
                 end
 				
                 instance:getEntity(bit.band(ID.npc[stage][instance:getProgress()].DOOR, 0xFFF), xi.objType.NPC):setAnimation(9)
-                instance:getEntity(bit.band(ID.npc[stage][instance:getProgress()].DOOR, 0xFFF), xi.objType.NPC):untargetable(false)
+                instance:getEntity(bit.band(ID.npc[stage][instance:getProgress()].DOOR, 0xFFF), xi.objType.NPC):setUntargetable(false)
                 instance:getEntity(bit.band(ID.npc[stage][instance:getProgress()].DOOR, 0xFFF), xi.objType.NPC):setLocalVar("unSealed", 0)
             -- to 5th floor
             elseif csid == 207 or csid == 208 then

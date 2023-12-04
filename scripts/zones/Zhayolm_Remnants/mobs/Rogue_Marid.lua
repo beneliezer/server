@@ -2,19 +2,13 @@
 -- Area: Zhayolm Remnants
 -- MOB: Rogue Marid
 -----------------------------------
-mixins =
-{
-}
------------------------------------
 local entity = {}
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-    if firstCall then
-        if math.random(1,1000) >= 960 then
-            local params = {}
-			
-            xi.salvageUtil.spawnTempChest(mob, params)
-        end
+entity.onMobDeath = function(mob, player, optParams)
+    if math.random(1,1000) >= 960 then
+        local params = {}
+
+        xi.salvageUtil.spawnTempChest(mob, params)
     end
 end
 

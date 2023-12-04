@@ -13,10 +13,8 @@ entity.onMobSpawn = function(mob)
     instance:getEntity(bit.band(ID.npc[2].SOCKET, 0xFFF), xi.objType.NPC):setStatus(xi.status.DISAPPEAR)
 end
 
-entity.onMobDeath = function(mob, player, isKiller, firstCall)
-	if firstCall then
-	    xi.salvageUtil.handleSocketCells(mob, player)
-	end
+entity.onMobDeath = function(mob, player, optParams)
+    xi.salvageUtil.handleSocketCells(mob, player)
 end
 
 return entity

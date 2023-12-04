@@ -209,7 +209,7 @@ xi.salvageUtil.handleSocketCells = function(mob, player)
 end
 
 xi.salvageUtil.spawnStage = function(entity)
-    local ID = require("scripts/zones/"..entity:getZoneName().."/IDs")
+    local ID = zones[entity:getZoneID()]
     local instance = entity:getInstance()
     local mobs = ID.mob[instance:getStage()][instance:getProgress()].STAGE_START
 
@@ -246,7 +246,7 @@ xi.salvageUtil.deSpawnStage = function(entity)
     local instance = entity:getInstance()
     local mobs = instance:getMobs()
 
-    for _,enemy in pairs(mobs) do
+    for _, enemy in pairs(mobs) do
         local mobID = enemy:getID()
 
         DespawnMob(mobID, instance)
@@ -254,7 +254,7 @@ xi.salvageUtil.deSpawnStage = function(entity)
 end
 
 xi.salvageUtil.spawnTempChest = function(mob, params)
-    local ID = require("scripts/zones/"..mob:getZoneName().."/IDs")
+    local ID = zones[mob:getZoneID()]
     local instance = mob:getInstance()
 
     for _, casketID in ipairs(ID.npc[0].TEMP_ITEMS_BOX) do
@@ -280,7 +280,7 @@ xi.salvageUtil.tempBoxTrigger = function(player, npc)
     if npc:getLocalVar("itemsPicked") == 0 then
         npc:setLocalVar("itemsPicked", 1)
         npc:entityAnimationPacket("open")
-        npc:AnimationSub(13)
+        npc:setAnimationSub(13)
 
         xi.salvageUtil.tempBoxPickItems(npc)
     end
@@ -316,6 +316,7 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
         [21] = {itemID = xi.item.DUSTY_ETHER,               amount = math.random(1,10)},
         [22] = {itemID = xi.item.DUSTY_ELIXIR,              amount = 1}
     }
+
     local random = math.random(1, #tempBoxItems)
     local item = tempBoxItems[random]
     local item2_random = math.random(1, 10) > 4
@@ -347,7 +348,7 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
 end
 
 xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
-    local ID = require("scripts/zones/"..player:getZoneName().."/IDs")
+    local ID = zones[player:getZoneID()]
 
     if csid == 2 then
         local item_1 = npc:getLocalVar("itemID_1")
@@ -382,13 +383,13 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
 		
         if npc:getLocalVar("itemAmount_1") == 0 and npc:getLocalVar("itemAmount_2") == 0 and npc:getLocalVar("itemAmount_3") == 0 then
             npc:queue(10000, function(npc) npc:entityAnimationPacket("kesu") end)
-            npc:queue(12000, function(npc) npc:setStatus(xi.status.DISAPPEAR) npc:AnimationSub(8) end)
+            npc:queue(12000, function(npc) npc:setStatus(xi.status.DISAPPEAR) npc:setAnimationSub(8) end)
         end
     end
 end
 
 xi.salvageUtil.resetTempBoxes = function(entity)
-    local ID = require("scripts/zones/"..entity:getZoneName().."/IDs")
+    local ID = zones[entity:getZoneID()]
     local instance = entity:getInstance()
 
     for _, casketID in ipairs(ID.npc[0].TEMP_ITEMS_BOX) do
@@ -397,13 +398,13 @@ xi.salvageUtil.resetTempBoxes = function(entity)
         if casket:getStatus() == xi.status.NORMAL then
             casket:setStatus(xi.status.DISAPPEAR)
             casket:resetLocalVars()
-            casket:AnimationSub(8)
+            casket:setAnimationSub(8)
         end
     end
 end
 
 xi.salvageUtil.groupKilled = function(entity, indexID)
-    local ID = require("scripts/zones/"..entity:getZoneName().."/IDs")
+    local ID = zones[entity:getZoneID()]
     local instance = entity:getInstance()
 
     for _, mobID in pairs(indexID) do
@@ -422,9 +423,9 @@ end
 xi.salvageUtil.removedPathos = function(entity)
     local count = 0
     local instance = entity:getInstance()
-    local Chars = instance:getChars()
+    local chars = instance:getChars()
 
-    for i, players in pairs(Chars) do
+    for i, players in pairs(chars) do
         if 
             not players:hasStatusEffect(xi.effect.ENCUMBRANCE_I) and not players:hasStatusEffect(xi.effect.OBLIVISCENCE) and
             not players:hasStatusEffect(xi.effect.OMERTA) and not players:hasStatusEffect(xi.effect.IMPAIRMENT) and

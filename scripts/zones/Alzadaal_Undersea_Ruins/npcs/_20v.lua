@@ -21,7 +21,7 @@ entity.onEventFinish = function(player,csid,option,target)
 end
 
 entity.onInstanceCreated = function(player,target,instance)
-    salvageUtil.onInstanceCreated(player, target, instance, 411, 7)
+    xi.salvageUtil.onInstanceCreated(player, target, instance, 411, 7)
 end
 
 return entity
