@@ -35,8 +35,8 @@ entity.onPath = function(mob)
 
     if offset > 0 then
         local pathID = mob:getID() - offset
-		
-        xi.path.patrol(mob, ID.path[stage][progress][pathID])
+
+        mob:pathThrough(ID.path[stage][progress][pathID], xi.path.flag.PATROL)
     end
 end
 
@@ -58,7 +58,7 @@ entity.onMobRoam = function(mob)
     if offset > 0 then
         local pathID = mobID - offset
         if not mob:isFollowingPath() then
-            mob:pathThrough(xi.path.first(ID.path[stage][progress][pathID]))
+            mob:pathThrough(ID.path[stage][progress][pathID], xi.path.flag.PATROL)
         end
     end
 end

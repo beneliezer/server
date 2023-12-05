@@ -177,7 +177,7 @@ instanceObject.onEventFinish = function(player, csid, option)
             elseif csid == 207 or csid == 208 then
                 xi.salvageUtil.unsealDoors(player, ID.npc[stage][progress].DOOR)
                 
-                local count = salvageUtil.removedPathos(player)
+                local count = xi.salvageUtil.removedPathos(player)
                 
                 if progress == 1 and count >= 3 then
                     SpawnMob(ID.mob[5][1].POROGGO_MADAME, instance)

@@ -13,7 +13,7 @@ entity.onTrade = function(player, npc, trade)
     local mob = instance:getEntity(bit.band(ID.mob[2].POROGGO_MADAME, 0xFFF), xi.objType.MOB)
     local COUNT = trade:getItemCount()
 
-    for i = xi.items.INCUS_CELL, xi.items.SPISSATUS_CELL do
+    for i = xi.item.INCUS_CELL, xi.item.SPISSATUS_CELL do
         if COUNT <= 5 and trade:hasItemQty(i, COUNT) then
             SpawnMob(ID.mob[2].POROGGO_MADAME, instance):updateClaim(player)
             player:tradeComplete()

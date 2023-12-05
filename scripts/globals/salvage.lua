@@ -257,6 +257,8 @@ xi.salvageUtil.spawnTempChest = function(mob, params)
     local ID = zones[mob:getZoneID()]
     local instance = mob:getInstance()
 
+    print(ID.npc[0].TEMP_ITEMS_BOX)
+
     for _, casketID in ipairs(ID.npc[0].TEMP_ITEMS_BOX) do
         local casket = instance:getEntity(bit.band(casketID, 0xFFF), xi.objType.NPC)
         if casket:getStatus() == xi.status.DISAPPEAR then
