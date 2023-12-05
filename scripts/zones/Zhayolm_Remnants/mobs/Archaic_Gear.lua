@@ -12,11 +12,11 @@ entity.onMobSpawn = function(mob)
 
     if instance:getStage() == 5 and instance:getProgress() == 2 then
         if mob:getID() >= 17076503 and mob:getID() <= 17076510 then
-            onMobRoam(mob)
+            entity.onMobRoam(mob)
         end
     elseif instance:getStage() == 6 then
-        mob:addImmunity(xi.immunity.DARKSLEEP)
-        onMobRoam(mob)
+        -- mob:addImmunity(xi.immunity.DARKSLEEP)
+        entity.onMobRoam(mob)
     end
 end
 
@@ -35,6 +35,7 @@ entity.onPath = function(mob)
 
     if offset > 0 then
         local pathID = mob:getID() - offset
+
         mob:pathThrough(ID.path[stage][progress][pathID], xi.path.flag.PATROL)
     end
 end

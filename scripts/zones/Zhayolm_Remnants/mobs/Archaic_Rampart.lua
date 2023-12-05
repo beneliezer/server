@@ -14,7 +14,7 @@ entity.onMobSpawn = function(mob)
     local instance = mob:getInstance()
 
     mob:setMobMod(xi.mobMod.NO_MOVE, 1)
-	
+
     if (mob:getID() >= 17076529 and mob:getID() <= 17076531) or (mob:getID() >= 17076496 and mob:getID() <= 17076498) then
         mob:setPet(instance:getEntity(bit.band(mob:getID() + 3, 0xFFF), xi.objType.MOB))
     else

@@ -14,7 +14,7 @@ itemObject.onItemCheck = function(target)
 end
 
 itemObject.onItemUse = function(target)
-    target:addStatusEffectEx(xi.effect.TELEPORT, 0, xi.teleport.id.Z_REM, 0, 1)
+    target:addStatusEffectEx(xi.effect.TELEPORT, 0, xi.teleport.id.ALZADAAL, 0, 1)
 end
 
 itemObject.onItemDrop = function(target, item)

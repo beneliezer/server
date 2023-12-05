@@ -92,8 +92,8 @@ xi.salvageUtil.afterInstanceRegister = function(player, textTable, fireFlies)
     player:addStatusEffectEx(xi.effect.OMERTA, xi.effect.OMERTA, 0x3F, 0, 6000)
     player:addStatusEffectEx(xi.effect.IMPAIRMENT, xi.effect.IMPAIRMENT, 3, 0, 6000)
     player:addStatusEffectEx(xi.effect.DEBILITATION, xi.effect.DEBILITATION, 0x1FF, 0, 6000)
-    -- player:addTempItem(fireFlies)
-    -- player:messageSpecial(textTable.TEMP_ITEM, fireFlies)
+    player:addTempItem(fireFlies)
+    player:messageSpecial(textTable.TEMP_ITEM, fireFlies)
 
     for i = xi.slot.MAIN, xi.slot.BACK do
         player:unequipItem(i)
@@ -106,11 +106,11 @@ xi.salvageUtil.onDoorOpen = function(npc, stage, progress)
     if stage ~= nil then
         instance:setStage(stage)
     end
-	
+
     if progress ~= nil then
         instance:setProgress(progress)
     end
-	
+
     npc:setAnimation(8)
     npc:setUntargetable(true)
 end
@@ -216,6 +216,7 @@ xi.salvageUtil.spawnStage = function(entity)
     for _, enemies in pairs(mobs) do
         if type(enemies) == "table" then
             for _, groups in pairs(enemies) do
+                print('Spawning Salvage Mob: ' .. groups)
                 SpawnMob(groups, instance)
                 instance:getEntity(bit.band(groups, 0xFFF), xi.objType.MOB):setLocalVar("spawned", 1)
             end
@@ -257,8 +258,6 @@ xi.salvageUtil.spawnTempChest = function(mob, params)
     local ID = zones[mob:getZoneID()]
     local instance = mob:getInstance()
 
-    print(ID.npc[0].TEMP_ITEMS_BOX)
-
     for _, casketID in ipairs(ID.npc[0].TEMP_ITEMS_BOX) do
         local casket = instance:getEntity(bit.band(casketID, 0xFFF), xi.objType.NPC)
         if casket:getStatus() == xi.status.DISAPPEAR then
@@ -272,7 +271,7 @@ xi.salvageUtil.spawnTempChest = function(mob, params)
                 casket:setLocalVar("itemID_1", params.itemID_1)
                 casket:setLocalVar("itemAmount_1", params.itemAmount_1)
             end
-			
+
             break
         end
     end
@@ -338,7 +337,7 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
         npc:setLocalVar("itemAmount_2", item.amount)
         table.remove(tempBoxItems, random)
     end
-	
+
     if item2_random and item3_random then
         random = math.random(1, #tempBoxItems)
         local item = tempBoxItems[random]
@@ -356,7 +355,7 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
         local item_1 = npc:getLocalVar("itemID_1")
         local item_2 = npc:getLocalVar("itemID_2")
         local item_3 = npc:getLocalVar("itemID_3")
-		
+
         if option == 1 and item_1 > 0 then
             if not player:hasItem(item_1, xi.inventoryLocation.TEMPITEMS) then
                 player:addTempItem(item_1)
@@ -382,7 +381,7 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
                 player:messageSpecial(ID.text.HAVE_TEMP_ITEM)
             end
         end
-		
+
         if npc:getLocalVar("itemAmount_1") == 0 and npc:getLocalVar("itemAmount_2") == 0 and npc:getLocalVar("itemAmount_3") == 0 then
             npc:queue(10000, function(npc) npc:entityAnimationPacket("kesu") end)
             npc:queue(12000, function(npc) npc:setStatus(xi.status.DISAPPEAR) npc:setAnimationSub(8) end)
@@ -418,7 +417,7 @@ xi.salvageUtil.groupKilled = function(entity, indexID)
             return false
         end
     end
-	
+
     return true
 end
 
@@ -428,7 +427,7 @@ xi.salvageUtil.removedPathos = function(entity)
     local chars = instance:getChars()
 
     for i, players in pairs(chars) do
-        if 
+        if
             not players:hasStatusEffect(xi.effect.ENCUMBRANCE_I) and not players:hasStatusEffect(xi.effect.OBLIVISCENCE) and
             not players:hasStatusEffect(xi.effect.OMERTA) and not players:hasStatusEffect(xi.effect.IMPAIRMENT) and
             not players:hasStatusEffect(xi.effect.DEBILITATION)
@@ -451,13 +450,13 @@ xi.salvageUtil.teleportGroup = function(entity)
                 entity:setPos(pos.x, pos.y, pos.z, pos.rot)
             end)
         end
-		
+
         players:setHP(players:getMaxHP())
         players:setMP(players:getMaxMP())
-		
+
         if players:getPet() then
             local pet = players:getPet()
-            
+
             pet:setHP(pet:getMaxHP())
             pet:setMP(pet:getMaxMP())
         end
