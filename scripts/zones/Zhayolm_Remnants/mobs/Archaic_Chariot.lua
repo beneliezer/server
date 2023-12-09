@@ -34,7 +34,7 @@ entity.onMobDeath = function(mob, player, optParams)
     if stage == 6 then
         instance:setLocalVar("6th Door",instance:getLocalVar("6th Door") + 1)
     end
-	
+
     if math.random(1,1000) >= 960 then
         local params = {}
 

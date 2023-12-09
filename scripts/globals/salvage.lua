@@ -60,7 +60,7 @@ xi.salvageUtil.onInstanceCreated = function(player, target, instance, endID, des
         player:setInstance(instance)
         player:instanceEntry(target, 4)
         player:delKeyItem(xi.ki.REMNANTS_PERMIT)
-        player:setLocalVar("Area", destinationID)
+        player:setLocalVar('Area', destinationID)
 
         local align = player:getAlliance()
         local initiator = player:getID()
@@ -69,7 +69,7 @@ xi.salvageUtil.onInstanceCreated = function(player, target, instance, endID, des
         if align ~= nil then
             for i, players in ipairs(align) do
                 if players:getID() ~= initiator and players:getZoneID() == Pzone then
-                    players:setLocalVar("Area", destinationID)
+                    players:setLocalVar('Area', destinationID)
                     players:setInstance(instance)
                     players:startEvent(endID, destinationID)
                     players:delKeyItem(xi.ki.REMNANTS_PERMIT)
@@ -112,13 +112,13 @@ xi.salvageUtil.onDoorOpen = function(npc, stage, progress)
     end
 
     npc:setAnimation(8)
-    npc:setUntargetable(true)
+    -- npc:setUntargetable(true)
 end
 
 xi.salvageUtil.doorsUntargetable = function(npc, indexID)
     local instance = npc:getInstance()
 
-    if type(indexID) == "table" then
+    if type(indexID) == 'table' then
         for i,v in pairs(indexID) do
             local door = instance:getEntity(bit.band(v, 0xFFF), xi.objType.NPC)
 
@@ -134,37 +134,37 @@ end
 xi.salvageUtil.sealDoors = function(entity, indexID)
     local instance = entity:getInstance()
 
-    if type(indexID) == "table" then
+    if type(indexID) == 'table' then
         for i,v in pairs(indexID) do
             local door = instance:getEntity(bit.band(v, 0xFFF), xi.objType.NPC)
 
-            door:setLocalVar("unSealed", 0)
+            door:setLocalVar('unSealed', 0)
         end
     else
         local door = instance:getEntity(bit.band(indexID, 0xFFF), xi.objType.NPC)
 
-        door:setLocalVar("unSealed", 0)
+        door:setLocalVar('unSealed', 0)
     end
 end
 
 xi.salvageUtil.unsealDoors = function(entity, indexID)
     local instance = entity:getInstance()
 
-    if type(indexID) == "table" then
+    if type(indexID) == 'table' then
         for i,v in pairs(indexID) do
             local door = instance:getEntity(bit.band(v, 0xFFF), xi.objType.NPC)
 
-            door:setLocalVar("unSealed", 1)
+            door:setLocalVar('unSealed', 1)
         end
     else
         local door = instance:getEntity(bit.band(indexID, 0xFFF), xi.objType.NPC)
 
-        door:setLocalVar("unSealed", 1)
+        door:setLocalVar('unSealed', 1)
     end
 end
 
 xi.salvageUtil.onTriggerCrate = function(player, npc)
-    if npc:getLocalVar("open") == 0 then
+    if npc:getLocalVar('open') == 0 then
         local instance = npc:getInstance()
         local FIRST = { xi.item.CUMULUS_CELL, xi.item.UNDULATUS_CELL, xi.item.HUMILUS_CELL, xi.item.SPISSATUS_CELL }
         local SECOND =
@@ -192,18 +192,18 @@ xi.salvageUtil.onTriggerCrate = function(player, npc)
             player:addTreasure(xi.item.OPACUS_CELL, npc)
         end
 
-        npc:entityAnimationPacket("open")
-        npc:setLocalVar("open", 1)
-        npc:timer(15000, function(npc) npc:entityAnimationPacket("kesu") end)
+        npc:entityAnimationPacket('open')
+        npc:setLocalVar('open', 1)
+        npc:timer(15000, function(npc) npc:entityAnimationPacket('kesu') end)
         npc:timer(16000, function(npc) npc:setStatus(xi.status.DISAPPEAR) end)
     end
 end
 
 xi.salvageUtil.handleSocketCells = function(mob, player)
-    local amount = mob:getLocalVar("Qnt") * 2
+    local amount = mob:getLocalVar('Qnt') * 2
 
     while amount > 0 do
-        player:addTreasure(mob:getLocalVar("Cell"), mob)
+        player:addTreasure(mob:getLocalVar('Cell'), mob)
         amount = amount - 1
     end
 end
@@ -214,15 +214,15 @@ xi.salvageUtil.spawnStage = function(entity)
     local mobs = ID.mob[instance:getStage()][instance:getProgress()].STAGE_START
 
     for _, enemies in pairs(mobs) do
-        if type(enemies) == "table" then
+        if type(enemies) == 'table' then
             for _, groups in pairs(enemies) do
                 print('Spawning Salvage Mob: ' .. groups)
                 SpawnMob(groups, instance)
-                instance:getEntity(bit.band(groups, 0xFFF), xi.objType.MOB):setLocalVar("spawned", 1)
+                instance:getEntity(bit.band(groups, 0xFFF), xi.objType.MOB):setLocalVar('spawned', 1)
             end
         else
             SpawnMob(enemies, instance)
-            instance:getEntity(bit.band(enemies, 0xFFF), xi.objType.MOB):setLocalVar("spawned", 1)
+            instance:getEntity(bit.band(enemies, 0xFFF), xi.objType.MOB):setLocalVar('spawned', 1)
         end
     end
 end
@@ -231,14 +231,14 @@ xi.salvageUtil.spawnGroup = function(entity, groupID)
     local instance = entity:getInstance()
 
     for _, enemies in pairs(groupID) do
-        if type(enemies) == "table" then
+        if type(enemies) == 'table' then
             for _, groups in pairs(enemies) do
                 SpawnMob(groups, instance)
-                instance:getEntity(bit.band(groups, 0xFFF), xi.objType.MOB):setLocalVar("spawned", 1)
+                instance:getEntity(bit.band(groups, 0xFFF), xi.objType.MOB):setLocalVar('spawned', 1)
             end
         else
             SpawnMob(enemies, instance)
-            instance:getEntity(bit.band(enemies, 0xFFF), xi.objType.MOB):setLocalVar("spawned", 1)
+            instance:getEntity(bit.band(enemies, 0xFFF), xi.objType.MOB):setLocalVar('spawned', 1)
         end
     end
 end
@@ -268,8 +268,8 @@ xi.salvageUtil.spawnTempChest = function(mob, params)
             casket:setStatus(xi.status.NORMAL)
 
             if params.itemID_1 ~= nil then
-                casket:setLocalVar("itemID_1", params.itemID_1)
-                casket:setLocalVar("itemAmount_1", params.itemAmount_1)
+                casket:setLocalVar('itemID_1', params.itemID_1)
+                casket:setLocalVar('itemAmount_1', params.itemAmount_1)
             end
 
             break
@@ -278,17 +278,17 @@ xi.salvageUtil.spawnTempChest = function(mob, params)
 end
 
 xi.salvageUtil.tempBoxTrigger = function(player, npc)
-    if npc:getLocalVar("itemsPicked") == 0 then
-        npc:setLocalVar("itemsPicked", 1)
-        npc:entityAnimationPacket("open")
+    if npc:getLocalVar('itemsPicked') == 0 then
+        npc:setLocalVar('itemsPicked', 1)
+        npc:entityAnimationPacket('open')
         npc:setAnimationSub(13)
 
         xi.salvageUtil.tempBoxPickItems(npc)
     end
 
-    player:startEvent(2, {[0] = (npc:getLocalVar("itemID_1") + (npc:getLocalVar("itemAmount_1") * 65536)),
-    [1] = (npc:getLocalVar("itemID_2") + (npc:getLocalVar("itemAmount_2") * 65536)),
-    [2] = (npc:getLocalVar("itemID_3") + (npc:getLocalVar("itemAmount_3") * 65536))})
+    player:startEvent(2, {[0] = (npc:getLocalVar('itemID_1') + (npc:getLocalVar('itemAmount_1') * 65536)),
+    [1] = (npc:getLocalVar('itemID_2') + (npc:getLocalVar('itemAmount_2') * 65536)),
+    [2] = (npc:getLocalVar('itemID_3') + (npc:getLocalVar('itemAmount_3') * 65536))})
 end
 
 xi.salvageUtil.tempBoxPickItems = function(npc)
@@ -323,9 +323,9 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
     local item2_random = math.random(1, 10) > 4
     local item3_random = math.random(1, 10) > 8
 
-    if npc:getLocalVar("itemID_1") == 0 then
-        npc:setLocalVar("itemID_1", item.itemID)
-        npc:setLocalVar("itemAmount_1", item.amount)
+    if npc:getLocalVar('itemID_1') == 0 then
+        npc:setLocalVar('itemID_1', item.itemID)
+        npc:setLocalVar('itemAmount_1', item.amount)
         table.remove(tempBoxItems, random)
     end
 
@@ -333,8 +333,8 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
         random = math.random(1,#tempBoxItems)
         local item = tempBoxItems[random]
 
-        npc:setLocalVar("itemID_2", item.itemID)
-        npc:setLocalVar("itemAmount_2", item.amount)
+        npc:setLocalVar('itemID_2', item.itemID)
+        npc:setLocalVar('itemAmount_2', item.amount)
         table.remove(tempBoxItems, random)
     end
 
@@ -342,8 +342,8 @@ xi.salvageUtil.tempBoxPickItems = function(npc)
         random = math.random(1, #tempBoxItems)
         local item = tempBoxItems[random]
 
-        npc:setLocalVar("itemID_3", item.itemID)
-        npc:setLocalVar("itemAmount_3", item.amount)
+        npc:setLocalVar('itemID_3', item.itemID)
+        npc:setLocalVar('itemAmount_3', item.amount)
         table.remove(tempBoxItems, random)
     end
 end
@@ -352,15 +352,15 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
     local ID = zones[player:getZoneID()]
 
     if csid == 2 then
-        local item_1 = npc:getLocalVar("itemID_1")
-        local item_2 = npc:getLocalVar("itemID_2")
-        local item_3 = npc:getLocalVar("itemID_3")
+        local item_1 = npc:getLocalVar('itemID_1')
+        local item_2 = npc:getLocalVar('itemID_2')
+        local item_3 = npc:getLocalVar('itemID_3')
 
         if option == 1 and item_1 > 0 then
             if not player:hasItem(item_1, xi.inventoryLocation.TEMPITEMS) then
                 player:addTempItem(item_1)
                 player:messageSpecial(ID.text.TEMP_ITEM, item_1)
-                npc:setLocalVar("itemAmount_1", npc:getLocalVar("itemAmount_1") - 1)
+                npc:setLocalVar('itemAmount_1', npc:getLocalVar('itemAmount_1') - 1)
             else
                 player:messageSpecial(ID.text.HAVE_TEMP_ITEM)
             end
@@ -368,7 +368,7 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
             if not player:hasItem(item_2, xi.inventoryLocation.TEMPITEMS) then
                 player:addTempItem(item_2)
                 player:messageSpecial(ID.text.TEMP_ITEM, item_2)
-                npc:setLocalVar("itemAmount_2", npc:getLocalVar("itemAmount_2") - 1)
+                npc:setLocalVar('itemAmount_2', npc:getLocalVar('itemAmount_2') - 1)
             else
                 player:messageSpecial(ID.text.HAVE_TEMP_ITEM)
             end
@@ -376,14 +376,14 @@ xi.salvageUtil.tempBoxFinish = function(player, csid, option, npc)
             if not player:hasItem(item_3, xi.inventoryLocation.TEMPITEMS) then
                 player:addTempItem(item_3)
                 player:messageSpecial(ID.text.TEMP_ITEM, item_3)
-                npc:setLocalVar("itemAmount_3", npc:getLocalVar("itemAmount_3") - 1)
+                npc:setLocalVar('itemAmount_3', npc:getLocalVar('itemAmount_3') - 1)
             else
                 player:messageSpecial(ID.text.HAVE_TEMP_ITEM)
             end
         end
 
-        if npc:getLocalVar("itemAmount_1") == 0 and npc:getLocalVar("itemAmount_2") == 0 and npc:getLocalVar("itemAmount_3") == 0 then
-            npc:queue(10000, function(npc) npc:entityAnimationPacket("kesu") end)
+        if npc:getLocalVar('itemAmount_1') == 0 and npc:getLocalVar('itemAmount_2') == 0 and npc:getLocalVar('itemAmount_3') == 0 then
+            npc:queue(10000, function(npc) npc:entityAnimationPacket('kesu') end)
             npc:queue(12000, function(npc) npc:setStatus(xi.status.DISAPPEAR) npc:setAnimationSub(8) end)
         end
     end
@@ -411,7 +411,7 @@ xi.salvageUtil.groupKilled = function(entity, indexID)
     for _, mobID in pairs(indexID) do
         local mobs = instance:getEntity(bit.band(mobID, 0xFFF), xi.objType.MOB)
 
-        if mobs:getLocalVar("spawned") == 0 then
+        if mobs:getLocalVar('spawned') == 0 then
             return false
         elseif mobs:isAlive() then
             return false

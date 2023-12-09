@@ -12,10 +12,13 @@ entity.onTrigger = function(player, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)
-    local instance = npc:getInstance()
-
     if csid == 300 and option == 1 then
-        xi.salvageUtil.onDoorOpen(npc, nil, 1)
+        local instance = npc:getInstance()
+
+        instance:getEntity(bit.band(npc:getID() - 1, 0xFFF), xi.objType.NPC):setStatus(xi.status.DISAPPEAR)
+        instance:getEntity(bit.band(npc:getID(), 0xFFF), xi.objType.NPC):setStatus(xi.status.DISAPPEAR)
+        instance:getEntity(bit.band(npc:getID() - 1, 0xFFF), xi.objType.NPC):setAnimation(8)
+        instance:getEntity(bit.band(npc:getID(), 0xFFF), xi.objType.NPC):setAnimation(8)
     end
 end
 

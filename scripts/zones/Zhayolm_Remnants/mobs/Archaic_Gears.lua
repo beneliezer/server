@@ -15,17 +15,17 @@ entity.onMobSpawn = function(mob)
             entity.onMobRoam(mob)
         end
     elseif instance:getStage() == 6 then
-        mob:addImmunity(xi.immunity.SLEEP)
+        -- mob:addImmunity(xi.immunity.SLEEP)
         entity.onMobRoam(mob)
     end
 end
 
 entity.onPath = function(mob)
     local instance = mob:getInstance()
-    local stage = instance:getStage()
+    local stage    = instance:getStage()
     local progress = instance:getProgress()
-    local mobID = mob:getID()
-    local offset = 0
+    local mobID    = mob:getID()
+    local offset   = 0
 
     if mobID >= 17076536 and mobID <= 17076547 then
         offset = 17076535
@@ -42,10 +42,10 @@ end
 
 entity.onMobRoam = function(mob)
     local instance = mob:getInstance()
-    local stage = instance:getStage()
+    local stage    = instance:getStage()
     local progress = instance:getProgress()
-    local mobID = mob:getID()
-    local offset = 0
+    local mobID    = mob:getID()
+    local offset   = 0
 
     if mobID >= 17076536 and mobID <= 17076547 then
         offset = 17076535
@@ -65,7 +65,7 @@ end
 
 entity.onMobDeath = function(mob, player, optParams)
     local instance = mob:getInstance()
-    local stage = instance:getStage()
+    local stage    = instance:getStage()
     local progress = instance:getProgress()
 
     if stage == 6 then
