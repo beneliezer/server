@@ -426,7 +426,7 @@ local prizes =
         ["items"] =
         {
         -- Crafting items, leave these here until we can modify our skillup rates again
-
+ 
         -- Dyna currency
             -- static item
             1450, -- Lungo-Nango Jadeshell
