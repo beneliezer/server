@@ -427,9 +427,6 @@ local prizes =
         {
         -- Crafting items, leave these here until we can modify our skillup rates again
 
-        -- static item
-            25637, -- Midrass Helm +1
-
         -- Dyna currency
             -- static item
             1450, -- Lungo-Nango Jadeshell
