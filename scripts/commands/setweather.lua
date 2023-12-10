@@ -6,25 +6,25 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "s"
+    permission = 1,
+    parameters = 's'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!setweather <weather ID>")
+    player:printToPlayer('!setweather <weather ID>')
 end
 
 commandObj.onTrigger = function(player, weather)
     -- validate weather
     if weather == nil then
-        error(player, "You must supply a weather ID.")
+        error(player, 'You must supply a weather ID.')
         return
     end
 
     weather = tonumber(weather) or xi.weather[string.upper(weather)]
     if weather == nil or weather < 0 or weather > 19 then
-        error(player, "Invalid weather ID.")
+        error(player, 'Invalid weather ID.')
         return
     end
 
@@ -36,7 +36,7 @@ commandObj.onTrigger = function(player, weather)
 
     -- set weather
     player:setWeather(weather)
-    player:printToPlayer(string.format("Set weather to %s.", weatherByNum[weather]))
+    player:printToPlayer(string.format('Set weather to %s.', weatherByNum[weather]))
 end
 
 return commandObj

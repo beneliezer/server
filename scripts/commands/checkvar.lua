@@ -6,13 +6,13 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "ss"
+    permission = 1,
+    parameters = 'ss'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!checkvar { 'server', or player } <variable name>")
+    player:printToPlayer('!checkvar { \'server\', or player } <variable name>')
 end
 
 commandObj.onTrigger = function(player, arg1, arg2)
@@ -41,7 +41,7 @@ commandObj.onTrigger = function(player, arg1, arg2)
             local target = targ
             targ = GetPlayerByName(targ)
             if targ == nil then
-                error(player, string.format("Player named '%s' not found!", target))
+                error(player, string.format('Player named "%s" not found!', target))
                 return
             end
         end
@@ -49,15 +49,15 @@ commandObj.onTrigger = function(player, arg1, arg2)
 
     -- validate varName
     if varName == nil then
-        error(player, "You must provide a variable name.")
+        error(player, 'You must provide a variable name.')
         return
     end
 
     -- show variable
-    if targ == "server" then
-        player:printToPlayer(string.format("Server variable '%s' : %u ", varName, GetServerVariable(varName)))
+    if targ == 'server' then
+        player:printToPlayer(string.format('Server variable \'%s\' : %u ', varName, GetServerVariable(varName)))
     else
-        player:printToPlayer(string.format("%s's variable '%s' : %u", targ:getName(), varName, targ:getCharVar(varName)))
+        player:printToPlayer(string.format('%s\'s variable \'%s\' : %u', targ:getName(), varName, targ:getCharVar(varName)))
     end
 end
 

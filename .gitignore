@@ -67,6 +67,7 @@ _ReSharper*
 
 # Jetbrains directories
 .idea
+.fleet
 cmake-*
 
 # NCrunch
@@ -168,8 +169,9 @@ log/leaks.txt
 .project
 .vs
 /win32/.vs/xi/v15
+.luarc.json
 
-# VS Code
+# VSCode
 .vscode
 
 # Visual Studio

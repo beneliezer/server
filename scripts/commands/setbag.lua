@@ -21,19 +21,19 @@ local bagparam =
 
 commandObj.cmdprops =
 {
-    permission = 5,
-    parameters = "i"
+    permission = 1,
+    parameters = 'i'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!bagsize <30-80 and multiple of 5>")
+    player:printToPlayer('!bagsize <30-80 and multiple of 5>')
 end
 
 commandObj.onTrigger = function(player, bagsize)
     -- Validate bag amount
     if bagsize < 30 or bagsize > 80 or (bagsize % 5 ~= 0) then
-        error(player, "Invalid bag size.")
+        error(player, 'Invalid bag size.')
         return
     end
 
@@ -49,8 +49,8 @@ commandObj.onTrigger = function(player, bagsize)
     end
 
     -- Inform player and set bag size
-    player:printToPlayer(string.format("Old Bag Size: %u", currentBagSize))
-    player:printToPlayer(string.format("New Bag Size: %u", bagsize))
+    player:printToPlayer(string.format('Old Bag Size: %u', currentBagSize))
+    player:printToPlayer(string.format('New Bag Size: %u', bagsize))
     player:changeContainerSize(xi.inv.INVENTORY, adjustment)
     player:changeContainerSize(xi.inv.MOGSATCHEL, adjustment)
 end

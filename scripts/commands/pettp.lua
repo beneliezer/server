@@ -6,26 +6,26 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 5,
-    parameters = "i"
+    permission = 1,
+    parameters = 'i'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!pettp <amount>")
+    player:printToPlayer('!pettp <amount>')
 end
 
 commandObj.onTrigger = function(player, tp)
     -- validate target
     local targ = player:getPet()
     if targ == nil then
-        error(player, "You do not have a pet.")
+        error(player, 'You do not have a pet.')
         return
     end
 
     -- validate tp amount
     if tp == nil or tp < 0 then
-        error(player, "Invalid amount of tp.")
+        error(player, 'Invalid amount of tp.')
         return
     end
 

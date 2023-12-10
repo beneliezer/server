@@ -6,19 +6,19 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "i"
+    permission = 1,
+    parameters = 'i'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!costume <costumeID>")
+    player:printToPlayer('!costume <costumeID>')
 end
 
 commandObj.onTrigger = function(player, costumeId)
     -- validate costumeId
     if costumeId == nil or costumeId < 0 then
-        error(player, "Invalid costumeID.")
+        error(player, 'Invalid costumeID.')
         return
     end
 
