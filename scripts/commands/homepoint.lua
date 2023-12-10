@@ -6,13 +6,13 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "s"
+    permission = 1,
+    parameters = 's'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!homepoint (player)")
+    player:printToPlayer('!homepoint (player)')
 end
 
 commandObj.onTrigger = function(player, target)
@@ -23,7 +23,7 @@ commandObj.onTrigger = function(player, target)
     else
         targ = GetPlayerByName(target)
         if targ == nil then
-            error(player, string.format("Player named '%s' not found!", target))
+            error(player, string.format('Player named "%s" not found!', target))
             return
         end
     end
@@ -31,7 +31,7 @@ commandObj.onTrigger = function(player, target)
     -- homepoint target
     targ:warp()
     if targ:getID() ~= player:getID() then
-        player:printToPlayer(string.format("Sent %s to their homepoint.", targ:getName()))
+        player:printToPlayer(string.format('Sent %s to their homepoint.', targ:getName()))
     end
 end
 

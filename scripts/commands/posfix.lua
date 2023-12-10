@@ -6,22 +6,22 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "s"
+    permission = 1,
+    parameters = 's'
 }
 
 local function error(player, msg)
     player:printToPlayer(msg)
-    player:printToPlayer("!posfix <player>")
+    player:printToPlayer('!posfix <player>')
 end
 
 commandObj.onTrigger = function(player, target)
     -- validate target
     if target == nil then
-        error(player, "You must supply the name of an offline player.")
+        error(player, 'You must supply the name of an offline player.')
     else
         player:resetPlayer(target)
-        player:printToPlayer(string.format("Fixed %s's position.", target))
+        player:printToPlayer(string.format('Fixed %s\'s position.', target))
     end
 end
 
