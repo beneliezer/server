@@ -7,7 +7,7 @@ local entity = {}
 
 entity.onMobDeath = function(mob, player, isKiller)
 	  player:addCurrency('cruor', 150)
-	  player:PrintToPlayer("You obtain 150 Cruor!", 0xD)
+	  player:printToPlayer("You obtain 150 Cruor!", 0xD)
     end
 
 

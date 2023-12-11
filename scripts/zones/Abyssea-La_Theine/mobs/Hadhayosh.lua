@@ -15,7 +15,7 @@ entity.onMobDeath = function(mob, player, isKiller)
 	end
 ]]--
 	  player:addCurrency('cruor', 1000)
-	  player:PrintToPlayer("You obtain 1000 Cruor!", 0xD)
+	  player:printToPlayer("You obtain 1000 Cruor!", 0xD)
     end
 
 return entity

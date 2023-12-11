@@ -33,8 +33,8 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    player:PrintToPlayer("Rakuru-Rakoru: Trade me all eight elemental staves or their HQ's, and I'll give you a special gift in return. ", 0xD)
-	player:PrintToPlayer("Rakuru-Rakoru: Trade me all eight elemental obis or gorgets, and I'll give you something even more extravagant! ", 0xD)
+    player:printToPlayer("Rakuru-Rakoru: Trade me all eight elemental staves or their HQ's, and I'll give you a special gift in return. ", 0xD)
+	player:printToPlayer("Rakuru-Rakoru: Trade me all eight elemental obis or gorgets, and I'll give you something even more extravagant! ", 0xD)
 end
 
 return entity

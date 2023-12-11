@@ -17,7 +17,7 @@ entity.onTrigger = function(player, npc)
         title = "Proceed through the gate?",
         onStart = function(playerArg)
             -- NOTE: This could be used to lock the player in place
-            -- playerArg:PrintToPlayer("Test Menu Opening", xi.msg.channel.NS_SAY)
+            -- playerArg:printToPlayer("Test Menu Opening", xi.msg.channel.NS_SAY)
         end,
         
         options =
