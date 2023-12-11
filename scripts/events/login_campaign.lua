@@ -99,7 +99,7 @@ end
 -- Handles showing the correct list of prices and hiding the options that are not available
 xi.events.loginCampaign.onTrigger = function(player, csid)
     if player:isCrystalWarrior() then
-        player:PrintToPlayer("You cannot claim login rewards as a Crystal Warrior.", xi.msg.channel.SYSTEM_3)
+        player:printToPlayer("You cannot claim login rewards as a Crystal Warrior.", xi.msg.channel.SYSTEM_3)
         return
     end
 
