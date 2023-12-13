@@ -3,10 +3,21 @@
 -- Salvage: Bhaflau Remnants
 --
 -----------------------------------
-local ID = require("scripts/zones/Bhaflau_Remnants/IDs")
-require("scripts/globals/instance")
+local ID = zones[xi.zone.BHAFLAU_REMNANTS]
 -----------------------------------
 local instanceObject = {}
+
+-- Once the instance is ready inform the requester that it's ready
+instanceObject.onInstanceCreatedCallback = function(player, instance)
+    xi.instance.onInstanceCreatedCallback(player, instance)
+
+    -- Kill the Nyzul Isle update spam
+    for _, v in ipairs(player:getParty()) do
+        if v:getZoneID() == instance:getEntranceZoneID() then
+            v:updateEvent(409, 3, 3, 3, 3, 3, 3, 3)
+        end
+    end
+end
 
 instanceObject.afterInstanceRegister = function(player)
     xi.salvageUtil.afterInstanceRegister(player, ID.text, xi.items.CAGE_OF_B_REMNANTS_FIREFLIES)
@@ -30,7 +41,7 @@ instanceObject.onInstanceFailure = function(instance)
     end
 end
 
-instanceObject.ontriggerAreaEnter = function(player, triggerArea, instance)
+instanceObject.onTriggerAreaEnter = function(player, triggerArea, instance)
     local triggerAreaID = triggerArea:GetTriggerAreaID()
 
     if triggerAreaID <= 8 then

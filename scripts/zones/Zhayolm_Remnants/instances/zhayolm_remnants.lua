@@ -14,7 +14,7 @@ instanceObject.onInstanceCreatedCallback = function(player, instance)
     -- Kill the Nyzul Isle update spam
     for _, v in ipairs(player:getParty()) do
         if v:getZoneID() == instance:getEntranceZoneID() then
-            v:updateEvent(407, 3, 3, 3, 3, 3, 3, 3)
+            v:updateEvent(409, 3, 3, 3, 3, 3, 3, 3)
         end
     end
 end
