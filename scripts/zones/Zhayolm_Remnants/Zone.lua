@@ -24,8 +24,4 @@ zoneObject.onInstanceLoadFailed = function()
     return xi.zone.ALZADAAL_UNDERSEA_RUINS
 end
 
-zoneObject.onInstanceLoadFailed = function()
-    return xi.zone.ALZADAAL_UNDERSEA_RUINS
-end
-
 return zoneObject

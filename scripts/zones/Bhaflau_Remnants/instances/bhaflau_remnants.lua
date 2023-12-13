@@ -20,7 +20,7 @@ instanceObject.onInstanceCreatedCallback = function(player, instance)
 end
 
 instanceObject.afterInstanceRegister = function(player)
-    xi.salvageUtil.afterInstanceRegister(player, ID.text, xi.items.CAGE_OF_B_REMNANTS_FIREFLIES)
+    xi.salvageUtil.afterInstanceRegister(player, ID.text, xi.item.CAGE_OF_B_REMNANTS_FIREFLIES)
 end
 
 instanceObject.onInstanceCreated = function(instance)
