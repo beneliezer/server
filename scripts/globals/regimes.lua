@@ -1097,7 +1097,7 @@ xi.regime.bookOnTrigger = function(player, regimeType)
 
         player:startEvent(info.event, 0, arg2, cipher, arg4, 0, 0, player:getCurrency('valor_point'), player:getCharVar('[regime]id'))
     else
-        player:PrintToPlayer('Disabled.')
+        player:printToPlayer('Disabled.')
     end
 end
 
@@ -1518,9 +1518,9 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
                 baseReward = math.ceil(baseReward * (.85 ^ completions))
 
                 if completions == 1 then
-                    player:PrintToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
                 else
-                    player:PrintToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
                 end
             end
 

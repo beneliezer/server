@@ -80,7 +80,7 @@ xi.survivalGuide.onTrigger = function(player)
             player:startEvent(8500, 0, param, player:getGil(), g1, g2, g3, g4, expansions)
         end
     else
-        player:PrintToPlayer('Survival guides are not enabled!')
+        player:printToPlayer('Survival guides are not enabled!')
     end
 end
 
@@ -177,7 +177,7 @@ xi.survivalGuide.onEventFinish = function(player, eventId, option, npc)
                 if canTeleport then
 				-- Disable book warps in Behemoths Dominion, Valley of Sorrows, and Dragon's Aery.
 				    if guide.zoneId == 127 or guide.zoneId == 128 or guide.zoneId == 154 then
-					    player:PrintToPlayer("Travel to this destination is restricted.")
+					    player:printToPlayer("Travel to this destination is restricted.")
 						player:timer(3000, function(playerArg)
 						    player:setPos(-5.553, 0.000, 3.621, 89, 245)
 						end)

@@ -6,19 +6,19 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 5,
-    parameters = "s"
+    permission = 1,
+    parameters = 's'
 }
 
 local function error(player, msg)
-    player:PrintToPlayer(msg)
-    player:PrintToPlayer("!inject <packet>")
+    player:printToPlayer(msg)
+    player:printToPlayer('!inject <packet>')
 end
 
 commandObj.onTrigger = function(player, packet)
     -- validate packet
     if packet == nil then
-        error(player, "You must enter a packet file name.")
+        error(player, 'You must enter a packet file name.')
         return
     end
 

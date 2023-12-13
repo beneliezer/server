@@ -16,7 +16,7 @@ entity.onMobDeath = function(mob, player, isKiller)
 --	npcUtil.giveKeyItem(player, xi.ki.RHAPSODY_IN_EMERALD)
 --	end
 	  player:addCurrency('cruor', 500)
-	  player:PrintToPlayer("You obtain 500 Cruor!", 0xD)
+	  player:printToPlayer("You obtain 500 Cruor!", 0xD)
     end
 
 return entity

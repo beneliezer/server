@@ -6,13 +6,13 @@ local commandObj = {}
 
 commandObj.cmdprops =
 {
-    permission = 2,
-    parameters = "s"
+    permission = 1,
+    parameters = 's'
 }
 
 local function error(player, msg)
-    player:PrintToPlayer(msg)
-    player:PrintToPlayer("!release (name)")
+    player:printToPlayer(msg)
+    player:printToPlayer('!release (name)')
 end
 
 commandObj.onTrigger = function(player, name)
@@ -22,7 +22,7 @@ commandObj.onTrigger = function(player, name)
     else
         target = GetPlayerByName(name)
         if target == nil then
-            error(player, string.format("Player named '%s' not found!", name))
+            error(player, string.format('Player named "%s" not found!', name))
             return
         end
     end
