@@ -15,7 +15,7 @@ def from_server_path(path):
 
 def apply_patches():
     # Iterate through the patch files
-    for filename in os.listdir(patch_dir):
+    for filename in sorted(os.listdir(patch_dir)):
         if filename.endswith(".patch"):
             patch_path = os.path.abspath(os.path.join(patch_dir, filename))
             try:
