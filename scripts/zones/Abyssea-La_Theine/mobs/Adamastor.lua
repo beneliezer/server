@@ -11,7 +11,7 @@ entity.onMobDeath = function(mob, player, isKiller)
       npcUtil.giveKeyItem(player, xi.ki.DENTED_GIGAS_SHIELD)
 	  end
 	  player:addCurrency('cruor', 250)
-	  player:PrintToPlayer("You obtain 250 Cruor!", 0xD)
+	  player:printToPlayer("You obtain 250 Cruor!", 0xD)
     end
 
 

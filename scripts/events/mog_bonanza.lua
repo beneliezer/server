@@ -279,7 +279,7 @@ xi.events.mogBonanza.onBonanzaMoogleTrigger = function(player, npc)
         local baseCs = csidLookup[player:getZoneID()]
 
         -- Alert player to price of pearl
-        player:PrintToPlayer("NOTICE: Bonazna pearls are 300,000g for QoL, and 30,000 for Crystal Warriors!")
+        player:printToPlayer("NOTICE: Bonazna pearls are 300,000g for QoL, and 30,000 for Crystal Warriors!")
 
         if isInPurchasingPeriod() then
             player:startEvent(baseCs,

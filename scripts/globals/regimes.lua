@@ -1518,9 +1518,9 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
                 baseReward = math.ceil(baseReward * (.85 ^ completions))
 
                 if completions == 1 then
-                    player:PrintToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
                 else
-                    player:PrintToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
                 end
             end
 

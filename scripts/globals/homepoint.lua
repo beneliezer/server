@@ -185,7 +185,7 @@ xi.homepoint.onTrigger = function(player, csid, index)
 
     for _, restrictedZone in ipairs(noHealZones) do
         if currentZone == restrictedZone then
-            player:PrintToPlayer("NOTE: HP/MP refills are disabled in this area.")
+            player:printToPlayer("NOTE: HP/MP refills are disabled in this area.")
         else
             player:addHP(player:getMaxHP())
             player:addMP(player:getMaxMP())
