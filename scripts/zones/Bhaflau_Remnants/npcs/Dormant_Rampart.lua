@@ -6,6 +6,7 @@ local ID = require("scripts/zones/Bhaflau_Remnants/IDs")
 local entity = {}
 
 entity.onTrigger = function(player, npc)
+    print('test')
     player:startEvent(3)
 end
 
@@ -24,7 +25,7 @@ entity.onEventFinish = function(player, csid, option, npc)
             local pos = ID.pos[stage][progress].enter
             players:timer(3000, function(npc) players:setPos(pos[1], pos[2], pos[3], pos[4]) end)
         end
-		
+
         npc:AnimationSub(0)
     elseif csid == 5 then
         npc:setStatus(xi.status.INVISIBLE)

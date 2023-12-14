@@ -17,7 +17,7 @@ entity.onMobSpawn = function(mob)
 end
 
 entity.onMobEngaged = function(mob, target)
-    mob:AnimationSub(1)
+    mob:setAnimationSub(1)
     mob:setLocalVar("next", os.time())
 end
 

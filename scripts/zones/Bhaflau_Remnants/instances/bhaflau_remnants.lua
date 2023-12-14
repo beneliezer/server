@@ -81,7 +81,7 @@ instanceObject.onEventFinish = function(player, csid, option)
 
     if option == 1 then
         if csid >= 200 and csid <= 207 then
-            salvageUtil.teleportGroup(player)
+            xi.salvageUtil.teleportGroup(player)
             xi.salvageUtil.spawnStage(player)
         end
     end

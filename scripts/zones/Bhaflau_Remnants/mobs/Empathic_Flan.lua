@@ -8,7 +8,7 @@ local ID = require("scripts/zones/Bhaflau_Remnants/IDs")
 local entity = {}
 
 entity.onMobSpawn = function(mob)
-    mob:AnimationSub(1)
+    mob:setAnimationSub(1)
 
     if mob:getID() == ID.mob[2][0].STAGE_START.MAGICAL then
         mob:setMod(xi.mod.DMGMAGIC, -25)
@@ -25,7 +25,7 @@ entity.onMobSpawn = function(mob)
             accumulated = mob:getLocalVar("physical")
             accumulated = accumulated + damage
             if accumulated > mob:getMaxHP() * 0.1 or damage > mob:getMaxHP() * 0.1 then
-                mob:AnimationSub(2) -- Spike head
+                mob:setAnimationSub(2) -- Spike head
                 mob:addMod(xi.mod.DMGPHYS, -50)
                 mob:addMod(xi.mod.DMGRANGE, -50)
                 mob:addMod(xi.mod.DMGMAGIC, 50)
@@ -38,7 +38,7 @@ entity.onMobSpawn = function(mob)
             accumulated = mob:getLocalVar("physical")
             accumulated = accumulated + damage
             if accumulated > mob:getMaxHP() * 0.5 or damage > mob:getMaxHP() * 0.2 then
-                mob:AnimationSub(2) -- Spike head
+                mob:setAnimationSub(2) -- Spike head
                 mob:addMod(xi.mod.DMGPHYS, -50)
                 mob:addMod(xi.mod.DMGRANGE, -50)
                 mob:addMod(xi.mod.DMGMAGIC, 50)
@@ -51,7 +51,7 @@ entity.onMobSpawn = function(mob)
             accumulated = mob:getLocalVar("magical")
             accumulated = accumulated + damage
             if accumulated > mob:getMaxHP() * 0.1 or damage > mob:getMaxHP() * 0.1 then
-                mob:AnimationSub(1) -- Smooth head
+                mob:setAnimationSub(1) -- Smooth head
                 mob:addMod(xi.mod.DMGPHYS, 50)
                 mob:addMod(xi.mod.DMGRANGE, 50)
                 mob:addMod(xi.mod.DMGMAGIC, -50)

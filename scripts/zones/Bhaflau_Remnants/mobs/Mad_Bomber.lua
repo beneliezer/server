@@ -9,7 +9,7 @@ local ID = require("scripts/zones/Bhaflau_Remnants/IDs")
 local entity = {}
 
 entity.onMobSpawn = function(mob)
-    mob:AnimationSub(0)
+    mob:setAnimationSub(0)
 end
 
 entity.onMobEngaged = function(mob, target)
@@ -17,7 +17,7 @@ entity.onMobEngaged = function(mob, target)
 end
 
 entity.onMobFight = function(mob, target)
-    local size = mob:AnimationSub()
+    local size = mob:setAnimationSub()
     local shifttime = mob:getLocalVar("shifttime")
 
     if mob:getBattleTime() > shifttime then
@@ -26,7 +26,7 @@ entity.onMobFight = function(mob, target)
             mob:getLocalVar("timeUp", 1)
         else
             mob:setLocalVar("shifttime", shifttime + 20)
-            mob:AnimationSub(size + 1)
+            mob:setAnimationSub(size + 1)
         end
     end
 end

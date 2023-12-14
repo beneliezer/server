@@ -15,7 +15,7 @@ entity.onTrade = function(player, npc, trade)
     local COUNT = trade:getItemCount()
     local pos = npc:getPos()
 
-    for i = xi.items.INCUS_CELL, xi.items.SPISSATUS_CELL do
+    for i = xi.item.INCUS_CELL, xi.item.SPISSATUS_CELL do
         if COUNT <= 5 and trade:hasItemQty(i, COUNT) then
             mob:setSpawn(pos.x + math.random(-2, 2), pos.y, pos.z + math.random(-2, 2), 0)
             SpawnMob(ID.mob[2].FLUX_FLAN, instance):updateClaim(player)
