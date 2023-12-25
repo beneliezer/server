@@ -1450,6 +1450,18 @@ bool CLuaBaseEntity::isPet()
 }
 
 /************************************************************************
+ *  Function: isTrust()
+ *  Purpose : Returns true if entity is of the Trust object type
+ *  Example : if caster:isTrust() then
+ *  Notes   :
+ ************************************************************************/
+
+bool CLuaBaseEntity::isTrust()
+{
+    return m_PBaseEntity->objtype == TYPE_TRUST;
+}
+
+/************************************************************************
  *  Function: isAlly()
  *  Purpose : Returns true if entity is an ally
  *  Example : if mob:isAlly() then table.insert(allies, mob) end
@@ -2076,7 +2088,6 @@ void CLuaBaseEntity::setElevator(uint8 id, uint32 lowerDoor, uint32 upperDoor, u
 
     elevator.zoneID = m_PBaseEntity->loc.zone->GetID();
 
-    elevator.Elevator->name.resize(10);
     CTransportHandler::getInstance()->insertElevator(elevator);
 }
 
@@ -2694,9 +2705,7 @@ void CLuaBaseEntity::updateToEntireZone(uint8 statusID, uint8 animation, sol::ob
     // If this flag is high, update the NPC's name to match the current time
     if (updateForTime == true)
     {
-        PNpc->name.resize(10);
-        ref<uint32>(&PNpc->name[0], 4) = CVanaTime::getInstance()->getVanaTime();
-        PNpc->name[8]                  = 8;
+        PNpc->SetLocalVar("TransportTimestamp", CVanaTime::getInstance()->getVanaTime());
     }
 
     PNpc->loc.zone->UpdateEntityPacket(PNpc, ENTITY_UPDATE, UPDATE_COMBAT, true);
@@ -17140,6 +17149,7 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("isNPC", CLuaBaseEntity::isNPC);
     SOL_REGISTER("isMob", CLuaBaseEntity::isMob);
     SOL_REGISTER("isPet", CLuaBaseEntity::isPet);
+    SOL_REGISTER("isTrust", CLuaBaseEntity::isTrust);
     SOL_REGISTER("isAlly", CLuaBaseEntity::isAlly);
 
     // AI and Control
