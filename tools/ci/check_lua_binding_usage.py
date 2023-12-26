@@ -99,6 +99,8 @@ def main():
     function_names.append("setStartFunction")
     function_names.append("setEndFunction")
     function_names.append("isCrystalWarrior")
+    function_names.append("isClassicMode")
+    function_names.append("partyHighestLevel")
     function_names.append("getType")
 
     # root_dir needs a trailing slash (i.e. /root/dir/)
