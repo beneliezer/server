@@ -1,5 +1,4 @@
 require('scripts/globals/abyssea')
-require("scripts/globals/afterglow")
 require("scripts/globals/gear_sets")
 require("scripts/globals/quests")
 require("scripts/globals/teleports")
