@@ -18,7 +18,7 @@ xi.settings.search =
     EXPIRE_AUCTIONS = true,
 
     -- Expire items older than this number of days
-    EXPIRE_DAYS = 60,
+    EXPIRE_DAYS = 42,
 
     -- Interval is in seconds, default is one hour
     EXPIRE_INTERVAL = 3600,
