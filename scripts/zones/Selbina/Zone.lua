@@ -25,11 +25,19 @@ zoneObject.onZoneIn = function(player, prevZone)
             prevZone == xi.zone.SHIP_BOUND_FOR_SELBINA or
             prevZone == xi.zone.SHIP_BOUND_FOR_SELBINA_PIRATES
         then
+            local ship = GetNPCByID(ID.npc.SHIP)
+
+            ship:setAnimBegin(VanadielTime())
             cs = 202
             player:setPos(32.500, -2.500, -45.500, 192)
         else
             player:setPos(17.981, -16.806, 99.83, 64)
         end
+    end
+
+    -- fixing player position if logged off / crashed on ship
+    if player:getZPos() < -59.5 then
+        player:setPos(18.05, -1.38, -56.75)
     end
 
     if

@@ -36,6 +36,9 @@ zoneObject.onZoneIn = function(player, prevZone)
             prevZone == xi.zone.OPEN_SEA_ROUTE_TO_MHAURA or
             prevZone == xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES
         then
+            local ship = GetNPCByID(ID.npc.SHIP)
+
+            ship:setAnimBegin(VanadielTime())
             cs = 202
             player:setPos(14.960, -3.430, 18.423, 192)
         else
@@ -50,6 +53,10 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:getCharVar('COP_shikarees_story') == 0
     then
         cs = 322
+    end
+
+    if player:getZPos() < 1.6 then -- fixing player position if logged off / crashed on ship
+        player:setPos(8.23, -1.3, 4.48)
     end
 
     return cs

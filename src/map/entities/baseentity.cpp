@@ -48,6 +48,10 @@ CBaseEntity::CBaseEntity()
 , PAI(nullptr)
 , PBattlefield(nullptr)
 , PInstance(nullptr)
+, animStart(false)
+, animPath(0)
+, animBegin(0)
+, manualConfig(false)
 , m_nextUpdateTimer(std::chrono::steady_clock::now())
 {
 }

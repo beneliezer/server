@@ -254,13 +254,39 @@ void CEntityUpdatePacket::updateWith(CBaseEntity* PEntity, ENTITYUPDATE type, ui
             std::memcpy(data + 0x34, PEntity->getName().c_str(), (PEntity->getName().size() > 12 ? 12 : PEntity->getName().size()));
         }
         break;
-        case MODEL_SHIP:
         case MODEL_ELEVATOR:
         {
             this->setSize(0x48);
             ref<uint16>(0x30) = PEntity->look.size;
             auto name         = getTransportNPCName(PEntity);
             std::memcpy(data + 0x34, name.data(), name.size());
+        }
+        case MODEL_SHIP:
+        {
+            this->setSize(0x48);
+            ref<uint16>(0x30) = PEntity->look.size;
+            memcpy(data + 0x34, PEntity->getName().c_str(), std::min(12, static_cast<int>(PEntity->getName().size())));
+            if (PEntity->manualConfig)
+            {
+                this->setSize(0x40);
+                if (PEntity->animStart)
+                {
+                    ref<uint16>(0x18)  = 0x8007;
+                    ref<uint8>(0x1A)   = PEntity->animStart ? 0x01 : 0;
+                    ref<uint8>(0x1F)   = PEntity->animation;
+                    PEntity->animStart = false;
+                }
+                else
+                {
+                    uint32 msFrames   = (uint32)std::round((getCurrentTimeMs() * 60) / 1000);
+                    uint32 diff       = CVanaTime::getInstance()->getVanaTime() - PEntity->animBegin;
+                    uint32 frameCount = 0x8006 + (diff * 60) + msFrames;
+                    ref<uint32>(0x18) = frameCount;
+                }
+                ref<uint32>(0x34) = PEntity->animPath;
+                uint32 timestamp  = ((CNpcEntity*)PEntity)->animBegin;
+                ref<uint32>(0x38) = timestamp;
+            }
         }
         break;
     }

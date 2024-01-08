@@ -23,7 +23,11 @@ zones[xi.zone.SHIP_BOUND_FOR_SELBINA] =
     },
     mob =
     {
-        ENAGAKURE = 17678351,
+         -- Sea Creature Offset
+        SEA_CREATURES = 17678342,
+        PHANTOM       = 17678347,
+        SEA_HORROR    = 17678350,
+        ENAGAKURE     = 17678351,
     },
     npc =
     {

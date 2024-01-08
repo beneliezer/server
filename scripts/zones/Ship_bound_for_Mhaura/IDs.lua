@@ -23,6 +23,10 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA] =
     },
     mob =
     {
+        -- Sea Creature Offset
+        SEA_CREATURES = 17682438,
+        SEA_HORROR    = 17682446,
+        PHANTOM       = 17682443,
     },
     npc =
     {
