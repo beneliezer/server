@@ -37,10 +37,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
             {
                 start_pos =
                 {
-                    x = 33.601,
-                    y = -7.163,
-                    z = 13.377,
-                    rot = 128
+                    33.601, -7.163, 13.377, 128
                 },
                 enter_path =
                 {
@@ -50,9 +47,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
                 },
                 look_at =
                 {
-                    x = 20,
-                    y = -7.163,
-                    z = 10.46
+                    20, -7.163, 10.46
                 },
                 exit_path =
                 {
@@ -66,10 +61,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
             {
                 start_pos =
                 {
-                    x = 29.728,
-                    y = -7.163,
-                    z = 1.303,
-                    rot = 128
+                    29.728, -7.163, 1.303, 128
                 },
                 enter_path =
                 {
@@ -79,9 +71,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
                 },
                 look_at =
                 {
-                    x = 20,
-                    y = -7.163,
-                    z = 6.59
+                    20, -7.163, 6.59
                 },
                 exit_path =
                 {
@@ -98,10 +88,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
             {
                 start_pos =
                 {
-                    x = 29.602,
-                    y = -7.163,
-                    z = -2.475,
-                    rot = 128
+                    29.602, -7.163, -2.475, 128
                 },
                 enter_path =
                 {
@@ -114,9 +101,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
                 },
                 look_at =
                 {
-                    x = 20,
-                    y = -7.163,
-                    z = 2.10
+                    20, -7.163, 2.10
                 },
                 exit_path =
                 {
@@ -133,10 +118,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
             {
                 start_pos =
                 {
-                    x = 29.728,
-                    y = -7.163,
-                    z = 1.303,
-                    rot = 128
+                    29.728, -7.163, 1.303, 128
                 },
                 enter_path =
                 {
@@ -146,9 +128,7 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
                 },
                 look_at =
                 {
-                    x = 20,
-                    y = -7.163,
-                    z = 6.59
+                    20, -7.163, 6.59
                 },
                 exit_path =
                 {
@@ -167,17 +147,11 @@ zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES] =
             id = 17711139,
             start_pos =
             {
-                x = 150,
-                y = 0,
-                z = -1000,
-                rot = 192
+                150, 0, -1000, 192
             },
             event_pos =
             {
-                x = 30,
-                y = 0,
-                z = 0,
-                rot = 192
+                30, 0, 0, 192
             },
             anim_path = 14
         }
