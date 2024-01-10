@@ -242,6 +242,3 @@ xi_search.dSYM
 # Catseye proprietary
 modules/catseyexi
 modules/contrib
-control/
-control/scripts/
-log/
