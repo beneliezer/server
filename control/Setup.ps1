@@ -54,6 +54,9 @@ Get-ChildItem -Path "$PSScriptRoot\scripts\*.bat" | ForEach-Object {
     (Get-Content $_.FullName) | ForEach-Object {
         $_ -replace [regex]::Escape($currentIP), $newIP
     } | Set-Content $_.FullName
+
+    # Add the command to run 'git update-index --skip-worktree'
+    git update-index --skip-worktree $_.FullName
 }
 
 Write-Host "New IP has been set to: "$newIP
