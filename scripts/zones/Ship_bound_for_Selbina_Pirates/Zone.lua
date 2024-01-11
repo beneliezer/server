@@ -5,7 +5,6 @@ require("scripts/globals/pirates")
 require("scripts/globals/sea_creatures")
 -----------------------------------
 local ID = zones[xi.zone.SHIP_BOUND_FOR_SELBINA_PIRATES]
-
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -22,9 +21,7 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:getZPos() == 0
     then
         local position = math.random(-2, 2) + 0.150
-
         player:setPos(position, -2.100, 3.250, 64)
-
         if
             player:getGMLevel() == 0 and
             GetZone(zoneID):getLocalVar('stateSet') == 0
@@ -46,7 +43,6 @@ zoneObject.onGameHour = function(zone)
     then
         -- Check for Enagakure
         local players = zone:getPlayers()
-
         for _, player in pairs(players) do
             if player:hasKeyItem(xi.ki.SEANCE_STAFF)
                 and player:getVar("Enagakure_Killed") == 0
@@ -55,7 +51,6 @@ zoneObject.onGameHour = function(zone)
                 GetMobByID(ID.mob.ENAGAKURE):spawn()
             end
         end
-
         if
             math.random() < 0.20 and
             not GetMobByID(ID.mob.PHANTOM):isSpawned()
@@ -66,7 +61,6 @@ zoneObject.onGameHour = function(zone)
         if GetMobByID(ID.mob.PHANTOM):isSpawned() then
             DespawnMob(ID.mob.PHANTOM)
         end
-
         if GetMobByID(ID.mob.ENAGAKURE):isSpawned() then
             DespawnMob(ID.mob.ENAGAKURE)
         end
@@ -78,7 +72,6 @@ zoneObject.onZoneTick = function(zone)
         if GetMobByID(ID.mob.PHANTOM):isSpawned() then
             DespawnMob(ID.mob.PHANTOM)
         end
-
         xi.sea_creatures.despawn(ID)
         zone:setLocalVar('state', 0)
     elseif zone:getLocalVar('state') == 2 then
