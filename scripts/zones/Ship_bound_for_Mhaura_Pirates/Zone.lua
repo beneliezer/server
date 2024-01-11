@@ -1,18 +1,17 @@
 -----------------------------------
 -- Zone: Ship_bound_for_Mhaura_Pirates (228)
 -----------------------------------
-require("scripts/globals/pirates")
-require("scripts/globals/sea_creatures")
+local ID = require('scripts/zones/Ship_bound_for_Mhaura_Pirates/IDs')
+require('scripts/globals/pirates')
+require('scripts/globals/sea_creatures')
 -----------------------------------
-local ID = zones[xi.zone.SHIP_BOUND_FOR_MHAURA_PIRATES]
-
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
     xi.pirates.init(ID)
 end
 
-zoneObject.onZoneIn = function(player, prevZone, zone)
+zoneObject.onZoneIn = function(player, prevZone)
     local cs = -1
     local zoneID = 228
 
@@ -22,9 +21,7 @@ zoneObject.onZoneIn = function(player, prevZone, zone)
         player:getZPos() == 0
     then
         local position = math.random(-2, 2) + 0.150
-
         player:setPos(position, -2.100, 3.250, 64)
-
         if
             player:getGMLevel() == 0 and
             GetZone(zoneID):getLocalVar('stateSet') == 0
@@ -40,7 +37,6 @@ end
 
 zoneObject.onGameHour = function()
     local hour = VanadielHour()
-
     if
         hour >= 20 or
         hour < 4
@@ -59,11 +55,9 @@ end
 zoneObject.onZoneTick = function(zone)
     if zone:getLocalVar('state') == 1 then
         zone:setLocalVar('state', 0)
-
         if GetMobByID(ID.mob.PHANTOM):isSpawned() then
             DespawnMob(ID.mob.PHANTOM)
         end
-
         xi.sea_creatures.despawn(ID)
     elseif zone:getLocalVar('state') == 2 then
         zone:setLocalVar('state', 0)
@@ -84,10 +78,10 @@ zoneObject.onTransportEvent = function(player, transport)
     player:startEvent(512)
 end
 
-zoneObject.onEventUpdate = function(player, csid, option, npc)
+zoneObject.onEventUpdate = function(player, csid, option)
 end
 
-zoneObject.onEventFinish = function(player, csid, option, npc)
+zoneObject.onEventFinish = function(player, csid, option)
     if csid == 512 then
         player:setPos(0, 0, 0, 0, xi.zone.MHAURA)
     end
