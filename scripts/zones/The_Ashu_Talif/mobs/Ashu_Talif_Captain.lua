@@ -10,6 +10,29 @@ entity.onMobSpawn = function(mob)
     mob:setUnkillable(true)
 end
 
+entity.onMobEngaged = function(mob, target)
+    local jumped = mob:getLocalVar('jump')
+    local ready = mob:getLocalVar('ready')
+	
+	-- Becomes ready when the Crew is engaged. Jump down!
+    if ready == 1 and jumped == 0 then
+        mob:showText(mob, ID.text.OVERPOWERED_CREW)
+        mob:hideName(true)
+        mob:entityAnimationPacket('jmp0')
+        mob:timer(2000, function(m)
+            m:setPos(0, -22, 13, 192)
+            m:entityAnimationPacket('jmp1')
+            m:showText(mob, ID.text.TEST_YOUR_BLADES)
+            m:timer(2000, function(mAnimation)
+                mAnimation:hideName(false)
+                mAnimation:setUntargetable(false)
+            end)
+        end)
+
+        mob:setLocalVar('jump', 1)
+    end
+end
+
 entity.onMobFight = function(mob, target)
     -- The captain gives up at <= 20% HP. Everyone disengages
     local instance = mob:getInstance()
@@ -32,10 +55,10 @@ entity.onMobFight = function(mob, target)
 end
 
 entity.onMobRoam = function(mob)
-    local jumped = mob:getLocalVar('jump')
+    -- failsafe in case of party wipe/reraise
+	local jumped = mob:getLocalVar('jump')
     local ready = mob:getLocalVar('ready')
 
-    -- Becomes ready when the Crew is engaged. Jump down!
     if ready == 1 and jumped == 0 then
         mob:showText(mob, ID.text.OVERPOWERED_CREW)
         mob:hideName(true)
