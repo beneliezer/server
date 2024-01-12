@@ -21,14 +21,21 @@ zoneObject.onZoneIn = function(player, prevZone)
         player:getZPos() == 0
     then
         local position = math.random(-2, 2) + 0.150
+        local stateSet = GetZone(zoneID):getLocalVar('stateSet')
+        local state    = GetZone(zoneID):getLocalVar('state')
+        local transportTime = GetZone(zoneID):getLocalVar('transportTime', os.time())
+
         player:setPos(position, -2.100, 3.250, 64)
-        if
-            player:getGMLevel() == 0 and
+
+        if 
+            --  player:getGMLevel() == 0 and
             GetZone(zoneID):getLocalVar('stateSet') == 0
         then
             GetZone(zoneID):setLocalVar('stateSet', 1)
             GetZone(zoneID):setLocalVar('state', 2)
             GetZone(zoneID):setLocalVar('transportTime', os.time())
+
+            print('stateSet: ' .. stateSet .. 'state: ' .. state .. ' transportTime: ' .. transportTime)
         end
     end
 
@@ -69,6 +76,7 @@ zoneObject.onZoneTick = function(zone)
         xi.sea_creatures.checkSpawns(ID, 1, 2) -- 1 percent per vana minute, 2 total mobs
     end
 
+    -- print('[PIRATES] CurrentTime: ' .. os.time() .. ' transportTime: ' .. zone:getLocalVar('transportTime') .. ' tripTime: ' .. os.time()-zone:getLocalVar('transportTime'))
     xi.pirates.update(ID, zone, os.time()-zone:getLocalVar('transportTime'))
 end
 

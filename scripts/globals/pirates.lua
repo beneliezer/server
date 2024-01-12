@@ -24,6 +24,7 @@ local function SetZoneMusic(zone, block, track)
 end
 
 xi.pirates.init = function(ID)
+    print('[PIRATES] Event initializing')
     local ship = GetNPCByID(ID.npc.PIRATE_SHIP.id)
     ship:setAnimPath(ID.npc.PIRATE_SHIP.anim_path)
     ship:setStatus(xi.status.DISAPPEAR)
@@ -39,11 +40,13 @@ end
 xi.pirates.start = function(ID)
     local ship = GetNPCByID(ID.npc.PIRATE_SHIP.id)
     local hqChance = math.random(0, 100)
+    print('[PIRATES] Event starting')
     ship:setLocalVar("pirateStatus", xi.pirates.status.IDLE)
     xi.pirates.despawnMobs(ID)
     xi.pirates.reset(ID)
 
     if hqChance >= 80 then
+        print('[PIRATES] HQ Pirate Attack!')
         ship:setLocalVar('HQ', 1)
     else
         ship:setLocalVar('HQ', 0) -- Resetting to 0 as a fallback
@@ -52,6 +55,7 @@ end
 
 xi.pirates.reset = function(ID)
     local ship = GetNPCByID(ID.npc.PIRATE_SHIP.id)
+    print('[PIRATES] Event Resetting')
     ship:setAnimation(0)
     ship:setStatus(xi.status.DISAPPEAR)
     xi.pirates.setShipPosition(ship, ID.npc.PIRATE_SHIP.start_pos)
@@ -64,6 +68,7 @@ xi.pirates.spawnMob = function(mobId)
     local z = math.random(10, 22)
     local rot = math.random(0, 255)
     local mob = GetMobByID(mobId)
+
     mob:setSpawn(x, y, z, rot)
     mob:spawn()
 end
@@ -125,6 +130,7 @@ xi.pirates.despawnMobs = function(ID)
 end
 
 xi.pirates.despawnNPCs = function(ID)
+    print('[PIRATES] Despawning NPCs')
     for k in pairs(ID.npc.PIRATES) do
         local npc = GetNPCByID(k)
         npc:setLocalVar("summoning", 0)
@@ -134,6 +140,7 @@ end
 
 xi.pirates.setShipPosition = function(ship, pos)
     ship:setPos(pos.x, pos.y, pos.z, pos.rot)
+        print('[PIRATES] Setting ship position')
 end
 
 xi.pirates.summonAnimations = function(ID, firstcast)
@@ -175,6 +182,7 @@ xi.pirates.update = function(ID, zone, tripTime)
                 SetZoneMusic(zone, 0, 0)
                 SetZoneMusic(zone, 1, 0)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.PREPARING)
+                print('[PIRATES] Pirates are preparing ...')
             end
         end,
 
@@ -188,6 +196,7 @@ xi.pirates.update = function(ID, zone, tripTime)
                 xi.pirates.setShipPosition(ship, ID.npc.PIRATE_SHIP.start_pos)
                 ship:sendUpdateToZoneCharsInRange(2000)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.ARRIVING)
+                print('[PIRATES] Pirates are arriving ...')
             end
         end,
 
@@ -218,6 +227,8 @@ xi.pirates.update = function(ID, zone, tripTime)
                 xi.pirates.setShipPosition(ship, ID.npc.PIRATE_SHIP.event_pos)
                 ship:sendUpdateToZoneCharsInRange(2000)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.SPAWNING)
+                print('[PIRATES] Pirates are spawning')
+
             end
         end,
 
@@ -227,6 +238,7 @@ xi.pirates.update = function(ID, zone, tripTime)
                 ship:setAnimation(0)
                 ship:sendUpdateToZoneCharsInRange(2000)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.ATTACKING)
+                print('[PIRATES] Pirates are attacking!')
                 for k, pirate in pairs(ID.npc.PIRATES) do
                     local npc = GetNPCByID(k)
                     npc:setLocalVar("castmode", 1)
@@ -266,6 +278,7 @@ xi.pirates.update = function(ID, zone, tripTime)
 
                 xi.pirates.despawnMobs(ID)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.DESPAWNING)
+                print('[PIRATES] Pirates are despawning')
             elseif tripTime <= 685 and tripTime >= 304 then
                 xi.pirates.summonAnimations(ID, false)
                 xi.pirates.spawnMobs(ID)
@@ -283,6 +296,7 @@ xi.pirates.update = function(ID, zone, tripTime)
                 ship:setAnimBegin(VanadielTime())
                 xi.pirates.setShipPosition(ship, ID.npc.PIRATE_SHIP.start_pos)
                 ship:sendUpdateToZoneCharsInRange(2000)
+                print('[PIRATES] Pirates are departing')
                 ship:setLocalVar("pirateStatus", xi.pirates.status.DEPARTING)
             end
         end,
@@ -295,6 +309,8 @@ xi.pirates.update = function(ID, zone, tripTime)
                 ship:setStatus(xi.status.DISAPPEAR)
                 ship:sendUpdateToZoneCharsInRange(2000)
                 ship:setLocalVar("pirateStatus", xi.pirates.status.FINISHED)
+                print('[PIRATES] Event Finished')
+
             end
         end,
 
