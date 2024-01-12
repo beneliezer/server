@@ -54,9 +54,7 @@ zones[xi.zone.SHIP_BOUND_FOR_SELBINA_PIRATES] =
             },
             [17707042] =
             {
-                start_pos =
-                {
-                    x = -29.728, y = -7.163, z = 1.303, rotation = 128 },
+                start_pos = { x = -29.728, y = -7.163, z = 1.303, rotation = 128 },
                 enter_path =
                 {
                     { x = -24.87, y = -7.163, z = 2.77 },
