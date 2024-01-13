@@ -502,7 +502,7 @@ local regimeInfo =
                     { 3, 4, 0, 0, 72, 76, 1830, 723 },
                     { 4, 3, 0, 0, 72, 78, 1900, 724 },
                     { 3, 3, 0, 0, 74, 78, 1900, 725 },
-                    { 2, 2, 2, 0, 74, 78, 1900, 726 },
+--                    { 2, 2, 2, 0, 74, 78, 1900, 726 },  -- Disabled as pages 4-7 are level 72-78 mobs, and page 8 was originally level 102-104. Targets made into a merit camp. Can't imbalance merit camps by only one having a book, nor do merit camps need books.
                 },
             },
             [xi.zone.MIDDLE_DELKFUTTS_TOWER] =
