@@ -1520,7 +1520,7 @@ local function pickItem(player, info)
     local zoneId = player:getZoneID()
 
     -- found nothing
-    if math.random(1, 100) > info.settingRate then
+    if math.random(1, 100) > (info.settingRate - player:getMod(2000)) then
         return 0
     end
 
