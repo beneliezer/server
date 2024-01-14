@@ -99,6 +99,7 @@ xi.msg.basic =
     MAGIC_TP_REDUCE        = 431, -- <caster> casts <spell>. <target>'s TP is reduced.
     MAGIC_ABSORB_TP        = 454, -- <caster> casts <spell>. <amount> TP drained from <target>.
     MAGIC_ABSORB_ACC       = 533, -- <caster> casts <spell>. <target>'s Accuracy is drained.
+    MAGIC_REMOVE_EFFECT_2  = 571, -- <number> of <target>'s status ailments disappear!
     MAGIC_ABSORB_AILMENT   = 572, -- <caster> casts <spell>. <caster> absorbs <number> of <target>'s status ailments.
     MAGIC_MUST_ASTRAL_FLOW = 581, -- Unable to cast <spell>. Astral Flow must be in effect to cast this spell.
 
@@ -119,6 +120,7 @@ xi.msg.basic =
     SKILL_ENFEEB           = 243, -- <user> uses <skill>. <target> receives the effect of <status>.
     SELF_HEAL_SECONDARY    = 263, -- <target> recovers <amount> HP.
     DAMAGE_SECONDARY       = 264, -- <target> takes <amount> points of damage.
+    SKILL_GAIN_EFFECT_2    = 319, -- <user> uses <skill>. <target> gains the effect of <status>.
     RANGED_ATTACK_HIT      = 352, -- <user> ranged attack hits <target> for <amount> points of damage.
     RANGED_ATTACK_MISS     = 354, -- <user> ranged attack misses.
     AOE_REGAIN_HP          = 357, -- <target> regains <amount> HP.
@@ -144,6 +146,7 @@ xi.msg.basic =
     JA_RECOVERS_MP         = 451, -- <user> uses <ability>. <target> regains <amount> MP.
     JA_ATK_ENHANCED        = 285, -- <target>'s attacks are enhanced.
     JA_MAGIC_BURST         = 379, -- <user> uses <ability>. Magic Burst! the <target> takes <amount> damage.
+    JA_ENMITY_DECREASE     = 743, -- <user> uses <ability>. <target>'s enmity decreases.
 
     -- Misc Other
     DEFEATS_TARG           = 6,   -- The <player> defeats <target>.
@@ -259,8 +262,9 @@ xi.msg.basic =
     ADD_EFFECT_HP_HEAL     = 167, -- Additional effect: The <player> recovers <number> HP.
     ADD_EFFECT_DISPEL      = 168, -- Additional effect: <target>'s <Status Effect> effect disappears!
     ADD_EFFECT_WARP        = 169, -- Additional effect: Warp! (used by Halloween staves)
-    STATUS_SPIKES          = 374, -- Striking <Defender>'s armor causes <Attacker> to become <status effect>.
-    SPIKES_EFFECT_HEAL     = 383, -- <?>'s spikes restore <number> HP to the <?>.
+    SPIKES_EFFECT_RECOVER  = 373, -- <defender> recovers <number> hit points!
+    STATUS_SPIKES          = 374, -- Striking <defender>'s armor causes <attacker> to become <status effect>.
+    SPIKES_EFFECT_HEAL     = 383, -- <defenders>'s spikes restore <number> HP to the <attacker>.  (element absorbed)
     ADD_EFFECT_HEAL        = 384, -- Additional effect: <target> recovers <number> HP.
 
     -- Status

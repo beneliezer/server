@@ -34,6 +34,7 @@ xi.settings.main =
     ENABLE_ABYSSEA   = 0,
     ENABLE_SOA       = 0,
     ENABLE_ROV       = 0,
+    ENABLE_TVR       = 0,
     ENABLE_VOIDWATCH = 0, -- Not an expansion, but has its own storyline. (Not Implemented)
 
     -- FIELDS OF VALOR/Grounds of Valor settings
