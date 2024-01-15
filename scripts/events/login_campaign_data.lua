@@ -280,7 +280,6 @@ local prizes =
         -- 20694, -- Fermion Sword
         -- 21693, -- Irradiance Blade
         -- 21741, -- Demonic Axe
-        -- 21745, -- Dullahan Axe
         -- 21820, -- Lost Sickle
         -- 21862, -- Mizukage Naginata
         -- 21977, -- Mutsonokami -- BROKEN
@@ -298,10 +297,8 @@ local prizes =
         -- 18102, -- Pitchfork
         -- 18441, -- Shinai
         -- 18864, -- Dream Bell +1
-        -- 20532, -- Worm Feelers
         -- 20577, -- Chicken Knife II
         -- 20713, -- Excalipoor
-        -- 20909, -- Hoe
         -- 21107, -- Kyuka Uchiwa
         -- 21658, -- Brave Blade II
         -- 21770, -- Helgoland
@@ -602,7 +599,6 @@ local prizes =
         -- 15543, -- Raja's Ring
         -- 15544, -- Sattva Ring
         -- 15545, -- Tamas Ring
-        -- 25608, -- Tlahtlamah glasses
 
         -- Cycle #2 -- Divine Might/Apocalypse Nigh
         14740, -- Knight's Earring
