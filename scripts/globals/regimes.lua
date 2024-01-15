@@ -1450,6 +1450,8 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         reward = math.floor(reward * avgCapLevel / avgMobLevel)
     end
 
+    local maxReward = reward * 2
+
     -- Preserve baseReward amount for CW EXP and scale on EXP_BONUS mod
     local baseReward = reward * (1 + player:getMod(xi.mod.EXP_BONUS) / 100)
 
@@ -1464,7 +1466,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
                 local govClears  = player:getStatusEffect(xi.effect.PROWESS):getPower()
 
                 reward = reward * (100 + (govClears * 4)) / 100
-                reward = utils.clamp(reward, 0, baseReward * 2)
+                reward = utils.clamp(reward, 0, maxReward)
 
                 -- increment clears
                 player:delStatusEffectSilent(xi.effect.PROWESS)
