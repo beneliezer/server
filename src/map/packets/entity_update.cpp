@@ -261,6 +261,7 @@ void CEntityUpdatePacket::updateWith(CBaseEntity* PEntity, ENTITYUPDATE type, ui
             auto name         = getTransportNPCName(PEntity);
             std::memcpy(data + 0x34, name.data(), name.size());
         }
+        break;
         case MODEL_SHIP:
         {
             this->setSize(0x48);
