@@ -313,9 +313,6 @@ public:
     uint8           namevis;
     ALLEGIANCE_TYPE allegiance;   // what types of targets the entity can fight
     uint8           updatemask;   // what to update next server tick to players nearby
-    uint32          animBegin;    // Animation start time
-    uint8           animPath;     // Which animation Path
-    bool            animStart;    // Is this starting an animation?
 
     bool manualConfig; // Is this entity configured with script
 
@@ -330,6 +327,10 @@ public:
     CInstance*                    PInstance;
 
     std::chrono::steady_clock::time_point m_nextUpdateTimer; // next time the entity should push an update packet
+
+    uint32          animBegin;    // Animation start time
+    uint8           animPath;     // Which animation Path
+    bool            animStart;    // Is this starting an animation?
 
 protected:
     std::map<std::string, uint32> m_localVars;
