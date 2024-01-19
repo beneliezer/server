@@ -33,6 +33,7 @@ catseyexi/cpp
 custom/cpp
 #
 # Lua BASE updates here:
+catseyexi/lua/enum
 catseyexi/lua/base
 #
 # Lua FULL overrides here:
