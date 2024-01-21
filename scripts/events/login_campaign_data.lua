@@ -340,7 +340,6 @@ local prizes =
         --  20576, -- Qutrub Knife
         --  20666, -- Blizzard Brand
         --  20668, -- Firetongue
-        --  20933, -- Hotengeki
         --  21074, -- Kupo Rod
         --  21086, -- Heartstopper
         --  21095, -- Heartbeater
