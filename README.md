@@ -1,41 +1,35 @@
-<p align="center">
-    <img width="256" height="256" src="res/lsb_logo_circle.png">
-    <h1 align="center">LandSandBoat</h1>
-</p>
+![](https://www.catseyexi.com/images/NewLogo.png)
 
-<p align="center">
-<a href="https://github.com/LandSandBoat/server/actions/workflows/build.yml?query=base"><img src="https://github.com/LandSandBoat/server/actions/workflows/build.yml/badge.svg"/></a>
-<a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg"/></a>
-<a href="https://github.com/LandSandBoat/server/pulls"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"/></a>
-</p>
+## CatsAndBoats Contributor Guide
 
-Welcome to LandSandBoat, an open source server emulator for FFXI.
+Welcome to CatsAndBoats! We appreciate your contributions to our projects. To ensure a smooth collaboration with upstream developers, please follow these guidelines:
 
-## Getting Started
+1. **Communicate Intentions**
+Before engaging in long coding sessions, discuss your intentions with the team. For submissions going upstream, consult with Xaver. If the submission is staying within CatsEye, discuss with admins (Carver, Hax, Neckbeard).
 
-A [quick start guide](https://github.com/LandSandBoat/server/wiki/Quick-Start-Guide), the [frequently asked questions](https://github.com/LandSandBoat/server/wiki/Frequently-Asked-Questions), and a table of "[what works](https://github.com/LandSandBoat/server/wiki/What-Works)" are all available on [our wiki](https://github.com/LandSandBoat/server/wiki).
+2. **Modular Submissions**
+Avoid submitting massive pull requests. Separate submissions into easily digestible elements, such as core systems code and data entry aspects. This makes the review process more manageable.
 
-## Interacting with LandSandBoat
+3. **Professional Communication**
+Refrain from becoming combative in pull request comments. For extensive discussions, engage LSB in the Private Servers discord. Keep pull request comments clean and professional to foster a positive and constructive atmosphere.
 
-### Crashes, bugs, obvious gameplay issues etc
+4. **Representing the Organization**
+Remember that you represent CatsAndBoats. Uphold our reputation by maintaining a positive image. Avoid suggestive imagery or text in public-facing profiles. A positive standing in the community is crucial for collaboration.
 
-Please search the [issues tab](https://github.com/LandSandBoat/server/issues) and see if your issue is already logged, or create a new one.
+5. **Provide Detailed Evidence**
+When submitting pull requests, provide ample relevant evidence to support your changes. Upstream is unlikely to accept code consisting entirely of guessed data. Detailed documentation and explanations enhance the chances of your contribution being accepted.
 
-### Balance discussion, technical discussion, meta discussions etc
+6. **Readable Code**
+Write code in an easily readable manner. Ensure that a layman can understand and follow your code. Use comments wherever possible to explain complex sections. Additionally, add TODOs in sections that may need to be revisited later as a follow-up exercise.
 
-For topics with less direction than issues, a discussion is probably a better fit.
-Please search the [discussions tab](https://github.com/LandSandBoat/server/discussions) and see if your topic has already been discussed, or create a new one.
 
-## LICENSE
+------------
 
-LandSandBoat is licensed under [GNU GPL v3](https://github.com/LandSandBoat/server/blob/base/LICENSE)
 
-## Thanks
 
-Thanks to all contributors past and present, we wouldn't be here without you!
-
-Thanks to GitHub for hosting us, and for all the CI minutes we use!
-
-Thanks to JetBrains for providing our core contributors with "All Products Pack" licenses for our continued open source work. It's much appreciated, we love ReSharper C++ and CLion!
-
-<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo." width="200">
+## LandSandBoat Resources
+[Contributing Guide](https://github.com/LandSandBoat/server/blob/base/CONTRIBUTING.md)
+[Development Guide](https://github.com/LandSandBoat/server/wiki/Development-Guide)
+[Git Etiquette](https://github.com/LandSandBoat/server/wiki/Development-Guide-Git)
+[Development Articles](https://github.com/LandSandBoat/server/wiki/Development)
+[Code of Conduct](https://github.com/LandSandBoat/server/blob/base/CODE_OF_CONDUCT.md)
