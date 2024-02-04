@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
   Copyright (c) 2010-2015 Darkstar Dev Teams
   This program is free software: you can redistribute it and/or modify
@@ -211,6 +211,7 @@ enum class Mod
     DMGMAGIC    = 163, // Magic Damage Taken %
     DMGMAGIC_II = 831, // Magic Damage Taken II % (Aegis)
     DMGRANGE    = 164, // Range Damage Taken %
+    DMG_AOE     = 158, // Damage Taken % when not main target of an AoE action. (Ex: Locus Mobs)
 
     // Uncapped damage - 10000 base, 375 = 3.75%
     UDMGPHYS   = 387, // Uncapped Damage Multipliers
@@ -457,6 +458,8 @@ enum class Mod
     JUG_LEVEL_RANGE     = 564,  // Decreases the level range of spawned jug pets. Maxes out at 2.
     CALL_BEAST_DELAY    = 572,  // Lowers Call Beast recast
     SIC_READY_RECAST    = 1052, // SIC/Ready recast reduction (seconds)
+    TANDEM_STRIKE_POWER = 271,  // Grants a bonus to your and your pet's accuracy and magic accuracy when you and your pet are attacking the same target.
+    TANDEM_BLOW_POWER   = 272,  // Reduces amount of TP gained by enemies when striking them if you and your pet are attacking the same target.
 
     // Bard
     MINNE_EFFECT           = 433,  //
@@ -555,6 +558,7 @@ enum class Mod
     CAIT_SITH_LVL_BONUS       = 1042, // Cait Sith: Lv.+ (Increases Cait Sith's base level above 99)
     ENHANCES_MANA_CEDE        = 74,   // Bonus % to Mana Cede effect, +1 = 1%
     SUMMONING_MAGIC_CAST      = 1078, // Summoning magic casting time reduction in seconds
+    SPIRIT_CAST_REDUCTION     = 140,  // Spirit Pact casting time reduction in seconds
 
     // Blue Mage
     BLUE_POINTS          = 309,  // Tracks extra blue points
@@ -605,6 +609,7 @@ enum class Mod
     PHANTOM_RECAST         = 1076, // Phantom Roll Recast -.
 
     // Puppetmaster
+    AUTO_MAB_COEFFICIENT        = 157,  // Applies a MAB multiplier to automatons. This value is the bonus %.
     MANEUVER_BONUS              = 504,  // Maneuver Stat Bonus
     OVERLOAD_THRESH             = 505,  // Overload Threshold Bonus
     AUTO_DECISION_DELAY         = 842,  // Reduces the Automaton's global decision delay
@@ -994,10 +999,10 @@ enum class Mod
     // 570 through 825 used by WS DMG mods these are not spares.
     //
     // SPARE IDs:
-    // 138 to 143
-    // 157 to 159
+    // 141 to 143
+    // 159
     // 217 to 223
-    // 271 to 280
+    // 273 to 280
     //
     // SPARE = 1080 and onward
 };

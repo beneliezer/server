@@ -1245,49 +1245,64 @@ void CZoneEntities::PushPacket(CBaseEntity* PEntity, GLOBAL_MESSAGE_TYPE message
                         if (distanceSquared(PEntity->loc.p, PCurrentChar->loc.p) < checkDistanceSq &&
                             ((PEntity->objtype != TYPE_PC) || (((CCharEntity*)PEntity)->m_moghouseID == PCurrentChar->m_moghouseID)))
                         {
-                            if (packet->getType() == 0x00E && (packet->ref<uint8>(0x0A) != 0x20 || packet->ref<uint8>(0x0A) != 0x0F))
+                            uint16 packetType = packet->getType();
+                            if
+                                ((packetType == 0x00E && // Entity Update
+                                (packet->ref<uint8>(0x0A) != 0x20 ||
+                                packet->ref<uint8>(0x0A) != 0x0F)) ||
+                                packetType == 0x028) // Action packet
                             {
-                                uint32 id     = packet->ref<uint32>(0x04);
-                                uint16 targid = packet->ref<uint16>(0x08);
+                                uint32 id           = 0;
+                                uint16 targid       = 0;
+                                CBaseEntity* entity = nullptr;
 
-                                CBaseEntity* entity = GetEntity(targid);
-
-                                SpawnIDList_t spawnlist;
-
-                                if (entity)
+                                if (packetType == 0x00E) // Entity update
                                 {
-                                    if (entity->objtype == TYPE_MOB)
+                                    id     = packet->ref<uint32>(0x04);
+                                    targid = packet->ref<uint16>(0x08);
+                                    entity = GetEntity(targid);
+                                }
+                                else if (packetType == 0x028) // Action packet
+                                {
+                                    id     = packet->ref<uint32>(0x05);
+                                    // Try char
+                                    entity = GetCharByID(id);
+
+                                    // Try everything else
+                                    if (!entity)
                                     {
-                                        spawnlist = PCurrentChar->SpawnMOBList;
-                                    }
-                                    else if (entity->objtype == TYPE_NPC)
-                                    {
-                                        spawnlist = PCurrentChar->SpawnNPCList;
-                                    }
-                                    else if (entity->objtype == TYPE_PET)
-                                    {
-                                        spawnlist = PCurrentChar->SpawnPETList;
-                                    }
-                                    else if (entity->objtype == TYPE_TRUST)
-                                    {
-                                        spawnlist = PCurrentChar->SpawnTRUSTList;
-                                    }
-                                    else
-                                    {
-                                        entity = nullptr;
+                                        entity = zoneutils::GetEntity(id);
                                     }
                                 }
-                                if (!entity)
-                                {
-                                    // got a char or nothing as the target of this entity update (which really shouldn't happen ever)
-                                    // so we're just going to skip this packet
-                                    break;
-                                }
-                                SpawnIDList_t::iterator iter = spawnlist.lower_bound(id);
 
-                                if (!(iter == spawnlist.end() || spawnlist.key_comp()(id, iter->first)))
+                                auto pushPacketIfInSpawnList = [&](CCharEntity* PChar, SpawnIDList_t const& spawnlist)
                                 {
-                                    PCurrentChar->pushPacket(new CBasicPacket(*packet));
+                                    SpawnIDList_t::const_iterator iter = spawnlist.lower_bound(id);
+                                    if (!(iter == spawnlist.end() || spawnlist.key_comp()(id, iter->first)))
+                                    {
+                                        PCurrentChar->pushPacket(new CBasicPacket(*packet));
+                                    }
+                                };
+
+                                switch(entity->objtype)
+                                {
+                                    case TYPE_MOB:
+                                        pushPacketIfInSpawnList(PCurrentChar, PCurrentChar->SpawnMOBList);
+                                        break;
+                                    case TYPE_NPC:
+                                        pushPacketIfInSpawnList(PCurrentChar, PCurrentChar->SpawnNPCList);
+                                        break;
+                                    case TYPE_PET:
+                                        pushPacketIfInSpawnList(PCurrentChar, PCurrentChar->SpawnPETList);
+                                        break;
+                                    case TYPE_TRUST:
+                                        pushPacketIfInSpawnList(PCurrentChar, PCurrentChar->SpawnTRUSTList);
+                                        break;
+                                    case TYPE_PC:
+                                        pushPacketIfInSpawnList(PCurrentChar, PCurrentChar->SpawnPCList);
+                                        break;
+                                    default:
+                                        break;
                                 }
                             }
                             else

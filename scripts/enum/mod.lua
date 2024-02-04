@@ -185,6 +185,7 @@ xi.mod =
     DMGMAGIC                        = 163,
     DMGMAGIC_II                     = 831, -- Magic Damage Taken II % (Aegis)
     DMGRANGE                        = 164,
+    DMG_AOE                         = 158, -- Damage Taken % when not main target of an AoE action. (Ex: Locus Mobs)
     UDMGPHYS                        = 387,
     UDMGBREATH                      = 388,
     UDMGMAGIC                       = 389,
@@ -410,6 +411,10 @@ xi.mod =
     DARK_MAGIC_DURATION             = 1072, -- Increases Dark Magic spell durations by percentage (e.g. mod value 10 = +10% duration)
     ENHANCES_DARK_SEAL              = 1073, -- Enhances "Dark Seal" effect (Increases Dark Magic spell durations by 10% per Dark Seal merit while Dark Seal active)
 
+    -- Beastmaster
+    TANDEM_STRIKE_POWER             = 271,  -- Grants a bonus to your and your pet's accuracy and magic accuracy when you and your pet are attacking the same target.
+    TANDEM_BLOW_POWER               = 272,  -- Reduces amount of TP gained by enemies when striking them if you and your pet are attacking the same target.
+
     -- Dragoon
     WYVERN_LVL_BONUS                = 1043, -- Wyvern: Lv.+ (Increases wyvern's base level above 99)
 
@@ -419,6 +424,7 @@ xi.mod =
     CAIT_SITH_LVL_BONUS             = 1042, -- Cait Sith: Lv.+ (Increases Cait Sith's base level above 99)
     ENHANCES_MANA_CEDE              = 74,   -- Bonus % to Mana Cede effect, +1 = 1%
     SUMMONING_MAGIC_CAST            = 1078, -- Summoning magic casting time reduction in seconds
+    SPIRIT_CAST_REDUCTION           = 140,  -- Spirit Pact casting time reduction in seconds
 
     -- Puppetmaster
     AUTOMATON_LVL_BONUS             = 1044, -- Automaton: Lv. (Increases automaton's base level above 99)
@@ -754,6 +760,7 @@ xi.mod =
     QUICK_MAGIC                     = 909, -- Percent chance spells cast instantly (also reduces recast to 0, similar to Chainspell)
 
     -- Automaton mods
+    AUTO_MAB_COEFFICIENT            = 157, -- Applies a MAB multiplier to automatons. This value is the bonus %.
     AUTO_DECISION_DELAY             = 842, -- Reduces the Automaton's global decision delay
     AUTO_SHIELD_BASH_DELAY          = 843, -- Reduces the Automaton's global shield bash delay
     AUTO_MAGIC_DELAY                = 844, -- Reduces the Automaton's global magic delay

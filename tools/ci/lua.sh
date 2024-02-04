@@ -94,24 +94,12 @@ global_objects=(
     getCureFinal
     getBaseCureOld
     getElementalDamageReduction
-    getElementalDebuffDOT
-    getHelixDuration
     getMagicHitRate
     getMagicResist
     getStepAnimation
-    getElementalDebuffStatDownFromDOT
     handleAfflatusMisery
-    handleNinjutsuDebuff
     handleThrenody
     isValidHealTarget
-
-    TPMOD_NONE
-    TPMOD_CHANCE
-    TPMOD_CRITICAL
-    TPMOD_DAMAGE
-    TPMOD_ACC
-    TPMOD_ATTACK
-    TPMOD_DURATION
 
     ForceCrash
     BuildString

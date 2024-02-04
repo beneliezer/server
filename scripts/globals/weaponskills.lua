@@ -225,11 +225,7 @@ local function cRangedRatio(attacker, defender, params, ignoredDef, tp)
         cRatioCap = 3.25
     end
 
-    if cratio < 0 then
-        cratio = 0
-    elseif cratio > cRatioCap then
-        cratio = cRatioCap
-    end
+    cratio = utils.clamp(cratio, 0, cRatioCap)
 
     -- max
     local pdifmax = 0
@@ -1184,11 +1180,7 @@ xi.weaponskills.cMeleeRatio = function(attacker, defender, params, ignoredDef, t
         levelCorrection = 0.05 * (defender:getMainLvl() - attacker:getMainLvl())
     end
 
-    cratio = cratio - levelCorrection
-
-    if cratio < 0 then
-        cratio = 0
-    end
+    cratio = math.max(0, cratio - levelCorrection)
 
     -- max
     local pdifmax = 3
@@ -1265,10 +1257,7 @@ xi.weaponskills.fSTR = function(atkStr, defVit, weaponRank)
     local fSTR = calculateRawFstr(dSTR, 4)
 
     -- Apply fSTR caps.
-    local lowerCap = weaponRank * -1
-    if weaponRank == 0 then
-        lowerCap = -1
-    end
+    local lowerCap = math.min(-1, weaponRank * -1)
 
     fSTR = utils.clamp(fSTR, lowerCap, weaponRank + 8)
 
