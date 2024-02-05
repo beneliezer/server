@@ -1512,7 +1512,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         local pageLevelDiff = 2 + math.ceil(highestLevel / 20)
         if
             (player:isCrystalWarrior() or player:isClassicMode()) and
-            (page[6] - highestLevel < pageLevelDiff)
+            ((page[6] - highestLevel < pageLevelDiff) or highestLevel == 75)
         then
             local completions = player:getCharVar("[regime]repeatedToday")
 
