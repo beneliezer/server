@@ -1498,6 +1498,30 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
     -- Player must be equal or greater than REGIME_REWARD_THRESHOLD levels below the minimum suggested level
     if player:getMainLvl() >= math.max(1, page[5] - xi.settings.main.REGIME_REWARD_THRESHOLD) then
         player:addExp(reward * xi.settings.main.BOOK_EXP_RATE)
+        local highestLevel = player:partyHighestLevel()
+        local pageLevelDiff = 2 + math.ceil(highestLevel / 20)
+        if
+            (player:isCrystalWarrior() or player:isClassicMode()) and
+            ((page[6] - highestLevel < pageLevelDiff) or highestLevel == 75)
+        then
+            local completions = player:getCharVar("[regime]repeatedToday")
+
+            if completions > 0 then
+                baseReward = math.ceil(baseReward * (.85 ^ completions))
+
+                if completions == 1 then
+                    player:printToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
+                else
+                    player:printToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
+                end
+            end
+
+            player:setCharVar("[regime]repeatedToday", completions + 1)
+
+            player:addExp(baseReward * xi.settings.main.BOOK_EXP_RATE)
+        else
+            player:addExp(reward * xi.settings.main.BOOK_EXP_RATE)
+        end
     end
 
     -- repeating regimes
