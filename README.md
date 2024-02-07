@@ -11,7 +11,7 @@ Before engaging in long coding sessions, discuss your intentions with the team. 
 Avoid submitting massive pull requests. Separate submissions into easily digestible elements, such as core systems code and data entry aspects. This makes the review process more manageable.
 
 3. **Professional Communication**
-Refrain from becoming combative in pull request comments. For extensive discussions, engage LSB in the Private Servers discord. Keep pull request comments clean and professional to foster a positive and constructive atmosphere.
+Refrain from becoming combative in pull requests and issues. For extensive discussions, engage LSB first in their [Discussions Forum](https://github.com/LandSandBoat/server/discussions). Occasionally you may find upstream developers on the Private Servers discord. Keep all communications clean and professional to foster a positive and constructive atmosphere.
 
 4. **Representing the Organization**
 Remember that you represent CatsAndBoats. Uphold our reputation by maintaining a positive image. Avoid suggestive imagery or text in public-facing profiles. A positive standing in the community is crucial for collaboration.
