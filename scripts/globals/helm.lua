@@ -351,7 +351,7 @@ local helmInfo =
     {
         id           = 'EXCAVATION',
         animation    = xi.emote.EXCAVATION,
-        mod          = nil,
+        mod          = xi.mod.EXCAVATION_RESULT,
         settingRate  = xi.settings.main.EXCAVATION_RATE,
         settingBreak = xi.settings.main.EXCAVATION_BREAK_CHANCE,
         message      = 'MINING_IS_POSSIBLE_HERE',
