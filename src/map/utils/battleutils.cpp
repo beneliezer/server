@@ -97,7 +97,7 @@ namespace battleutils
 {
 
     const float worldAngleMinDistance = 0.5f;
-    const uint8 worldAngleMaxDeviance = 4;
+    const uint8 worldAngleMaxDeviance = 8;
 
     void LoadSkillTable()
     {
@@ -1207,7 +1207,7 @@ namespace battleutils
 
             uint8 enspell = (uint8)PAttacker->getMod(Mod::ENSPELL);
 
-            if (enspell == ENSPELL_BLOOD_WEAPON)
+            if (enspell == ENSPELL_BLOOD_WEAPON && PDefender->m_EcoSystem != ECOSYSTEM::UNDEAD)
             {
                 Action->additionalEffect = SUBEFFECT_HP_DRAIN;
                 Action->addEffectMessage = 161;
@@ -2245,12 +2245,23 @@ namespace battleutils
                     {
                         ((CPetEntity*)PDefender)
                             ->loc.zone->UpdateEntityPacket(PDefender, ENTITY_UPDATE, UPDATE_COMBAT);
-                    }
 
+                        if (PAttacker->objtype == TYPE_MOB)
+                        {
+                            // charmed mob should lose enmity from normal attacks
+                            ((CMobEntity*)PAttacker)->PEnmityContainer->UpdateEnmityFromAttack(PDefender, damage);
+                        }
+                    }
                     break;
 
                 case TYPE_PET:
                     ((CPetEntity*)PDefender)->loc.zone->UpdateEntityPacket(PDefender, ENTITY_UPDATE, UPDATE_COMBAT);
+
+                    if (PAttacker->objtype == TYPE_MOB)
+                    {
+                        // pets should lose enmity from normal attacks
+                        ((CMobEntity*)PAttacker)->PEnmityContainer->UpdateEnmityFromAttack(PDefender, damage);
+                    }
                     break;
                 case TYPE_PC:
                     if (PAttacker->objtype == TYPE_MOB)

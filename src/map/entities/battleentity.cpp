@@ -1381,6 +1381,19 @@ void CBattleEntity::delTrait(CTrait* PTrait)
     TraitList.erase(std::remove(TraitList.begin(), TraitList.end(), PTrait), TraitList.end());
 }
 
+bool CBattleEntity::hasTrait(uint16 traitID)
+{
+    for (CTrait* Trait : TraitList)
+    {
+        if (Trait->getID() == traitID)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool CBattleEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 {
     TracyZoneScoped;
@@ -1567,7 +1580,8 @@ void CBattleEntity::OnCastFinished(CMagicState& state, action_t& action)
         }
 
         // TODO: this is really hacky and should eventually be moved into lua, and spellFlags should probably be in the spells table..
-        if (PSpell->canHitShadow() && aoeType == SPELLAOE_NONE && battleutils::IsAbsorbByShadow(PTarget) && !(PSpell->getFlag() & SPELLFLAG_IGNORE_SHADOWS))
+        // Also need to have IsAbsorbByShadow last in conditional because that has side effects including removing a shadow
+        if (PSpell->canHitShadow() && aoeType == SPELLAOE_NONE && !(PSpell->getFlag() & SPELLFLAG_IGNORE_SHADOWS) && battleutils::IsAbsorbByShadow(PTarget))
         {
             // take shadow
             msg                = MSGBASIC_SHADOW_ABSORB;
@@ -2359,7 +2373,7 @@ void CBattleEntity::OnDespawn(CDespawnState& /*unused*/)
 {
     TracyZoneScoped;
     FadeOut();
-    //#event despawn
+    // #event despawn
     PAI->EventHandler.triggerListener("DESPAWN", CLuaBaseEntity(this));
     PAI->Internal_Respawn(0s);
 }

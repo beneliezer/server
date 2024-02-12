@@ -16,30 +16,11 @@ local function getJumpWSParams(player, atkMultiplier, tpMultiplier, forceCrit)
     local params =
     {
         numHits = 1,
-        ftp100  = 1,
-        ftp200  = 1,
-        ftp300  = 1,
+        ftpMod  = { 1.0, 1.0, 1.0 },
 
-        str_wsc = 0.0,
-        dex_wsc = 0.0,
-        vit_wsc = 0.0,
-        agi_wsc = 0.0,
-        int_wsc = 0.0,
-        mnd_wsc = 0.0,
-        chr_wsc = 0.0,
-
-        crit100 = 0.0,
-        crit200 = 0.0,
-        crit300 = 0.0,
-        canCrit = true,
-
-        acc100 = 0.0,
-        acc200 = 0.0,
-        acc300 = 0.0,
-
-        atk100 = atkMultiplier,
-        atk200 = atkMultiplier,
-        atk300 = atkMultiplier,
+        -- NOTE: critVaries exists without values since while no modifier, it can crit.
+        critVaries = { 0.0, 0.0, 0.0 },
+        atkVaries  = { atkMultiplier, atkMultiplier, atkMultiplier },
 
         bonusTP        = 0,
         targetTPMult   = 0,
@@ -49,9 +30,7 @@ local function getJumpWSParams(player, atkMultiplier, tpMultiplier, forceCrit)
     }
 
     if player:getMod(xi.mod.FORCE_JUMP_CRIT) > 0 or forceCrit then
-        params.crit100 = 1.0
-        params.crit200 = 1.0
-        params.crit300 = 1.0
+        params.critVaries = { 1.0, 1.0, 1.0 }
     end
 
     return params
@@ -260,9 +239,7 @@ xi.job_utils.dragoon.useJump = function(player, target, ability, action)
 
     -- Only 'Jump' and not others get the fTP VIT bonus
     local ftp = 1 + (player:getStat(xi.mod.VIT) / 256)
-    params.ftp100 = ftp
-    params.ftp200 = ftp
-    params.ftp300 = ftp
+    params.ftpMod = { ftp, ftp, ftp }
 
     local damage, totalHits = performWSJump(player, target, action, params, ability:getID())
 
@@ -521,17 +498,16 @@ end
 
 -- https://www.bg-wiki.com/ffxi/Angon
 xi.job_utils.dragoon.useAngon = function(player, target, ability)
-    local typeEffect = xi.effect.DEFENSE_DOWN
     local duration   = 15 + player:getMerit(xi.merit.ANGON) -- This will return 30 sec at one investment because merit power is 15.
 
-    if not target:addStatusEffect(typeEffect, 20, 0, duration) then
+    if not target:addStatusEffect(xi.effect.DEFENSE_DOWN, 20, 0, duration) then
         ability:setMsg(xi.msg.basic.MAGIC_NO_EFFECT)
     end
 
     target:updateClaim(player)
     player:removeAmmo()
 
-    return typeEffect
+    return xi.effect.DEFENSE_DOWN
 end
 
 xi.job_utils.dragoon.useDeepBreathing = function(player, target, ability)

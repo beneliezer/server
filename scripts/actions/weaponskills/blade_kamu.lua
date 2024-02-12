@@ -17,21 +17,14 @@ local weaponskillObject = {}
 weaponskillObject.onUseWeaponSkill = function(player, target, wsID, tp, primary, action, taChar)
     local params = {}
     params.numHits = 1
-    params.ftp100 = 1 params.ftp200 = 1 params.ftp300 = 1
-    params.str_wsc = 0.5 params.dex_wsc = 0.0 params.vit_wsc = 0.0 params.agi_wsc = 0.0 params.int_wsc = 0.5
-    params.mnd_wsc = 0.0 params.chr_wsc = 0.0
-    params.crit100 = 0.0 params.crit200 = 0.0 params.crit300 = 0.0
-    params.canCrit = false
-    params.acc100 = 0.0 params.acc200 = 0.0 params.acc300 = 0.0
-    params.atk100 = 1.3 params.atk200 = 1.3 params.atk300 = 1.3
+    params.ftpMod = { 1.0, 1.0, 1.0 }
+    params.str_wsc = 0.5 params.int_wsc = 0.5
+    params.atkVaries = { 1.3, 1.3, 1.3 }
 
     if xi.settings.main.USE_ADOULIN_WEAPON_SKILL_CHANGES then
         params.str_wsc = 0.6 params.int_wsc = 0.6
-        params.ignoresDef = true
-        params.ignored100 = 0.25
-        params.ignored200 = 0.25
-        params.ignored300 = 0.25
-        params.atk100 = 2.25 params.atk200 = 2.25 params.atk300 = 2.25 -- http://wiki.ffo.jp/html/15893.html
+        params.ignoredDefense = { 0.25, 0.25, 0.25 }
+        params.atkVaries = { 2.25, 2.25, 2.25 } -- http://wiki.ffo.jp/html/15893.html
     end
 
     -- Apply Aftermath

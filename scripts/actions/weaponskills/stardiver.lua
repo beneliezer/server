@@ -14,14 +14,8 @@ local weaponskillObject = {}
 weaponskillObject.onUseWeaponSkill = function(player, target, wsID, tp, primary, action, taChar)
     local params = {}
     params.numHits = 4
-    params.ftp100 = 0.75 params.ftp200 = 1.25 params.ftp300 = 1.75
-    params.str_wsc = player:getMerit(xi.merit.STARDIVER) * 0.17 params.dex_wsc = 0.0 params.vit_wsc = 0.0
-    params.agi_wsc = 0.0 params.int_wsc = 0.0 params.mnd_wsc = 0.0
-    params.chr_wsc = 0.0
-    params.crit100 = 0.0 params.crit200 = 0.0 params.crit300 = 0.0
-    params.canCrit = false
-    params.acc100 = 0.0 params.acc200 = 0.0 params.acc300 = 0.0
-    params.atk100 = 1.0 params.atk200 = 1.0 params.atk300 = 1.0
+    params.ftpMod = { 0.75, 1.25, 1.75 }
+    params.str_wsc = player:getMerit(xi.merit.STARDIVER) * 0.17
 
     -- https://www.bluegartr.com/threads/106679-Test-Server-Findings?p=4920448&viewfull=1#post4920448
     params.multiHitfTP = true
