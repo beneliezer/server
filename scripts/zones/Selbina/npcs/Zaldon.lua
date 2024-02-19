@@ -8,7 +8,7 @@
 local entity = {}
 
 -- data from http://wiki.ffxiclopedia.org/wiki/Inside_the_Belly
-local fishRewards =
+entity.fishRewards =
 {
     [4304] = -- Grimmonite
     {
@@ -500,7 +500,7 @@ local function tradeFish(player, fishId)
     player:setCharVar('insideBellyFishId', fishId)
     player:setCharVar('insideBellyItemIdx', 0)
 
-    local rewards = fishRewards[fishId].items
+    local rewards = entity.fishRewards[fishId].items
     local roll    = math.random(1, 1000) / 10
     local found   = false
     local sum     = 0
@@ -530,7 +530,7 @@ local function giveReward(player, csid)
     if csid == 166 or csid == 167 then
         local fishId  = player:getCharVar('insideBellyFishId')
         local itemIdx = player:getCharVar('insideBellyItemIdx')
-        local reward  = fishRewards[fishId]
+        local reward  = entity.fishRewards[fishId]
         local traded  = true
 
         if itemIdx > 0 then
@@ -586,7 +586,7 @@ entity.onTrade = function(player, npc, trade)
 
     -- INSIDE THE BELLY
     elseif insideTheBelly == QUEST_ACCEPTED or insideTheBelly == QUEST_COMPLETED then
-        for fish, v in pairs(fishRewards) do
+        for fish, v in pairs(entity.fishRewards) do
             if npcUtil.tradeHas(trade, fish) then
                 tradeFish(player, fish)
                 break
