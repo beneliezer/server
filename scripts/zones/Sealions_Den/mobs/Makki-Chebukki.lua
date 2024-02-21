@@ -18,7 +18,7 @@ entity.onMobSpawn = function(mob)
     mob:setLocalVar('makki', 1)
 end
 
-entity.onMobEngaged = function(mob, target)
+entity.onMobEngage = function(mob, target)
     mob:entityAnimationPacket('ouen') -- each taru will use this animation at the start of the fight
     mob:setMobMod(xi.mobMod.NO_LINK, 0)
     mob:setMobMod(xi.mobMod.NO_AGGRO, 0)
@@ -39,7 +39,7 @@ entity.onMobFight = function(mob, target)
     end
 end
 
-entity.onMobDisengage = function(mob, target)
+entity.onMobDisengage = function(mob)
     mob:setAnimationSub(2) -- laughing pose
 end
 

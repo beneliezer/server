@@ -38,6 +38,7 @@
 #include "items/item_weapon.h"
 #include "job_points.h"
 #include "lua/luautils.h"
+#include "mob_modifier.h"
 #include "notoriety_container.h"
 #include "packets/action.h"
 #include "recast_container.h"
@@ -334,8 +335,22 @@ int16 CBattleEntity::GetWeaponDelay(bool tp)
             int16 hasteAbility = std::clamp<int16>(getMod(Mod::HASTE_ABILITY), -2500, 2500); // 25% cap
             int16 hasteGear    = std::clamp<int16>(getMod(Mod::HASTE_GEAR), -2500, 2500);    // 25%
 
+            // Check if we are using a special attack list that should not be affected by attack speed debuffs
+            // Example: Wyrm's flying auto attack speed should not be modified by debuffs.
+            bool specialAttackList = false;
+            if (auto* mobEntity = dynamic_cast<CMobEntity*>(this))
+            {
+                if (mobEntity->getMobMod(MOBMODIFIER::MOBMOD_ATTACK_SKILL_LIST) != 0)
+                {
+                    specialAttackList = true;
+                }
+            }
+
             // Divide by float to get a more accurate reduction, then use int16 cast to truncate
-            WeaponDelay -= (int16)(WeaponDelay * (hasteMagic + hasteAbility + hasteGear) / 10000.f);
+            if (!specialAttackList)
+            {
+                WeaponDelay -= (int16)(WeaponDelay * (hasteMagic + hasteAbility + hasteGear) / 10000.f);
+            }
         }
         WeaponDelay = (uint16)(WeaponDelay * ((100.0f + getMod(Mod::DELAYP)) / 100.0f));
 
@@ -712,7 +727,8 @@ uint16 CBattleEntity::ATT()
     {
         ATT += this->GetSkill(SKILL_AUTOMATON_MELEE);
     }
-    return ATT + (ATT * ATTP / 100) + std::min<int16>((ATT * m_modStat[Mod::FOOD_ATTP] / 100), m_modStat[Mod::FOOD_ATT_CAP]);
+    // use max to prevent underflow
+    return std::max(1, ATT + (ATT * ATTP / 100) + std::min<int16>((ATT * m_modStat[Mod::FOOD_ATTP] / 100), m_modStat[Mod::FOOD_ATT_CAP]));
 }
 
 uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
@@ -722,8 +738,12 @@ uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
     {
         return 0;
     }
-    int32 ATT = 8 + GetSkill(skill) + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + (STR() * 3) / 4;
-    return ATT + (ATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((ATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]);
+
+    // make sure to not use fishing skill
+    uint16 baseSkill = skill == SKILL_FISHING ? 0 : GetSkill(skill);
+    int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + (STR() * 3) / 4;
+    // use max to prevent any underflow
+    return std::max(0, RATT + (RATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((RATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]));
 }
 
 uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
@@ -734,16 +754,20 @@ uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
     {
         return 0;
     }
-    int    skill_level = GetSkill(skill) + bonusSkill;
-    uint16 acc         = skill_level;
+
+    // make sure to not use fishing skill
+    uint16 baseSkill   = skill == SKILL_FISHING ? 0 : GetSkill(skill);
+    uint16 skill_level = baseSkill + bonusSkill;
+    int16  RACC        = skill_level;
     if (skill_level > 200)
     {
-        acc = (uint16)(200 + (skill_level - 200) * 0.9);
+        RACC = (int16)(200 + (skill_level - 200) * 0.9);
     }
-    acc += getMod(Mod::RACC);
-    acc += battleutils::GetRangedAccuracyBonuses(this);
-    acc += (AGI() * 3) / 4;
-    return acc + std::min<int16>(((100 + getMod(Mod::FOOD_RACCP) * acc) / 100), getMod(Mod::FOOD_RACC_CAP));
+    RACC += getMod(Mod::RACC);
+    RACC += battleutils::GetRangedAccuracyBonuses(this);
+    RACC += (AGI() * 3) / 4;
+    // use max to prevent underflow
+    return std::max(0, RACC + std::min<int16>(((100 + getMod(Mod::FOOD_RACCP) * RACC) / 100), getMod(Mod::FOOD_RACC_CAP)));
 }
 
 uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
@@ -852,8 +876,8 @@ uint16 CBattleEntity::DEF()
     {
         return DEF / 2;
     }
-
-    return std::clamp(DEF + (DEF * m_modStat[Mod::DEFP] / 100) + std::min<int16>((DEF * m_modStat[Mod::FOOD_DEFP] / 100), m_modStat[Mod::FOOD_DEF_CAP]), 0, 65535); // Clamp to stop underflows of defense
+    // use max to prevent underflow
+    return std::max(1, DEF + (DEF * m_modStat[Mod::DEFP] / 100) + std::min<int16>((DEF * m_modStat[Mod::FOOD_DEFP] / 100), m_modStat[Mod::FOOD_DEF_CAP]));
 }
 
 uint16 CBattleEntity::EVA()

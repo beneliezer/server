@@ -1066,7 +1066,7 @@ void CMobEntity::OnEngage(CAttackState& state)
 {
     TracyZoneScoped;
     CBattleEntity::OnEngage(state);
-    luautils::OnMobEngaged(this, state.GetTarget());
+    luautils::OnMobEngage(this, state.GetTarget());
     unsigned int range = this->getMobMod(MOBMOD_ALLI_HATE);
     if (range != 0)
     {

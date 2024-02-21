@@ -2437,11 +2437,11 @@ INSERT INTO `mob_skills` VALUES (2422,1678,'dark_mist',1,14.0,2000,1000,4,0,0,0,
 INSERT INTO `mob_skills` VALUES (2423,1680,'triumphant_roar',0,7.0,2000,1000,1,0,0,0,0,0,0); -- standing only.
 INSERT INTO `mob_skills` VALUES (2424,1681,'terror_eye',4,10.0,2000,1000,4,0,0,0,0,0,0); -- standing only.
 INSERT INTO `mob_skills` VALUES (2425,1679,'bloody_claw',0,7.0,2000,1000,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2426,2170,'shadow_burst',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2426,1704,'reaving_wind_kb',1,10.0,2000,0,4,4,0,7,0,0,0);
 INSERT INTO `mob_skills` VALUES (2427,1705,'tail_lash',4,10.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2428,1706,'bloody_beak',1,15.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2429,1707,'feral_peck',0,9.0,2000,1000,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2430,2174,'warped_wail',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2430,1708,'warped_wail',1,20.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2431,1709,'reaving_wind',1,15.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2432,1710,'storm_wing',1,18.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2433,1711,'calamitous_wind',1,15.0,2000,1000,4,0,0,0,0,0,0);
@@ -3502,10 +3502,10 @@ INSERT INTO `mob_skills` VALUES (3487,2477,'sidewinder',0,16.0,2000,1500,4,0,0,0
 INSERT INTO `mob_skills` VALUES (3488,2476,'arching_arrow',0,16.0,2000,1500,4,0,0,0,11,0,0);
 INSERT INTO `mob_skills` VALUES (3489,2478,'stellar_arrow',1,16.0,2000,1500,4,0,0,0,14,9,0);
 INSERT INTO `mob_skills` VALUES (3490,2479,'lux_arrow',0,16.0,2000,1500,4,0,0,0,12,10,0);
-INSERT INTO `mob_skills` VALUES (3491,2029,'grapeshot',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (3492,2030,'pirate_pummel',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (3493,2031,'powder_keg',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (3494,2032,'walk_the_plank',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (3491,2029,'grapeshot',0,7.0,2000,1500,4,0,0,0,3,2,0);
+INSERT INTO `mob_skills` VALUES (3492,2030,'pirate_pummel',0,7.0,2000,1500,4,0,0,0,9,0,0);
+INSERT INTO `mob_skills` VALUES (3493,2031,'powder_keg',0,7.0,2000,1500,4,0,0,0,5,1,0);
+INSERT INTO `mob_skills` VALUES (3494,2032,'walk_the_plank',0,7.0,2000,1500,4,0,2,0,11,0,0);
 INSERT INTO `mob_skills` VALUES (3495,684,'ground_strike',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3496,457,'hollow_smite',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3497,3241,'sarva's_storm',0,7.0,2000,1500,4,0,0,0,0,0,0);
@@ -4112,3 +4112,4 @@ INSERT INTO `mob_skills` VALUES (4258,2610,'mix_elemental_power',1,7.0,2000,100,
 INSERT INTO `mob_skills` VALUES (4259,2610,'mix_dragon_shield',1,7.0,2000,100,3,4,0,0,0,0,0); -- verified, but no effect messaging is probably wrong
 INSERT INTO `mob_skills` VALUES (4260,2611,'mix_dark_potion',0,7.0,2000,100,3,4,0,0,0,0,0); -- verified, but check if correct messaging.
 INSERT INTO `mob_skills` VALUES (4261,2612,'mix_samsons_strength',1,7.0,2000,100,3,4,0,0,0,0,0); -- verified, but check no effect messaging
+-- INSERT INTO `mob_skills` VALUES (4262,2170,'shadow_burst',0,7.0,2000,1500,4,0,0,0,0,0,0);
