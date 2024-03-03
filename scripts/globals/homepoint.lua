@@ -182,15 +182,21 @@ xi.homepoint.onTrigger = function(player, csid, index)
     -- apparently people ar exploiting the healing homepoints so we implement a check to see
     -- if they are in a "no heal zone" as defined in the table at the top of the file.
     local currentZone = player:getZoneID()
+    local healAllowed = true
 
     for _, restrictedZone in ipairs(noHealZones) do
         if currentZone == restrictedZone then
-            player:printToPlayer("NOTE: HP/MP refills are disabled in this area.")
-        else
-            player:addHP(player:getMaxHP())
-            player:addMP(player:getMaxMP())
+            healAllowed = false
         end
     end
+
+    if not healAllowed then
+        player:printToPlayer("NOTE: HP/MP refills are disabled in this area.")
+    else
+        player:addHP(player:getMaxHP())
+        player:addMP(player:getMaxMP())
+    end
+
     -- end custom code
 
     if xi.settings.main.HOMEPOINT_TELEPORT ~= 1 then -- Settings.lua Homepoints disabled
