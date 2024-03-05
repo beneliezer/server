@@ -9,7 +9,7 @@ entity.onMobSpawn = function(mob)
     mob:setMod(xi.mod.DOUBLE_ATTACK, 40)
 end
 
-entity.onMobEngaged = function(mob)
+entity.onMobEngage = function(mob)
     mob:setLocalVar("timer", os.time() + 10)
     mob:useMobAbility(800)
 end

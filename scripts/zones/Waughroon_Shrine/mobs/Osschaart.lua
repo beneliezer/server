@@ -67,7 +67,7 @@ entity.onMobSpawn = function(mob)
     mob:setMod(xi.mod.SILENCERES, 70)
 end
 
-entity.onMobEngaged = function(mob)
+entity.onMobEngage = function(mob)
     mob:setLocalVar("charmTimer", os.time() + 30)
 end
 

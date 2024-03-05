@@ -47,7 +47,7 @@ entity.onMobSpawn = function(mob)
     mob:setSpeed(60)
 end
 
-entity.onMobEngaged = function(mob)
+entity.onMobEngage = function(mob)
     mob:setLocalVar("runTimer", os.time() + math.random(30, 45))
 end
 
