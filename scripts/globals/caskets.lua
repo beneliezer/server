@@ -498,7 +498,7 @@ local function getDrops(npc, dropType, zoneId, player)
 
                     if
                         not player:isCrystalWarrior() and
-                        xi.casket_loot[zoneId].mazeItems ~= nil
+                        xi.casket_loot.mazeItems[zoneId] ~= nil
                     then
                         items[1] = xi.casket_loot.casketItems[zoneId].mazeItems[math.random(1, #xi.casket_loot.casketItems[zoneId].mazeItems)]
                     else
