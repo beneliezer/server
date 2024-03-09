@@ -4,6 +4,56 @@
 require('scripts/globals/casket_loot')
 require('scripts/globals/roe')
 -----------------------------------
+local mazeMongersZones = {
+    xi.zone.THE_BOYAHDA_TREE,
+    xi.zone.UPPER_DELKFUTTS_TOWER,
+    xi.zone.DEN_OF_RANCOR,
+    xi.zone.RANGUEMONT_PASS,
+    xi.zone.BOSTAUNIEUX_OUBLIETTE,
+    xi.zone.TORAIMARAI_CANAL,
+    xi.zone.ZERUHN_MINES,
+    xi.zone.KORROLOKA_TUNNEL,
+    xi.zone.KUFTAL_TUNNEL,
+    xi.zone.SEA_SERPENT_GROTTO,
+    xi.zone.THE_SHRINE_OF_RUAVITAU,
+    xi.zone.KING_RANPERRES_TOMB,
+    xi.zone.DANGRUF_WADI,
+    xi.zone.INNER_HORUTOTO_RUINS,
+    xi.zone.ORDELLES_CAVES,
+    xi.zone.OUTER_HORUTOTO_RUINS,
+    xi.zone.THE_ELDIEME_NECROPOLIS,
+    xi.zone.GUSGEN_MINES,
+    xi.zone.CRAWLERS_NEST,
+    xi.zone.MAZE_OF_SHAKHRAMI,
+    xi.zone.GARLAIGE_CITADEL,
+    xi.zone.FEIYIN,
+    xi.zone.GUSTAV_TUNNEL,
+    xi.zone.LABYRINTH_OF_ONZOZO,
+}
+
+local mazeMongersLootPool = {
+	-- Weapons
+	17964, -- Barkborer
+	19113, -- Ermine's Tail
+	18504, -- Eventreuse
+	17759, -- Koggelmander
+	19273, -- Onishibari
+	19158, -- Scheherazade
+	18131, -- Zaide
+	18865, -- Zonure
+	-- Equipment
+	15839, -- Antica Ring
+	11484, -- Antica Band
+	11483, -- Gnole Crown
+	16283, -- Gnole Torque
+	16011, -- Lycopodium Earring
+	15928, -- Lycopodium Sash
+	16012, -- Mamool Ja Earring
+	16250, -- Mamool Ja Mantle
+}
+
+-- locks the MMM drop until restart
+local mazeMongersDropLockIn = utils.randomEntry(mazeMongersLootPool)
 
 -----------------------------------
 -- Notes:
@@ -495,12 +545,13 @@ local function getDrops(npc, dropType, zoneId, player)
                 items[i] = 4112 -- default to potion
             else
                 if math.random() < 0.05 then
-
                     if
                         not player:isCrystalWarrior() and
-                        xi.casket_loot.mazeItems[zoneId] ~= nil
+                        mazeMongersZones[zoneId] and
+                        not player:hasItem(mazeMongersDropLockIn) and
+                        math.random() < 0.25 -- 25% chance to get MMM item instead of regional item
                     then
-                        items[1] = xi.casket_loot.casketItems[zoneId].mazeItems[math.random(1, #xi.casket_loot.casketItems[zoneId].mazeItems)]
+                        items[1] = mazeMongersDropLockIn
                     else
                         items[1] = xi.casket_loot.casketItems[zoneId].regionalItems[math.random(1, #xi.casket_loot.casketItems[zoneId].regionalItems)]
                     end
