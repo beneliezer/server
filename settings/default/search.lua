@@ -27,6 +27,6 @@ xi.settings.search =
     ACCESS_WHITELIST =
     {
         "127.0.0.1",   -- Example, not actually needed
-        "192.168.0.1", -- Example, not actually needed
+        "172.16.99.11", -- Example, not actually needed
     },
 }
