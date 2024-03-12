@@ -544,12 +544,13 @@ enum class Mod
     THIRD_EYE_BONUS           = 1055, // TODO: Bonus Third Eye Evasion (count)
 
     // Ninja
-    UTSUSEMI          = 307, // Everyone's favorite --tracks shadows.
-    UTSUSEMI_BONUS    = 900, // Extra shadows from gear
-    NINJA_TOOL        = 308, // Percent chance to not use a tool.
-    NIN_NUKE_BONUS    = 522, // magic attack bonus for NIN nukes
-    DAKEN             = 911, // chance to throw a shuriken without consuming it
-    NINJUTSU_DURATION = 1000,
+    UTSUSEMI             = 307, // Everyone's favorite --tracks shadows.
+    UTSUSEMI_BONUS       = 900, // Extra shadows from gear
+    NINJA_TOOL           = 308, // Percent chance to not use a tool.
+    NIN_NUKE_BONUS_INNIN = 223, // Ninjutsu damage multiplier from Innin.
+    NIN_NUKE_BONUS_GEAR  = 522, // Ninjutsu damage multiplier from gear.
+    DAKEN                = 911, // chance to throw a shuriken without consuming it
+    NINJUTSU_DURATION    = 1000,
 
     // Dragoon
     ANCIENT_CIRCLE_DURATION    = 859,  // Ancient Circle extended duration in seconds
@@ -750,6 +751,7 @@ enum class Mod
     PARRY_SPIKES                = 1022, // Battuta parry spikes rate
     PARRY_SPIKES_DMG            = 1023, // Battuta parry spikes damage
     SPECIAL_ATTACK_EVASION      = 1024, // Foil "Special Attack" evasion
+    AUGMENTS_SLEIGHT_OF_SWORD   = 277,  // Enhances bonus "Subtle Blow" per merit.
 
     // Stores the amount of elemental affinity (elemental staves mostly) - damage, acc, and perpetuation is all handled separately
     FIRE_AFFINITY_DMG    = 347, // They're stored separately due to Magian stuff - they can grant different levels of
@@ -1008,8 +1010,8 @@ enum class Mod
     //
     // SPARE IDs:
     // 141
-    // 220 to 223
-    // 273 to 277
+    // 220 to 222
+    // 273 to 276
     //
     // SPARE = 1080 and onward
 };

@@ -491,6 +491,7 @@ xi.mod =
     PARRY_SPIKES                = 1022, -- Battuta parry spikes rate
     PARRY_SPIKES_DMG            = 1023, -- Battuta parry spikes damage
     SPECIAL_ATTACK_EVASION      = 1024, -- Foil "Special Attack" evasion
+    AUGMENTS_SLEIGHT_OF_SWORD   = 277,  -- Enhances bonus "Subtle Blow" per merit.
 
     FIRE_AFFINITY_DMG               = 347,
     ICE_AFFINITY_DMG                = 348,
@@ -731,7 +732,8 @@ xi.mod =
     ENH_DRAIN_ASPIR                 = 315, -- % damage boost to Drain and Aspir
     SNEAK_ATK_DEX                   = 830, -- % DEX boost to Sneak Attack (if gear mod, needs to be equipped on hit)
     TRICK_ATK_AGI                   = 520, -- % AGI boost to Trick Attack (if gear mod, needs to be equipped on hit)
-    NIN_NUKE_BONUS                  = 522, -- magic attack bonus for NIN nukes
+    NIN_NUKE_BONUS_INNIN            = 223, -- Ninjutsu damage multiplier from Innin.
+    NIN_NUKE_BONUS_GEAR             = 522, -- Ninjutsu damage multiplier from gear. Ex: Koga Hatsuburi.
     DAKEN                           = 911, -- Chance to throw shuriken on attack
     AMMO_SWING                      = 523, -- Extra swing rate w/ ammo (ie. Jailer weapons). Use gearsets, and does nothing for non-players.
     AMMO_SWING_TYPE                 = 826, -- For the handedness of the weapon - 1h (1) vs. 2h/h2h (2). h2h can safely use the same function as 2h.
