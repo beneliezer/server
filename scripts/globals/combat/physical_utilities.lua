@@ -46,7 +46,7 @@ local wsElementalProperties =
 }
 
 -- Table with pDIF caps per weapon/skill type.
-local pDifWeaponCapTable =
+xi.combat.physical.pDifWeaponCapTable =
 {
     -- [Skill/weapon type used] = {pre-randomizer_pDIF_cap}, Values from: https://www.bg-wiki.com/ffxi/PDIF
     [xi.skill.NONE            ] = { 3    }, -- We will use this for mobs.
@@ -324,6 +324,8 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
     return fTP
 end
 
+-- WARNING: This function is used in src/utils/battleutils.cpp "GetDamageRatio" function.
+-- If you update this parameters, update them there aswell.
 xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAttackMod, isCritical, applyLevelCorrection, tpIgnoresDefense, tpFactor, isWeaponskill)
     local pDif = 0
 
@@ -349,11 +351,12 @@ xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAt
     local ignoreDefenseFactor = 1
 
     if tpIgnoresDefense then
-        ignoreDefenseFactor = 1.0 - tpFactor
+        ignoreDefenseFactor = 1 - tpFactor
     end
 
     targetDefense = math.floor(targetDefense * ignoreDefenseFactor)
 
+    -- Actor Attack / Target Defense ratio
     baseRatio = actorAttack / targetDefense
 
     -- Apply cap to baseRatio.
@@ -381,10 +384,12 @@ xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAt
     ----------------------------------------
     -- Step 3: wRatio and pDif Caps (Melee)
     ----------------------------------------
-    local wRatio       = cRatio + (isCritical and 1.0 or 0)
-    local pDifUpperCap = 0
-    local pDifLowerCap = 0
-    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] + (isCritical and 1.0 or 0) -- TODO: Add 'Damage Limit +' Trait here.
+    local wRatio             = cRatio + (isCritical and 1 or 0)
+    local pDifUpperCap       = 0
+    local pDifLowerCap       = 0
+    local damageLimitPlus    = actor:getMod(xi.mod.DAMAGE_LIMIT) / 100
+    local damageLimitPercent = 1 + actor:getMod(xi.mod.DAMAGE_LIMITP) / 100
+    local pDifFinalCap       = (xi.combat.physical.pDifWeaponCapTable[weaponType][1] + damageLimitPlus) * damageLimitPercent + (isCritical and 1 or 0)
 
     -- pDIF upper cap.
     if wRatio < 0.5 then
@@ -417,7 +422,7 @@ xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAt
     ----------------------------------------
     -- Step 4: Apply weapon type caps.
     ----------------------------------------
-    pDif = utils.clamp(pDif, 0, pDifFinalCap) -- TODO: Add 'Damage Limit +' Trait here.
+    pDif = utils.clamp(pDif, 0, pDifFinalCap)
 
     ----------------------------------------
     -- Step 5: Melee random factor.
@@ -429,7 +434,7 @@ xi.combat.physical.calculateMeleePDIF = function(actor, target, weaponType, wsAt
     -- Crit damage bonus is a final modifier
     if isCritical then
         local critDamageBonus = utils.clamp(actor:getMod(xi.mod.CRIT_DMG_INCREASE) - target:getMod(xi.mod.CRIT_DEF_BONUS), 0, 100)
-        pDif = pDif * (100 + critDamageBonus) / 100
+        pDif                  = pDif * (100 + critDamageBonus) / 100
     end
 
     return pDif
@@ -516,7 +521,9 @@ xi.combat.physical.calculateRangedPDIF = function(actor, target, weaponType, wsA
     ----------------------------------------
     -- Step 4: Apply weapon type caps.
     ----------------------------------------
-    local pDifFinalCap = pDifWeaponCapTable[weaponType][1] -- TODO: Add 'Damage Limit +' Trait here.
+    local damageLimitPlus = actor:getMod(xi.mod.DAMAGE_LIMIT) / 100
+    local damageLimitPercent = (100 + actor:getMod(xi.mod.DAMAGE_LIMITP)) / 100
+    local pDifFinalCap = (xi.combat.physical.pDifWeaponCapTable[weaponType][1] + damageLimitPlus) * damageLimitPercent -- Added damage limit bonuses
 
     pDif = utils.clamp(pDif, 0, pDifFinalCap)
 

@@ -1613,7 +1613,17 @@ namespace battleutils
         // get ratio (not capped for RAs)
         float ratio = (float)rAttack / (float)PDefender->DEF();
 
-        ratio = std::clamp<float>(ratio, 0, 3);
+        // Ranged damage limit caluclations
+
+        // get weapon cap
+        auto* targ_weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_RANGED]);
+        float maxRatio    = 3.25f;
+
+        // If null ignore the checks and fallback to 1H values
+        if (targ_weapon && targ_weapon->getSkillType() == SKILL_MARKSMANSHIP)
+        {
+            maxRatio = 3.5f;
+        }
 
         // level correct (0.025 not 0.05 like for melee)
         if (PDefender->GetMLevel() > PAttacker->GetMLevel())
@@ -1641,8 +1651,13 @@ namespace battleutils
             maxPdif = ratio;
         }
 
-        minPdif = std::clamp<float>(minPdif, 0, 3);
-        maxPdif = std::clamp<float>(maxPdif, 0, 3);
+        // Apply damage limit modifier
+        float damageLimitPlus = PAttacker->getMod(Mod::DAMAGE_LIMIT) / 100.0f;
+        float damageLimitPerc = (100.0f + PAttacker->getMod(Mod::DAMAGE_LIMITP)) / 100.0f;
+        maxRatio              = (maxRatio + damageLimitPlus) * damageLimitPerc;
+
+        minPdif = std::clamp<float>(minPdif, 0, maxRatio);
+        maxPdif = std::clamp<float>(maxPdif, 0, maxRatio);
 
         // return random number between the two
         float pdif = xirand::GetRandomNumber(minPdif, maxPdif);
@@ -2904,22 +2919,22 @@ namespace battleutils
 
         if (meleePDIFFunc.valid() && levelCorrectionFunc.valid())
         {
-            auto result = levelCorrectionFunc(luaAttackerEntity);
-            if (!result.valid())
+            auto levelCorrectionResult = levelCorrectionFunc(luaAttackerEntity);
+            if (!levelCorrectionResult.valid())
             {
-                sol::error err = result;
+                sol::error err = levelCorrectionResult;
                 ShowError("battleutils::GetDamageRatio(): %s", err.what());
                 return pDIF;
             }
 
-            result = meleePDIFFunc(luaAttackerEntity, CLuaBaseEntity(PDefender), weaponType, bonusAttPercent, isCritical, result.get<bool>(0), false, false);
-            if (!result.valid())
+            auto meleePDIFFuncResult = meleePDIFFunc(luaAttackerEntity, CLuaBaseEntity(PDefender), weaponType, bonusAttPercent, isCritical, levelCorrectionResult.get<bool>(0), false, 0.0, false);
+            if (!meleePDIFFuncResult.valid())
             {
-                sol::error err = result;
+                sol::error err = meleePDIFFuncResult;
                 ShowError("battleutils::GetDamageRatio(): %s", err.what());
                 return pDIF;
             }
-            pDIF = result.get<float>(0);
+            pDIF = meleePDIFFuncResult.get<float>(0);
         }
         else
         {
