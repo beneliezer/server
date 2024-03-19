@@ -12,13 +12,13 @@ xi.settings = xi.settings or {}
 xi.settings.search =
 {
     -- Omit items with no listing history from auction house results
-    OMIT_NO_HISTORY = false,
+    OMIT_NO_HISTORY = true,
 
     -- After EXPIRE_DAYS, will listed auctions expire?
     EXPIRE_AUCTIONS = true,
 
     -- Expire items older than this number of days
-    EXPIRE_DAYS = 3,
+    EXPIRE_DAYS = 30,
 
     -- Interval is in seconds, default is one hour
     EXPIRE_INTERVAL = 3600,
@@ -27,6 +27,6 @@ xi.settings.search =
     ACCESS_WHITELIST =
     {
         "127.0.0.1",   -- Example, not actually needed
-        "192.168.0.1", -- Example, not actually needed
+        "172.16.99.11", -- Example, not actually needed
     },
 }
