@@ -45,6 +45,6 @@ echo Starting 'Zone 13' ...
 start 54342_Zones_13.bat
 timeout /t 5 /nobreak
 echo Starting Services ...
-start Start_Connect.bat
-start Start_Search.bat
-start Start_World.bat
+start "connect" Start_Connect.bat
+start "search" Start_Search.bat
+start "world" Start_World.bat
