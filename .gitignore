@@ -156,7 +156,6 @@ src/common/stamp-h1
 # Misc, such as vim swap files
 *.sw?
 
-navmeshes/*.nav
 tags
 log/xi.leaks
 log/leaks.txt
@@ -239,3 +238,7 @@ xi_search.dSYM
 # Keys and Certs
 **/*.key
 **/*.cert
+
+# Catseye proprietary
+modules/catseyexi
+modules/contrib

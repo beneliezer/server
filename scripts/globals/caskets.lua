@@ -4,6 +4,56 @@
 require('scripts/globals/casket_loot')
 require('scripts/globals/roe')
 -----------------------------------
+local mazeMongersZones = {
+    xi.zone.THE_BOYAHDA_TREE,
+    xi.zone.UPPER_DELKFUTTS_TOWER,
+    xi.zone.DEN_OF_RANCOR,
+    xi.zone.RANGUEMONT_PASS,
+    xi.zone.BOSTAUNIEUX_OUBLIETTE,
+    xi.zone.TORAIMARAI_CANAL,
+    xi.zone.ZERUHN_MINES,
+    xi.zone.KORROLOKA_TUNNEL,
+    xi.zone.KUFTAL_TUNNEL,
+    xi.zone.SEA_SERPENT_GROTTO,
+    xi.zone.THE_SHRINE_OF_RUAVITAU,
+    xi.zone.KING_RANPERRES_TOMB,
+    xi.zone.DANGRUF_WADI,
+    xi.zone.INNER_HORUTOTO_RUINS,
+    xi.zone.ORDELLES_CAVES,
+    xi.zone.OUTER_HORUTOTO_RUINS,
+    xi.zone.THE_ELDIEME_NECROPOLIS,
+    xi.zone.GUSGEN_MINES,
+    xi.zone.CRAWLERS_NEST,
+    xi.zone.MAZE_OF_SHAKHRAMI,
+    xi.zone.GARLAIGE_CITADEL,
+    xi.zone.FEIYIN,
+    xi.zone.GUSTAV_TUNNEL,
+    xi.zone.LABYRINTH_OF_ONZOZO,
+}
+
+local mazeMongersLootPool = {
+	-- Weapons
+	17964, -- Barkborer
+	19113, -- Ermine's Tail
+	18504, -- Eventreuse
+	17759, -- Koggelmander
+	19273, -- Onishibari
+	19158, -- Scheherazade
+	18131, -- Zaide
+	18865, -- Zonure
+	-- Equipment
+	15839, -- Antica Ring
+	11484, -- Antica Band
+	11483, -- Gnole Crown
+	16283, -- Gnole Torque
+	16011, -- Lycopodium Earring
+	15928, -- Lycopodium Sash
+	16012, -- Mamool Ja Earring
+	16250, -- Mamool Ja Mantle
+}
+
+-- locks the MMM drop until restart
+local mazeMongersDropLockIn = utils.randomEntry(mazeMongersLootPool)
 
 -----------------------------------
 -- Notes:
@@ -231,7 +281,7 @@ local function setCasketData(player, x, y, z, r, npc, partyID, mobLvl)
     local typeChance       = math.random()
     local chestStyle       = 965
     local correctNum       = math.random(10, 99)
-    local attempts         = math.random(4, 6)
+    local attempts         = 8
     local kupowersBonus    = 0
 
     -- if player:hasStatusEffect(xi.effect.KUPOWERS_MYRIAD_MYSTERY_BOXES) then    -- Super Kupowers Myriad Mystery Boxes not implimented yet.
@@ -400,7 +450,7 @@ end
 -----------------------------------
 -- Grab random drops from zone item or temp tables depending on type of chest
 -----------------------------------
-local function getDrops(npc, dropType, zoneId)
+local function getDrops(npc, dropType, zoneId, player)
     local chestType = casketInfo.dropTypes[dropType]
 
     if npc:getLocalVar('[caskets]ITEMS_SET') == 1 then
@@ -495,7 +545,16 @@ local function getDrops(npc, dropType, zoneId)
                 items[i] = 4112 -- default to potion
             else
                 if math.random() < 0.05 then
-                    items[1] = xi.casket_loot.casketItems[zoneId].regionalItems[math.random(1, #xi.casket_loot.casketItems[zoneId].regionalItems)]
+                    if
+                        not player:isCrystalWarrior() and
+                        mazeMongersZones[zoneId] and
+                        not player:hasItem(mazeMongersDropLockIn) and
+                        math.random() < 0.25 -- 25% chance to get MMM item instead of regional item
+                    then
+                        items[1] = mazeMongersDropLockIn
+                    else
+                        items[1] = xi.casket_loot.casketItems[zoneId].regionalItems[math.random(1, #xi.casket_loot.casketItems[zoneId].regionalItems)]
+                    end
                 else
                     items[i] = item
                 end
@@ -682,7 +741,7 @@ xi.caskets.onTrigger = function(player, npc)
         return
     end
 
-    getDrops(npc, itemType, player:getZoneID())
+    getDrops(npc, itemType, player:getZoneID(), player)
 
     -----------------------------------
     -- Chest Locked
