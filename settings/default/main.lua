@@ -238,19 +238,19 @@ xi.settings.main =
     HALLOWEEN_YEAR_ROUND            = 0,  -- Set to 1 to have Harvest Festival initialize outside of normal times.
     EGG_HUNT                        =
     {
-        START                       = { DAY = 6,  MONTH = 4 },
-        FINISH                      = { DAY = 17, MONTH = 4 },
+        START                       = { DAY = 4,  MONTH = 4 },
+        FINISH                      = { DAY = 18, MONTH = 4 },
 
         -- Default era is 2005
-        ERA_2006 = false, -- Orphic Egg
-        ERA_2007 = false, -- Jeweled Egg and Egg Helm
-        ERA_2008 = false, -- Tier 2 nation eggs, allows trading Hard-Boiled Eggs
-        ERA_2009 = false, -- Egg Buffet set
+        ERA_2006 = true, -- Orphic Egg
+        ERA_2007 = true, -- Jeweled Egg and Egg Helm
+        ERA_2008 = true, -- Tier 2 nation eggs, allows trading Hard-Boiled Eggs
+        ERA_2009 = true, -- Egg Buffet set
         -- 2009, 2010, 2011 and 2012 are identical
-        ERA_2013 = false, -- Prinseggstarta
+        ERA_2013 = true, -- Prinseggstarta
         ERA_2014 = false, -- Hatchling Shield, Copse Candy, Cracker
-        ERA_2015 = false, -- Rabbit Cap, show Rabbit Cap wearing NPCs
-        ERA_2018 = false, -- Allows trading Sairui-Ran x99 and Imperial Egg
+        ERA_2015 = true, -- Rabbit Cap, show Rabbit Cap wearing NPCs
+        ERA_2018 = true, -- Allows trading Sairui-Ran x99 and Imperial Egg
         ERA_2019 = false, -- Allows trading Apkallu Egg
 
         -- Consolation prizes for repeating combinations where
@@ -262,7 +262,12 @@ xi.settings.main =
         -- Where 12345 is the itemID for the reward
         BONUS_WORDS =
         {
-            -- WORD = 12345,
+             CATSEYE = 4388,    -- Eggplant because of Mowford, and for the lulz
+             BUNNY   = 15297,   -- Rabbit Belt
+             PEEP    = 28652,   -- Hatchling Shield
+             SPRING  = 3673,    -- Chocobo Carvings
+             CHICK   = 11500,   -- Chocobo Beret
+             GREEN   = 6008     -- Copse Candy
         },
     },
 
