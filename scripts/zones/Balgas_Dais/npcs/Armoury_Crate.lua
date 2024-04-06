@@ -404,17 +404,18 @@ local loot =
     [107] =
     {
         {
-            { itemid = xi.item.JUG_OF_HONEY_WINE, droprate = 1000 }, -- Jug Of Honey Wine
+            { itemid = 3340, droprate = 1000 }, -- Cup of Sweet Tea
         },
 
         {
-            { itemid = xi.item.LIBATION_ABJURATION, droprate = 312 }, -- Libation Abjuration
-            { itemid = xi.item.GUESPIERE,           droprate = 182 }, -- Guespiere
-            { itemid = xi.item.HAVOC_SCYTHE,        droprate =  65 }, -- Havoc Scythe
-            { itemid = xi.item.LEOPARD_AXE,         droprate =  43 }, -- Leopard Axe
-            { itemid = xi.item.NOKIZARU_SHURIKEN,   droprate = 181 }, -- Nokizaru Shuriken
-            { itemid = xi.item.SHINSOKU,            droprate = 217 }, -- Shinsoku
-            { itemid = xi.item.SOMNUS_SIGNA,        droprate =  43 }, -- Somnus Signa
+            { itemid = 16555, droprate =  50 }, -- Ridill (custom drop)
+            { itemid =  1441, droprate = 312 }, -- Libation Abjuration
+            { itemid = 17694, droprate = 182 }, -- Guespiere
+            { itemid = 18047, droprate =  65 }, -- Havoc Scythe
+            { itemid = 17937, droprate =  43 }, -- Leopard Axe
+            { itemid = 18173, droprate = 181 }, -- Nokizaru Shuriken
+            { itemid = 17823, droprate = 217 }, -- Shinsoku
+            { itemid = 17575, droprate =  43 }, -- Somnus Signa
         },
 
         {
