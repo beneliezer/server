@@ -29,4 +29,7 @@ xi.settings.search =
         "127.0.0.1",   -- Example, not actually needed
         "172.16.99.11", -- Example, not actually needed
     },
+
+    -- true/false: Enable/disable logging the content of packets being sent to the client (required Debug mode)
+    DEBUG_OUT_PACKETS = false,
 }

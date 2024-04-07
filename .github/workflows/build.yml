@@ -276,40 +276,11 @@ jobs:
       run: |
         export CC=/usr/bin/gcc-13
         export CXX=/usr/bin/g++-13
-        mkdir -p modules/catseyexi/cpp
-        mv modules/custom/cpp/* modules/catseyexi/cpp/
         mkdir -p build
         CFLAGS=-m64 CXXFLAGS=-m64 LDFLAGS=-m64 cmake -S . -B build
     - name: Build
       run: |
         cmake --build build -j4
-
-  Windows_32bit:
-    needs: Sanity_Checks
-    runs-on: windows-latest
-    env:
-      MSBUILD_PATH: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-      - name: Cache 'build' folder
-        uses: actions/cache@v3
-        with:
-          path: build
-          key: ${{ runner.os }}-msvc32
-      - name: Configure CMake
-        shell: cmd
-        run: |
-          pwd
-          mkdir -p modules\catseyexi\cpp
-          move modules\custom\cpp\*.* modules\catseyexi\cpp\
-          mkdir -p build
-          cmake -S . -B build -A Win32 -DCMAKE_BUILD_TYPE=Release
-      - name: Build
-        shell: cmd
-        run: |
-          cmake --build build -j4
 
   Windows_64bit_Debug:
     needs: Sanity_Checks
@@ -328,9 +299,6 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
-          pwd
-          mkdir -p modules\catseyexi\cpp
-          move modules\custom\cpp\*.* modules\catseyexi\cpp\
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Debug
       - name: Build
@@ -404,9 +372,6 @@ jobs:
           key: ${{ runner.os }}-osx
       - name: Configure CMake
         run: |
-          pwd
-          mkdir -p modules/catseyexi/cpp
-          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build
       - name: Build
@@ -451,10 +416,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Enable Modules
       shell: bash
       run: |
@@ -636,10 +597,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Startup checks
       env:
         MYSQL_HOST: mysql
@@ -704,10 +661,6 @@ jobs:
     - name: Copy settings
       run: |
         cp settings/default/* settings/
-        sed -i 's/topazadmin/root/g' settings/network.lua
-        sed -i 's/topazisawesome/root/g' settings/network.lua
-        sed -i 's/tpzdb/xidb/g' settings/network.lua
-        sed -i 's/33066/3306/g' settings/network.lua
     - name: Install Python Dependencies
       run: |
         pip install -r tools/requirements.txt
