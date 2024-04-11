@@ -101,6 +101,7 @@
 #include "trait.h"
 #include "utils/petutils.h"
 #include "weapon_skill.h"
+#include "zoneutils.h"
 
 /************************************************************************
  *                                                                       *
