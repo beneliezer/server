@@ -472,9 +472,9 @@ namespace charutils
         {
             PChar->profile.rankpoints = rset->getUInt("rank_points");
 
-            PChar->profile.rank[0] = (uint8)rset->getInt("rank_points");
-            PChar->profile.rank[1] = (uint8)rset->getInt("rank_sandoria");
-            PChar->profile.rank[2] = (uint8)rset->getInt("rank_bastok");
+            PChar->profile.rank[0] = (uint8)rset->getInt("rank_sandoria");
+            PChar->profile.rank[1] = (uint8)rset->getInt("rank_bastok");
+            PChar->profile.rank[2] = (uint8)rset->getInt("rank_windurst");
 
             PChar->profile.fame[0]      = (uint16)rset->getInt("fame_sandoria");
             PChar->profile.fame[1]      = (uint16)rset->getInt("fame_bastok");
@@ -1096,6 +1096,12 @@ namespace charutils
         else
         {
             ShowError("Loading error from char_equip");
+        }
+
+        // Fill in the unarmed psuedo-weapons if no item was equipped
+        if (PChar->m_Weapons[SLOT_MAIN] == nullptr)
+        {
+            CheckUnarmedWeapon(PChar);
         }
     }
 

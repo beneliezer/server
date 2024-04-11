@@ -74,6 +74,33 @@
 #include "attackutils.h"
 #include "battleutils.h"
 #include "charutils.h"
+#include "enmity_container.h"
+#include "entities/battleentity.h"
+#include "entities/mobentity.h"
+#include "entities/petentity.h"
+#include "entities/trustentity.h"
+#include "item_container.h"
+#include "items.h"
+#include "items/item_weapon.h"
+#include "job_points.h"
+#include "map.h"
+#include "mob_modifier.h"
+#include "mobskill.h"
+#include "modifier.h"
+#include "notoriety_container.h"
+#include "packets/char_abilities.h"
+#include "packets/char_sync.h"
+#include "packets/lock_on.h"
+#include "packets/pet_sync.h"
+#include "packets/position.h"
+#include "party.h"
+#include "petskill.h"
+#include "recast_container.h"
+#include "spell.h"
+#include "status_effect_container.h"
+#include "trait.h"
+#include "utils/petutils.h"
+#include "weapon_skill.h"
 #include "zoneutils.h"
 
 /************************************************************************
@@ -4611,8 +4638,10 @@ namespace battleutils
 
         if (PVictim->objtype == TYPE_MOB)
         {
-            PVictim->PMaster = PCharmer;
-            PCharmer->PPet   = PVictim;
+            CCharEntity* PChar = dynamic_cast<CCharEntity*>(PCharmer);
+            CMobEntity*  PMob  = dynamic_cast<CMobEntity*>(PVictim);
+            PVictim->PMaster   = PCharmer;
+            PCharmer->PPet     = PVictim;
 
             // make the mob disengage
             if (PCharmer->PPet->PAI->IsEngaged())
@@ -4621,27 +4650,34 @@ namespace battleutils
             }
 
             // clear the victims emnity list
-            ((CMobEntity*)PVictim)->PEnmityContainer->Clear();
+            PMob->PEnmityContainer->Clear();
 
             // set the mobs ai to petAi
-            PCharmer->PPet->PAI->SetController(std::make_unique<CPetController>(static_cast<CPetEntity*>(PCharmer->PPet)));
+            PCharmer->PPet->PAI->SetController(std::make_unique<CPetController>(PMob));
             PCharmer->PPet->charmTime = server_clock::now() + charmTime;
 
             // this will make him transition back to roaming if sleeping
             PCharmer->PPet->animation = ANIMATION_NONE;
             PCharmer->updatemask |= UPDATE_HP;
 
-            charutils::BuildingCharAbilityTable((CCharEntity*)PCharmer);
-            charutils::BuildingCharPetAbilityTable((CCharEntity*)PCharmer, (CPetEntity*)PVictim, PVictim->id);
-            ((CCharEntity*)PCharmer)->pushPacket(new CCharUpdatePacket((CCharEntity*)PCharmer));
-            ((CCharEntity*)PCharmer)->pushPacket(new CPetSyncPacket((CCharEntity*)PCharmer));
+            if (PChar)
+            {
+                charutils::BuildingCharAbilityTable(PChar);
+                memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
+                PChar->pushPacket(new CCharAbilitiesPacket(PChar));
+                PChar->pushPacket(new CCharUpdatePacket(PChar));
+                PChar->pushPacket(new CPetSyncPacket(PChar));
+            }
+            // clang-format off
             PCharmer->ForAlliance([&PVictim](CBattleEntity* PMember)
-                                  {
+            {
                 if (static_cast<CCharEntity*>(PMember)->PClaimedMob == PVictim)
                 {
                     static_cast<CCharEntity*>(PMember)->PClaimedMob = nullptr;
-                } });
-            ((CMobEntity*)PVictim)->m_OwnerID.clean();
+                }
+            });
+            // clang-format on
+            PMob->m_OwnerID.clean();
             PVictim->updatemask |= UPDATE_STATUS;
         }
 
