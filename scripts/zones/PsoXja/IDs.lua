@@ -40,10 +40,14 @@ zones[xi.zone.PSOXJA] =
         GARGOYLE_OFFSET         = 16814081,
         NUNYUNUWI               = 16814361,
         GOLDEN_TONGUED_CULBERRY = 16814432,
+        BLUE_GARGOYLES          = 16814231,
+        GREEN_GARGOYLES         = 16814233,
     },
     npc =
     {
         STONE_DOOR_OFFSET          = 16814446, -- _090 in npc_list
+        BLUE_BRACELET_DOOR         = 16814499,
+        GREEN_BRACELET_DOOR        = 16814502,
         TREASURE_CHEST             = GetFirstID('Treasure_Chest'),
     },
 }
