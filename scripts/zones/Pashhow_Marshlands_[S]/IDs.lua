@@ -3,7 +3,7 @@
 -----------------------------------
 zones = zones or {}
 
-local sugarID = GetFirstID('Sugaar')
+local sugaarID = GetFirstID('Sugaar')
 
 zones[xi.zone.PASHHOW_MARSHLANDS_S] =
 {
