@@ -24115,7 +24115,7 @@ INSERT INTO `mob_droplist` VALUES (2948,0,0,1000,2845,164); -- Loop Of Aramid Fi
 INSERT INTO `mob_droplist` VALUES (2949,0,0,1000,18507,102); -- Kinship Axe (10.2%)
 
 -- ZoneID:  89 - Kotan-Kor Kamuy
-INSERT INTO `mob_droplist` VALUES (2950,0,0,1000,17854,133); -- Cradle Horn (13.3%)
+INSERT INTO `mob_droplist` VALUES (2950,0,0,1000,17854,@UNCOMMON); -- Cradle Horn (Uncommon, 10%)
 
 -- ZoneID:  90 - Sugaar
 INSERT INTO `mob_droplist` VALUES (2951,0,0,1000,11409,167); -- Aoides Pumps (16.7%)

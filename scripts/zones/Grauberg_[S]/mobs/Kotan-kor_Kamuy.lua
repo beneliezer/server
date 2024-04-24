@@ -1,10 +1,12 @@
 -----------------------------------
 -- Area: Grauberg [S]
 --   NM: Kotan-kor Kamuy
+-- https://www.bg-wiki.com/ffxi/Kotan-kor_Kamuy
 -----------------------------------
 local entity = {}
 
 entity.onMobInitialize = function(mob)
+    mob:setMod(xi.mod.PETRIFYRES, 10000)
     mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
 end
 

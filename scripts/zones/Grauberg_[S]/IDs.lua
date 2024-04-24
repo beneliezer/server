@@ -3,6 +3,8 @@
 -----------------------------------
 zones = zones or {}
 
+local kotan_kor_kamuyID = GetFirstID('Kotan-kor_Kamuy')
+
 zones[xi.zone.GRAUBERG_S] =
 {
     text =
@@ -32,14 +34,7 @@ zones[xi.zone.GRAUBERG_S] =
     {
         KOTAN_KOR_KAMUY_PH =
         {
-            [17141958] = 17141962,
-            [17141959] = 17141962,
-            [17141960] = 17141962,
-            [17141963] = 17141962,
-            [17141964] = 17141962,
-            [17141965] = 17141962,
-            [17141966] = 17141962,
-            [17141967] = 17141962,
+            [kotan_kor_kamuyID - 4] = kotan_kor_kamuyID,
         },
         SCITALIS_PH =
         {
