@@ -6,12 +6,11 @@
 local entity = {}
 
 entity.onMobInitialize = function(mob)
-    mob:setMod(xi.mod.PETRIFYRES, 10000)
     mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
 end
 
 entity.onAdditionalEffect = function(mob, target, damage)
-    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.STUN)
+    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.ENSTUN, { chance = 10, duration = 5 })
 end
 
 entity.onMobDeath = function(mob, player, optParams)
