@@ -4338,10 +4338,11 @@ INSERT INTO `mob_droplist` VALUES (487,0,0,1000,1633,80); -- Handful Of Clot Pla
 
 -- ZoneID:  29 - Strato Hippogryph
 -- ZoneID:  30 - Cloud Hippogryph
-INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,560); -- Hippogryph Tailfeather (56.0%)
-INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,280); -- Hippogryph Tailfeather (28.0%)
-INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,190); -- Hippogryph Tailfeather (19.0%)
-INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1619,20);  -- Hippogryph Feather (2.0%)
+INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (488,0,0,1000,1619,@VRARE);  -- Hippogryph Feather (Very Rare, 1%)
+INSERT INTO `mob_droplist` VALUES (488,4,0,1000,1619,0);       -- Hippogryph Feather (Despoil)
 
 -- ZoneID:  45 - Cluckatrice
 INSERT INTO `mob_droplist` VALUES (489,0,0,1000,842,200);      -- Giant Bird Feather (20.0%)
@@ -10064,11 +10065,11 @@ INSERT INTO `mob_droplist` VALUES (1217,2,0,1000,4374,0);   -- Sleepshroom (Stea
 INSERT INTO `mob_droplist` VALUES (1218,0,0,1000,12360,500); -- Tatami Shield (50.0%)
 
 -- ZoneID:  89 - Grauberg Hippogryph
-INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,230); -- Hippogryph Tailfeather (23.0%)
-INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,110); -- Hippogryph Tailfeather (11.0%)
-INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,80);  -- Hippogryph Tailfeather (8.0%)
-INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1619,70);  -- Hippogryph Feather (7.0%)
-INSERT INTO `mob_droplist` VALUES (1219,4,0,1000,1619,0);   -- Hippogryph Feather (Despoil)
+INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,@RARE); -- Hippogryph Tailfeather (Rare, 5%)
+INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,@RARE); -- Hippogryph Tailfeather (Rare, 5%)
+INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1690,@RARE); -- Hippogryph Tailfeather (Rare, 5%)
+INSERT INTO `mob_droplist` VALUES (1219,0,0,1000,1619,@RARE); -- Hippogryph Feather (Rare, 5%)
+INSERT INTO `mob_droplist` VALUES (1219,4,0,1000,1619,0);     -- Hippogryph Feather (Despoil)
 
 -- ZoneID: 112 - Graupel Gigas
 INSERT INTO `mob_droplist` VALUES (1220,0,0,1000,725,@VRARE); -- Piece Of Hickory Lumber (Very Rare, 1%)
@@ -10528,8 +10529,8 @@ INSERT INTO `mob_droplist` VALUES (1290,4,0,1000,4409,0);     -- Hard-Boiled Egg
 
 -- ZoneID:  30 - Heliodromos
 INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,1690,@ALWAYS);    -- Hippogryph Tailfeather (Always, 100%)
-INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,1690,500);        -- Hippogryph Tailfeather (50.0%)
-INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,1690,330);        -- Hippogryph Tailfeather (33.0%)
+INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,1690,@VCOMMON);   -- Hippogryph Tailfeather (Very Common, 24%)
+INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,1690,@VCOMMON);   -- Hippogryph Tailfeather (Very Common, 24%)
 INSERT INTO `mob_droplist` VALUES (1291,0,0,1000,15348,@UNCOMMON); -- Mountain Gaiters (Uncommon, 10%)
 
 -- ZoneID: 118 - Helldiver
@@ -10712,9 +10713,9 @@ INSERT INTO `mob_droplist` VALUES (1318,0,0,1000,4362,140); -- Lizard Egg (14.0%
 INSERT INTO `mob_droplist` VALUES (1318,2,0,1000,4362,0);   -- Lizard Egg (Steal)
 
 -- ZoneID:  30 - Hippogryph
-INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,500); -- Hippogryph Tailfeather (50.0%)
-INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,250); -- Hippogryph Tailfeather (25.0%)
-INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,170); -- Hippogryph Tailfeather (17.0%)
+INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (1319,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
 
 -- ZoneID: 191 - Hoarder Hare
 INSERT INTO `mob_droplist` VALUES (1320,0,0,1000,4358,350); -- Slice Of Hare Meat (35.0%)
@@ -14642,10 +14643,10 @@ INSERT INTO `mob_droplist` VALUES (1808,0,0,1000,3125,30);         -- Mavi Seal 
 INSERT INTO `mob_droplist` VALUES (1809,0,0,1000,15503,@ALWAYS); -- Van Pendant (Always, 100%)
 
 -- ZoneID:  29 - Nimbus Hippogryph
-INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,580);    -- Hippogryph Tailfeather (58.0%)
-INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,290);    -- Hippogryph Tailfeather (29.0%)
-INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,190);    -- Hippogryph Tailfeather (19.0%)
-INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1619,@VRARE); -- Hippogryph Feather (Very Rare, 1%)
+INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1690,@COMMON); -- Hippogryph Tailfeather (Common, 15%)
+INSERT INTO `mob_droplist` VALUES (1810,0,0,1000,1619,@VRARE);  -- Hippogryph Feather (Very Rare, 1%)
 
 -- ZoneID: 194 - Nine Of Batons
 INSERT INTO `mob_droplist` VALUES (1811,0,0,1000,981,20); -- Nine Of Batons Card (2.0%)
