@@ -10,7 +10,7 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onAdditionalEffect = function(mob, target, damage)
-    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.ENSTUN, { chance = 10, duration = 5 })
+    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.STUN, { chance = 10, duration = 5 })
 end
 
 entity.onMobDeath = function(mob, player, optParams)
