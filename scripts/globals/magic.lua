@@ -1082,3 +1082,4 @@ function calculateDuration(duration, magicSkill, spellGroup, caster, target, use
 end
 
 xi.ma = xi.magic
+

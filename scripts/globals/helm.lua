@@ -49,8 +49,8 @@ local helmInfo =
                     {  470, xi.item.CLUMP_OF_RED_MOKO_GRASS      },
                     {  430, xi.item.SPRIG_OF_FRESH_MUGWORT       },
                     {  240, xi.item.WIJNRUIT                     },
+                    {  120, 4273 }, -- Kitron
                 },
-
                 points =
                 {
                     { -672.000,  -9.000,  -98.000 },
@@ -89,8 +89,9 @@ local helmInfo =
                     {  460, xi.item.SPRIG_OF_FRESH_MUGWORT       },
                     {  370, xi.item.WIJNRUIT                     },
                     {  360, xi.item.EASTERN_GINGER_ROOT          },
+                    {  250,  5964 }, -- Felicifruit
+                    {  120, 4273 }, -- Kitron
                 },
-
                 points =
                 {
                     { 146.059, -16.499,  338.636 },  -- (R)G-8
@@ -201,6 +202,7 @@ local helmInfo =
                     { 2000, xi.item.SLEEPSHROOM     },
                     {  700, xi.item.SCREAM_FUNGUS   },
                     {  700, xi.item.PUFFBALL        },
+                    {  500, 5680 }, -- Agaricus
                     {  300, xi.item.KING_TRUFFLE    },
                     {  300, xi.item.MUSHROOM_LOCUST },
                 },
@@ -224,6 +226,7 @@ local helmInfo =
                     { 2000, xi.item.SLEEPSHROOM     },
                     {  700, xi.item.SCREAM_FUNGUS   },
                     {  700, xi.item.CORAL_FUNGUS    },
+                    {  500, 5680 }, -- Agaricus
                     {  300, xi.item.REISHI_MUSHROOM },
                     {  300, xi.item.MUSHROOM_LOCUST },
                 },
@@ -340,7 +343,7 @@ local helmInfo =
     {
         id           = 'EXCAVATION',
         animation    = xi.emote.EXCAVATION,
-        mod          = nil,
+        mod          = xi.mod.EXCAVATION_RESULT,
         settingRate  = xi.settings.main.EXCAVATION_RATE,
         settingBreak = xi.settings.main.EXCAVATION_BREAK_CHANCE,
         message      = 'MINING_IS_POSSIBLE_HERE',
@@ -619,6 +622,7 @@ local helmInfo =
                     { 1430, xi.item.MAPLE_LOG          },
                     { 1270, xi.item.WALNUT             },
                     {  850, xi.item.CHESTNUT_LOG       },
+                    { 1000, 4274 }, -- Persikos
                     { 1000, xi.item.RONFAURE_CHESTNUT  },
                     {  760, xi.item.WALNUT_LOG         },
                     {  490, xi.item.BAG_OF_FRUIT_SEEDS },
@@ -646,6 +650,7 @@ local helmInfo =
                     { 1540, xi.item.WALNUT_LOG    },
                     { 1140, xi.item.ARROWWOOD_LOG },
                     { 1090, xi.item.ASH_LOG       },
+                    {  890, 4274 }, -- Persikos
                     {  860, xi.item.OAK_LOG       },
                     {  860, xi.item.WILLOW_LOG    },
                     {  510, xi.item.ACORN         },
@@ -672,6 +677,7 @@ local helmInfo =
                     { 2230, xi.item.PAIR_OF_NOPALES     },
                     { 1650, xi.item.DRAGON_FRUIT        },
                     { 1490, xi.item.BIRD_FEATHER        },
+                    { 1270,  4274 }, -- Persikos
                     { 1250, xi.item.BIRD_EGG            },
                     {  170, xi.item.BAG_OF_CACTUS_STEMS },
                     {   50, xi.item.OPTICAL_NEEDLE      },
@@ -838,6 +844,7 @@ local helmInfo =
                     { 1190, xi.item.LAUAN_LOG              },
                     { 1190, xi.item.REVIVAL_TREE_ROOT      },
                     {  950, xi.item.AQUILARIA_LOG          },
+                    {  950, 4273 }, -- Kitron
                     {  480, xi.item.BEEHIVE_CHIP           },
                     {  480, xi.item.BAG_OF_TREE_CUTTINGS   },
                     {  100, xi.item.DRAGON_FRUIT           },
@@ -863,6 +870,7 @@ local helmInfo =
                     { 2220, xi.item.ARROWWOOD_LOG          },
                     { 2220, xi.item.PIECE_OF_RATTAN_LUMBER },
                     { 1130, xi.item.LAUAN_LOG              },
+                    {  800, 4273 }, -- Kitron
                     {  780, xi.item.BEEHIVE_CHIP           },
                     {  650, xi.item.DRYAD_ROOT             },
                     {  650, xi.item.BUTTERPEAR             },
@@ -964,6 +972,14 @@ local helmInfo =
                     {   80, xi.item.CHUNK_OF_MYTHRIL_ORE   },
                     {   70, xi.item.CHUNK_OF_GOLD_ORE      },
                     {   70, xi.item.CHUNK_OF_PLATINUM_ORE  },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -999,7 +1015,15 @@ local helmInfo =
                     {  210, xi.item.CHUNK_OF_MYTHRIL_ORE   },
                     {  140, xi.item.CHUNK_OF_GOLD_ORE      },
                     {  340, xi.item.CHUNK_OF_PLATINUM_ORE  },
-                    {   70, xi.item.RED_ROCK               },
+                    {  100, 769 },   -- Colored Rock
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1035,6 +1059,14 @@ local helmInfo =
                     {  210, xi.item.DEMON_HORN           },
                     {  140, xi.item.CHUNK_OF_ADAMAN_ORE  },
                     {   30, xi.item.CHUNK_OF_KHROMA_ORE  },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1082,6 +1114,15 @@ local helmInfo =
                     { 1200, xi.item.PINCH_OF_SULFUR           },
                     {  480, xi.item.TROLL_PAULDRON            },
                     {  330, xi.item.TROLL_VAMBRACE            },
+                    {  200,  685 }, -- Khroma Ore
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1125,6 +1166,14 @@ local helmInfo =
                     {  110, xi.item.SUIT_OF_MOBLIN_MAIL   },
                     {   50, xi.item.SUIT_OF_MOBLIN_ARMOR  },
                     {  160, xi.item.CHUNK_OF_PLATINUM_ORE },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1175,6 +1224,14 @@ local helmInfo =
                     {  170, xi.item.RED_ROCK               },
                     {  150, xi.item.CHUNK_OF_DARKSTEEL_ORE },
                     {  110, xi.item.CHUNK_OF_GOLD_ORE      },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1228,6 +1285,14 @@ local helmInfo =
                     {  900, xi.item.CHUNK_OF_SILVER_ORE   },
                     {  800, xi.item.CHUNK_OF_COPPER_ORE   },
                     {  100, xi.item.CHUNK_OF_PLATINUM_ORE },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1268,6 +1333,14 @@ local helmInfo =
                     {  550, xi.item.SNAPPING_MOLE          },
                     {  180, xi.item.CHUNK_OF_SILVER_ORE    },
                     {   40, xi.item.CHUNK_OF_DARKSTEEL_ORE },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1312,6 +1385,14 @@ local helmInfo =
                     {  590, xi.item.CHUNK_OF_DARKSTEEL_ORE },
                     {  400, xi.item.RED_ROCK               },
                     {   80, xi.item.CHUNK_OF_GOLD_ORE      },
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
@@ -1352,6 +1433,15 @@ local helmInfo =
                     { 1520, xi.item.CHUNK_OF_ORPIMENT       },
                     {  100, xi.item.CHUNK_OF_ORICHALCUM_ORE },
                     {  220, xi.item.RED_ROCK                },
+                    {   250, 685 }, -- Khroma Ore
+                    {   30, 1255 }, -- Fire Ore
+                    {   30, 1256 }, -- Ice Ore
+                    {   30, 1257 }, -- Wind Ore
+                    {   30, 1258 }, -- Earth Ore
+                    {   30, 1259 }, -- Lightning Ore
+                    {   30, 1260 }, -- Water Ore
+                    {   30, 1261 }, -- Light Ore
+                    {   30, 1262 }, -- Dark Ore
                 },
 
                 points =
