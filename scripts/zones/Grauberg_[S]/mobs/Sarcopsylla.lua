@@ -1,6 +1,7 @@
 -----------------------------------
 -- Area: Grauberg [S]
 --   NM: Sarcopsylla
+-- www.bg-wiki.com/ffxi/Sarcopsylla
 -----------------------------------
 mixins = { require('scripts/mixins/families/chigoe') }
 -----------------------------------
@@ -17,11 +18,6 @@ end
 
 entity.onMobDeath = function(mob, player, optParams)
     xi.hunts.checkHunt(mob, player, 502)
-end
-
-entity.onMobDespawn = function(mob)
-    UpdateNMSpawnPoint(mob:getID())
-    mob:setRespawnTime(3600) -- 2 hours
 end
 
 return entity
