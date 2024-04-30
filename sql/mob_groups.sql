@@ -5634,7 +5634,7 @@ INSERT INTO `mob_groups` VALUES (26,6250,90,'Mythril_Quadav',330,0,1767,0,0,71,7
 INSERT INTO `mob_groups` VALUES (27,4681,90,'Croque-Mitaine',0,128,0,0,9999,78,78,0);
 INSERT INTO `mob_groups` VALUES (28,2443,90,'Lou_Carcolh',330,0,1543,0,0,69,73,0);
 INSERT INTO `mob_groups` VALUES (29,3901,90,'Thread_Leech',330,0,2403,0,0,65,68,0);
-INSERT INTO `mob_groups` VALUES (30,4682,90,'Nommo',0,32,3037,0,0,88,88,0);
+INSERT INTO `mob_groups` VALUES (30,4682,90,'Nommo',0,32,3037,11075,0,88,88,0);
 INSERT INTO `mob_groups` VALUES (31,1195,90,'Electrumcap',330,0,756,0,0,68,70,0);
 INSERT INTO `mob_groups` VALUES (32,6409,90,'Mousse',330,0,15,0,0,69,71,0);
 INSERT INTO `mob_groups` VALUES (33,6233,90,'Ancient_Quadav',330,0,86,0,0,76,79,0);
@@ -5793,7 +5793,7 @@ INSERT INTO `mob_groups` VALUES (19,1662,91,'Goblin_Franctireur',330,0,1060,0,0,
 INSERT INTO `mob_groups` VALUES (20,1724,91,'Goblins_Crawler',0,128,0,0,0,51,53,0);
 INSERT INTO `mob_groups` VALUES (21,3492,91,'Scabrous_Slug',330,0,2172,0,0,56,62,0);
 INSERT INTO `mob_groups` VALUES (22,1652,91,'Goblin_Draftee',330,0,1024,0,0,56,59,0);
-INSERT INTO `mob_groups` VALUES (23,1151,91,'Dyinyinga',0,32,728,0,0,60,60,0);
+INSERT INTO `mob_groups` VALUES (23,1151,91,'Dyinyinga',0,32,728,7700,0,65,68,0);
 INSERT INTO `mob_groups` VALUES (24,4309,91,'Water_Elemental',330,4,2629,0,0,43,43,0);
 INSERT INTO `mob_groups` VALUES (25,6505,91,'Evil_Spirit',330,1,795,0,0,43,43,0);
 INSERT INTO `mob_groups` VALUES (26,6305,91,'Death_Jacket',330,0,585,0,0,38,48,0);
@@ -5807,7 +5807,7 @@ INSERT INTO `mob_groups` VALUES (33,6242,91,'Old_Quadav',330,0,348,0,0,65,69,0);
 INSERT INTO `mob_groups` VALUES (34,1917,91,'Heliodor_Quadav',330,0,354,0,0,65,69,0);
 INSERT INTO `mob_groups` VALUES (35,6324,91,'Hawker',330,0,142,0,0,38,48,0);
 INSERT INTO `mob_groups` VALUES (36,4375,91,'Worker_Crawler',330,0,2669,0,0,60,63,0);
-INSERT INTO `mob_groups` VALUES (37,4702,91,'Delicieuse_Delphine',0,32,3038,0,0,72,73,0);
+INSERT INTO `mob_groups` VALUES (37,4702,91,'Delicieuse_Delphine',0,32,3038,9000,0,72,73,0);
 INSERT INTO `mob_groups` VALUES (38,3628,91,'Silver_Quadav',330,0,2252,0,0,65,68,0);
 INSERT INTO `mob_groups` VALUES (39,1207,91,'Emerald_Quadav',330,0,761,0,0,65,68,0);
 INSERT INTO `mob_groups` VALUES (40,6243,91,'Bronze_Quadav',330,0,360,0,0,65,68,0);

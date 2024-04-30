@@ -37,6 +37,10 @@ zones[xi.zone.ROLANBERRY_FIELDS_S] =
             [17150279] = 17150280, -- -484.535 -23.756 -467.462
         },
 
+        ERLE = GetFirstID('Erle'), -- PH at -341 4 6
+
+        DYINYINGA = GetFirstID('Dyinyinga'), -- PH at 170 -31.8 -170
+
         VOIDWALKER =
         {
             [xi.keyItem.CLEAR_ABYSSITE] =

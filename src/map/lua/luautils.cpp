@@ -808,6 +808,28 @@ namespace luautils
         std::string filename;
         if (PEntity->objtype == TYPE_NPC)
         {
+            // clang-format off
+            auto isNamePrintable = [](const std::string& name)
+            {
+                // Match non-printable ASCII
+                for (const char& c : name)
+                {
+                    if ((c >= 0 && c <= 0x20) || c >= 0x7F)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            };
+            // clang-format on
+
+            // Don't bother even trying to load the script if the NPC name is non printable,
+            // and therefore impossible for a filesystem to load.
+            // TODO: Change name to "0x%X" instead so non-printables could get a script?
+            if (!isNamePrintable(PEntity->getName()))
+            {
+                return;
+            }
             std::string zone_name = PEntity->loc.zone->getName();
             std::string npc_name  = PEntity->getName();
             filename              = fmt::format("./scripts/zones/{}/npcs/{}.lua", zone_name, npc_name);
@@ -1887,6 +1909,12 @@ namespace luautils
     int32 OnTriggerAreaEnter(CCharEntity* PChar, CTriggerArea* PTriggerArea)
     {
         TracyZoneScoped;
+
+        // Do not enter trigger areas while loading in. Set in xi.player.onGameIn
+        if (PChar->GetLocalVar("ZoningIn") > 0)
+        {
+            return 0;
+        }
 
         std::string                 filename;
         std::optional<CLuaInstance> optInstance = std::nullopt;

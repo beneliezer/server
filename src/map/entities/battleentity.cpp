@@ -47,6 +47,7 @@
 #include "utils/battleutils.h"
 #include "utils/petutils.h"
 #include "utils/puppetutils.h"
+#include "utils/zoneutils.h"
 #include "weapon_skill.h"
 
 CBattleEntity::CBattleEntity()
@@ -111,9 +112,10 @@ bool CBattleEntity::isAlive()
 
 bool CBattleEntity::isInDynamis()
 {
-    if (loc.zone != nullptr)
+    auto* PZone = loc.zone == nullptr ? zoneutils::GetZone(loc.destination) : loc.zone;
+    if (PZone)
     {
-        return loc.zone->GetTypeMask() & ZONE_TYPE::DYNAMIS;
+        return PZone->GetTypeMask() & ZONE_TYPE::DYNAMIS;
     }
     return false;
 }
@@ -1956,11 +1958,6 @@ void CBattleEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
         if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() != PET_TYPE::JUG_PET)
         {
             PET_TYPE petType = static_cast<CPetEntity*>(this)->getPetType();
-
-            if (static_cast<CPetEntity*>(this)->getPetType() == PET_TYPE::AVATAR || static_cast<CPetEntity*>(this)->getPetType() == PET_TYPE::WYVERN)
-            {
-                target.animation = PSkill->getPetAnimationID();
-            }
 
             if (petType == PET_TYPE::AUTOMATON)
             {
