@@ -20,9 +20,9 @@ quest.sections =
 {
     {
         check = function(player, status, vars)
-            return status == QUEST_AVAILABLE and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA) == QUEST_COMPLETED and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) >= QUEST_ACCEPTED
+            return status == xi.questStatus.QUEST_AVAILABLE and
+            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA) == xi.questStatus.QUEST_COMPLETED and
+            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) >= xi.questStatus.QUEST_ACCEPTED
         end,
 
         [xi.zone.SELBINA] =
@@ -42,7 +42,7 @@ quest.sections =
 
     {
         check = function(player, status, vars)
-            return status == QUEST_ACCEPTED
+            return status == xi.questStatus.QUEST_ACCEPTED
         end,
 
         [xi.zone.SELBINA] =
@@ -73,8 +73,8 @@ quest.sections =
     {
         {
             check = function(player, status, vars)
-                return status == QUEST_COMPLETED and
-                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_REAL_GIFT) == QUEST_AVAILABLE
+                return status == xi.questStatus.QUEST_COMPLETED and
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_REAL_GIFT) == xi.questStatus.QUEST_AVAILABLE
             end,
 
             [xi.zone.SELBINA] =

@@ -23,7 +23,7 @@ quest.sections =
 {
     {
         check = function(player, status, vars)
-            return status == QUEST_AVAILABLE and
+            return status == xi.questStatus.QUEST_AVAILABLE and
             player:getFameLevel(xi.quest.fame_area.SELBINA_RABAO) >= 2
         end,
 
@@ -45,7 +45,7 @@ quest.sections =
 
     {
         check = function(player, status, vars)
-            return status == QUEST_ACCEPTED
+            return status == xi.questStatus.QUEST_ACCEPTED
         end,
 
         [xi.zone.SELBINA] =
@@ -124,8 +124,8 @@ quest.sections =
     {
         {
             check = function(player, status, vars)
-                return status == QUEST_COMPLETED and
-                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) == QUEST_AVAILABLE
+                return status == xi.questStatus.QUEST_COMPLETED and
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) == xi.questStatus.QUEST_AVAILABLE
             end,
 
             [xi.zone.SELBINA] =
