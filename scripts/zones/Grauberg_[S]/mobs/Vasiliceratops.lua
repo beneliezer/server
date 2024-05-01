@@ -7,6 +7,7 @@ local entity = {}
 
 entity.onMobInitialize = function(mob)
     mob:setMod(xi.mod.DOUBLE_ATTACK, 100)
+    mob:setSpeed(100)
 end
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -48,6 +48,7 @@ zones[xi.zone.GRAUBERG_S] =
             [17141981] = 17141979,
         },
         MIGRATORY_HIPPOGRYPH = 17142108,
+        VASILICERATOPS = GetFirstID('Vasiliceratops'),
     },
     npc =
     {
