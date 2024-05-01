@@ -96,7 +96,7 @@ end)
 m:addOverride('npcUtil.completeQuest', function(player, area, quest, params)
     local result = super(player, area, quest, params)
 
-    if result and area == xi.quest.log_id.OTHER_AREAS and quest == xi.quest.id.otherAreas.ELDER_MEMORIES then
+    if result and area == xi.questLog.OTHER_AREAS and quest == xi.quest.id.otherAreas.ELDER_MEMORIES then
         checkWorldFirstServerVar(player,
             'UNLOCK_SJ',
             string.format('%s has been the first player to unlock their subjob!', player:getName()))

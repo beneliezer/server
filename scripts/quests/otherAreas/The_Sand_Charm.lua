@@ -10,7 +10,7 @@ require('scripts/globals/quests')
 require('scripts/globals/interaction/quest')
 -----------------------------------
 
-local quest = Quest:new(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM)
+local quest = Quest:new(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM)
 
 quest.reward = {}
 

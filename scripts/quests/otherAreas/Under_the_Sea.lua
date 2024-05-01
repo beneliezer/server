@@ -11,7 +11,7 @@ require('scripts/globals/quests')
 require('scripts/globals/interaction/quest')
 -----------------------------------
 
-local quest = Quest:new(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA)
+local quest = Quest:new(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA)
 
 quest.reward =
 {
@@ -125,7 +125,7 @@ quest.sections =
         {
             check = function(player, status, vars)
                 return status == QUEST_COMPLETED and
-                player:getQuestStatus(xi.quest.log_id.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) == QUEST_AVAILABLE
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) == QUEST_AVAILABLE
             end,
 
             [xi.zone.SELBINA] =
