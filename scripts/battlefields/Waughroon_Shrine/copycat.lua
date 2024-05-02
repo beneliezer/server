@@ -20,7 +20,35 @@ local content = Battlefield:new({
 })
 
 -- TODO get the rest of the pets to work
-content:addEssentialMobs({ 'Osschaart' })
+
+content.groups =
+{
+    {
+        mobIds =
+        {
+            {
+                17367248,
+            },
+
+            {
+                17367254,
+            },
+
+            {
+                17367260,
+            },
+        },
+
+        allDeath = utils.bind(content.handleAllMonstersDefeated, content),
+    },
+}
+
+content.armouryCrates =
+{
+    17367249,
+    17367255,
+    17367261,
+}
 
 content.loot =
 {
