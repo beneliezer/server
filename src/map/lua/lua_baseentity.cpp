@@ -3693,7 +3693,7 @@ bool CLuaBaseEntity::hasItem(uint16 itemID, sol::object const& location)
 /************************************************************************
  *  Function: getItemCount()
  *  Purpose : Returns the total count of a specific item across all inventories
- *  Example : if player:getItemCount(xi.items.BONANZA_PEARL) then
+ *  Example : if player:getItemCount(xi.item.BONANZA_PEARL) then
  ************************************************************************/
 
 uint32 CLuaBaseEntity::getItemCount(uint16 itemID)
