@@ -29,34 +29,13 @@ zones[xi.zone.RIVERNE_SITE_A01] =
     },
     mob =
     {
-        AIATAR_PH =
-        {
-            [16900305] = 16900306,
-        },
-        ZIRYU =
-        {
-            16900315,
-            16900316,
-            16900317,
-            16900318,
-        },
-        HELIODROMOS_PH_OFFSET    = 16900107,
-        HELIODROMOS_OFFSET       = 16900110,
-        CARMINE_DOBSONFLY_OFFSET = 16900230,
-        SHIELDTRAP               = 16900320,
+        HELIODROMOS_OFFSET       = GetFirstID('Heliodromos'),
+        CARMINE_DOBSONFLY_OFFSET = GetFirstID('Carmine_Dobsonfly'),
+        AIATAR                   = GetFirstID('Aiatar'),
     },
     npc =
     {
-        DISPLACEMENT_OFFSET = 16900335,
-        SPATIAL_OURYU       = 16900358,
-    },
-    AIATAR_PH =
-    {
-        [16900301] = 16900306,
-        [16900302] = 16900306,
-        [16900303] = 16900306,
-        [16900304] = 16900306,
-        [16900305] = 16900306,
+        DISPLACEMENT_OFFSET = GetFirstID('Spatial_Displacement'),
     },
 }
 
