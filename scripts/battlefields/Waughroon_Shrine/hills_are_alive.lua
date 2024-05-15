@@ -24,18 +24,17 @@ content:addEssentialMobs({ 'Tartaruga_Gigante' })
 content.loot =
 {
     {
-        { item = 3344, weight = 1000 }, -- Red Pondweed
+        { item = xi.item.CLUMP_OF_BLUE_PONDWEED, weight = 1000 }, -- Blue Pondweed
     },
 
     {
-        { item = 17738, weight =  50 }, -- Hauteclaire (custom drop)
-        { item = 18047, weight = 188 }, -- Havoc Scythe
-        { item = 17939, weight =  27 }, -- Kriegsbeil
-        { item = 17937, weight = 170 }, -- Leopard Axe
-        { item =  1441, weight = 295 }, -- Libation Abjuration
-        { item = 18351, weight =  27 }, -- Meteor Cesti
-        { item = 17464, weight =  71 }, -- Purgatory Mace
-        { item = 17575, weight = 196 }, -- Somnus Signa
+        { item = xi.item.HAVOC_SCYTHE,        weight = 188 }, -- Havoc Scythe
+        { item = xi.item.KRIEGSBEIL,          weight =  27 }, -- Kriegsbeil
+        { item = xi.item.LEOPARD_AXE,         weight = 170 }, -- Leopard Axe
+        { item = xi.item.LIBATION_ABJURATION, weight = 295 }, -- Libation Abjuration
+        { item = xi.item.METEOR_CESTI,        weight =  27 }, -- Meteor Cesti
+        { item = xi.item.PURGATORY_MACE,      weight =  71 }, -- Purgatory Mace
+        { item = xi.item.SOMNUS_SIGNA,        weight = 196 }, -- Somnus Signa
     },
 
     {
