@@ -24,16 +24,20 @@ content:addEssentialMobs({ 'Platoon_Scorpion' })
 content.loot =
 {
     {
-        { item = xi.item.HIGH_QUALITY_SCORPION_SHELL, weight = 813 }, -- High-quality Scorpion Shell
-        { item = xi.item.SERKET_RING,                 weight =  55 }, -- Serket Ring
-        { item = xi.item.VENOMOUS_CLAW,               weight = 123 }, -- Venomous Claw
+        { item =  1474, weight = 1000 }, -- Infinity Core (custom drop)
     },
 
     {
-        { item = xi.item.EXPUNGER,       weight = 216 }, -- Expunger
-        { item = xi.item.HEART_SNATCHER, weight = 295 }, -- Heart Snatcher
-        { item = xi.item.RAMPAGER,       weight = 239 }, -- Rampager
-        { item = xi.item.SENJUINRIKIO,   weight = 231 }, -- Senjuinrikio
+        { item =  1473, weight =  813 }, -- High-quality Scorpion Shell
+        { item = 13552, weight =   55 }, -- Serket Ring
+        { item =   901, weight =  123 }, -- Venomous Claw
+    },
+
+    {
+        { item = 17207, weight = 216 }, -- Expunger
+        { item = 18005, weight = 295 }, -- Heart Snatcher
+        { item = 18217, weight = 239 }, -- Rampager
+        { item = 17793, weight = 231 }, -- Senjuinrikio
     },
 
     {
@@ -46,10 +50,11 @@ content.loot =
     },
 
     {
-        { item = xi.item.HIERARCH_BELT,    weight = 287 }, -- Hierarch Belt
-        { item = xi.item.PALMERINS_SHIELD, weight = 216 }, -- Palmerins Shield
-        { item = xi.item.TRAINERS_GLOVES,  weight = 198 }, -- Trainers Gloves
-        { item = xi.item.WARWOLF_BELT,     weight = 287 }, -- Warwolf Belt
+        { item = 11287, weight =  50 }, -- Antares Harness (custom drop)
+        { item = 15295, weight = 287 }, -- Hierarch Belt
+        { item = 12407, weight = 216 }, -- Palmerins Shield
+        { item = 14871, weight = 198 }, -- Trainers Gloves
+        { item = 15294, weight = 287 }, -- Warwolf Belt
     },
 
     {
