@@ -543,14 +543,12 @@ local function checkReqs(player, npc, bfid, registrant)
 
     local sandoriaMission  = player:getCurrentMission(xi.mission.log_id.SANDORIA)
     local windurstMission  = player:getCurrentMission(xi.mission.log_id.WINDURST)
-    local zilartMission    = player:getCurrentMission(xi.mission.log_id.ZILART)
     local promathiaMission = player:getCurrentMission(xi.mission.log_id.COP)
     local toauMission      = player:getCurrentMission(xi.mission.log_id.TOAU)
 --  local acpMission       = player:getCurrentMission(xi.mission.log_id.ACP) NOTE: UNUSED Until BCNMID 532 is Re-enabled
     local asaMission       = player:getCurrentMission(xi.mission.log_id.ASA)
 
     local nationStatus    = player:getMissionStatus(player:getNation())
-    local zilartStatus    = player:getMissionStatus(xi.mission.log_id.ZILART)
     local promathiaStatus = player:getCharVar('PromathiaStatus')
     local toauStatus      = player:getMissionStatus(xi.mission.log_id.TOAU)
 
@@ -575,16 +573,8 @@ local function checkReqs(player, npc, bfid, registrant)
             return player:hasKeyItem(xi.ki.DRAGON_CURSE_REMEDY)
         end,
 
-        [128] = function() -- ZM4: The Temple of Uggalepih
-            return zilartMission == xi.mission.id.zilart.THE_TEMPLE_OF_UGGALEPIH
-        end,
-
         [163] = function() -- Quest: Survival of the Wisest (SCH LB5)
             return mainJob == xi.job.SCH and mainLevel >= 66
-        end,
-
-        [192] = function() -- ZM6: Through the Quicksand Caves
-            return zilartMission == xi.mission.id.zilart.THROUGH_THE_QUICKSAND_CAVES
         end,
 
         [194] = function() -- Quest: Shattering Stars (SAM LB5)
@@ -606,15 +596,6 @@ local function checkReqs(player, npc, bfid, registrant)
         [225] = function() -- Windurst 9-2: Moon Reading
             return windurstMission == xi.mission.id.windurst.MOON_READING and
                 nationStatus == 2
-        end,
-
-        [256] = function() -- ZM8: Return to Delkfutt's Tower
-            return zilartMission == xi.mission.id.zilart.RETURN_TO_DELKFUTTS_TOWER and
-                zilartStatus == 2
-        end,
-
-        [320] = function() -- ZM16: The Celestial Nexus
-            return zilartMission == xi.mission.id.zilart.THE_CELESTIAL_NEXUS
         end,
 
         [416] = function() -- Quest: Trial by Wind
@@ -1176,10 +1157,6 @@ local function checkSkip(player, bfid)
                 )
         end,
 
-        [192] = function() -- ZM6: Through the Quicksand Caves
-            return player:hasCompletedMission(xi.mission.log_id.ZILART, xi.mission.id.zilart.THROUGH_THE_QUICKSAND_CAVES)
-        end,
-
         [224] = function() -- Quest: The Moonlit Path
             return player:hasCompletedQuest(xi.questLog.WINDURST, xi.quest.id.windurst.THE_MOONLIT_PATH) or
                 player:hasKeyItem(xi.ki.WHISPER_OF_THE_MOON)
@@ -1191,14 +1168,6 @@ local function checkSkip(player, bfid)
                     windurstMission == xi.mission.id.windurst.MOON_READING and
                     nationStatus > 4
                 )
-        end,
-
-        [256] = function() -- ZM8: Return to Delkfutt's Tower
-            return player:hasCompletedMission(xi.mission.log_id.ZILART, xi.mission.id.zilart.RETURN_TO_DELKFUTTS_TOWER)
-        end,
-
-        [320] = function() -- ZM16: The Celestial Nexus
-            return player:hasCompletedMission(xi.mission.log_id.ZILART, xi.mission.id.zilart.THE_CELESTIAL_NEXUS)
         end,
 
         [416] = function() -- Quest: Trial by Wind
