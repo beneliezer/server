@@ -279,7 +279,7 @@ xi.settings.main =
     RUNIC_DISK_SAVE      = true, -- Allow anyone participating in Nyzul to save progress. Set to false so only initiator can save progress.
     ENABLE_NYZUL_CASKETS = true, -- Enable Treasure casket pops from NMs.
     ENABLE_VIGIL_DROPS   = true, -- Enable Vigil Weapon drops from NMs.
-    ACTIVATE_LAMP_TIME   = 6000, -- Time in miliseconds for lamps to stay lit. TODO: Get retail confirmation.
+    ACTIVATE_LAMP_TIME   = 60000, -- Time in miliseconds for lamps to stay lit. TODO: Get retail confirmation.
 
     -- CHOCOBO RAISING (HEAVILY-IN-DEVELOPMENT, USE AT YOUR OWN RISK)
     -- GM command: `!chocoboraising`
@@ -317,6 +317,8 @@ xi.settings.main =
     -- CatsEyeXI
     DI_EVENT_MULTIPLIER          = 0, -- All Domain Invasion beads multiplied by 1.5.
     FREE_DIAL_KEY                = 0, -- When enabled, goblin dial NPC's will grant a free key daily.
+    DYNAMIS_CAMPAIGN             = false,
+    ENABLE_CAMPAIGN              = false,
 
     -- Crystal Warrior
     ENABLE_CW      = 1,
