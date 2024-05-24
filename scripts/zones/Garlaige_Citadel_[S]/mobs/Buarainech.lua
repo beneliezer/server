@@ -14,6 +14,8 @@ require('scripts/globals/utils')
 ----------------------------------
 local entity = {}
 
+local message = 232
+
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.GIL_MIN, 12000)
     mob:setMobMod(xi.mobMod.GIL_MAX, 30000)
@@ -177,7 +179,7 @@ entity.onMobDrawIn = function(mob, target)
         os.time() > drawInWait
     then
         target:setPos(121.70, 7.00, -122.45)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 end

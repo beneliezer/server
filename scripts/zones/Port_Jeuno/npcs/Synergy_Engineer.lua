@@ -25,7 +25,7 @@ end
 
 local function handleTradeSuccesful(player, itemId, quantity)
     player:tradeComplete()
-    player:printToPlayer('Engineer: Here you go, use it in the furnace.', 0xd )
+    player:printToPlayer('Engineer: Here you go, use it in the furnace.', 0xd)
     player:addItem(itemId, quantity)
     player:messageSpecial(ID.text.ITEM_OBTAINED, itemId)
 end
@@ -188,16 +188,16 @@ entity.onTrade = function(player, npc, trade)
         handleTradeSuccesful(player, itemId, quantity)
 
     else
-        player:printToPlayer('Engineer: What are you, stupid? That isn\'t what I asked for. Check that your pockets aren\'t full either.', 0xd )
+        player:printToPlayer('Engineer: What are you, stupid? That isn\'t what I asked for. Check that your pockets aren\'t full either.', 0xd)
     end
 end
 
 entity.onTrigger = function(player, npc)
-    player:printToPlayer('Engineer: So I hear you need some Scaps or Tatters?', 0xd )
-    player:printToPlayer('Engineer: Trade me the Seals of Genbu, Byakko, Suzaku or Seiryu, in return I will give you the Scraps.', 0xd )
-    player:printToPlayer('Engineer: You can also trade me the Abjuration in return I will give you the Tatters.', 0xd )
-    player:printToPlayer('Engineer: I\'ll only accept them one by one, though. Tough luck.', 0xd )
-    player:printToPlayer('Engineer: Take your time, I will be here all week.', 0xd )
+    player:printToPlayer('Engineer: So I hear you need some Scaps or Tatters?', 0xd)
+    player:printToPlayer('Engineer: Trade me the Seals of Genbu, Byakko, Suzaku or Seiryu, in return I will give you the Scraps.', 0xd)
+    player:printToPlayer('Engineer: You can also trade me the Abjuration in return I will give you the Tatters.', 0xd)
+    player:printToPlayer('Engineer: I\'ll only accept them one by one, though. Tough luck.', 0xd)
+    player:printToPlayer('Engineer: Take your time, I will be here all week.', 0xd)
 end
 
 entity.onEventUpdate = function(player, csid, option)

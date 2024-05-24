@@ -15,6 +15,8 @@ require('scripts/globals/job_utils/geomancer')
 ------------------------------
 local entity = {}
 
+local message = 232
+
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.GIL_MIN, 12000)
     mob:setMobMod(xi.mobMod.GIL_MAX, 30000)
@@ -56,7 +58,7 @@ entity.onMobFight = function(mob, target)
 
     if (target:getZPos() > -64.00) and os.time() > drawInWait then
         target:setPos(113.621, 8.584, -81.806)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 
@@ -194,7 +196,6 @@ entity.onMobFight = function(mob, target)
     mob:addListener('WEAPONSKILL_TAKE', 'TETHRA_WEAPONSKILL_TAKE', function(targetArg, attacker, skillid, tp, action)
         targetArg:addEnmity(attacker, 1000, 1000)
     end)
-
 end
 
 entity.OnSpellPrecast = function(caster, target, spell)

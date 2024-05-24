@@ -188,6 +188,7 @@ xi.survivalGuide.onEventFinish = function(player, eventId, option, npc)
 
                         return
                     end
+
                     player:setPos(guide.posX, guide.posY, guide.posZ, guide.posRot, guide.zoneId)
                 end
             end

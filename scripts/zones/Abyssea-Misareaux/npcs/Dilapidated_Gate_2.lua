@@ -34,7 +34,7 @@ entity.onTrigger = function(player, npc)
             {
                 'No',
                 function(playerArg)
-
+                    return
                 end,
             },
         },
