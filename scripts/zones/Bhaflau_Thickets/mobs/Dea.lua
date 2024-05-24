@@ -3,10 +3,13 @@
 --  ZNM: Dea
 -- Mobid: 16990507
 -----------------------------------
-mixins ={require('scripts/mixins/job_special'),
-         require('scripts/mixins/rage')}
+mixins = {
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage'),
+}
 -----------------------------------
 local entity = {}
+
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 300)
     mob:setMod(xi.mod.CRITHITRATE, 50)
@@ -49,14 +52,14 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
+    mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
     xi.mix.jobSpecial.config(mob, {
         specials =
         {
-            {id = xi.jsa.MIGHTY_STRIKES, hpp = 100},
-            {id = xi.jsa.MIGHTY_STRIKES, hpp = 75},
-            {id = xi.jsa.MIGHTY_STRIKES, hpp = 50},
-            {id = xi.jsa.MIGHTY_STRIKES, hpp = 25},
+            { id = xi.jsa.MIGHTY_STRIKES, hpp = 100 },
+            { id = xi.jsa.MIGHTY_STRIKES, hpp = 75  },
+            { id = xi.jsa.MIGHTY_STRIKES, hpp = 50  },
+            { id = xi.jsa.MIGHTY_STRIKES, hpp = 25  },
         },
     })
 end

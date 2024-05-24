@@ -594,7 +594,7 @@ local optionToItem =
         [14] = { amount = 1000, name = 'mweya_plasm'            },
         [15] = { amount = 1000, name = 'ballista_point'         },
         [16] = { amount = 1000, name = 'unity_accolades'        },
-        [17] = { amount = 1000, name = "escha_silt"             }, -- Not Implemented
+        [17] = { amount = 1000, name = 'escha_silt'             }, -- Not Implemented
         [18] = { amount = 1000, name = 'resistance_credit'      },
     },
 }
@@ -722,6 +722,7 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
             else
                 player:addCurrency(currency.name, currency.amount * qty, getCurrencyCap(currency.name))
             end
+
             player:messageSpecial(zones[player:getZoneID()].text.YOU_NOW_HAVE_AMT_CURRENCY, selection, player:getCurrency(currency.name))
         else
             player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, xi.item.COPPER_AMAN_VOUCHER)

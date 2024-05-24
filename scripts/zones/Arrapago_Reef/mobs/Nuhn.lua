@@ -3,8 +3,10 @@
 --  ZNM: Nuhn
 -- Mobid: 16998874
 -----------------------------------
-mixins ={require('scripts/mixins/job_special'),
-         require('scripts/mixins/rage')}
+mixins = {
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage')
+}
 -----------------------------------
 local entity = {}
 entity.onMobInitialize = function(mob)
@@ -52,18 +54,18 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onAdditionalEffect = function(mob, target, damage)
- return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.HP_DRAIN, {chance = 25, power = math.random(5, 25)})
+    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.HP_DRAIN, { chance = 25, power = math.random(5, 25) })
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
+    mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
     xi.mix.jobSpecial.config(mob, {
         specials =
         {
-            {id = xi.jsa.HUNDRED_FISTS, hpp = 100},
-            {id = xi.jsa.HUNDRED_FISTS, hpp = 75},
-            {id = xi.jsa.HUNDRED_FISTS, hpp = 50},
-            {id = xi.jsa.HUNDRED_FISTS, hpp = 25},
+            { id = xi.jsa.HUNDRED_FISTS, hpp = 100 },
+            { id = xi.jsa.HUNDRED_FISTS, hpp = 75  },
+            { id = xi.jsa.HUNDRED_FISTS, hpp = 50  },
+            { id = xi.jsa.HUNDRED_FISTS, hpp = 25  },
         },
     })
 end

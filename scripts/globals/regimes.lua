@@ -1471,10 +1471,10 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
                 -- increment clears
                 player:delStatusEffectSilent(xi.effect.PROWESS)
                 player:addStatusEffect(xi.effect.PROWESS, govClears + 1, 0, 0)
-           else
+            else
                 -- keep track of number of clears
                 player:addStatusEffect(xi.effect.PROWESS, 1, 0, 0)
-           end
+            end
         end
     end
 

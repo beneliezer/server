@@ -1,10 +1,10 @@
-------------------------------------
+----------------------------------
 -- Login Campaign
 -- https://www.bg-wiki.com/ffxi/Repeat_Login_Campaign
-------------------------------------
+----------------------------------
 require('scripts/globals/npc_util')
 local prizes = require('scripts/events/login_campaign_data')
-------------------------------------
+----------------------------------
 xi = xi or {}
 xi.events = xi.events or {}
 xi.events.loginCampaign = xi.events.loginCampaign or {}
@@ -199,7 +199,7 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
         showItems == 30
     then
         local price = currentLoginCampaign[showItems - 1]['price']
-        local totalItemsMask = (2 ^ 20 - 1) - (2 ^ #currentLoginCampaign[showItems - 1]["items"] - 1)  -- Uses 20 bits and sets to 1 for items not used.
+        local totalItemsMask = (2 ^ 20 - 1) - (2 ^ #currentLoginCampaign[showItems - 1]['items'] - 1)  -- Uses 20 bits and sets to 1 for items not used.
         local items = {}
 
         for i = 1, 20 do
@@ -217,18 +217,18 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
             price,
             loginPoints)
     else
-	    if itemQuantity == 1 then
+        if itemQuantity == 1 then
             if npcUtil.giveItem(player, { { currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity } }) then
                 player:delCurrency('login_points', currentLoginCampaign[showItems - 2]['price'] * itemQuantity)
                 player:updateEvent(
                     currentLoginCampaign[showItems - 2]['items'][itemSelected + 1],
-                    player:getCurrency("login_points"), -- Login Points after purchase
+                    player:getCurrency('login_points'), -- Login Points after purchase
                     0, -- Unknown (most likely totalItemMask)
                     currentLoginCampaign[showItems - 2]['price'],
                     loginPoints) -- Login points before purchase
             end
-		else
-		    print(string.format('%s has attempted to purchase %s of item: %s from login campaign.', player, itemQuantity, currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity))
-		end
+        else
+            print(string.format('%s has attempted to purchase %s of item: %s from login campaign.', player, itemQuantity, currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity))
+        end
     end
 end

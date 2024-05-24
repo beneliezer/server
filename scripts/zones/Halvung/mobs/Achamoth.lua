@@ -3,10 +3,13 @@
 --  ZNM: Achamoth
 --  Mobid: 17031600
 -----------------------------------
-mixins ={require('scripts/mixins/job_special'),
-         require('scripts/mixins/rage')}
+mixins = {
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage')
+}
 -----------------------------------
 local entity = {}
+
 entity.onMobInitialize = function(mob)
     mob:addMod(xi.mod.MDEF, 20)
     mob:addMod(xi.mod.DEF, 50)
@@ -49,14 +52,14 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onAdditionalEffect = function(mob, target, damage)
- return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.MP_DRAIN, {chance = 25, power = math.random(5, 20)})
+    return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.MP_DRAIN, { chance = 25, power = math.random(5, 20) })
 end
 
 entity.onMobSpawn = function(mob)
     xi.mix.jobSpecial.config(mob, {
         specials =
         {
-            {id = xi.jsa.BENEDICTION, hpp = 25},
+            { id = xi.jsa.BENEDICTION, hpp = 25 },
         },
     })
     mob:setLocalVar('[rage]timer', 1800)

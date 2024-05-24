@@ -3,10 +3,13 @@
 --  ZNM: Khromasoul Bhurborlor
 --  Mobid: 17027474
 -----------------------------------
-mixins ={require('scripts/mixins/job_special'),
-         require('scripts/mixins/rage')}
+mixins = {
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage'),
+}
 -----------------------------------
 local entity = {}
+
 entity.onMobInitialize = function(mob)
     mob:addMod(xi.mod.ATT, 40)
     mob:addMod(xi.mod.MDEF, 20)
@@ -63,14 +66,14 @@ entity.onAdditionalEffect = function(mob, target, damage)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
+    mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
     xi.mix.jobSpecial.config(mob, {
         specials =
         {
-            {id = xi.jsa.INVINCIBLE, hpp = 100},
-            {id = xi.jsa.INVINCIBLE, hpp = 75},
-            {id = xi.jsa.INVINCIBLE, hpp = 50},
-            {id = xi.jsa.INVINCIBLE, hpp = 25},
+            { id = xi.jsa.INVINCIBLE, hpp = 100 },
+            { id = xi.jsa.INVINCIBLE, hpp = 75  },
+            { id = xi.jsa.INVINCIBLE, hpp = 50  },
+            { id = xi.jsa.INVINCIBLE, hpp = 25  },
         },
     })
 end

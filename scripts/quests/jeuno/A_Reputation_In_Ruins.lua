@@ -8,7 +8,7 @@ require('scripts/globals/quests')
 require('scripts/globals/missions')
 require('scripts/globals/interaction/quest')
 -----------------------------------
-local ID = require('scripts/zones/PsoXja/IDs')
+local ID = zones[xi.zone.PSOXJA]
 -----------------------------------
 local quest = Quest:new(xi.questLog.JEUNO, xi.quest.id.jeuno.A_REPUTATION_IN_RUINS)
 

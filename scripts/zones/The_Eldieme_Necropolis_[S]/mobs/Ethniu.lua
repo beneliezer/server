@@ -1,7 +1,7 @@
-------------------------------
+----------------------------------
 -- Area: The Eldieme Necropolis [S]
 --   NM: Ethniu
-------------------------------
+----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -14,6 +14,8 @@ require('scripts/globals/utils')
 require('scripts/globals/job_utils/geomancer')
 ------------------------------
 local entity = {}
+
+local message = 232
 
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.GIL_MIN, 12000)
@@ -47,8 +49,8 @@ end
 
 entity.onAdditionalEffect = function(mob, target, damage)
     -- 25% En-Silence
-    if target:hasStatusEffect(xi.effect.SILENCE) == false then
-        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.SILENCE, {chance = 25})
+    if not target:hasStatusEffect(xi.effect.SILENCE) then
+        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.SILENCE, { chance = 25 })
     end
 end
 
@@ -70,16 +72,19 @@ entity.onMobFight = function(mob, target)
 
     if (target:getXPos() > 175.00) and os.time() > drawInWait then
         target:setPos(152.955, -15.000, 272.959)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
-    elseif (target:getYPos() < -18.00 and target:getXPos() > 137.00) and os.time() > drawInWait then
+    elseif
+        (target:getYPos() < -18.00 and target:getXPos() > 137.00) and
+        os.time() > drawInWait
+    then
         target:setPos(152.955, -15.000, 272.959)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 
     -- Increases Triple Attack Rate To 80% While Perfect Dodge (https://ffxiclopedia.fandom.com/wiki/Ethniu)
-    if mob:hasStatusEffect(xi.effect.PERFECT_DODGE) == true then
+    if mob:hasStatusEffect(xi.effect.PERFECT_DODGE) then
         mob:setMod(xi.mod.TRIPLE_ATTACK, 80)
     else
         mob:setMod(xi.mod.TRIPLE_ATTACK, 10)
@@ -97,6 +102,7 @@ entity.onMobFight = function(mob, target)
                     mobArg:useMobAbility(2460)
                     mobArg:setLocalVar('TotalLevelUp', levelupsum + 1)
                 end
+
                 mobArg:setLocalVar('ELevelUp', 0)
                 mobArg:setAnimationSub(0)
             -- Resets States And Mods
@@ -111,7 +117,7 @@ entity.onMobFight = function(mob, target)
     -- Mob Should Have Little To No Enmity Control (https://ffxiclopedia.fandom.com/wiki/Ethniu)
     mob:addListener('MAGIC_TAKE', 'ETHNIU_MAGIC_TAKE', function(targetArg, caster, spell)
         if
-        targetArg:getAnimationSub() == 0 and
+            targetArg:getAnimationSub() == 0 and
             spell:tookEffect() and
             (caster:isPC() or caster:isPet())
         then
@@ -147,6 +153,7 @@ entity.onMobDisengage = function(mob)
         mob:setLocalVar('EFightTimer', 0)
         mob:setLocalVar('MobPoof', 1)
     end
+
     mob:removeListener('ETHNIU_WEAPONSKILL_TAKE')
     mob:removeListener('ETHNIU_TAKE_DAMAGE')
     mob:removeListener('ETHNIU_MAGIC_TAKE')

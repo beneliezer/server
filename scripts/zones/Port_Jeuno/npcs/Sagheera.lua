@@ -348,7 +348,7 @@ entity.onTrade = function(player, npc, trade)
         if tradedCombo > 0 then
             player:confirmTrade()
             player:setCharVar('AFupgrade', tradedCombo)
-            player:setCharVar("AFupgradeDay", getVanaMidnight()) -- Current time + Remaining minutes in the hour in seconds (Day Change)
+            player:setCharVar('AFupgradeDay', getVanaMidnight()) -- Current time + Remaining minutes in the hour in seconds (Day Change)
             player:startEvent(312)
         end
     end

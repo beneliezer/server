@@ -30,7 +30,7 @@ local rageBuffs =
 
 g_mixins.rage = function(rageMob)
     rageMob:addListener('SPAWN', 'RAGE_SPAWN', function(mob)
-        mob:setLocalVar("[rage]timer", 1200) -- 20 minutes
+        mob:setLocalVar('[rage]timer', 1200) -- 20 minutes
     end)
 
     rageMob:addListener('ENGAGE', 'RAGE_ENGAGE', function(mob)
@@ -83,7 +83,7 @@ g_mixins.rage = function(rageMob)
             -- unboost stats
             for i = xi.mod.STR, xi.mod.CHR do
                 local amt = mob:getLocalVar('[rage]mod_' .. i)
-                mob:setLocalVar("[rage]mod_" .. i, 0) --credit ASB, this fixes the stats being zeroed out completely when rage is dropped
+                mob:setLocalVar('[rage]mod_' .. i, 0) --credit ASB, this fixes the stats being zeroed out completely when rage is dropped
                 mob:delMod(i, amt)
             end
 

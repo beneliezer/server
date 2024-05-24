@@ -2,7 +2,7 @@
 -- Area: Pso'Xja
 --  Mob: Gargoyle-Lambda
 -----------------------------------
-local ID = require('scripts/zones/PsoXja/IDs')
+local ID = zones[xi.zone.PSOXJA]
 -----------------------------------
 local entity = {}
 

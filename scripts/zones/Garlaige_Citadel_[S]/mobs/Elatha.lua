@@ -1,7 +1,7 @@
-------------------------------
+----------------------------------
 -- Area: Garlaige Citadel [S]
 --   NM: Elatha
-------------------------------
+----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -12,8 +12,10 @@ require('scripts/globals/magic')
 require('scripts/globals/hunts')
 require('scripts/globals/utils')
 require('scripts/globals/job_utils/geomancer')
-------------------------------
+----------------------------------
 local entity = {}
+
+local message = 232
 
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.GIL_MIN, 12000)
@@ -45,8 +47,8 @@ end
 
 entity.onAdditionalEffect = function(mob, target, damage)
     -- 25% En-Paralyze
-    if target:hasStatusEffect(xi.effect.PARALYSIS) == false then
-        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.PARALYZE, {chance = 25})
+    if not target:hasStatusEffect(xi.effect.PARALYSIS) then
+        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.PARALYZE, { chance = 25 })
     end
 end
 
@@ -65,10 +67,14 @@ entity.onMobFight = function(mob, target)
 
     -- 20 Yalm Paralyze Aura Wtih Blood Weapon Active (https://ffxiclopedia.fandom.com/wiki/Elatha)
     -- This just silently removes and adds Paralyze. RIP Battlemod users' HUDs for the next 60 seconds.
-    if mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) == true then
+    if mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) then
         local nearbyPlayers = xi.auraTarget.PLAYER
-        if nearbyPlayers == nil then return end
-        for _,v in ipairs(nearbyPlayers) do
+
+        if nearbyPlayers == nil then
+            return
+        end
+
+        for _, v in ipairs(nearbyPlayers) do
             v:delStatusEffectSilent(xi.effect.PARALYSIS)
             v:addStatusEffectEx(xi.effect.PARALYSIS, xi.effect.PARALYSIS, 25, 0, 5)
         end
@@ -91,6 +97,7 @@ entity.onMobFight = function(mob, target)
                     mobArg:useMobAbility(2460)
                     mobArg:setLocalVar('TotalLevelUp', levelupsum + 1)
                 end
+
                 mobArg:setLocalVar('ERetaliate', 0)
                 mobArg:setAnimationSub(0)
             -- Uses Shockwave Right After Bloodweapon (https://ffxiclopedia.fandom.com/wiki/Elatha)
@@ -139,7 +146,6 @@ entity.onMobFight = function(mob, target)
     mob:addListener('WEAPONSKILL_TAKE', 'ELATHA_WEAPONSKILL_TAKE', function(targetArg, attacker, skillid, tp, action)
         targetArg:addEnmity(attacker, 1000, 1000)
     end)
-
 end
 
 
@@ -148,25 +154,33 @@ entity.onMobDrawIn = function(mob, target)
     -- Should Draw Into A Single Point In the Room, Draws In Anyone In Range (https://ffxiclopedia.fandom.com/wiki/Elatha)
     local drawInWait = mob:getLocalVar('DrawInWait')
 
-    if (target:getZPos() < -111.00 or target:getZPos() > -82.00) and os.time() > drawInWait then
+    if
+        (target:getZPos() < -111.00 or target:getZPos() > -82.00) and
+        os.time() > drawInWait
+    then
         target:setPos(-140.25, 0.00, -100.00)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
-    elseif (target:getXPos() < -155.00 or target:getXPos() > -122.00) and os.time() > drawInWait then
+    elseif
+        (target:getXPos() < -155.00 or target:getXPos() > -122.00) and
+        os.time() > drawInWait
+    then
         target:setPos(-140.25, 0.00, -100.00)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 end
 
 entity.onMobDisengage = function(mob)
     local levelupsum = mob:getLocalVar('TotalLevelUp')
+
     if mob:getHPP() < 100 or levelupsum > 0 then
         DespawnMob(17449008)
         mob:setLocalVar('TotalLevelUp', 0)
         mob:setLocalVar('EFightTimer', 0)
         mob:setLocalVar('MobPoof', 1)
     end
+
     mob:removeListener('ELATHA_WEAPONSKILL_TAKE')
     mob:removeListener('ELATHA_DAMAGE')
     mob:removeListener('ELATHA_TAKE')
@@ -181,7 +195,6 @@ end
 
 entity.onMobDeath = function(mob, player, isKiller)
     xi.hunts.checkHunt(mob, player, 534)
-
 end
 
 return entity

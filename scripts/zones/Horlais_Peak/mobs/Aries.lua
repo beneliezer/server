@@ -3,7 +3,7 @@
 --  Mob: Aries
 -- KSNM: Today's Horoscope
 -----------------------------------
-local ID = require('scripts/zones/Horlais_Peak/IDs')
+local ID = zones[xi.zone.HORLAIS_PEAK]
 -----------------------------------
 local entity = {}
 

@@ -1,7 +1,7 @@
-------------------------------
+----------------------------------
 -- Area: Garlaige Citadel [S]
 --   NM: Buarainech
-------------------------------
+----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -11,7 +11,7 @@ mixins =
 require('scripts/globals/magic')
 require('scripts/globals/hunts')
 require('scripts/globals/utils')
-------------------------------
+----------------------------------
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -43,13 +43,12 @@ end
 
 entity.onAdditionalEffect = function(mob, target, damage)
     -- 100% En-Doom Kek
-    if target:hasStatusEffect(xi.effect.DOOM) == false then
-        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.DOOM, {chance = 100})
+    if not target:hasStatusEffect(xi.effect.DOOM) then
+        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.DOOM, { chance = 100 })
     end
 end
 
 entity.onMobFight = function(mob, target)
-
     -- Combat Tick Logic
     mob:addListener('COMBAT_TICK', 'BUARAINECH_CTICK', function(mobArg)
         local retaliate = mob:getLocalVar('BRetaliate')
@@ -57,7 +56,10 @@ entity.onMobFight = function(mob, target)
 
         if mobArg:getAnimationSub() == 1 then
             -- Retaliation Should Always Be Thunder IV And Instant Cast (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-            if retaliate > 0 and not mob:hasStatusEffect(xi.effect.SILENCE) then
+            if
+                retaliate > 0 and
+                not mob:hasStatusEffect(xi.effect.SILENCE)
+            then
                 mobArg:setMod(xi.mod.UFASTCAST, 100)
                 mobArg:castSpell(167)
                 mobArg:setLocalVar('BRetaliate', 0)
@@ -88,7 +90,7 @@ entity.onMobFight = function(mob, target)
     end
 
     -- En-doom When Spirit Surge Active (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-    if (mob:hasStatusEffect(xi.effect.SPIRIT_SURGE) == true) then
+    if mob:hasStatusEffect(xi.effect.SPIRIT_SURGE) then
         mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
     else
         mob:setMobMod(xi.mobMod.ADD_EFFECT, 0)
@@ -97,7 +99,7 @@ entity.onMobFight = function(mob, target)
     -- Level Up Function
     -- Starts Level Up Sequence When Any Buff Is Gained (https://ffxiclopedia.fandom.com/wiki/Buarainech)
     mob:addListener('EFFECT_GAIN', 'BUARAINECH_EFFECT_GAIN', function(mobArg, effect)
-        if (effect:getType() == xi.effect.SPIRIT_SURGE) then
+        if effect:getType() == xi.effect.SPIRIT_SURGE then
             mobArg:setLocalVar('LevelUp', 0)
         else
             if mobArg:getAnimationSub() == 0 then
@@ -138,7 +140,6 @@ entity.onMobFight = function(mob, target)
     mob:addListener('WEAPONSKILL_TAKE', 'BUARAINECH_WEAPONSKILL_TAKE', function(targetArg, attacker, skillid, tp, action)
         targetArg:addEnmity(attacker, 1000, 1000)
     end)
-
 end
 
 entity.OnSpellPrecast = function(caster, target, spell)
@@ -150,12 +151,17 @@ end
 
 entity.onMobDisengage = function(mob)
     local levelupsum = mob:getLocalVar('TotalLevelUp')
-    if mob:getHPP() < 100 or levelupsum > 0 then
+
+    if
+        mob:getHPP() < 100 or
+        levelupsum > 0
+    then
         DespawnMob(17449017)
         mob:setLocalVar('BFightTimer', 0)
         mob:setLocalVar('TotalLevelUp', 0)
         mob:setLocalVar('MobPoof', 1)
     end
+
     mob:removeListener('BUARAINECH_WEAPONSKILL_TAKE')
     mob:removeListener('BUARAINECH_TAKE_DAMAGE')
     mob:removeListener('BUARAINECH_MAGIC_TAKE')
@@ -166,7 +172,10 @@ entity.onMobDrawIn = function(mob, target)
     mob:addTP(3000) -- Uses a mobskill upon drawing in a player. Not necessarily on the person drawn in.
         local drawInWait = mob:getLocalVar('DrawInWait')
 
-    if (target:getZPos() < -146.66) and os.time() > drawInWait then
+    if
+        target:getZPos() < -146.66 and
+        os.time() > drawInWait
+    then
         target:setPos(121.70, 7.00, -122.45)
         mob:messageBasic(232, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)

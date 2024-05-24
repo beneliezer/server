@@ -30,33 +30,55 @@ entity.onMobFight = function(mob, target)
     local pet        = GetMobByID(lamiasAvatar)
     local petRespawn = GetMobByID(lamiasAvatar):getLocalVar('respawn')
 
-    if not pet:isDead() and pet:isSpawned() and pet:getCurrentAction() == xi.act.ROAMING then
+    if
+        not pet:isDead() and
+        pet:isSpawned() and
+        pet:getCurrentAction() == xi.act.ROAMING
+    then
         pet:updateEnmity(target)
-    elseif not pet:isSpawned() and os.time() > petRespawn then
+    elseif
+        not pet:isSpawned() and
+        os.time() > petRespawn
+    then
         pet:setSpawn(mob:getXPos() + math.random(1, 5), mob:getYPos(), mob:getZPos() + math.random(1, 5))
         SpawnMob(lamiasAvatar):updateEnmity(target)
     end
 
-    if mob:getHPP() < 80 and mob:getLocalVar('astralFlow') == 0 then
+    if
+        mob:getHPP() < 80 and
+        mob:getLocalVar('astralFlow') == 0
+    then
         mob:setLocalVar('astralFlow', mob:getLocalVar('astralFlow') + 1)
         mob:useMobAbility(734)
         pet:useMobAbility(915)
-    elseif mob:getHPP() < 60 and mob:getLocalVar('astralFlow') == 1 then
+    elseif
+        mob:getHPP() < 60 and
+        mob:getLocalVar('astralFlow') == 1
+    then
         mob:setLocalVar('astralFlow', mob:getLocalVar('astralFlow') + 1)
         mob:useMobAbility(734)
         pet:useMobAbility(915)
-    elseif mob:getHPP() < 40 and mob:getLocalVar('astralFlow') == 2 then
+    elseif
+        mob:getHPP() < 40 and
+        mob:getLocalVar('astralFlow') == 2
+    then
         mob:setLocalVar('astralFlow', mob:getLocalVar('astralFlow') + 1)
         mob:useMobAbility(734)
         pet:useMobAbility(915)
-    elseif mob:getHPP() < 20 and mob:getLocalVar('astralFlow') == 3 then
+    elseif
+        mob:getHPP() < 20 and
+        mob:getLocalVar('astralFlow') == 3
+    then
         mob:setLocalVar('astralFlow', mob:getLocalVar('astralFlow') + 1)
         mob:useMobAbility(734)
         pet:useMobAbility(915)
     end
 
     mob:addListener('WEAPONSKILL_USE', 'LAMIIE_MOBSKILL_USE', function(mobArg, targetArg, skillid)
-        if pet:isSpawned() and skillid ~= 734 then
+        if
+            pet:isSpawned() and
+            skillid ~= 734
+        then
             pet:setTP(3000)
             pet:disengage()
             pet:resetEnmity(targetArg)
@@ -70,9 +92,16 @@ entity.onMobRoam = function(mob)
     local petRespawn  = GetMobByID(lamiasAvatar):getLocalVar('respawn')
     local respawnTime = math.random(60, 90) + os.time()
 
-    if not pet:isDead() and pet:isSpawned() and pet:getCurrentAction() == xi.act.ATTACK then
+    if
+        not pet:isDead() and
+        pet:isSpawned() and
+        pet:getCurrentAction() == xi.act.ATTACK
+    then
         mob:updateEnmity(pet:getTarget())
-    elseif not pet:isSpawned() and os.time() > petRespawn then
+    elseif
+        not pet:isSpawned() and
+        os.time() > petRespawn
+    then
         pet:setSpawn(mob:getXPos() + math.random(1, 5), mob:getYPos(), mob:getZPos() + math.random(1, 5))
         SpawnMob(lamiasAvatar)
         pet:setLocalVar('respawn', respawnTime)

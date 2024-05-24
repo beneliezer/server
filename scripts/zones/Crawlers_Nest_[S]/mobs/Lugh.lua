@@ -1,7 +1,7 @@
-------------------------------
+----------------------------------
 -- Area: Crawlers Nest [S]
 --   NM: Lugh
-------------------------------
+----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -14,6 +14,8 @@ require('scripts/globals/utils')
 require('scripts/globals/job_utils/geomancer')
 ------------------------------
 local entity = {}
+
+local message = 232
 
 entity.onMobSpawn = function(mob)
     -- All Mods Here Are Assigned For Initial Difficulty Tuning
@@ -43,13 +45,12 @@ end
 
 entity.onAdditionalEffect = function(mob, target, damage)
     -- 25% En-Paralyze
-    if target:hasStatusEffect(xi.effect.PLAGUE) == false then
-        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.PLAGUE, {chance = 25})
+    if not target:hasStatusEffect(xi.effect.PLAGUE) then
+        return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.PLAGUE, { chance = 25 })
     end
 end
 
 entity.onMobFight = function(mob, target)
-
     -- Mighty Strikes
     -- Should Be Used Every 5 Minutes, Set to 50% Health As Baseline (https://ffxiclopedia.fandom.com/wiki/Lugh)
     local timer = mob:getLocalVar('LMightyStrikesTimer')
@@ -62,16 +63,20 @@ entity.onMobFight = function(mob, target)
 
     -- 20 Yalm Intimidate Aura Wtih Might Strikes Active (https://ffxiclopedia.fandom.com/wiki/Lugh)
     -- This just silently removes and adds Intimidate. Has 20% proc chance.
-    if mob:hasStatusEffect(xi.effect.MIGHTY_STRIKES) == true then
+    if mob:hasStatusEffect(xi.effect.MIGHTY_STRIKES) then
         local nearbyPlayers = xi.auraTarget.PLAYER(20)
-        if nearbyPlayers == nil then return end
-        for _,v in ipairs(nearbyPlayers) do
+        if nearbyPlayers == nil then
+            return
+        end
+
+        for _, v in ipairs(nearbyPlayers) do
             local shouldintimidate = math.random(1, 10)
             if shouldintimidate >= 9 then
-                if v:hasStatusEffect(xi.effect.INTIMIDATE) == true then
+                if v:hasStatusEffect(xi.effect.INTIMIDATE) then
                     v:delStatusEffectSilent(xi.effect.INTIMIDATE)
                 end
-                v:addStatusEffectEx(xi.effect.INTIMIDATE,xi.effect.INTIMIDATE, 1, 0, 1)
+
+                v:addStatusEffectEx(xi.effect.INTIMIDATE, xi.effect.INTIMIDATE, 1, 0, 1)
             end
         end
     end
@@ -88,6 +93,7 @@ entity.onMobFight = function(mob, target)
                     mob:useMobAbility(2460)
                     mob:setLocalVar('TotalLevelUp', levelupsum + 1)
                 end
+
                 mob:setLocalVar('LLevelUp', 0)
                 mob:setAnimationSub(0)
             -- Resets States And Mods
@@ -128,13 +134,19 @@ entity.onMobDrawIn = function(mob, target)
     -- Should Draw Into A Single Point In the Room, Draws In Anyone In Range (https://ffxiclopedia.fandom.com/wiki/Lugh)
     local drawInWait = mob:getLocalVar('DrawInWait')
 
-    if (target:getZPos() < 214.00 or target:getZPos() > 240.00) and os.time() > drawInWait then
+    if
+        (target:getZPos() < 214.00 or target:getZPos() > 240.00) and
+        os.time() > drawInWait
+    then
         target:setPos(-196.076, -0.447, 220.810)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
-    elseif (target:getXPos() < -218.00 or target:getXPos() > -175.00) and os.time() > drawInWait then
+    elseif
+        (target:getXPos() < -218.00 or target:getXPos() > -175.00) and
+        os.time() > drawInWait
+    then
         target:setPos(-196.076, -0.447, 220.810)
-        mob:messageBasic(232, 0, 0, target)
+        mob:messageBasic(message, 0, 0, target)
         mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 end
@@ -161,6 +173,7 @@ entity.onMobDisengage = function(mob)
         mob:setLocalVar('LFightTimer', 0)
         mob:setLocalVar('MobPoof', 1)
     end
+
     mob:removeListener('LUGH_WEAPONSKILL_TAKE')
     mob:removeListener('LUGH_TAKE_DAMAGE')
     mob:removeListener('LUGH_MAGIC_TAKE')

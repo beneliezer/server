@@ -17,7 +17,7 @@ entity.onTrigger = function(player, npc)
         helgaId:addStatusEffect(xi.effect.STUN, 0, 0, 6)
         player:setLocalVar('[Domain]Damage', getDamage + 5000)
     elseif pedestalTriggers > 3 then
-        local Rafflesia1 = zone:insertDynamicEntity({
+        local rafflesiaOne = zone:insertDynamicEntity({
             objtype     = xi.objType.MOB,
             name        = 'Rafflesia',
             look        = '0x0000EA0700000000000000000000000000000000',
@@ -41,7 +41,7 @@ entity.onTrigger = function(player, npc)
             end,
         })
 
-        local Rafflesia2 = zone:insertDynamicEntity({
+        local rafflesiaTwo = zone:insertDynamicEntity({
             objtype     = xi.objType.MOB,
             name        = 'Rafflesia',
             look        = '0x0000EA0700000000000000000000000000000000',
@@ -66,14 +66,14 @@ entity.onTrigger = function(player, npc)
             end,
         })
 
-        Rafflesia1:setSpawn(720.096, -405.501, -488.468, 129)
-        Rafflesia2:setSpawn(720.125, -405.501, -471.696, 129)
-        Rafflesia1:spawn()
-        Rafflesia2:spawn()
-        Rafflesia1:updateClaim(player)
-        Rafflesia2:updateClaim(player)
-        Rafflesia1:addStatusEffect(xi.effect.ENASPIR, 10, 0, 0)
-        Rafflesia2:addStatusEffect(xi.effect.ENASPIR, 10, 0, 0)
+        rafflesiaOne:setSpawn(720.096, -405.501, -488.468, 129)
+        rafflesiaTwo:setSpawn(720.125, -405.501, -471.696, 129)
+        rafflesiaOne:spawn()
+        rafflesiaTwo:spawn()
+        rafflesiaOne:updateClaim(player)
+        rafflesiaTwo:updateClaim(player)
+        rafflesiaOne:addStatusEffect(xi.effect.ENASPIR, 10, 0, 0)
+        rafflesiaTwo:addStatusEffect(xi.effect.ENASPIR, 10, 0, 0)
     end
 
     helgaId:setLocalVar('TowerTrigger', pedestalTriggers + 1)
@@ -87,7 +87,6 @@ entity.onTrigger = function(player, npc)
             npcArg:setStatus(xi.status.NORMAL)
         end
     end)
-
 end
 
 return entity

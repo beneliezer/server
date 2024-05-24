@@ -1,7 +1,7 @@
-------------------------------
+----------------------------------
 -- Area: The Eldieme Necropolis [S]
 --   NM: Tethra
-------------------------------
+----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -44,13 +44,12 @@ end
 
 entity.onAdditionalEffect = function(mob, target, damage)
     -- 25% En-Petrify https://ffxiclopedia.fandom.com/wiki/Tethra
-    if target:hasStatusEffect(xi.effect.PETRIFICATION) == false then
+    if not target:hasStatusEffect(xi.effect.PETRIFICATION) then
         return xi.mob.onAddEffect(mob, target, damage, xi.mob.ae.PETRIFY, { chance = 25 })
     end
 end
 
 entity.onMobFight = function(mob, target)
-
     -- Arena Style Draw-In
     -- Should Draw Into A Single Point In the Room (https://ffxiclopedia.fandom.com/wiki/Tethra)
     local drawInWait = mob:getLocalVar('DrawInWait')
@@ -111,6 +110,7 @@ entity.onMobFight = function(mob, target)
                     mobArg:useMobAbility(2460)
                     mobArg:setLocalVar('TotalLevelUp', levelupsum + 1)
                 end
+
                 -- Clear Vars
                 mobArg:setLocalVar('TAbilityRetaliate', 0)
                 mobArg:removeListener('PLAYER_ABILITY_USED')
@@ -123,6 +123,7 @@ entity.onMobFight = function(mob, target)
                     mobArg:useMobAbility(2460)
                     mobArg:setLocalVar('TotalLevelUp', levelupsum + 1)
                 end
+
                 -- Clear Vars
                 mobArg:setLocalVar('TAbilityLevelUp', 0)
                 mobArg:removeListener('PLAYER_ABILITY_USED')
@@ -198,7 +199,7 @@ end
 
 entity.OnSpellPrecast = function(caster, target, spell)
     if spell:getID() == 210 then
-        if caster:hasStatusEffect(xi.effect.MANAFONT) == true then
+        if caster:hasStatusEffect(xi.effect.MANAFONT) then
             spell:setAoE(xi.magic.aoe.RADIAL)
             spell:setFlag(xi.magic.spellFlag.HIT_ALL)
             spell:setRadius(15)
@@ -214,6 +215,7 @@ entity.onMobDisengage = function(mob)
         mob:setLocalVar('TFightTimer', 0)
         mob:setLocalVar('MobPoof', 1)
     end
+
     mob:removeListener('TEHTRA_WEAPONSKILL_TAKE')
     mob:removeListener('TEHTRA_TAKE_DAMAGE')
     mob:removeListener('TEHTRA_MAGIC_TAKE')
