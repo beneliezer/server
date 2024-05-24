@@ -102,8 +102,11 @@ ignores=(
 )
 
 ignore_rules=(
+    113 # accessing undefined variable (most commands)
     311 # value assigned to variable <> is unused
+    312 # value of argument is unused
     542 # empty if branch
+    561 # cyclomatic complexity
 )
 
 ~/.luarocks/bin/luacheck ${target} \
