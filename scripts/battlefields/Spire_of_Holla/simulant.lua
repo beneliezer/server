@@ -55,45 +55,45 @@ content.groups =
 content.loot =
 {
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
     },
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
     },
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
     },
     {
-        {item =    0, weight = 500}, -- Nothing
-        {item = 1798, weight = 100}, -- Vernal Vision (Evasion Earring)
-        {item = 1799, weight = 100}, -- Punctilious Vision (Parrying Earring)
-        {item = 1802, weight = 100}, -- Audacious Vision (Divine Earring)
-        {item = 1807, weight = 100}, -- Vivid Vision (Healing Earring)
-        {item = 1810, weight = 100}, -- Endearing Vision (Singing Earring)
+        { item =    0, weight = 500 }, -- Nothing
+        { item = 1798, weight = 100 }, -- Vernal Vision (Evasion Earring)
+        { item = 1799, weight = 100 }, -- Punctilious Vision (Parrying Earring)
+        { item = 1802, weight = 100 }, -- Audacious Vision (Divine Earring)
+        { item = 1807, weight = 100 }, -- Vivid Vision (Healing Earring)
+        { item = 1810, weight = 100 }, -- Endearing Vision (Singing Earring)
     },
 }
 
