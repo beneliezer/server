@@ -688,4 +688,3 @@ local prizes =
     },
 }
 return prizes
-

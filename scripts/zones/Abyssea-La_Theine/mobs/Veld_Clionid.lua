@@ -6,8 +6,8 @@ require('scripts/globals/mobs')
 local entity = {}
 
 entity.onMobDeath = function(mob, player, isKiller)
-	  player:addCurrency('cruor', 15)
-	  player:printToPlayer('You obtain 15 Cruor!', 0xD)
+      player:addCurrency('cruor', 15)
+      player:printToPlayer('You obtain 15 Cruor!', 0xD)
     end
 
 

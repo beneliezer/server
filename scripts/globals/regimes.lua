@@ -1545,4 +1545,3 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         xi.regime.clearRegimeVars(player)
     end
 end
-
