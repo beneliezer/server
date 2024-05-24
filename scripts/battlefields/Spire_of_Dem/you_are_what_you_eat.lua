@@ -35,7 +35,7 @@ function content:checkSkipCutscene(player)
     return player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
 end
 
-content:addEssentialMobs({ 'Ingester' })
+content:addEssentialMobs({ 'Ingester'})
 
 content.groups =
 {
@@ -47,6 +47,16 @@ content.groups =
     },
     {
         mobs = { 'Neosatiator' },
+        superlink = true,
+        spawned = false,
+    },
+    {
+        mobs = { 'Neogorger' },
+        superlink = true,
+        spawned = false,
+    },
+    {
+        mobs = { 'Neoingester' },
         superlink = true,
         spawned = false,
     },
