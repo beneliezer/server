@@ -309,6 +309,8 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
+          mkdir -p modules/catseyexi/cpp
+          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Debug
       - name: Build
@@ -351,6 +353,8 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
+          mkdir -p modules/catseyexi/cpp
+          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Release -DENABLE_TRACY=ON
       - name: Build
@@ -371,6 +375,8 @@ jobs:
           brew install mariadb zeromq zmq luajit
       - name: Configure CMake
         run: |
+          mkdir -p modules/catseyexi/cpp
+          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build
       - name: Build
