@@ -4,13 +4,13 @@
 ------------------------------
 mixins =
 {
-	require("scripts/mixins/fomor_hate"),
-    require("scripts/mixins/job_special"),
-    require("scripts/mixins/rage")
+    require('scripts/mixins/fomor_hate'),
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage')
 }
-require("scripts/globals/magic")
-require("scripts/globals/hunts")
-require("scripts/globals/utils")
+require('scripts/globals/magic')
+require('scripts/globals/hunts')
+require('scripts/globals/utils')
 ------------------------------
 local entity = {}
 
@@ -23,7 +23,7 @@ end
 entity.onMobSpawn = function(mob)
 mob:setMod(xi.mod.UDMGBREATH, -10000) -- immune to breath damage
     -- All Mods Here Are Assigned For Initial Difficulty Tuning
-	mob:setMobMod(xi.mobMod.DRAW_IN, 1)
+    mob:setMobMod(xi.mobMod.DRAW_IN, 1)
     mob:addMod(xi.mod.MAIN_DMG_RATING, 50)
     mob:addMod(xi.mod.STR, 40)
     mob:addMod(xi.mod.VIT, 20)
@@ -51,39 +51,39 @@ end
 entity.onMobFight = function(mob, target)
 
     -- Combat Tick Logic
-    mob:addListener("COMBAT_TICK", "BUARAINECH_CTICK", function(mob)
-        local retaliate = mob:getLocalVar("BRetaliate")
-        local levelup = mob:getLocalVar("LevelUp")
+    mob:addListener('COMBAT_TICK', 'BUARAINECH_CTICK', function(mobArg)
+        local retaliate = mob:getLocalVar('BRetaliate')
+        local levelup = mob:getLocalVar('LevelUp')
 
-        if mob:getAnimationSub() == 1 then
+        if mobArg:getAnimationSub() == 1 then
             -- Retaliation Should Always Be Thunder IV And Instant Cast (https://ffxiclopedia.fandom.com/wiki/Buarainech)
             if retaliate > 0 and not mob:hasStatusEffect(xi.effect.SILENCE) then
-                mob:setMod(xi.mod.UFASTCAST, 100)
-                mob:castSpell(167)
-                mob:setLocalVar("BRetaliate", 0)
-                mob:setAnimationSub(0)
+                mobArg:setMod(xi.mod.UFASTCAST, 100)
+                mobArg:castSpell(167)
+                mobArg:setLocalVar('BRetaliate', 0)
+                mobArg:setAnimationSub(0)
             -- Uses Level Up Ability
             elseif levelup > 0 then
-                mob:useMobAbility(2460)
-                mob:setLocalVar("LevelUp", 0)
-                mob:setAnimationSub(0)
+                mobArg:useMobAbility(2460)
+                mobArg:setLocalVar('LevelUp', 0)
+                mobArg:setAnimationSub(0)
             -- Resets States And Mods
             else
-                mob:setLocalVar("BRetaliate", 0)
-                mob:setLocalVar("LevelUp", 0)
-                mob:setMod(xi.mod.UFASTCAST, 0)
-                mob:setAnimationSub(0)
+                mobArg:setLocalVar('BRetaliate', 0)
+                mobArg:setLocalVar('LevelUp', 0)
+                mobArg:setMod(xi.mod.UFASTCAST, 0)
+                mobArg:setAnimationSub(0)
             end
         end
     end)
 
     -- Spirit Surge
     -- Should Be Used Every 5 Minutes, Set to 50% Health As Baseline (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-    local timer = mob:getLocalVar("BSpiritSurgeTimer")
+    local timer = mob:getLocalVar('BSpiritSurgeTimer')
     if mob:getHPP() <= 50 then
         if os.time() > timer then
             mob:useMobAbility(1893)
-            mob:setLocalVar("BSpiritSurgeTimer", os.time() + 300)
+            mob:setLocalVar('BSpiritSurgeTimer', os.time() + 300)
         end
     end
 
@@ -96,18 +96,18 @@ entity.onMobFight = function(mob, target)
 
     -- Level Up Function
     -- Starts Level Up Sequence When Any Buff Is Gained (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-    mob:addListener("EFFECT_GAIN", "BUARAINECH_EFFECT_GAIN", function(mob, effect)
+    mob:addListener('EFFECT_GAIN', 'BUARAINECH_EFFECT_GAIN', function(mobArg, effect)
         if (effect:getType() == xi.effect.SPIRIT_SURGE) then
-            mob:setLocalVar("LevelUp", 0)
+            mobArg:setLocalVar('LevelUp', 0)
         else
-            if mob:getAnimationSub() == 0 then
-                local levelupsum = mob:getLocalVar("TotalLevelUp")
+            if mobArg:getAnimationSub() == 0 then
+                local levelupsum = mobArg:getLocalVar('TotalLevelUp')
                 if levelupsum <= 30 then
-                    mob:setLocalVar("LevelUp", 1)
-                    mob:setLocalVar("TotalLevelUp", levelupsum + 1)
-                    mob:setAnimationSub(1)
+                    mobArg:setLocalVar('LevelUp', 1)
+                    mobArg:setLocalVar('TotalLevelUp', levelupsum + 1)
+                    mobArg:setAnimationSub(1)
                 else
-                    mob:setLocalVar("LevelUp", 0)
+                    mobArg:setLocalVar('LevelUp', 0)
                 end
             end
         end
@@ -115,28 +115,28 @@ entity.onMobFight = function(mob, target)
 
     -- Magic Retaliation
     -- Should Always Retaliate When Taking Magic Damage (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-    mob:addListener("MAGIC_TAKE", "BUARAINECH_MAGIC_TAKE", function(target, caster, spell)
+    mob:addListener('MAGIC_TAKE', 'BUARAINECH_MAGIC_TAKE', function(targetArg, caster, spell)
         if
-            target:getAnimationSub() == 0 and
+            targetArg:getAnimationSub() == 0 and
             spell:tookEffect() and
             (caster:isPC() or caster:isPet())
         then
-            target:setLocalVar("BRetaliate", 1)
-            target:addEnmity(caster, 1000, 1000)
-            target:setAnimationSub(1)
+            targetArg:setLocalVar('BRetaliate', 1)
+            targetArg:addEnmity(caster, 1000, 1000)
+            targetArg:setAnimationSub(1)
         end
     end)
 
     -- Enmity Handling
     -- Mob Should Have Little To No Enmity Control (https://ffxiclopedia.fandom.com/wiki/Buarainech)
-    mob:addListener("TAKE_DAMAGE", "BUARAINECH_TAKE_DAMAGE", function(mob, amount, attacker, attackType, damageType)
+    mob:addListener('TAKE_DAMAGE', 'BUARAINECH_TAKE_DAMAGE', function(mobArg, amount, attacker, attackType, damageType)
         if attackType == xi.attackType.PHYSICAL then
-            mob:addEnmity(attacker, 1000, 1000)
+            mobArg:addEnmity(attacker, 1000, 1000)
         end
     end)
 
-    mob:addListener("WEAPONSKILL_TAKE", "BUARAINECH_WEAPONSKILL_TAKE", function(target, attacker, skillid, tp, action)
-        target:addEnmity(attacker, 1000, 1000)
+    mob:addListener('WEAPONSKILL_TAKE', 'BUARAINECH_WEAPONSKILL_TAKE', function(targetArg, attacker, skillid, tp, action)
+        targetArg:addEnmity(attacker, 1000, 1000)
     end)
 
 end
@@ -149,40 +149,39 @@ entity.OnSpellPrecast = function(caster, target, spell)
 end
 
 entity.onMobDisengage = function(mob)
-    local levelupsum = mob:getLocalVar("TotalLevelUp")
+    local levelupsum = mob:getLocalVar('TotalLevelUp')
     if mob:getHPP() < 100 or levelupsum > 0 then
         DespawnMob(17449017)
-        mob:setLocalVar("BFightTimer", 0)
-        mob:setLocalVar("TotalLevelUp", 0)
-        mob:setLocalVar("MobPoof", 1)
+        mob:setLocalVar('BFightTimer', 0)
+        mob:setLocalVar('TotalLevelUp', 0)
+        mob:setLocalVar('MobPoof', 1)
     end
-    mob:removeListener("BUARAINECH_WEAPONSKILL_TAKE")
-    mob:removeListener("BUARAINECH_TAKE_DAMAGE")
-    mob:removeListener("BUARAINECH_MAGIC_TAKE")
-    mob:removeListener("BUARAINECH_EFFECT_GAIN")
+    mob:removeListener('BUARAINECH_WEAPONSKILL_TAKE')
+    mob:removeListener('BUARAINECH_TAKE_DAMAGE')
+    mob:removeListener('BUARAINECH_MAGIC_TAKE')
+    mob:removeListener('BUARAINECH_EFFECT_GAIN')
 end
 
 entity.onMobDrawIn = function(mob, target)
     mob:addTP(3000) -- Uses a mobskill upon drawing in a player. Not necessarily on the person drawn in.
-	    local drawInWait = mob:getLocalVar("DrawInWait")
-    
+        local drawInWait = mob:getLocalVar('DrawInWait')
+
     if (target:getZPos() < -146.66) and os.time() > drawInWait then
         target:setPos(121.70, 7.00, -122.45)
         mob:messageBasic(232, 0, 0, target)
-        mob:setLocalVar("DrawInWait", os.time() + 2)
+        mob:setLocalVar('DrawInWait', os.time() + 2)
     end
 end
 
-entity.onMobDespawn = function(mob) 
-    if mob:getLocalVar("MobPoof") == 1 then
+entity.onMobDespawn = function(mob)
+    if mob:getLocalVar('MobPoof') == 1 then
         mob:showText(mob, zones[mob:getZoneID()].text.NM_DESPAWN)
-        mob:setLocalVar("MobPoof", 0)
+        mob:setLocalVar('MobPoof', 0)
     end
 end
 
 entity.onMobDeath = function(mob, player, isKiller)
     xi.hunts.checkHunt(mob, player, 534)
-   
 end
 
 return entity

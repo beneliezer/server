@@ -3,8 +3,6 @@
 --   NM: Lamie No.9
 -- !pos -228 -4 342 54
 -----------------------------------
-local ID = require("scripts/zones/Arrapago_Reef/IDs")
------------------------------------
 local lamiasAvatar = 16998743
 
 local entity = {}

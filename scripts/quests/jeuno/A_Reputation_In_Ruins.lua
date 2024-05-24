@@ -21,7 +21,7 @@ quest.sections =
 {
     {
         check = function(player, status, vars)
-            return status == QUEST_AVAILABLE and
+            return status == xi.questStatus.QUEST_AVAILABLE and
             player:getCurrentMission(xi.mission.log_id.COP) > xi.mission.id.cop.THE_ROAD_FORKS
         end,
 
@@ -55,7 +55,7 @@ quest.sections =
 
     {
         check = function(player, status, vars)
-            return status == QUEST_ACCEPTED
+            return status == xi.questStatus.QUEST_ACCEPTED
         end,
 
         [xi.zone.PSOXJA] =

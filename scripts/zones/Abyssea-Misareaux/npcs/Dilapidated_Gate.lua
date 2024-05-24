@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Abyssea-Misareaux
 --  NPC: Dilapidated Gate
--- 
 -- !pos -259.55 -30.18 278.56
 -----------------------------------
 require("scripts/globals/abyssea")
@@ -15,25 +14,21 @@ entity.onTrigger = function(player, npc)
     local menu =
     {
         title = "Proceed through the gate?",
-        onStart = function(playerArg)
-            -- NOTE: This could be used to lock the player in place
-            -- playerArg:printToPlayer("Test Menu Opening", xi.msg.channel.NS_SAY)
-        end,
-        
+
         options =
         {
             {
                 "Yes",
                 function(playerArg)
-                    player:injectActionPacket(player:getID(), 6, 600, 0, 0, 0, 0, 0)
-		          
-		            player:timer(2000, function(playerArg)
-       	    	        player:setPos(-403.38, -30.085, 340, 135)
-		            end)
+                    playerArg:injectActionPacket(player:getID(), 6, 600, 0, 0, 0, 0, 0)
 
-		            player:timer(4000, function(playerArg)
-       	    	        player:injectActionPacket(player:getID(), 6, 602, 0, 0, 0, 0, 0)
-		            end)
+                    playerArg:timer(2000, function(playerArg2)
+                        playerArg2:setPos(-403.38, -30.085, 340, 135)
+                    end)
+
+                    playerArg:timer(4000, function(playerArg2)
+                        playerArg2:injectActionPacket(player:getID(), 6, 602, 0, 0, 0, 0, 0)
+                    end)
                 end,
             },
             {
@@ -43,13 +38,12 @@ entity.onTrigger = function(player, npc)
                 end,
             },
         },
-        
+
         onCancelled = function(playerArg)
         end,
     }
     player:customMenu(menu)
 end
-
 
 entity.onEventUpdate = function(player, csid, option)
 end

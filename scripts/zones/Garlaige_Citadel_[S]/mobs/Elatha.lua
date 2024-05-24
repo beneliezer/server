@@ -4,7 +4,7 @@
 ------------------------------
 mixins =
 {
-	require("scripts/mixins/fomor_hate"),
+    require("scripts/mixins/fomor_hate"),
     require("scripts/mixins/job_special"),
     require("scripts/mixins/rage")
 }
@@ -23,7 +23,7 @@ end
 
 entity.onMobSpawn = function(mob)
     -- All Mods Here Are Assigned For Initial Difficulty Tuning
-	mob:setMobMod(xi.mobMod.DRAW_IN, 1)
+    mob:setMobMod(xi.mobMod.DRAW_IN, 1)
     mob:addMod(xi.mod.MAIN_DMG_RATING, 50)
     mob:addMod(xi.mod.STR, 40)
     mob:addMod(xi.mod.VIT, 20)
@@ -41,7 +41,6 @@ entity.onMobSpawn = function(mob)
     -- Increasing Enblizzard for Standard Attack Round to 100 (http://wiki.ffo.jp/wiki.cgi?Command=HDetail&articleid=129694&id=18305)
     mob:addStatusEffect(xi.effect.ENBLIZZARD_II, 15, 0, 0)
     mob:setMobMod(xi.mobMod.ADD_EFFECT, 1)
-	
 end
 
 entity.onAdditionalEffect = function(mob, target, damage)
@@ -52,7 +51,6 @@ entity.onAdditionalEffect = function(mob, target, damage)
 end
 
 entity.onMobFight = function(mob, target)
-
    -- Blood Weapon
     -- Should Be Used Every 5 Minutes, Set to 50% Health As Baseline (https://ffxiclopedia.fandom.com/wiki/Elatha)
     local timer = mob:getLocalVar("EBloodWeaponTimer")
@@ -77,40 +75,40 @@ entity.onMobFight = function(mob, target)
     end
 
     -- Combat Tick Logic
-    mob:addListener("COMBAT_TICK", "ELATHA_CTICK", function(mob)
+    mob:addListener("COMBAT_TICK", "ELATHA_CTICK", function(mobArg)
         local retaliate = mob:getLocalVar("ERetaliate")
         local efollowup = mob:getLocalVar("EBloodWeaponFollow")
-        
-        if mob:getAnimationSub() == 1 then
+
+        if mobArg:getAnimationSub() == 1 then
             -- Retaliation Should Cause Level Up And Always Be Blizzard IV With Instant Cast (https://ffxiclopedia.fandom.com/wiki/Elatha)
             if retaliate > 0 then
                 -- Perform Retalitory Blizzard IV
-                mob:setMod(xi.mod.UFASTCAST, 100)
-                mob:castSpell(152)
+                mobArg:setMod(xi.mod.UFASTCAST, 100)
+                mobArg:castSpell(152)
                 -- Perform Level Up
                 local levelupsum = mob:getLocalVar("TotalLevelUp")
                 if levelupsum <= 15 then
-                    mob:useMobAbility(2460)
-                    mob:setLocalVar("TotalLevelUp", levelupsum + 1)
+                    mobArg:useMobAbility(2460)
+                    mobArg:setLocalVar("TotalLevelUp", levelupsum + 1)
                 end
-                mob:setLocalVar("ERetaliate", 0)
-                mob:setAnimationSub(0)
+                mobArg:setLocalVar("ERetaliate", 0)
+                mobArg:setAnimationSub(0)
             -- Uses Shockwave Right After Bloodweapon (https://ffxiclopedia.fandom.com/wiki/Elatha)
             elseif efollowup > 0 then
                 -- Use Shockwave
-                mob:setAnimationSub(0)
-                mob:addTP(3000)
-                mob:useMobAbility(52)
-                mob:setLocalVar("EBloodWeaponFollow", 0)
+                mobArg:setAnimationSub(0)
+                mobArg:addTP(3000)
+                mobArg:useMobAbility(52)
+                mobArg:setLocalVar("EBloodWeaponFollow", 0)
             -- Resets States And Mods
             else
-                mob:setLocalVar("ERetaliate", 0)
-                mob:setLocalVar("EBloodWeaponFollow", 0)
-                mob:setMod(xi.mod.UFASTCAST, 0)
-                mob:setAnimationSub(0)
+                mobArg:setLocalVar("ERetaliate", 0)
+                mobArg:setLocalVar("EBloodWeaponFollow", 0)
+                mobArg:setMod(xi.mod.UFASTCAST, 0)
+                mobArg:setAnimationSub(0)
             end
         else
-            if mob:getCurrentAction() ~= 30 then
+            if mobArg:getCurrentAction() ~= 30 then
                 mob:setMod(xi.mod.UFASTCAST, 0)
             end
         end
@@ -118,28 +116,28 @@ entity.onMobFight = function(mob, target)
 
     -- Magic Retaliation and Level Up Function
     -- Should Always Retaliate When Taking Magic Damage and Level Up (https://ffxiclopedia.fandom.com/wiki/Elatha)
-    mob:addListener("MAGIC_TAKE", "ELATHA_MAGIC_TAKE", function(target, caster, spell)
+    mob:addListener("MAGIC_TAKE", "ELATHA_MAGIC_TAKE", function(targetArg, caster, spell)
         if
-            target:getAnimationSub() == 0 and
+            targetArg:getAnimationSub() == 0 and
             spell:tookEffect() and
             (caster:isPC() or caster:isPet())
         then
-            target:setLocalVar("ERetaliate", 1)
-            target:addEnmity(caster, 1000, 1000)
-            target:setAnimationSub(1)
+            targetArg:setLocalVar("ERetaliate", 1)
+            targetArg:addEnmity(caster, 1000, 1000)
+            targetArg:setAnimationSub(1)
         end
     end)
 
     -- Enmity Handling
     -- Mob Should Have Little To No Enmity Control (https://ffxiclopedia.fandom.com/wiki/Elatha)
-    mob:addListener("TAKE_DAMAGE", "ELATHA_TAKE_DAMAGE", function(mob, amount, attacker, attackType, damageType)
+    mob:addListener("TAKE_DAMAGE", "ELATHA_TAKE_DAMAGE", function(mobArg, amount, attacker, attackType, damageType)
         if attackType == xi.attackType.PHYSICAL then
-            mob:addEnmity(attacker, 1000, 1000)
+            mobArg:addEnmity(attacker, 1000, 1000)
         end
     end)
 
-    mob:addListener("WEAPONSKILL_TAKE", "ELATHA_WEAPONSKILL_TAKE", function(target, attacker, skillid, tp, action)
-        target:addEnmity(attacker, 1000, 1000)
+    mob:addListener("WEAPONSKILL_TAKE", "ELATHA_WEAPONSKILL_TAKE", function(targetArg, attacker, skillid, tp, action)
+        targetArg:addEnmity(attacker, 1000, 1000)
     end)
 
 end
@@ -174,7 +172,7 @@ entity.onMobDisengage = function(mob)
     mob:removeListener("ELATHA_TAKE")
 end
 
-entity.onMobDespawn = function(mob) 
+entity.onMobDespawn = function(mob)
     if mob:getLocalVar("MobPoof") == 1 then
         mob:showText(mob, zones[mob:getZoneID()].text.NM_DESPAWN)
         mob:setLocalVar("MobPoof", 0)
