@@ -2,8 +2,8 @@
 -- Login Campaign
 -- https://www.bg-wiki.com/ffxi/Repeat_Login_Campaign
 ------------------------------------
-require("scripts/globals/npc_util")
-local prizes = require("scripts/events/login_campaign_data")
+require('scripts/globals/npc_util')
+local prizes = require('scripts/events/login_campaign_data')
 ------------------------------------
 xi = xi or {}
 xi.events = xi.events or {}
@@ -49,24 +49,24 @@ xi.events.loginCampaign.onGameIn = function(player)
 
     local zoneId      = player:getZoneID()
     local ID          = zones[zoneId]
-    local loginPoints = player:getCurrency("login_points")
+    local loginPoints = player:getCurrency('login_points')
 
-    local playercMonth = player:getCharVar("LoginCampaignMonth")
-    local playercYear  = player:getCharVar("LoginCampaignYear")
-    local nextMidnight = player:getCharVar("LoginCampaignNextMidnight")
-    local loginCount   = player:getCharVar("LoginCampaignLoginNumber")
+    local playercMonth = player:getCharVar('LoginCampaignMonth')
+    local playercYear  = player:getCharVar('LoginCampaignYear')
+    local nextMidnight = player:getCharVar('LoginCampaignNextMidnight')
+    local loginCount   = player:getCharVar('LoginCampaignLoginNumber')
 
     -- Carry last months points if there's any
     if playercMonth ~= loginCampaignMonth or playercYear ~= loginCampaignYear then
         if loginPoints > 1500 then
-            player:setCurrency("login_points", 1500)
+            player:setCurrency('login_points', 1500)
             player:messageSpecial(ID.text.CARRIED_OVER_POINTS, 0, 1500)
         elseif loginPoints ~= 0 then
             player:messageSpecial(ID.text.CARRIED_OVER_POINTS, 0, loginPoints)
         end
 
-        player:setCharVar("LoginCampaignMonth", loginCampaignMonth)
-        player:setCharVar("LoginCampaignYear", loginCampaignYear)
+        player:setCharVar('LoginCampaignMonth', loginCampaignMonth)
+        player:setCharVar('LoginCampaignYear', loginCampaignYear)
         loginCount = 0
     end
 
@@ -80,18 +80,18 @@ xi.events.loginCampaign.onGameIn = function(player)
             loginCount = loginCount + 1
         end
 
-        player:setCharVar("LoginCampaignNextMidnight", getMidnight())
+        player:setCharVar('LoginCampaignNextMidnight', getMidnight())
 
         -- adds currency
         if loginCount == 1 then
-            player:addCurrency("login_points", 500)
-            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 500, player:getCurrency("login_points"))
+            player:addCurrency('login_points', 500)
+            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 500, player:getCurrency('login_points'))
         else
-            player:addCurrency("login_points", 200)
-            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 200, player:getCurrency("login_points"))
+            player:addCurrency('login_points', 200)
+            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 200, player:getCurrency('login_points'))
         end
 
-        player:setCharVar("LoginCampaignLoginNumber", loginCount)
+        player:setCharVar('LoginCampaignLoginNumber', loginCount)
     end
 end
 
@@ -99,7 +99,7 @@ end
 -- Handles showing the correct list of prices and hiding the options that are not available
 xi.events.loginCampaign.onTrigger = function(player, csid)
     if player:isCrystalWarrior() then
-        player:printToPlayer("You cannot claim login rewards as a Crystal Warrior.", xi.msg.channel.SYSTEM_3)
+        player:printToPlayer('You cannot claim login rewards as a Crystal Warrior.', xi.msg.channel.SYSTEM_3)
         return
     end
 
@@ -108,7 +108,7 @@ xi.events.loginCampaign.onTrigger = function(player, csid)
         return
     end
 
-    local loginPoints = player:getCurrency("login_points")
+    local loginPoints = player:getCurrency('login_points')
     local cDate = bit.bor(loginCampaignYear, bit.lshift(loginCampaignMonth, 28))
     local currentLoginCampaign = prizes
     local price = {}
@@ -117,7 +117,7 @@ xi.events.loginCampaign.onTrigger = function(player, csid)
 
     -- Makes a table of prices
     for k, v in pairs(currentLoginCampaign) do
-        price[k] = currentLoginCampaign[k]["price"]
+        price[k] = currentLoginCampaign[k]['price']
     end
 
     -- Bit shifts values of prices (Defaults to 0 if price not in table)
@@ -158,7 +158,7 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
     local itemSelected = bit.band(bit.rshift(option, 5), 31)
     local itemQuantity = bit.band(bit.rshift(option, 11), 511)
     local currentLoginCampaign = prizes
-    local loginPoints = player:getCurrency("login_points")
+    local loginPoints = player:getCurrency('login_points')
 
     if
         showItems == 1 or
@@ -172,8 +172,8 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
     then
         local items = {}
         for i = 1, 20 do
-            if currentLoginCampaign[showItems]["items"][i] ~= nil then
-                table.insert(items, currentLoginCampaign[showItems]["items"][i])
+            if currentLoginCampaign[showItems]['items'][i] ~= nil then
+                table.insert(items, currentLoginCampaign[showItems]['items'][i])
             else
                 table.insert(items, 0)
             end
@@ -198,13 +198,13 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
         showItems == 26 or
         showItems == 30
     then
-        local price = currentLoginCampaign[showItems - 1]["price"]
+        local price = currentLoginCampaign[showItems - 1]['price']
         local totalItemsMask = (2 ^ 20 - 1) - (2 ^ #currentLoginCampaign[showItems - 1]["items"] - 1)  -- Uses 20 bits and sets to 1 for items not used.
         local items = {}
 
         for i = 1, 20 do
-            if currentLoginCampaign[showItems - 1]["items"][i] ~= nil then
-                table.insert(items, currentLoginCampaign[showItems - 1]["items"][i])
+            if currentLoginCampaign[showItems - 1]['items'][i] ~= nil then
+                table.insert(items, currentLoginCampaign[showItems - 1]['items'][i])
             else
                 table.insert(items, 0)
             end
@@ -218,17 +218,17 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
             loginPoints)
     else
 	    if itemQuantity == 1 then
-            if npcUtil.giveItem(player, { { currentLoginCampaign[showItems - 2]["items"][itemSelected + 1], itemQuantity } }) then
-                player:delCurrency("login_points", currentLoginCampaign[showItems - 2]["price"] * itemQuantity)
+            if npcUtil.giveItem(player, { { currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity } }) then
+                player:delCurrency('login_points', currentLoginCampaign[showItems - 2]['price'] * itemQuantity)
                 player:updateEvent(
-                    currentLoginCampaign[showItems - 2]["items"][itemSelected + 1],
+                    currentLoginCampaign[showItems - 2]['items'][itemSelected + 1],
                     player:getCurrency("login_points"), -- Login Points after purchase
                     0, -- Unknown (most likely totalItemMask)
-                    currentLoginCampaign[showItems - 2]["price"],
+                    currentLoginCampaign[showItems - 2]['price'],
                     loginPoints) -- Login points before purchase
             end
 		else
-		    print(string.format("%s has attempted to purchase %s of item: %s from login campaign.", player, itemQuantity, currentLoginCampaign[showItems - 2]["items"][itemSelected + 1], itemQuantity))
+		    print(string.format('%s has attempted to purchase %s of item: %s from login campaign.', player, itemQuantity, currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity))
 		end
     end
 end

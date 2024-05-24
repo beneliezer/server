@@ -2,7 +2,7 @@
 -- Area: Mount Z
 --  ZNM: Anantaboga
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
+mixins = {require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 

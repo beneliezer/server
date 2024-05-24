@@ -3,8 +3,8 @@
 --  ZNM: Nuhn
 -- Mobid: 16998874
 -----------------------------------
-mixins ={require("scripts/mixins/job_special"),
-         require("scripts/mixins/rage")}
+mixins ={require('scripts/mixins/job_special'),
+         require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 entity.onMobInitialize = function(mob)

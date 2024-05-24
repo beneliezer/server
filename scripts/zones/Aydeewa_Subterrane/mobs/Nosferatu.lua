@@ -3,8 +3,8 @@
 --  ZNM: Nosferatu
 --  Mobid: 17056157
 -----------------------------------
-mixins = {require("scripts/mixins/job_special"),
-require("scripts/mixins/rage")}
+mixins = {require('scripts/mixins/job_special'),
+require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 entity.onMobInitialize = function(mob)

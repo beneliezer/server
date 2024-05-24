@@ -11,8 +11,8 @@ local prizes =
 {
     [1] =
     {
-        ["price"] = 10,
-        ["items"] =
+        ['price'] = 10,
+        ['items'] =
         {
         -- CONSUMABLES I
 
@@ -32,8 +32,8 @@ local prizes =
 
     [5] =
     {
-        ["price"] = 50,
-        ["items"] =
+        ['price'] = 50,
+        ['items'] =
         {
         -- CONSUMABLES II and furnishings(7 per cycle)
 
@@ -104,8 +104,8 @@ local prizes =
 
     [9] =
     {
-        ["price"] = 100,
-        ["items"] =
+        ['price'] = 100,
+        ['items'] =
         {
         -- COSTUMES
 
@@ -268,8 +268,8 @@ local prizes =
 
     [13] =
     {
-        ["price"] = 200,
-        ["items"] =
+        ['price'] = 200,
+        ['items'] =
         {
         -- WEAPON COSTUMES and crafting latent items
 
@@ -377,8 +377,8 @@ local prizes =
 
     [17] =
     {
-        ["price"] = 500,
-        ["items"] =
+        ['price'] = 500,
+        ['items'] =
         {
         -- MOUNTS
 
@@ -418,8 +418,8 @@ local prizes =
 
     [21] =
     {
-        ["price"] = 1000,
-        ["items"] =
+        ['price'] = 1000,
+        ['items'] =
         {
         -- Dyna currency
             -- static item
@@ -474,8 +474,8 @@ local prizes =
 
     [25] =
     {
-        ["price"] = 1500,
-        ["items"] =
+        ['price'] = 1500,
+        ['items'] =
         {
         -- NICE TO HAVE STUFF
 
@@ -586,8 +586,8 @@ local prizes =
 
     [29] =
     {
-        ["price"] = 1500,
-        ["items"] =
+        ['price'] = 1500,
+        ['items'] =
         {
         -- GAMECHANGERS
 

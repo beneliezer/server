@@ -1,4 +1,4 @@
-local ID = require("scripts/zones/PsoXja/IDs")
+local ID = require('scripts/zones/PsoXja/IDs')
 
 return {
     ['qm_blue_bracelet'] = { messageSpecial = ID.text.NOTHING_OUT_OF_ORDINARY },

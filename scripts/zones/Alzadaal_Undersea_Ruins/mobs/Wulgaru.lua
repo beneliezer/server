@@ -2,7 +2,7 @@
 -- Area: Alzadaal Undersea Ruins
 --  Mob: Wulgaru
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
+mixins = {require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 -- Todo: Pups can make it change frames, Overload causes Rage

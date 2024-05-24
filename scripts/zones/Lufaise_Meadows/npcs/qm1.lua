@@ -3,8 +3,8 @@
 --  NPC: ??? - Amaltheia spawn
 -- !pos 347.897 -10.895 264.382 24
 -----------------------------------
-local ID = require("scripts/zones/Lufaise_Meadows/IDs")
-require("scripts/globals/npc_util")
+local ID = require('scripts/zones/Lufaise_Meadows/IDs')
+require('scripts/globals/npc_util')
 -----------------------------------
 local entity = {}
 

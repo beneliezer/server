@@ -42,7 +42,7 @@ commandObj.onTrigger = function(player, speed)
         player:printToPlayer('Returning to your regular speed.')
     else
         player:printToPlayer('Bypassing regular speed calculations and limits.')
-        player:printToPlayer('Set speed value to "0" to return to your regular speed.')
+        player:printToPlayer('Set speed value to '0' to return to your regular speed.')
         player:printToPlayer(string.format('New speed: %u', speed))
     end
 

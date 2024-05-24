@@ -10,25 +10,25 @@ entity.onMobSpawn = function(mob)
 end
 
 entity.onMobEngage = function(mob)
-    mob:setLocalVar("timer", os.time() + 10)
+    mob:setLocalVar('timer', os.time() + 10)
     mob:useMobAbility(800)
 end
 
 entity.onMobWeaponSkillPrepare = function(mob, target)
-    mob:setLocalVar("skill_tp", mob:getTP())
+    mob:setLocalVar('skill_tp', mob:getTP())
 end
 
 entity.onMobFight = function(mob, target)
-    if mob:getLocalVar("timer") < os.time() then
+    if mob:getLocalVar('timer') < os.time() then
         mob:useMobAbility(695)
-        mob:setLocalVar("timer", os.time() + 45)
+        mob:setLocalVar('timer', os.time() + 45)
     end
 end
 
 entity.onMobWeaponSkill = function(target, mob, skill)
     if skill:getID() == 695 then
-        mob:addTP(mob:getLocalVar("skill_tp"))
-        mob:setLocalVar("skill_tp", 0)
+        mob:addTP(mob:getLocalVar('skill_tp'))
+        mob:setLocalVar('skill_tp', 0)
     end
 end
 

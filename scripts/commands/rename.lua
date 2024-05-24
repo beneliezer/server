@@ -31,7 +31,7 @@ commandObj.onTrigger = function(player, inputString, entityID)
         return
     end
 
-    if inputString == '""' then
+    if inputString == '''' then
         entity:renameEntity('', true)
     else
         entity:renameEntity(inputString, true)

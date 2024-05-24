@@ -41,7 +41,7 @@ commandObj.onTrigger = function(player, target)
     else
         local targ = GetPlayerByName(target)
         if targ == nil then
-            player:printToPlayer(string.format('Player named "%s" not found!', target))
+            player:printToPlayer(string.format('Player named '%s' not found!', target))
         else
             AddAllAttachments(targ)
         end

@@ -10,7 +10,7 @@ require('scripts/globals/interaction/hidden_quest')
 local woodsID = require('scripts/zones/Windurst_Woods/IDs')
 -----------------------------------
 
-local quest = HiddenQuest:new("TrustShikareeZ")
+local quest = HiddenQuest:new('TrustShikareeZ')
 
 quest.sections =
 {

@@ -3,8 +3,8 @@
 --  ZNM: Achamoth
 --  Mobid: 17031600
 -----------------------------------
-mixins ={require("scripts/mixins/job_special"),
-         require("scripts/mixins/rage")}
+mixins ={require('scripts/mixins/job_special'),
+         require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 entity.onMobInitialize = function(mob)
@@ -59,7 +59,7 @@ entity.onMobSpawn = function(mob)
             {id = xi.jsa.BENEDICTION, hpp = 25},
         },
     })
-    mob:setLocalVar("[rage]timer", 1800)
+    mob:setLocalVar('[rage]timer', 1800)
 end
 
 entity.onMobDeath = function(mob, player, isKiller)

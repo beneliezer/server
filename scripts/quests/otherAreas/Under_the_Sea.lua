@@ -55,7 +55,7 @@ quest.sections =
                 onTrigger = function(player, npc)
                     if player:hasKeyItem(xi.ki.ETCHED_RING) then
                         return quest:event(37)
-                    elseif quest:getVar(player, "status") == 0 then
+                    elseif quest:getVar(player, 'status') == 0 then
                         return quest:event(32)
                     end
                 end,
@@ -63,7 +63,7 @@ quest.sections =
             ['Jimaida'] =
             {
                 onTrigger = function(player, npc)
-                    if quest:getVar(player, "status") == 1 then
+                    if quest:getVar(player, 'status') == 1 then
                         return quest:event(33)
                     end
                 end,
@@ -94,15 +94,15 @@ quest.sections =
             onEventFinish =
             {
                 [32] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [33] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [34] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [35] = function(player, csid, option, npc)

@@ -3,7 +3,7 @@
 --  Mob: Sabotender Campeon
 -- KSNM: Cactuar Suave
 -----------------------------------
-require("scripts/globals/pathfind")
+require('scripts/globals/pathfind')
 -----------------------------------
 local entity = {}
 
@@ -42,40 +42,40 @@ local function atPoint(mob, bfNum, target)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("target", math.random(1, 5))
+    mob:setLocalVar('target', math.random(1, 5))
     mob:setMod(xi.mod.REGEN, 50)
     mob:setSpeed(60)
 end
 
 entity.onMobEngage = function(mob)
-    mob:setLocalVar("runTimer", os.time() + math.random(30, 45))
+    mob:setLocalVar('runTimer', os.time() + math.random(30, 45))
 end
 
 entity.onMobFight = function(mob, target)
     local bfNum = mob:getBattlefield():getArea()
-    local dest = mob:getLocalVar("target")
+    local dest = mob:getLocalVar('target')
 
     if
-        mob:getLocalVar("runTimer") < os.time() and
-        mob:getLocalVar("control") == 0
+        mob:getLocalVar('runTimer') < os.time() and
+        mob:getLocalVar('control') == 0
     then
-        mob:setLocalVar("control", 1)
-        mob:setLocalVar("needleControl", 0)
+        mob:setLocalVar('control', 1)
+        mob:setLocalVar('needleControl', 0)
         mob:timer(1000 * math.random(30, 45), function(mobArg)
-            mobArg:setLocalVar("runTimer", os.time() + math.random(30, 45))
-            mobArg:setLocalVar("control", 0)
+            mobArg:setLocalVar('runTimer', os.time() + math.random(30, 45))
+            mobArg:setLocalVar('control', 0)
         end)
     end
 
-    if mob:getLocalVar("runTimer") > os.time() then
+    if mob:getLocalVar('runTimer') > os.time() then
         if atPoint(mob, bfNum, dest) then
-            mob:setLocalVar("target", math.random(1, 5))
-            dest = mob:getLocalVar("target")
+            mob:setLocalVar('target', math.random(1, 5))
+            dest = mob:getLocalVar('target')
         end
 
         mob:pathThrough(destinations[bfNum][dest], xi.path.flag.SCRIPT)
-    elseif mob:getLocalVar("needleControl") == 0 and mob:checkDistance(target) < 10 then
-        mob:setLocalVar("needleControl", 1)
+    elseif mob:getLocalVar('needleControl') == 0 and mob:checkDistance(target) < 10 then
+        mob:setLocalVar('needleControl', 1)
         mob:queue(0, function(mobArg)
             mobArg:useMobAbility(322)
         end)

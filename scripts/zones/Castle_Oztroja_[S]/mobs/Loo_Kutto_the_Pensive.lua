@@ -8,7 +8,7 @@ local entity = {}
 
 entity.onMobFight = function(mob, target)
     --[[
-    "Possess high Regain and/or Store TP, which seems to increase further as its HP declines."
+    'Possess high Regain and/or Store TP, which seems to increase further as its HP declines.'
 
     Using formula below, mob will have:
     at 100% HP, 20 storeTP

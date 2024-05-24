@@ -7,7 +7,7 @@ local commandObj = {}
 commandObj.cmdprops =
 {
     permission = 7,
-    parameters = ""
+    parameters = ''
 }
 
 commandObj.onTrigger = function(player)

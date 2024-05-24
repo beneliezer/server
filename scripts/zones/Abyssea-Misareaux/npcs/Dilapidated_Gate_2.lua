@@ -3,7 +3,7 @@
 --  NPC: Dilapidated Gate
 -- !pos -259.55 -30.18 278.56
 -----------------------------------
-require("scripts/globals/abyssea")
+require('scripts/globals/abyssea')
 -----------------------------------
 local entity = {}
 
@@ -13,12 +13,12 @@ end
 entity.onTrigger = function(player, npc)
     local menu =
     {
-        title = "Proceed through the gate?",
+        title = 'Proceed through the gate?',
 
         options =
         {
             {
-                "Yes",
+                'Yes',
                 function(playerArg)
                     playerArg:injectActionPacket(player:getID(), 6, 600, 0, 0, 0, 0, 0)
 
@@ -32,7 +32,7 @@ entity.onTrigger = function(player, npc)
                 end,
             },
             {
-                "No",
+                'No',
                 function(playerArg)
 
                 end,

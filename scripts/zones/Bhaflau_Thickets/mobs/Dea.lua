@@ -3,8 +3,8 @@
 --  ZNM: Dea
 -- Mobid: 16990507
 -----------------------------------
-mixins ={require("scripts/mixins/job_special"),
-         require("scripts/mixins/rage")}
+mixins ={require('scripts/mixins/job_special'),
+         require('scripts/mixins/rage')}
 -----------------------------------
 local entity = {}
 entity.onMobInitialize = function(mob)
