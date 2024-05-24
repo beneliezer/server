@@ -544,7 +544,7 @@ jobs:
       if: ${{ success() || failure() }}
       run: |
         cat login-server*.log
-        cat map-server*.log | grep -v isCrystalWarrior
+        cat map-server*.log | grep -v -A3 isCrystalWarrior
         cat search-server*.log
         cat world-server*.log
 
