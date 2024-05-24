@@ -309,8 +309,8 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
-          mkdir -p modules/catseyexi/cpp
-          mv modules/custom/cpp/* modules/catseyexi/cpp/
+          mkdir modules\catseyexi\cpp
+          move modules\custom\cpp\*.* modules\catseyexi\cpp\
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Debug
       - name: Build
@@ -353,10 +353,6 @@ jobs:
       - name: Configure CMake
         shell: cmd
         run: |
-          pwd
-          ls
-          mkdir -p modules/catseyexi/cpp
-          mv modules/custom/cpp/* modules/catseyexi/cpp/
           mkdir -p build
           cmake -S . -B build -A x64 -DCMAKE_BUILD_TYPE=Release -DENABLE_TRACY=ON
       - name: Build
