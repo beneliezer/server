@@ -1,7 +1,7 @@
-----------------------------------
+-----------------------------------
 -- Area: Garlaige Citadel [S]
 --   NM: Buarainech
-----------------------------------
+-----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -11,7 +11,7 @@ mixins =
 require('scripts/globals/magic')
 require('scripts/globals/hunts')
 require('scripts/globals/utils')
-----------------------------------
+-----------------------------------
 local entity = {}
 
 local message = 232

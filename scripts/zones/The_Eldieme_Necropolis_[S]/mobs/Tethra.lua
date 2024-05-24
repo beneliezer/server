@@ -1,7 +1,7 @@
-----------------------------------
+-----------------------------------
 -- Area: The Eldieme Necropolis [S]
 --   NM: Tethra
-----------------------------------
+-----------------------------------
 mixins =
 {
     require('scripts/mixins/fomor_hate'),
@@ -12,7 +12,7 @@ require('scripts/globals/magic')
 require('scripts/globals/hunts')
 require('scripts/globals/utils')
 require('scripts/globals/job_utils/geomancer')
-------------------------------
+-----------------------------------
 local entity = {}
 
 local message = 232

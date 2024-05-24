@@ -1,10 +1,10 @@
-----------------------------------
+-----------------------------------
 -- Area: Port Jeuno
 --  NPC: Synergy_Engineer
 -- !pos  -52 0 -11 246
-----------------------------------
+-----------------------------------
 local ID = zones[xi.zone.PORT_JEUNO]
-----------------------------------
+-----------------------------------
 local entity = {}
 
 local function handleQuantity(player, quantity)
