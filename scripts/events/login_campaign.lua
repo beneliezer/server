@@ -11,10 +11,10 @@ xi.events.loginCampaign = xi.events.loginCampaign or {}
 
 -- Change vars below to modify settings for current login campaign
 -- NOTE: the year and month values are used in the Moogle's Event!
-local loginCampaignYear = 2024
-local loginCampaignMonth = 2
-local loginCampaignDay = 2
-local loginCampaignDuration = 25 -- Duration is set in Earth days (Average is 23 days)
+local loginCampaignYear = 2021
+local loginCampaignMonth = 8
+local loginCampaignDay = 25
+local loginCampaignDuration = 23 -- Duration is set in Earth days (Average is 23 days)
 
 -- Checks if a Login Campaign is active.
 xi.events.loginCampaign.isCampaignActive = function()
@@ -39,10 +39,6 @@ end
 
 -- Gives Login Points once a day.
 xi.events.loginCampaign.onGameIn = function(player)
-    if player:isCrystalWarrior() then
-        return
-    end
-
     if not xi.events.loginCampaign.isCampaignActive()  then
         return
     end
@@ -87,8 +83,8 @@ xi.events.loginCampaign.onGameIn = function(player)
             player:addCurrency('login_points', 500)
             player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 500, player:getCurrency('login_points'))
         else
-            player:addCurrency('login_points', 200)
-            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 200, player:getCurrency('login_points'))
+            player:addCurrency('login_points', 100)
+            player:messageSpecial(ID.text.LOGIN_NUMBER, 0, loginCount, 100, player:getCurrency('login_points'))
         end
 
         player:setCharVar('LoginCampaignLoginNumber', loginCount)
@@ -98,11 +94,6 @@ end
 -- Beginning of CS with Greeter Moogle.
 -- Handles showing the correct list of prices and hiding the options that are not available
 xi.events.loginCampaign.onTrigger = function(player, csid)
-    if player:isCrystalWarrior() then
-        player:printToPlayer('You cannot claim login rewards as a Crystal Warrior.', xi.msg.channel.SYSTEM_3)
-        return
-    end
-
     if not xi.events.loginCampaign.isCampaignActive() then
         -- TODO: What do the moogles do when the campaign isn't active?
         return
@@ -149,7 +140,7 @@ end
 
 -- Shows list of items depending on option selected.
 -- It also is in charge of purchasing selected item.
-xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
+xi.events.loginCampaign.onEventUpdate = function(player, csid, option, npc)
     if not xi.events.loginCampaign.isCampaignActive() then
         return
     end
@@ -217,18 +208,14 @@ xi.events.loginCampaign.onEventUpdate = function(player, csid, option)
             price,
             loginPoints)
     else
-        if itemQuantity == 1 then
-            if npcUtil.giveItem(player, { { currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity } }) then
-                player:delCurrency('login_points', currentLoginCampaign[showItems - 2]['price'] * itemQuantity)
-                player:updateEvent(
-                    currentLoginCampaign[showItems - 2]['items'][itemSelected + 1],
-                    player:getCurrency('login_points'), -- Login Points after purchase
-                    0, -- Unknown (most likely totalItemMask)
-                    currentLoginCampaign[showItems - 2]['price'],
-                    loginPoints) -- Login points before purchase
-            end
-        else
-            print(string.format('%s has attempted to purchase %s of item: %s from login campaign.', player, itemQuantity, currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity))
+        if npcUtil.giveItem(player, { { currentLoginCampaign[showItems - 2]['items'][itemSelected + 1], itemQuantity } }) then
+            player:delCurrency('login_points', currentLoginCampaign[showItems - 2]['price'] * itemQuantity)
+            player:updateEvent(
+                currentLoginCampaign[showItems - 2]['items'][itemSelected + 1],
+                player:getCurrency('login_points'), -- Login Points after purchase
+                0, -- Unknown (most likely totalItemMask)
+                currentLoginCampaign[showItems - 2]['price'],
+                loginPoints) -- Login points before purchase
         end
     end
 end
