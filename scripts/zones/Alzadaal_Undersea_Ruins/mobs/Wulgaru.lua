@@ -2,7 +2,7 @@
 -- Area: Alzadaal Undersea Ruins
 --  Mob: Wulgaru
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
+mixins = { require('scripts/mixins/rage') }
 -----------------------------------
 local entity = {}
 -- Todo: Pups can make it change frames, Overload causes Rage
@@ -43,9 +43,10 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
+    mob:setLocalVar('[rage]timer', 3600) -- 60 minutes
 end
 
 entity.onMobDeath = function(mob, player, isKiller)
 end
+
 return entity

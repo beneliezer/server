@@ -3,13 +3,16 @@
 --  NPC: ??? - Amaltheia spawn
 -- !pos 347.897 -10.895 264.382 24
 -----------------------------------
-local ID = require("scripts/zones/Lufaise_Meadows/IDs")
-require("scripts/globals/npc_util")
+local ID = zones[xi.zone.LUFAISE_MEADOWS]
+require('scripts/globals/npc_util')
 -----------------------------------
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
-    if npcUtil.tradeHas(trade, 15066) and npcUtil.popFromQM(player, npc, ID.mob.AMALTHEIA) then -- Relic Shield
+    if
+        npcUtil.tradeHas(trade, xi.item.RELIC_SHIELD) and
+        npcUtil.popFromQM(player, npc, ID.mob.AMALTHEIA)
+    then
         player:confirmTrade()
     end
 end

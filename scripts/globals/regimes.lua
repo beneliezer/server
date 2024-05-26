@@ -1471,10 +1471,10 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
                 -- increment clears
                 player:delStatusEffectSilent(xi.effect.PROWESS)
                 player:addStatusEffect(xi.effect.PROWESS, govClears + 1, 0, 0)
-           else
+            else
                 -- keep track of number of clears
                 player:addStatusEffect(xi.effect.PROWESS, 1, 0, 0)
-           end
+            end
         end
     end
 
@@ -1501,7 +1501,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
             player:isCrystalWarrior() or
             player:isClassicMode()
         then
-            player:setCharVar("[regime]repeatedToday", 0)
+            player:setCharVar('[regime]repeatedToday', 0)
         end
     end
 
@@ -1514,19 +1514,19 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
             (player:isCrystalWarrior() or player:isClassicMode()) and
             ((page[6] - highestLevel < pageLevelDiff) or highestLevel == 75)
         then
-            local completions = player:getCharVar("[regime]repeatedToday")
+            local completions = player:getCharVar('[regime]repeatedToday')
 
             if completions > 0 then
                 baseReward = math.ceil(baseReward * (.85 ^ completions))
 
                 if completions == 1 then
-                    player:printToPlayer(string.format("You receive reduced experience. (%u time completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format('You receive reduced experience. (%u time completed today)', completions), xi.msg.channel.SYSTEM_3)
                 else
-                    player:printToPlayer(string.format("You receive reduced experience. (%u times completed today)", completions), xi.msg.channel.SYSTEM_3)
+                    player:printToPlayer(string.format('You receive reduced experience. (%u times completed today)', completions), xi.msg.channel.SYSTEM_3)
                 end
             end
 
-            player:setCharVar("[regime]repeatedToday", completions + 1)
+            player:setCharVar('[regime]repeatedToday', completions + 1)
 
             player:addExp(baseReward * xi.settings.main.BOOK_EXP_RATE)
         else
@@ -1545,4 +1545,3 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         xi.regime.clearRegimeVars(player)
     end
 end
-

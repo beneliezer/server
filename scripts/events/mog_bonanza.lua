@@ -1,9 +1,8 @@
-
-------------------------------------
+-----------------------------------
 -- Mog Bonanza
 -- http://www.playonline.com/ff11us/guide/nomadmogbon/index.html
 -- https://www.bg-wiki.com/ffxi/Category:Mog_Bonanza
-------------------------------------
+-----------------------------------
 xi = xi or {}
 xi.events = xi.events or {}
 xi.events.mogBonanza = xi.events.mogBonanza or {}
@@ -279,7 +278,7 @@ xi.events.mogBonanza.onBonanzaMoogleTrigger = function(player, npc)
         local baseCs = csidLookup[player:getZoneID()]
 
         -- Alert player to price of pearl
-        player:printToPlayer("NOTICE: Bonazna pearls are 300,000g for QoL, and 30,000 for Crystal Warriors!")
+        player:printToPlayer('NOTICE: Bonazna pearls are 300,000g for QoL, and 30,000 for Crystal Warriors!')
 
         if isInPurchasingPeriod() then
             player:startEvent(baseCs,

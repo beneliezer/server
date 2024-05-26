@@ -5,10 +5,10 @@
 -- Migliorozz    !pos -37.76 -1.5 12.9 244
 -----------------------------------
 require('scripts/globals/quests')
-require("scripts/globals/missions")
+require('scripts/globals/missions')
 require('scripts/globals/interaction/quest')
 -----------------------------------
-local ID = require("scripts/zones/PsoXja/IDs")
+local ID = zones[xi.zone.PSOXJA]
 -----------------------------------
 local quest = Quest:new(xi.questLog.JEUNO, xi.quest.id.jeuno.A_REPUTATION_IN_RUINS)
 
@@ -21,7 +21,7 @@ quest.sections =
 {
     {
         check = function(player, status, vars)
-            return status == QUEST_AVAILABLE and
+            return status == xi.questStatus.QUEST_AVAILABLE and
             player:getCurrentMission(xi.mission.log_id.COP) > xi.mission.id.cop.THE_ROAD_FORKS
         end,
 
@@ -55,7 +55,7 @@ quest.sections =
 
     {
         check = function(player, status, vars)
-            return status == QUEST_ACCEPTED
+            return status == xi.questStatus.QUEST_ACCEPTED
         end,
 
         [xi.zone.PSOXJA] =
@@ -66,7 +66,7 @@ quest.sections =
                     if
                         GetNPCByID(ID.npc.BLUE_BRACELET_DOOR):getAnimation() == 8 and
                         not player:hasKeyItem(xi.keyItem.BLUE_BRACELET) and
-                        player:getLocalVar("blueKilled") == 0
+                        player:getLocalVar('blueKilled') == 0
                     then
                         if
                             GetMobByID(ID.mob.BLUE_GARGOYLES):isSpawned() or
@@ -81,7 +81,7 @@ quest.sections =
                         player:messageName(ID.text.TRAP_ACTIVATED, player)
                         return quest:noAction()
                     elseif
-                        player:getLocalVar("blueKilled") == 1 and
+                        player:getLocalVar('blueKilled') == 1 and
                         not player:hasKeyItem(xi.keyItem.BLUE_BRACELET)
                     then
                         player:addKeyItem(xi.keyItem.BLUE_BRACELET)
@@ -97,7 +97,7 @@ quest.sections =
                 onTrigger = function(player, npc)
                     if
                         GetNPCByID(ID.npc.GREEN_BRACELET_DOOR):getAnimation() == 8 and
-                        not player:hasKeyItem(xi.keyItem.GREEN_BRACELET) and player:getLocalVar("greenKilled") == 0
+                        not player:hasKeyItem(xi.keyItem.GREEN_BRACELET) and player:getLocalVar('greenKilled') == 0
                         then
                             if
                                 GetMobByID(ID.mob.GREEN_GARGOYLES):isSpawned() or
@@ -111,7 +111,7 @@ quest.sections =
                         player:messageName(ID.text.TRAP_ACTIVATED, player)
                         return quest:noAction()
                     elseif
-                        player:getLocalVar("greenKilled") == 1 and
+                        player:getLocalVar('greenKilled') == 1 and
                         not player:hasKeyItem(xi.keyItem.GREEN_BRACELET)
                     then
                         player:addKeyItem(xi.keyItem.GREEN_BRACELET)

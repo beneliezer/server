@@ -37,7 +37,7 @@ local setupLootCrate = function(crateID, floor)
     local crate = GetEntityByID(crateID)
     xi.limbus.hideCrate(crate)
     crate:setModelId(961)
-    crate:addListener("ON_TRIGGER", "TRIGGER_CRATE", utils.bind(content.handleOpenLootCrate, content))
+    crate:addListener('ON_TRIGGER', 'TRIGGER_CRATE', utils.bind(content.handleOpenLootCrate, content))
 end
 
 local setupTimeCrate = function(crateID, floor)

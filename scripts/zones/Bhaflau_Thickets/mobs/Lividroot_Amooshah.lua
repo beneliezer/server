@@ -2,10 +2,10 @@
 -- Area: Bhaflau Thickets
 --  ZNM: Lividroot Amooshah
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
+mixins = { require('scripts/mixins/rage') }
 -----------------------------------
 local entity = {}
--- TODO INITIAL COMMIT Just put here so players cannot run through the NM's 
+-- TODO INITIAL COMMIT Just put here so players cannot run through the NM's
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 300)
     mob:addMod(xi.mod.SLEEPRES, 10000)
@@ -41,7 +41,7 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
+    mob:setLocalVar('[rage]timer', 3600) -- 60 minutes
 end
 
 entity.onMobDeath = function(mob, player, isKiller)

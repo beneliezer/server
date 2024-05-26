@@ -14,7 +14,7 @@ end
 
 entity.onMobDeath = function(mob, player, optParams)
     local respawnTime = math.random(60, 90) + os.time()
-    mob:setLocalVar("respawn", respawnTime)
+    mob:setLocalVar('respawn', respawnTime)
 end
 
 return entity

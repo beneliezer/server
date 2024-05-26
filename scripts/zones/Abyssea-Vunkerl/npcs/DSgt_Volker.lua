@@ -2,7 +2,7 @@
 -- Area: Abyssea - Altepa
 --  NPC: Dominion Sergeant
 -----------------------------------
-require("scripts/globals/abyssea/dominion")
+require('scripts/globals/abyssea/dominion')
 -----------------------------------
 local entity = {}
 

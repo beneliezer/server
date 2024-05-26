@@ -2,8 +2,8 @@
 -- Area: Abyssea - Grauberg
 --  NPC: Dominion Tactician
 -----------------------------------
-local ID = require("scripts/zones/Abyssea-Grauberg/IDs")
-require("scripts/globals/abyssea")
+local ID = zones[xi.zone.ABYSSEA_GRAUBERG]
+require('scripts/globals/abyssea')
 -----------------------------------
 local entity = {}
 
@@ -11,7 +11,7 @@ entity.onTrade = function(player, npc, trade)
 end
 
 entity.onTrigger = function(player, npc)
-    local DM = player:getCurrency("dominion_note")
+    local DM = player:getCurrency('dominion_note')
     local trophies = 0 -- Max all Trophy = 4294967295 sort out its bit mask later.
     player:startEvent(120, DM, 0, 0, 0, 0, trophies)
 end
@@ -106,17 +106,17 @@ entity.onEventFinish = function(player, csid, option)
     end
 
     if option > 256 and option < 2818 then
-        if player:getCurrency("dominion_note") > price then
+        if player:getCurrency('dominion_note') > price then
             if tempItem then
                 if player:addTempItem(itemId, 1) then
-                    player:delCurrency("dominion_note", price)
+                    player:delCurrency('dominion_note', price)
                     player:messageSpecial(ID.text.ITEM_OBTAINED, itemId)
                 else
                     player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, itemId)
                 end
             else
                 if player:addItem(itemId, 1, a1, v1, a2, v2, a3, v3, a4, v4) then
-                    player:delCurrency("dominion_note", price)
+                    player:delCurrency('dominion_note', price)
                     player:messageSpecial(ID.text.ITEM_OBTAINED, itemId)
                 else
                     player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, itemId)

@@ -27,9 +27,9 @@ quest.sections =
             ['Blandine'] =
             {
                 onTrigger = function(player, npc)
-                    if quest:getVar(player, "status") == 0 then
+                    if quest:getVar(player, 'status') == 0 then
                         return quest:progressEvent(125)
-                    elseif quest:getVar(player, "status") == 2 then
+                    elseif quest:getVar(player, 'status') == 2 then
                         return quest:progressEvent(124)
                     end
                 end,
@@ -37,7 +37,7 @@ quest.sections =
             ['Zexu'] =
             {
                 onTrigger = function(player, npc)
-                    if quest:getVar(player, "status") == 1 then
+                    if quest:getVar(player, 'status') == 1 then
                         return quest:progressEvent(123)
                     end
                 end,
@@ -45,7 +45,7 @@ quest.sections =
             ['Celestina'] =
             {
                 onTrigger = function(player, npc)
-                    if quest:getVar(player, "status") == 3 then
+                    if quest:getVar(player, 'status') == 3 then
                         return quest:progressEvent(126, xi.item.SAND_CHARM)
                     end
                 end,
@@ -54,15 +54,15 @@ quest.sections =
             onEventFinish =
             {
                 [123] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [124] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [125] = function(player, csid, option, npc)
-                    quest:incrementVar(player, "status", 1)
+                    quest:incrementVar(player, 'status', 1)
                 end,
 
                 [126] = function(player, csid, option, npc)
@@ -95,7 +95,7 @@ quest.sections =
             {
                 [127] = function(player, csid, option, npc)
                     npcUtil.giveKeyItem(player, xi.keyItem.MAP_OF_BOSTAUNIEUX_OUBLIETTE)
-                    player:setCharVar("blandineThanks", 1)
+                    player:setCharVar('blandineThanks', 1)
                     player:tradeComplete()
                     quest:complete(player)
                 end,
@@ -113,7 +113,7 @@ quest.sections =
                 ['Blandine'] =
                 {
                     onTrigger = function(player, npc)
-                        if player:getCharVar("blandineThanks") == 1 then
+                        if player:getCharVar('blandineThanks') == 1 then
                             return quest:event(128)
                         else
                             return quest:event(129):replaceDefault()
@@ -124,7 +124,7 @@ quest.sections =
                 onEventFinish =
                 {
                     [128] = function(player, csid, option, npc)
-                        player:setCharVar("blandineThanks", 0)
+                        player:setCharVar('blandineThanks', 0)
                     end,
                 },
             },

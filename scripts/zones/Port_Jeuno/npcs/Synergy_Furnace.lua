@@ -3,7 +3,7 @@
 --  NPC: Synergy Furnace
 -- !pos  -52 0 -11 246
 -----------------------------------
-require("scripts/globals/synergy_furnace")
+require('scripts/globals/synergy_furnace')
 -----------------------------------
 
 local entity = {}

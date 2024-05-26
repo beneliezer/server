@@ -3,10 +3,13 @@
 --  ZNM: Nosferatu
 --  Mobid: 17056157
 -----------------------------------
-mixins = {require("scripts/mixins/job_special"),
-require("scripts/mixins/rage")}
+mixins = {
+    require('scripts/mixins/job_special'),
+    require('scripts/mixins/rage')
+}
 -----------------------------------
 local entity = {}
+
 entity.onMobInitialize = function(mob)
     mob:addMod(xi.mod.MDEF, 30)
     mob:addMod(xi.mod.DEF, 50)
@@ -38,10 +41,14 @@ entity.onMobInitialize = function(mob)
 end
 
 entity.onMobSpawn = function(mob)
-    mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
-    xi.mix.jobSpecial.config(mob, {specials =
-    {{id = xi.jsa.ASTRAL_FLOW, hpp = math.random(66, 95)},
-    {id = xi.jsa.BLOOD_WEAPON, hpp = 25},},})
+    mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
+    xi.mix.jobSpecial.config(mob, {
+        specials =
+        {
+            { id = xi.jsa.ASTRAL_FLOW, hpp = math.random(66, 95) },
+            { id = xi.jsa.BLOOD_WEAPON, hpp = 25 },
+        },
+    })
 end
 
 entity.onMobDeath = function(mob, player, isKiller)

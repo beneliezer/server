@@ -32,24 +32,24 @@ local mazeMongersZones = {
 }
 
 local mazeMongersLootPool = {
-	-- Weapons
-	17964, -- Barkborer
-	19113, -- Ermine's Tail
-	18504, -- Eventreuse
-	17759, -- Koggelmander
-	19273, -- Onishibari
-	19158, -- Scheherazade
-	18131, -- Zaide
-	18865, -- Zonure
-	-- Equipment
-	15839, -- Antica Ring
-	11484, -- Antica Band
-	11483, -- Gnole Crown
-	16283, -- Gnole Torque
-	16011, -- Lycopodium Earring
-	15928, -- Lycopodium Sash
-	16012, -- Mamool Ja Earring
-	16250, -- Mamool Ja Mantle
+    -- Weapons
+    17964, -- Barkborer
+    19113, -- Ermine's Tail
+    18504, -- Eventreuse
+    17759, -- Koggelmander
+    19273, -- Onishibari
+    19158, -- Scheherazade
+    18131, -- Zaide
+    18865, -- Zonure
+    -- Equipment
+    15839, -- Antica Ring
+    11484, -- Antica Band
+    11483, -- Gnole Crown
+    16283, -- Gnole Torque
+    16011, -- Lycopodium Earring
+    15928, -- Lycopodium Sash
+    16012, -- Mamool Ja Earring
+    16250, -- Mamool Ja Mantle
 }
 
 -- locks the MMM drop until restart

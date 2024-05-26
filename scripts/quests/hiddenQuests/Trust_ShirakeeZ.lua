@@ -7,10 +7,10 @@ require('scripts/globals/quests')
 require('scripts/globals/missions')
 require('scripts/globals/interaction/hidden_quest')
 -----------------------------------
-local woodsID = require('scripts/zones/Windurst_Woods/IDs')
+local woodsID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
 
-local quest = HiddenQuest:new("TrustShikareeZ")
+local quest = HiddenQuest:new('TrustShikareeZ')
 
 quest.sections =
 {

@@ -55,46 +55,46 @@ content.groups =
 content.loot =
 {
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
     },
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
     },
     {
-        {item =    0, weight = 200}, -- Nothing
-        {item = 5287, weight = 100}, -- Bitter Cluster
-        {item = 5286, weight = 100}, -- Burning Cluster
-        {item = 5288, weight = 100}, -- Fleeting Cluster
-        {item = 5293, weight = 100}, -- Malevolent Cluster
-        {item = 5289, weight = 100}, -- Profane Cluster
-        {item = 5292, weight = 100}, -- Radiant Cluster
-        {item = 5291, weight = 100}, -- Somber Cluster
-        {item = 5290, weight = 100}, -- Startling Cluster
+        { item =    0, weight = 200 }, -- Nothing
+        { item = 5287, weight = 100 }, -- Bitter Cluster
+        { item = 5286, weight = 100 }, -- Burning Cluster
+        { item = 5288, weight = 100 }, -- Fleeting Cluster
+        { item = 5293, weight = 100 }, -- Malevolent Cluster
+        { item = 5289, weight = 100 }, -- Profane Cluster
+        { item = 5292, weight = 100 }, -- Radiant Cluster
+        { item = 5291, weight = 100 }, -- Somber Cluster
+        { item = 5290, weight = 100 }, -- Startling Cluster
     },
     {
-        {item =    0, weight = 500}, -- Nothing
-        {item = 1801, weight = 100}, -- Solemn Vision (Guarding Earring)
-        {item = 1804, weight = 100}, -- Valiant Vision (Augmenting Earring)
-        {item = 1806, weight = 100}, -- Pretentious Vision (Elemental Earring)
-        {item = 1809, weight = 100}, -- Malicious Vision (Ninjutsu Earring)
-        {item = 1812, weight = 100}, -- Pristine Vision (Wind Earring)
-    },    
+        { item =    0, weight = 500 }, -- Nothing
+        { item = 1801, weight = 100 }, -- Solemn Vision (Guarding Earring)
+        { item = 1804, weight = 100 }, -- Valiant Vision (Augmenting Earring)
+        { item = 1806, weight = 100 }, -- Pretentious Vision (Elemental Earring)
+        { item = 1809, weight = 100 }, -- Malicious Vision (Ninjutsu Earring)
+        { item = 1812, weight = 100 }, -- Pristine Vision (Wind Earring)
+    },
 }
 
 return content:register()

@@ -2,7 +2,7 @@
 -- Area: Upper Jueno
 --  NPC: Synergy Furnace
 -----------------------------------
-require("scripts/globals/synergy_furnace")
+require('scripts/globals/synergy_furnace')
 -----------------------------------
 
 local entity = {}
