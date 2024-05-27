@@ -17,7 +17,7 @@ local content = Battlefield:new({
     exitNpcs      = { '_0j1', '_0j2', '_0j3' },
     requiredKeyItems = { xi.ki.CENSER_OF_ANIMUS, message = spireOfMeaID.text.THE_PARTY_WILL_BE_REMOVED + 8 },
     grantXP = 1500,
-    armouryCrates    =
+    armouryCrates =
     {
         spireOfMeaID.mob.DELVER + 7,
         spireOfMeaID.mob.DELVER + 12,
