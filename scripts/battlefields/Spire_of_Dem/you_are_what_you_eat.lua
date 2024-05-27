@@ -9,7 +9,6 @@ local spireOfDemID = zones[xi.zone.SPIRE_OF_DEM]
 local content = Battlefield:new({
     zoneId        = xi.zone.SPIRE_OF_DEM,
     battlefieldId = xi.battlefield.id.YOU_ARE_WHAT_YOU_EAT,
-    isMission     = true,
     maxPlayers    = 18,
     levelCap      = 30,
     timeLimit     = utils.minutes(30),
@@ -27,7 +26,7 @@ local content = Battlefield:new({
 })
 
 function content:entryRequirement(player, npc, isRegistrant, trade)
-    local currentRequirements = player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
+    local currentRequirements = not player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
     return currentRequirements
 end
 

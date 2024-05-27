@@ -9,7 +9,6 @@ local spireOfMeaID = zones[xi.zone.SPIRE_OF_MEA]
 local content = Battlefield:new({
     zoneId        = xi.zone.SPIRE_OF_MEA,
     battlefieldId = xi.battlefield.id.PLAYING_HOST,
-    isMission     = true,
     maxPlayers    = 18,
     levelCap      = 30,
     timeLimit     = utils.minutes(30),
@@ -27,7 +26,7 @@ local content = Battlefield:new({
 })
 
 function content:entryRequirement(player, npc, isRegistrant, trade)
-    local currentRequirements = player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
+    local currentRequirements = not player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
     return currentRequirements
 end
 
