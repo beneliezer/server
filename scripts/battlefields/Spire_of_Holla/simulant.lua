@@ -3,30 +3,30 @@
 -- Spire of Holla
 -----------------------------------
 require('scripts/missions/cop/helpers')
-local spireOfDemID = zones[xi.zone.SPIRE_OF_HOLLA]
+local spireofHollaID = zones[xi.zone.SPIRE_OF_HOLLA]
 -----------------------------------
 
 local content = Battlefield:new({
-    zoneId        = xi.zone.SPIRE_OF_HOLLA,
-    battlefieldId = xi.battlefield.id.SIMULANT,
-    maxPlayers    = 18,
-    levelCap      = 30,
-    timeLimit     = utils.minutes(30),
-    index         = 1,
-    entryNpc      = '_0j0',
-    exitNpcs      = { '_0j1', '_0j2', '_0j3' },
-    requiredKeyItems = { xi.ki.CENSER_OF_ABANDONMENT, message = spireOfDemID.text.THE_PARTY_WILL_BE_REMOVED + 8 },
-    grantXP = 1500,
-    armouryCrates =
+    zoneId           = xi.zone.SPIRE_OF_HOLLA,
+    battlefieldId    = xi.battlefield.id.SIMULANT,
+    maxPlayers       = 18,
+    levelCap         = 30,
+    timeLimit        = utils.minutes(30),
+    index            = 1,
+    entryNpc         = '_0h0',
+    exitNpcs         = { '_0j1', '_0j2', '_0j3' },
+    requiredKeyItems = { xi.ki.CENSER_OF_ABANDONMENT, message = spireofHollaID.text.THE_PARTY_WILL_BE_REMOVED + 8 },
+    grantXP          = 1500,
+    armouryCrates    =
     {
-        spireOfDemID.mob.WREAKER + 7,
-        spireOfDemID.mob.WREAKER + 12,
-        spireOfDemID.mob.WREAKER + 17,
+        spireofHollaID.mob.WREAKER + 7,
+        spireofHollaID.mob.WREAKER + 12,
+        spireofHollaID.mob.WREAKER + 17,
     },
 })
 
 function content:entryRequirement(player, npc, isRegistrant, trade)
-    local currentRequirements = not player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
+    local currentRequirements = player:hasCompletedMission(xi.mission.log_id.COP, xi.mission.id.cop.THE_MOTHERCRYSTALS)
     return currentRequirements
 end
 
