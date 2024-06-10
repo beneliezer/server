@@ -2,9 +2,6 @@
 -- Area: Monarch Linn
 -- Name: Bad Seed
 -----------------------------------
-local monarchLinnID = zones[xi.zone.MONARCH_LINN]
------------------------------------
-
 local content = Battlefield:new({
     zoneId           = xi.zone.MONARCH_LINN,
     battlefieldId    = xi.battlefield.id.BAD_SEED,

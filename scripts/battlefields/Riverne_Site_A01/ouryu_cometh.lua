@@ -17,10 +17,10 @@ local content = Battlefield:new({
     entryNpc      = 'Spatial_Displacement',
     exitNpc       = { '_0u1', '_0u2', '_0u3' },
     requiredItems =
-    { 
-        xi.item.CLOUD_EVOKER, 
-        wearMessage = riverneID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS + 2, 
-        wornMessage = riverneID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS + 1,
+    {
+        xi.item.CLOUD_EVOKER,
+        wearMessage = riverneID.text.A_GLOWING_MIST + 280,
+        wornMessage = riverneID.text.A_GLOWING_MIST + 279,
     },
     grantXP          = 1500,
 })

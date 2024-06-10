@@ -2,9 +2,6 @@
 -- Area: Monarch Linn
 -- Name: Fire in the Sky
 -----------------------------------
-local monarchLinnID = zones[xi.zone.MONARCH_LINN]
------------------------------------
-
 local content = Battlefield:new({
     zoneId           = xi.zone.MONARCH_LINN,
     battlefieldId    = xi.battlefield.id.FIRE_IN_THE_SKY,

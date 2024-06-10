@@ -17,9 +17,9 @@ local content = Battlefield:new({
     entryNpc      = 'Unstable_Displacement',
     exitNpc       = 'SD_BCNM_Exit',
     requiredItems =
-    { 
-        xi.item.MONARCHS_ORB, 
-        wearMessage = riverneID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS + 2, 
+    {
+        xi.item.MONARCHS_ORB,
+        wearMessage = riverneID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS + 2,
         wornMessage = riverneID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS + 1,
     },
     grantXP          = 1500,
