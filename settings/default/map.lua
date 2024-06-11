@@ -237,7 +237,7 @@ xi.settings.map =
     MAX_MERIT_POINTS = 50,
 
     -- Minimum time between uses of yell command (in seconds).
-    YELL_COOLDOWN = 30,
+    YELL_COOLDOWN = 300,
 
     -- Prevent players from sending tells to hidden GMs. You will still receive them from other GMs.
     BLOCK_TELL_TO_HIDDEN_GM = true,
