@@ -1,7 +1,7 @@
 -----------------------------------
 -- Area: Riverne Site #A01
 -- Name: Ouryu Cometh
--- !pos -612.800 1.750 693.190 29
+-- !pos 187.112 -0.5 346.341 30
 -----------------------------------
 local riverneID = zones[xi.zone.RIVERNE_SITE_A01]
 -----------------------------------
@@ -14,8 +14,8 @@ local content = Battlefield:new({
     timeLimit     = utils.minutes(30),
     index         = 0,
     area          = 1,
-    entryNpc      = 'Spatial_Displacement',
-    exitNpc       = { '_0u1', '_0u2', '_0u3' },
+    entryNpc      = 'Unstable_Displacement',
+    exitNpc       = 'Spatial_Displacement',
     requiredItems =
     {
         xi.item.CLOUD_EVOKER,
@@ -25,20 +25,25 @@ local content = Battlefield:new({
     grantXP          = 1500,
 })
 
-content:addEssentialMobs({ 'Ouryu' })
-
 content.groups =
 {
     {
-        mobs = { 'Ouryu' },
-        superlink = true,
-        spawned = true,
-        death = utils.bind(content.handleAllMonstersDefeated, content),
+        mobs           = { 'Ouryu' },
+        superlinkGroup = 1,
+
+        -- This death handler needs to be defined locally since there is no armoury crate.
+        allDeath = function(battlefield, mob)
+            battlefield:setStatus(xi.battlefield.status.WON)
+        end,
     },
+
     {
-        mobs = { 'Ziryu' },
-        superlink = true,
-        spawned = true,
+        mobs           = { 'Ziryu' },
+        superlinkGroup = 1,
+    },
+
+    {
+        mobs = { 'Water_Elemental', 'Earth_Elemental' }
     },
 }
 

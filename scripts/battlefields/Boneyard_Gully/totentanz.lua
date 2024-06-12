@@ -59,20 +59,33 @@ content.groups =
 content.loot =
 {
     {
-        { item = xi.item.ONIMARU,                  weight =  82 }, -- Onimaru
-        { item = xi.item.BLAU_DOLCH,               weight = 238 }, -- Blau Dolch
-        { item = xi.item.STONE_SPLITTER,           weight = 150 }, -- Stone-splitter
-        { item = xi.item.MANEATER,                 weight =  92 }, -- Maneater
-        { item = xi.item.WAGH_BAGHNAKHS,           weight =  63 }, -- Wagh Baghnakhs
-        { item = xi.item.RAISE_II_ROD,             weight =  65 }, -- Raise II Rod
-        { item = xi.item.FRENZY_FIFE,              weight = 175 }, -- Frenzy Fife
-        { item = xi.item.CORSE_CAPE,               weight =  83 }, -- Corse Cape
-        { item = xi.item.CLOUD_EVOKER,             weight = 188 }, -- Cloud Evoker
-        { item = xi.item.POT_OF_VIRIDIAN_URUSHI,   weight = 342 }, -- Viridian Urushi
-        { item = xi.item.SQUARE_OF_ELTORO_LEATHER, weight = 328 }, -- Eltoro Leather
-        { item = xi.item.UNICORN_HORN,             weight = 238 }, -- Unicorn Horn
-        { item = xi.item.PIECE_OF_CASSIA_LUMBER,   weight = 375 }, -- Cassia Lumber
-        { item = xi.item.DRAGON_BONE,              weight = 263 }, -- Dragon Bone
+        { item = xi.item.NONE,         weight = 800 },
+        { item = xi.item.CLOUD_EVOKER, weight = 200 },
+    },
+    {
+        { item = xi.item.NONE,           weight = 325 },
+        { item = xi.item.ONIMARU,        weight = 100 },
+        { item = xi.item.BLAU_DOLCH,     weight = 250 },
+        { item = xi.item.STONE_SPLITTER, weight = 150 },
+        { item = xi.item.FRENZY_FIFE,    weight = 175 },
+    },
+    {
+        { item = xi.item.NONE,           weight = 670 },
+        { item = xi.item.MANEATER,       weight = 100 },
+        { item = xi.item.WAGH_BAGHNAKHS, weight =  65 },
+        { item = xi.item.RAISE_II_ROD,   weight =  65 },
+        { item = xi.item.CORSE_CAPE,     weight = 100 },
+    },
+    {
+        { item = xi.item.NONE,                     weight = 325 },
+        { item = xi.item.POT_OF_VIRIDIAN_URUSHI,   weight = 350 },
+        { item = xi.item.SQUARE_OF_ELTORO_LEATHER, weight = 325 },
+    },
+    {
+        { item = xi.item.NONE,                   weight = 150 },
+        { item = xi.item.UNICORN_HORN,           weight = 225 },
+        { item = xi.item.PIECE_OF_CASSIA_LUMBER, weight = 375 },
+        { item = xi.item.DRAGON_BONE,            weight = 250 },
     },
 }
 
