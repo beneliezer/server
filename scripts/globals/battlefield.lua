@@ -125,6 +125,8 @@ xi.battlefield.id =
     KINDERGARTEN_CAP                           = 18,
     LAST_ORC_SHUNNED_HERO                      = 19,
     BEYOND_INFINITY_HORLAIS_PEAK               = 20,  -- Converted
+    AMAN_TROVE_MARS_HORLAIS_PEAK               = 24,  -- Incomplete
+    AMAN_TROVE_VENUS_HORLAIS_PEAK              = 25,  -- Incomplete
     SAVE_THE_CHILDREN                          = 32,  -- Converted
     HOLY_CREST                                 = 33,  -- Converted
     WINGS_OF_FURY                              = 34,  -- Converted
@@ -432,6 +434,7 @@ function Battlefield:new(data)
     obj.grantXP          = data.grantXP
     obj.levelCap         = data.levelCap or 0
     obj.allowSubjob      = (data.allowSubjob == nil or data.allowSubjob) or false
+    obj.allowTrusts      = data.allowTrusts and data.allowTrusts or false
     obj.hasWipeGrace     = (data.hasWipeGrace == nil or data.hasWipeGrace) or false
     obj.isMission        = data.isMission and data.isMission or false
     obj.canLoseExp       = (data.canLoseExp == nil or data.canLoseExp) or false

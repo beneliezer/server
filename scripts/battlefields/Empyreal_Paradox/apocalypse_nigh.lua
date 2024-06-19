@@ -8,6 +8,7 @@ local empyrealParadoxID = zones[xi.zone.EMPYREAL_PARADOX]
 local content = BattlefieldQuest:new({
     zoneId        = xi.zone.EMPYREAL_PARADOX,
     battlefieldId = xi.battlefield.id.APOCALYPSE_NIGH,
+    allowTrusts   = true,
     maxPlayers    = 6,
     timeLimit     = utils.minutes(30),
     index         = 1,
@@ -15,19 +16,12 @@ local content = BattlefieldQuest:new({
     exitNpc       = 'Transcendental_Radiance',
     questArea     = xi.questLog.JEUNO,
     quest         = xi.quest.id.jeuno.APOCALYPSE_NIGH,
-    requiredVar   = 'ApocalypseNigh',
-    requiredValue = 4,
+    requiredVar   = 'Quest[3][89]Prog',
+    requiredValue = 3,
 })
 
 function content:onEventFinishWin(player, csid, option, npc)
-    if
-        player:getQuestStatus(xi.questLog.JEUNO, xi.quest.id.jeuno.APOCALYPSE_NIGH) == xi.questStatus.QUEST_ACCEPTED and
-        player:getCharVar('ApocalypseNigh') == 4
-    then
-        player:setCharVar('ApocalypseNigh', 5)
-        player:setCharVar('Apoc_Nigh_Reward', getMidnight())
-        player:setPos(540, 0, -514, 63, xi.zone.EMPYREAL_PARADOX)
-    end
+    player:setPos(540, 0, -514, 63, xi.zone.EMPYREAL_PARADOX)
 end
 
 content.groups =

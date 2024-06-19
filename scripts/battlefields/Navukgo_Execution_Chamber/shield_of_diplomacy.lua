@@ -10,6 +10,7 @@ local content = BattlefieldMission:new({
     battlefieldId         = xi.battlefield.id.SHIELD_OF_DIPLOMACY,
     canLoseExp            = false,
     isMission             = true,
+    allowTrusts           = true,
     maxPlayers            = 6,
     levelCap              = 99,
     timeLimit             = utils.minutes(30),
@@ -19,6 +20,7 @@ local content = BattlefieldMission:new({
     exitNpcs              = { '_1s1', '_1s2', '_1s3' },
     missionArea           = xi.mission.log_id.TOAU,
     mission               = xi.mission.id.toau.SHIELD_OF_DIPLOMACY,
+    missionStatusArea     = xi.mission.log_id.TOAU,
     requiredMissionStatus = 2,
 })
 
