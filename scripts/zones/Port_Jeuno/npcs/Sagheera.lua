@@ -274,9 +274,7 @@ local cosmoReady = 2147483649 -- BITMASK for the purchase
 
 local function getCosmoCleanseTime(player)
     local cosmoWaitTime = player:hasKeyItem(xi.ki.RHAPSODY_IN_MAUVE) and 3600 or 72000
---    local lastCosmoTime = player:getCharVar("Cosmo_Cleanse_TIME")
-    -- no cosmo cleanse cooldown
-    local lastCosmoTime = 0
+    local lastCosmoTime = player:getCharVar('Cosmo_Cleanse_TIME')
 
     if lastCosmoTime ~= 0 then
         lastCosmoTime = lastCosmoTime + cosmoWaitTime
@@ -449,7 +447,7 @@ entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 local handleMainEvent = function(player, option, coinAmount)
-    -- "Just wanted to chat" for the first time
+    -- 'Just wanted to chat' for the first time
     if option == 1 then
         player:setCharVar('SagheeraInteractions', utils.mask.setBit(player:getCharVar('SagheeraInteractions'), 1, false))
 

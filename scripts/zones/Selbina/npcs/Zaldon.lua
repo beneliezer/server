@@ -8,7 +8,7 @@
 local entity = {}
 
 -- data from http://wiki.ffxiclopedia.org/wiki/Inside_the_Belly
-entity.fishRewards =
+local fishRewards =
 {
     [4304] = -- Grimmonite
     {
@@ -500,7 +500,7 @@ local function tradeFish(player, fishId)
     player:setCharVar('insideBellyFishId', fishId)
     player:setCharVar('insideBellyItemIdx', 0)
 
-    local rewards = entity.fishRewards[fishId].items
+    local rewards = fishRewards[fishId].items
     local roll    = math.random(1, 1000) / 10
     local found   = false
     local sum     = 0
@@ -530,7 +530,7 @@ local function giveReward(player, csid)
     if csid == 166 or csid == 167 then
         local fishId  = player:getCharVar('insideBellyFishId')
         local itemIdx = player:getCharVar('insideBellyItemIdx')
-        local reward  = entity.fishRewards[fishId]
+        local reward  = fishRewards[fishId]
         local traded  = true
 
         if itemIdx > 0 then
@@ -562,10 +562,23 @@ local function giveReward(player, csid)
 end
 
 entity.onTrade = function(player, npc, trade)
-    -- local underTheSea    = player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA)
+    local underTheSea    = player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA)
     local insideTheBelly = player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.INSIDE_THE_BELLY)
 
+    -- UNDER THE SEA
     if
+        underTheSea == xi.questStatus.QUEST_ACCEPTED and
+        not player:hasKeyItem(xi.ki.ETCHED_RING) and
+        npcUtil.tradeHas(trade, xi.item.FAT_GREEDIE)
+    then
+        if math.random(1, 100) <= 20 then
+            player:startEvent(35) -- Ring found !
+        else
+            player:startEvent(36) -- Ring not found
+        end
+
+    -- A BOY'S DREAM
+    elseif
         player:getCharVar('aBoysDreamCS') == 5 and
         npcUtil.tradeHasExactly(trade, xi.item.ODONTOTYRANNUS)
     then
@@ -576,7 +589,7 @@ entity.onTrade = function(player, npc, trade)
         insideTheBelly == xi.questStatus.QUEST_ACCEPTED or
         insideTheBelly == xi.questStatus.QUEST_COMPLETED
     then
-        for fish, v in pairs(entity.fishRewards) do
+        for fish, v in pairs(fishRewards) do
             if npcUtil.tradeHas(trade, fish) then
                 tradeFish(player, fish)
                 break
@@ -592,8 +605,12 @@ entity.onTrigger = function(player, npc)
     local insideTheBelly = player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.INSIDE_THE_BELLY)
     local mLvl           = player:getMainLvl()
 
+    -- UNDER THE SEA
+    if player:getCharVar('underTheSeaVar') == 3 then
+        player:startEvent(34, 4501) -- During quest 'Under the sea' - 3rd dialog
+
     -- INSIDE THE BELLY
-    if
+    elseif
         mLvl >= 30 and
         theRealGift == xi.questStatus.QUEST_COMPLETED and
         insideTheBelly == xi.questStatus.QUEST_AVAILABLE
@@ -633,8 +650,17 @@ entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)
+    -- UNDER THE SEA
+    if csid == 34 then
+        player:setCharVar('underTheSeaVar', 4)
+    elseif csid == 35 then
+        npcUtil.giveKeyItem(player, xi.ki.ETCHED_RING)
+        player:confirmTrade()
+    elseif csid == 36 then
+        player:confirmTrade()
+
     -- A BOY'S DREAM
-    if csid == 85 then
+    elseif csid == 85 then
         npcUtil.giveKeyItem(player, xi.ki.KNIGHTS_BOOTS)
         player:setCharVar('aBoysDreamCS', 6)
         player:confirmTrade()

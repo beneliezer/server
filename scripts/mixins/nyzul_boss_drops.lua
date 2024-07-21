@@ -13,15 +13,15 @@ g_mixins.nyzul_boss_drop = function(nyzulMob)
         local result   = instance:getLocalVar('Nyzul_Current_Floor')
 
         if result == 20 then
-            mob:setDropID(3980)
+            mob:setDropID(7350)
         elseif result == 40 then
-            mob:setDropID(3979)
+            mob:setDropID(7351)
         elseif result == 60 then
-            mob:setDropID(3978)
+            mob:setDropID(7352)
         elseif result == 80 then
-            mob:setDropID(3977)
+            mob:setDropID(7353)
         elseif result == 100 then
-            mob:setDropID(3976)
+            mob:setDropID(7354)
         end
     end)
 end

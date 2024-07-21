@@ -701,9 +701,7 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
         local currency = optionToItem[category][selection]
 
         if copperVouchersStored >= qty then
-            if currency.name ~= 'obsidian_fragment' then
-                player:delCurrency('aman_vouchers', qty)
-            end
+            player:delCurrency('aman_vouchers', qty)
 
             if currency.name == 'conquest_points' then
                 local nation = player:getNation()
@@ -717,12 +715,7 @@ function xi.sparkshop.onEventUpdate(player, csid, option, npc)
                 end
             end
 
-            if currency.name == 'obsidian_fragment' then
-                player:printToPlayer('You are not allowed to receive Obsidian Fragments in this way.', 17)
-            else
-                player:addCurrency(currency.name, currency.amount * qty, getCurrencyCap(currency.name))
-            end
-
+            player:addCurrency(currency.name, currency.amount * qty, getCurrencyCap(currency.name))
             player:messageSpecial(zones[player:getZoneID()].text.YOU_NOW_HAVE_AMT_CURRENCY, selection, player:getCurrency(currency.name))
         else
             player:messageSpecial(zones[player:getZoneID()].text.DO_NOT_POSSESS_ENOUGH, xi.item.COPPER_AMAN_VOUCHER)

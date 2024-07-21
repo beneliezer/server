@@ -1,6 +1,5 @@
 return {
     ['Amalanbraux']      = { event = 700 },
-    ['Blandine']         = { event = 122 },
     ['Galdo']            = { event = 650 },
     ['Hagain']           = { event = 10002 },
     ['Itzha_Delavhitta'] = { event = 900 },
@@ -14,6 +13,5 @@ return {
     ['Rycharde']         = { event = 69 },
     ['Take']             = { event = 59 },
     ['Tonasav']          = { event = 372 },
-    ['Zexu']             = { event = 121 },
     ['Zhon_Kihshimo']    = { event = 25 },
 }
