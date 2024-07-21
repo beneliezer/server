@@ -1457,24 +1457,22 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
 
     -- prowess buffs from completing Grounds regimes
     if regimeType == xi.regime.type.GROUNDS then
-        if not player:isClassicMode() then
-            addGovProwessBonusEffect(player)
+        addGovProwessBonusEffect(player)
 
-            -- repeat clears bonus
-            if player:hasStatusEffect(xi.effect.PROWESS) then
-                -- increase reward based on number of clears. hard caps at 2x base reward.
-                local govClears  = player:getStatusEffect(xi.effect.PROWESS):getPower()
+        -- repeat clears bonus
+        if player:hasStatusEffect(xi.effect.PROWESS) then
+            -- increase reward based on number of clears. hard caps at 2x base reward.
+            local govClears  = player:getStatusEffect(xi.effect.PROWESS):getPower()
 
-                reward = reward * (100 + (govClears * 4)) / 100
-                reward = utils.clamp(reward, 0, maxReward)
+            reward = reward * (100 + (govClears * 4)) / 100
+            reward = utils.clamp(reward, 0, maxReward)
 
-                -- increment clears
-                player:delStatusEffectSilent(xi.effect.PROWESS)
-                player:addStatusEffect(xi.effect.PROWESS, govClears + 1, 0, 0)
-            else
-                -- keep track of number of clears
-                player:addStatusEffect(xi.effect.PROWESS, 1, 0, 0)
-            end
+            -- increment clears
+            player:delStatusEffectSilent(xi.effect.PROWESS)
+            player:addStatusEffect(xi.effect.PROWESS, govClears + 1, 0, 0)
+        else
+            -- keep track of number of clears
+            player:addStatusEffect(xi.effect.PROWESS, 1, 0, 0)
         end
     end
 
@@ -1497,10 +1495,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
 
         player:setCharVar('[regime]lastReward', vanadielEpoch)
 
-        if
-            player:isCrystalWarrior() or
-            player:isClassicMode()
-        then
+        if player:isCrystalWarrior() then
             player:setCharVar('[regime]repeatedToday', 0)
         end
     end
@@ -1511,7 +1506,7 @@ xi.regime.checkRegime = function(player, mob, regimeId, index, regimeType)
         local highestLevel = player:partyHighestLevel()
         local pageLevelDiff = 2 + math.ceil(highestLevel / 20)
         if
-            (player:isCrystalWarrior() or player:isClassicMode()) and
+            player:isCrystalWarrior() and
             ((page[6] - highestLevel < pageLevelDiff) or highestLevel == 75)
         then
             local completions = player:getCharVar('[regime]repeatedToday')
