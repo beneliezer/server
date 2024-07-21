@@ -844,12 +844,11 @@ INSERT INTO `mob_skill_lists` VALUES ('Pixie',195,2197);
 INSERT INTO `mob_skill_lists` VALUES ('Pixie',195,2198);
 INSERT INTO `mob_skill_lists` VALUES ('Pixie',195,2199);
 INSERT INTO `mob_skill_lists` VALUES ('Pixie',195,2200);
--- INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1957);
+INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1957);
 INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1958);
 INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1959);
 INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1960);
--- INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1961);
--- INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1962);
+INSERT INTO `mob_skill_lists` VALUES ('Poroggo',196,1961);
 INSERT INTO `mob_skill_lists` VALUES ('Pugil',197,449);
 INSERT INTO `mob_skill_lists` VALUES ('Pugil',197,450);
 INSERT INTO `mob_skill_lists` VALUES ('Pugil',197,451);
@@ -1325,8 +1324,8 @@ INSERT INTO `mob_skill_lists` VALUES ('LividrootAmoo',296,320);
 -- INSERT INTO `mob_skill_lists` VALUES ('LividrootAmoo',296,1332);
 INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1958);
 INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1959);
--- INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1960);
--- INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1962);
+INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1960);
+INSERT INTO `mob_skill_lists` VALUES ('IririSamariri',297,1962);
 INSERT INTO `mob_skill_lists` VALUES ('Anantaboga',298,644);
 INSERT INTO `mob_skill_lists` VALUES ('Anantaboga',298,645);
 INSERT INTO `mob_skill_lists` VALUES ('Anantaboga',298,646);
@@ -2790,7 +2789,7 @@ INSERT INTO `mob_skill_lists` VALUES ('Ovni',824,1375); -- asthenic fog
 INSERT INTO `mob_skill_lists` VALUES ('Pantagruel',825,663); -- ice roar
 INSERT INTO `mob_skill_lists` VALUES ('Pantagruel',825,2367); -- moribund hack
 INSERT INTO `mob_skill_lists` VALUES ('Piasa',826,1445); -- damnation dive
--- INSERT INTO `mob_skill_lists` VALUES ('Poroggo_Dom_Juan',827,1957); -- frog song
+INSERT INTO `mob_skill_lists` VALUES ('Poroggo_Dom_Juan',827,1957); -- frog song
 INSERT INTO `mob_skill_lists` VALUES ('Poroggo_Dom_Juan',827,1959); -- water bomb
 INSERT INTO `mob_skill_lists` VALUES ('Toppling_Tuber',828,308); -- frog kick
 INSERT INTO `mob_skill_lists` VALUES ('Toppling_Tuber',828,310); -- queazyshroom
@@ -3020,7 +3019,7 @@ INSERT INTO `mob_skill_lists` VALUES ('Gukumatz',892,2154); -- delta_thrust
 INSERT INTO `mob_skill_lists` VALUES ('Gukumatz',892,2156); -- grim_glower
 INSERT INTO `mob_skill_lists` VALUES ('Heqet',893,1959); -- water_bomb
 INSERT INTO `mob_skill_lists` VALUES ('Heqet',893,1960); -- frog_cheer
--- INSERT INTO `mob_skill_lists` VALUES ('Heqet',893,1961); -- providence
+INSERT INTO `mob_skill_lists` VALUES ('Heqet',893,1961); -- providence
 INSERT INTO `mob_skill_lists` VALUES ('Ironclad_Observer',894,2626); -- Auger_Smash
 INSERT INTO `mob_skill_lists` VALUES ('Ironclad_Observer',894,2627); -- Area_Bombardment
 INSERT INTO `mob_skill_lists` VALUES ('Ironclad_Pulverizer',895,2619); -- Turbine_Cyclone
@@ -3864,7 +3863,18 @@ INSERT INTO `mob_skill_lists` VALUES ('Snaggletooth_Peapuk',2006,1721);
 INSERT INTO `mob_skill_lists` VALUES ('Snaggletooth_Peapuk',2006,1722);
 INSERT INTO `mob_skill_lists` VALUES ('Snaggletooth_Peapuk',2006,1724);
 
--- Next available ID: 2007
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,642); -- flame_breath
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,643); -- poison_breath
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,644); -- wind_breath
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,645); -- body_slam
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,646); -- heavy_stomp
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,647); -- chaos_blade
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,648); -- petro_eyes
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,650); -- thornsong
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,651); -- lodesong
+INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,1792); -- nullsong
+
+-- Next available ID: 2008
 
 -- ------------------------------------------------------------
 -- Start of Ambuscade section

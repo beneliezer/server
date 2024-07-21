@@ -1,10 +1,11 @@
 -----------------------------------
--- Area: The Eldieme Necropolis [S] (175)
---  Mob: Poroggo Servant
------------------------------------
-mixins = { require('scripts/mixins/families/poroggo') }
+-- Area: Lufaise Meadows (24)
+--  Mob: Splinterspine Grukjuk
 -----------------------------------
 local entity = {}
+
+entity.onMobInitialize = function(mob)
+end
 
 entity.onMobDeath = function(mob, player, optParams)
 end
