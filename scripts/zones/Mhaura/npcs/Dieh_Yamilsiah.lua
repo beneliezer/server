@@ -44,8 +44,8 @@ entity.onTrigger = function(player, npc)
     xi.transport.onDockTimekeeperTrigger(player, xi.transport.routes.SELBINA_MHAURA_OPEN_SEA, 231)
 
     --[[Other cutscenes:
-    233 'This ship is headed for Selbina.'
-    234 'The Selbina ferry will deparrrt soon!  Passengers are to board the ship immediately!'
+    233 "This ship is headed for Selbina."
+    234 "The Selbina ferry will deparrrt soon!  Passengers are to board the ship immediately!"
 
     Can't find a way to toggle the destination on 233 or 234, so they are not used.
     Users knowing which ferry is which > using all CSs.]]
