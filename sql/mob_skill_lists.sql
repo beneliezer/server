@@ -423,8 +423,7 @@ INSERT INTO `mob_skill_lists` VALUES ('Konjac',111,433); -- digest
 INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1821);
 INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1822);
 INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1824);
--- INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1826);
--- INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1827);
+INSERT INTO `mob_skill_lists` VALUES ('Flan',112,1826);
 INSERT INTO `mob_skill_lists` VALUES ('Fly',113,659);
 INSERT INTO `mob_skill_lists` VALUES ('Fly',113,660);
 INSERT INTO `mob_skill_lists` VALUES ('Flytrap',114,434);
@@ -695,11 +694,11 @@ INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1752); -- gusting_gouge
 INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1753); -- hysteric_barrage
 INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1754); -- dukkeripen_heal
 INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1755); -- dukkeripen_shadow
--- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1756); -- dukkeripen
--- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1757); -- dukkeripen
+INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1756); -- dukkeripen_para
+INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1757); -- dukkeripen_heal
 INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1758); -- tail_slap
 INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1759); -- hypnotic_sway
--- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1761); -- arrow_deluge
+INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1761); -- arrow_deluge
 -- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1809); -- pw_shadow_thrust
 -- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1811); -- ?
 -- INSERT INTO `mob_skill_lists` VALUES ('Lamiae',171,1812); -- pw_pinning_shot
@@ -768,6 +767,7 @@ INSERT INTO `mob_skill_lists` VALUES ('Marid',180,1707);
 INSERT INTO `mob_skill_lists` VALUES ('MemoryReceptacle',181,542);
 INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1765); -- Gusting Gouge
 INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1766); -- Hysteric Barrage
+INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1767); -- Dukkeripen Heal
 INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1768); -- Dukkeripen Shadows
 INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1769); -- Dukkeripen Paralyze
 INSERT INTO `mob_skill_lists` VALUES ('Merrow',182,1770); -- Dukkeripen Heal
@@ -1097,7 +1097,6 @@ INSERT INTO `mob_skill_lists` VALUES ('Wamoura',253,1952);
 INSERT INTO `mob_skill_lists` VALUES ('Wamoura',253,1953);
 INSERT INTO `mob_skill_lists` VALUES ('Wamoura',253,1954);
 INSERT INTO `mob_skill_lists` VALUES ('Wamoura',253,1955);
--- INSERT INTO `mob_skill_lists` VALUES ('Wamoura',253,1956);
 INSERT INTO `mob_skill_lists` VALUES ('Wamouracampa_strech',254,1815);
 INSERT INTO `mob_skill_lists` VALUES ('Wamouracampa_strech',254,1816);
 INSERT INTO `mob_skill_lists` VALUES ('Wamouracampa_strech',254,1817);
@@ -1332,9 +1331,9 @@ INSERT INTO `mob_skill_lists` VALUES ('Anantaboga',298,646);
 -- INSERT INTO `mob_skill_lists` VALUES ('Anantaboga',298,256);
 INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1821);
 INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1822);
--- INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1823);
--- INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1824);
--- INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1826);
+INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1823);
+INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1824);
+INSERT INTO `mob_skill_lists` VALUES ('Dextrose',299,1826);
 INSERT INTO `mob_skill_lists` VALUES ('Reacton',300,510);
 INSERT INTO `mob_skill_lists` VALUES ('Reacton',300,511);
 INSERT INTO `mob_skill_lists` VALUES ('Verdelet',301,1709);
@@ -3500,7 +3499,8 @@ INSERT INTO `mob_skill_lists` VALUES ('TRUST_Nashmeira',1038,3243); -- Imperial 
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Najelith',1044,0);
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Aldo',1045,0);
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Moogle',1046,0);
--- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Fablinix',1047,0);
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Fablinix',1047,3261); -- Bomb Toss
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Fablinix',1047,3262); -- Goblin Rush
 INSERT INTO `mob_skill_lists` VALUES ('TRUST_Maat',1048,3263); -- Bear Killer
 INSERT INTO `mob_skill_lists` VALUES ('TRUST_Maat',1048,3413); -- Combo (Maat)
 INSERT INTO `mob_skill_lists` VALUES ('TRUST_Maat',1048,3414); -- One Inch Punch (Maat)
@@ -3556,7 +3556,10 @@ INSERT INTO `mob_skill_lists` VALUES ('TRUST_Adelheid',1083,3468); -- Binding Mi
 INSERT INTO `mob_skill_lists` VALUES ('TRUST_Adelheid',1083,3469); -- Twirling Dervish
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Amchuchu',1084,0);
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Brygid',1085,0);
--- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Mildaurion',1086,0);
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Mildaurion',1086,3470); -- Great Wheel
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Mildaurion',1086,3471); -- Light Blade
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Mildaurion',1086,3472); -- Vortex
+INSERT INTO `mob_skill_lists` VALUES ('TRUST_Mildaurion',1086,3473); -- Stellar Burst
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Halver',1087,0);
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Rongelouts',1088,0);
 -- INSERT INTO `mob_skill_lists` VALUES ('TRUST_Leonoyne',1089,0);
@@ -3873,6 +3876,23 @@ INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,648); -- petro_eyes
 INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,650); -- thornsong
 INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,651); -- lodesong
 INSERT INTO `mob_skill_lists` VALUES ('Dahak',2007,1792); -- nullsong
+
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_Attack',2008,1620); -- mephitic_spore
+
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_TP',2009,310);  -- queasyshroom
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_TP',2009,311);  -- numbshroom
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_TP',2009,314);  -- silence Gas
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_TP',2009,315);  -- dark Spore
+INSERT INTO `mob_skill_lists` VALUES ('Fairy_Ring_TP',2009,1621); -- frogkick
+
+INSERT INTO `mob_skill_lists` VALUES ('Cirrate_Christelle',2010,1605); -- miasmic_breath
+INSERT INTO `mob_skill_lists` VALUES ('Cirrate_Christelle',2010,1607); -- fragrant_breath
+INSERT INTO `mob_skill_lists` VALUES ('Cirrate_Christelle',2010,1609); -- putrid_breath
+INSERT INTO `mob_skill_lists` VALUES ('Cirrate_Christelle',2010,1611); -- vampiric_lash
+
+INSERT INTO `mob_skill_lists` VALUE ('Nantina',2011,1617); -- blow
+
+INSERT INTO `mob_skill_lists` VALUE ('Stcemqestcint',2012,1612); -- gouging_branch
 
 -- Next available ID: 2008
 

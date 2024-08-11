@@ -28,49 +28,23 @@
 #include <cstring>
 #include <unordered_map>
 
-#include "../packets/char.h"
-#include "../packets/char_health.h"
-#include "../packets/char_update.h"
-#include "../packets/entity_update.h"
-#include "../packets/inventory_finish.h"
-#include "../packets/message_basic.h"
+#include "packets/char.h"
+#include "packets/char_health.h"
+#include "packets/char_update.h"
+#include "packets/entity_update.h"
+#include "packets/inventory_finish.h"
+#include "packets/message_basic.h"
 
-#include "../lua/luautils.h"
+#include "lua/luautils.h"
 
-#include "../ability.h"
-#include "../ai/ai_container.h"
-#include "../ai/controllers/pet_controller.h"
-#include "../ai/controllers/player_charm_controller.h"
-#include "../ai/controllers/player_controller.h"
-#include "../ai/states/magic_state.h"
-#include "../alliance.h"
-#include "../attack.h"
-#include "../enmity_container.h"
-#include "../entities/battleentity.h"
-#include "../entities/mobentity.h"
-#include "../entities/petentity.h"
-#include "../entities/trustentity.h"
-#include "../item_container.h"
-#include "../items.h"
-#include "../items/item_weapon.h"
-#include "../job_points.h"
-#include "../map.h"
-#include "../mob_modifier.h"
-#include "../mobskill.h"
-#include "../modifier.h"
-#include "../notoriety_container.h"
-#include "../packets/char_sync.h"
-#include "../packets/lock_on.h"
-#include "../packets/pet_sync.h"
-#include "../packets/position.h"
-#include "../party.h"
-#include "../petskill.h"
-#include "../recast_container.h"
-#include "../spell.h"
-#include "../status_effect_container.h"
-#include "../trait.h"
-#include "../utils/petutils.h"
-#include "../weapon_skill.h"
+#include "ability.h"
+#include "ai/ai_container.h"
+#include "ai/controllers/pet_controller.h"
+#include "ai/controllers/player_charm_controller.h"
+#include "ai/controllers/player_controller.h"
+#include "ai/states/magic_state.h"
+#include "alliance.h"
+#include "attack.h"
 #include "attackutils.h"
 #include "battleutils.h"
 #include "charutils.h"
@@ -1386,7 +1360,7 @@ namespace battleutils
 
             if (hasDrainDaze || hasAspirDaze || hasHasteDaze)
             {
-                int16 delay = PAttacker->GetWeaponDelay(false) / 10;
+                int32 delay = PAttacker->GetWeaponDelay(false) / 10;
 
                 EFFECT daze       = EFFECT_NONE;
                 uint32 attackerID = 0;
@@ -1708,7 +1682,7 @@ namespace battleutils
         return pdif;
     }
 
-    int16 CalculateBaseTP(int delay)
+    int16 CalculateBaseTP(int32 delay)
     {
         int16 x = 1;
         if (delay <= 180)
@@ -2336,13 +2310,13 @@ namespace battleutils
 
             if ((slot == SLOT_RANGED || slot == SLOT_AMMO) && PAttacker->objtype == TYPE_PC)
             {
-                int16 delay = PAttacker->GetRangedWeaponDelay(true);
+                int32 delay = PAttacker->GetRangedWeaponDelay(true);
 
-                baseTp = CalculateBaseTP((delay * 120) / 1000);
+                baseTp = CalculateBaseTP(delay * 120 / 1000);
             }
             else
             {
-                int16 delay      = PAttacker->GetWeaponDelay(true);
+                int32 delay      = PAttacker->GetWeaponDelay(true);
                 auto* sub_weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_SUB]);
 
                 if (sub_weapon && sub_weapon->getDmgType() > DAMAGE_TYPE::NONE && sub_weapon->getDmgType() < DAMAGE_TYPE::HTH &&
@@ -2358,7 +2332,7 @@ namespace battleutils
                     ratio = 2.0f;
                 }
 
-                baseTp = CalculateBaseTP((int16)(delay * 60.0f / 1000.0f / ratio));
+                baseTp = CalculateBaseTP(delay * 60.0f / 1000.0f / ratio);
             }
 
             if (giveTPtoAttacker)
@@ -2496,12 +2470,12 @@ namespace battleutils
 
             if (isRanged)
             {
-                int16 delay = PAttacker->GetRangedWeaponDelay(true);
+                int32 delay = PAttacker->GetRangedWeaponDelay(true);
                 baseTp      = CalculateBaseTP((delay * 120) / 1000);
             }
             else
             {
-                int16 delay = PAttacker->GetWeaponDelay(true);
+                int32 delay = PAttacker->GetWeaponDelay(true);
 
                 auto* sub_weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_SUB]);
 
@@ -2518,7 +2492,7 @@ namespace battleutils
                     ratio = 2.0f;
                 }
 
-                baseTp = (int16)(CalculateBaseTP((delay * 60) / 1000) / ratio);
+                baseTp = CalculateBaseTP(delay * 60 / 1000 / ratio);
             }
 
             // add tp to attacker
@@ -2838,7 +2812,7 @@ namespace battleutils
 
             critHitRate += GetDexCritBonus(PAttacker, PDefender);
             critHitRate += PAttacker->getMod(Mod::CRITHITRATE);
-            critHitRate += PDefender->getMod(Mod::ENEMYCRITRATE);
+            critHitRate -= PDefender->getMod(Mod::CRITICAL_HIT_EVASION); // Similar to merits. However, it can be possitive or negative. When mod is negative, it raises crit-hit-rate.
 
             // need to check for mods that only impact attacks with a specific weapon (like Senjuinrikio)
             if (auto* player = dynamic_cast<CCharEntity*>(PAttacker))
@@ -2929,7 +2903,7 @@ namespace battleutils
 
         critHitRate += GetAGICritBonus(PAttacker, PDefender);
         critHitRate += PAttacker->getMod(Mod::CRITHITRATE);
-        critHitRate += PDefender->getMod(Mod::ENEMYCRITRATE);
+        critHitRate -= PDefender->getMod(Mod::CRITICAL_HIT_EVASION); // Similar to merits. However, it can be possitive or negative. When mod is negative, it raises crit-hit-rate.
         critHitRate = std::clamp(critHitRate, 0, 100);
 
         return (uint8)critHitRate;
@@ -6723,7 +6697,8 @@ namespace battleutils
             }
 
             // remove TP Bonus from offhand weapon
-            if (PChar->equip[SLOT_SUB] != 0)
+            // TODO -- don't remove TP bonus if this TP bonus is from an augment (or perhaps add a second TP bonus stat.)
+            if (PChar->m_Weapons[SLOT_SUB])
             {
                 tp -= battleutils::GetScaledItemModifier(PEntity, PChar->m_Weapons[SLOT_SUB], Mod::TP_BONUS);
             }
@@ -6731,7 +6706,7 @@ namespace battleutils
             // if ranged WS, remove TP bonus from mainhand weapon
             if (damslot == SLOT_RANGED)
             {
-                if (PChar->equip[SLOT_MAIN] != 0)
+                if (PChar->m_Weapons[SLOT_MAIN])
                 {
                     tp -= battleutils::GetScaledItemModifier(PEntity, PChar->m_Weapons[SLOT_MAIN], Mod::TP_BONUS);
                 }
@@ -6739,7 +6714,8 @@ namespace battleutils
             else
             {
                 // if melee WS, remove TP bonus from ranged weapon
-                if (PChar->equip[SLOT_RANGED] != 0)
+                // TODO -- don't remove TP bonus if this TP bonus is from an augment (or perhaps add a second TP bonus stat.)
+                if (PChar->m_Weapons[SLOT_RANGED])
                 {
                     tp -= battleutils::GetScaledItemModifier(PEntity, PChar->m_Weapons[SLOT_RANGED], Mod::TP_BONUS);
                 }
