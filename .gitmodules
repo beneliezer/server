@@ -12,3 +12,6 @@
 [submodule "navmeshes"]
 	path = navmeshes
 	url = https://github.com/CatsAndBoats/xiNavmeshes
+[submodule "control"]
+	path = control
+	url = https://github.com/CatsAndBoats/catseyexi-control
