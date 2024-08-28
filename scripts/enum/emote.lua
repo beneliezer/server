@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class emote
+---@enum xi.emote
 xi.emote =
 {
     POINT      = 0,

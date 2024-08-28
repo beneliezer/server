@@ -321,6 +321,22 @@ namespace luautils
             ShowInfo("*** CI ONLY: Smoke testing by running all Lua files. ***");
             for (auto const& entry : sorted_directory_iterator<std::filesystem::recursive_directory_iterator>("./scripts"))
             {
+
+                // Break apart path so that we can verify and ignore specific subdirectories
+                std::vector<std::string> parts;
+                for (auto part : entry)
+                {
+                    part.replace_extension("");
+                    parts.emplace_back(part.string());
+                }
+
+                // Spec meta files should not be cached, and are only used
+                // for Lua Language Server parsing
+                if (!parts.empty() && parts[2] == "specs")
+                {
+                    continue;
+                }
+
                 // If we try to reload IDs.lua files, we'll wipe out the results
                 // of GetFirstID() calls, so lets skip over those.
                 if (entry.extension() == ".lua" && entry.filename() != "IDs.lua")
@@ -5316,20 +5332,21 @@ namespace luautils
         }
     }
 
-    bool OnChocoboDig(CCharEntity* PChar, bool pre)
+    bool OnChocoboDig(CCharEntity* PChar)
     {
         TracyZoneScoped;
 
-        auto name = PChar->loc.zone->getName();
+        auto onChocoboDig = lua["xi"]["chocoboDig"]["start"];
 
-        auto onChocoboDig = lua["xi"]["zones"][name]["Zone"]["onChocoboDig"];
+        // Check that the function exists.
         if (!onChocoboDig.valid())
         {
             ShowWarning("luautils::onChocoboDig");
             return false;
         }
 
-        auto result = onChocoboDig(CLuaBaseEntity(PChar), pre);
+        // Run lua-side chocobo digging.
+        auto result = onChocoboDig(CLuaBaseEntity(PChar));
         if (!result.valid())
         {
             sol::error err = result;

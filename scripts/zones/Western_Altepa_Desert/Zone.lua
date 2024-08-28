@@ -7,10 +7,6 @@ require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
 
-zoneObject.onChocoboDig = function(player, precheck)
-    return xi.chocoboDig.start(player, precheck)
-end
-
 zoneObject.onInitialize = function(zone)
     UpdateNMSpawnPoint(ID.mob.KING_VINEGARROON)
     GetMobByID(ID.mob.KING_VINEGARROON):setRespawnTime(math.random(900, 10800))
@@ -63,6 +59,10 @@ end
 
 zoneObject.onZoneWeatherChange = function(weather)
     local kvMob = GetMobByID(ID.mob.KING_VINEGARROON)
+
+    if not kvMob then
+        return
+    end
 
     if
         kvMob:getCurrentAction() == xi.act.DESPAWN and

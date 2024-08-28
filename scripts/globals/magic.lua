@@ -142,6 +142,8 @@ local function calculateMagicBurst(caster, spell, target, params)
             -- Something strange is going on if this occurs.
             skillchainburst = 1
         end
+    else
+        modburst = 1
     end
 
     -- Multiply
@@ -476,11 +478,6 @@ function finalMagicAdjustments(caster, target, spell, dmg)
 
         -- Handle Enmity.
         target:updateEnmityFromDamage(caster, dmg)
-
-        -- Only add TP if the target is a mob
-        if target:getObjType() ~= xi.objType.PC and dmg > 0 then
-            target:addTP(100)
-        end
     end
 
     return dmg

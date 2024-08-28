@@ -7,10 +7,6 @@ require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
 
-zoneObject.onChocoboDig = function(player, precheck)
-    return xi.chocoboDig.start(player, precheck)
-end
-
 zoneObject.onInitialize = function(zone)
     xi.helm.initZone(zone, xi.helmType.EXCAVATION)
     xi.chocobo.initZone(zone)
@@ -65,15 +61,16 @@ end
 
 zoneObject.onZoneWeatherChange = function(weather)
     local habrok = GetMobByID(ID.mob.HABROK)
-
-    if habrok:isSpawned() and not isHabrokWeather(weather) then
-        DespawnMob(ID.mob.HABROK)
-    elseif
-        not habrok:isSpawned() and
-        isHabrokWeather(weather) and
-        os.time() > habrok:getLocalVar('pop')
-    then
-        SpawnMob(ID.mob.HABROK)
+    if habrok then
+        if habrok:isSpawned() and not isHabrokWeather(weather) then
+            DespawnMob(ID.mob.HABROK)
+        elseif
+            not habrok:isSpawned() and
+            isHabrokWeather(weather) and
+            os.time() > habrok:getLocalVar('pop')
+        then
+            SpawnMob(ID.mob.HABROK)
+        end
     end
 end
 

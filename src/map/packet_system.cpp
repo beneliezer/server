@@ -1,20 +1,20 @@
 ﻿/*
 ===========================================================================
 
-Copyright (c) 2010-2015 Darkstar Dev Teams
+  Copyright (c) 2010-2015 Darkstar Dev Teams
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see http://www.gnu.org/licenses/
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see http://www.gnu.org/licenses/
 
 ===========================================================================
 */
@@ -314,7 +314,7 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
 
         PChar->m_ZonesList[PChar->getZone() >> 3] |= (1 << (PChar->getZone() % 8));
 
-        const char* fmtQuery = "UPDATE accounts_sessions SET targid = %u, session_key = x'%s', server_addr = %u, client_port = %u WHERE charid = %u";
+        const char* fmtQuery = "UPDATE accounts_sessions SET targid = %u, session_key = x'%s', server_addr = %u, client_port = %u, last_zoneout_time = 0 WHERE charid = %u";
 
         // Current zone could either be current zone or destination
         CZone* currentZone = zoneutils::GetZone(PChar->getZone());
@@ -1110,37 +1110,26 @@ void SmallPacket0x01A(map_session_data_t* const PSession, CCharEntity* const PCh
         break;
         case 0x11: // chocobo digging
         {
+            // Mounted Check.
             if (!PChar->isMounted())
             {
                 return;
             }
 
-            // bunch of gysahl greens
+            // Gysahl Green Check.
             uint8 slotID = PChar->getStorage(LOC_INVENTORY)->SearchItem(4545);
-
-            if (slotID != ERROR_SLOTID)
+            if (slotID == ERROR_SLOTID)
             {
-                // attempt to dig
-                if (luautils::OnChocoboDig(PChar, true))
-                {
-                    charutils::UpdateItem(PChar, LOC_INVENTORY, slotID, -1);
-
-                    PChar->pushPacket(new CInventoryFinishPacket());
-                    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CChocoboDiggingPacket(PChar));
-
-                    // dig is possible
-                    luautils::OnChocoboDig(PChar, false);
-                }
-                else
-                {
-                    // unable to dig yet
-                    PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_WAIT_LONGER));
-                }
-            }
-            else
-            {
-                // You don't have any gysahl greens
                 PChar->pushPacket(new CMessageSystemPacket(4545, 0, MsgStd::YouDontHaveAny));
+                return;
+            }
+
+            // Consume Gysahl Green and push animation on dig attempt.
+            if (luautils::OnChocoboDig(PChar))
+            {
+                charutils::UpdateItem(PChar, LOC_INVENTORY, slotID, -1);
+                PChar->pushPacket(new CInventoryFinishPacket());
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CChocoboDiggingPacket(PChar));
             }
         }
         break;
@@ -1913,7 +1902,13 @@ void SmallPacket0x036(map_session_data_t* const PSession, CCharEntity* const PCh
     uint32 npcid  = data.ref<uint32>(0x04);
     uint16 targid = data.ref<uint16>(0x3A);
 
-    CBaseEntity* PNpc = PChar->GetEntity(targid, TYPE_NPC);
+    CBaseEntity* PNpc = PChar->GetEntity(targid, TYPE_NPC | TYPE_MOB);
+
+    // Only allow trading with mobs if it's status is an NPC
+    if (PNpc != nullptr && PNpc->objtype == TYPE_MOB && PNpc->status != STATUS_TYPE::NORMAL)
+    {
+        return;
+    }
 
     if ((PNpc != nullptr) && (PNpc->id == npcid) && distance(PNpc->loc.p, PChar->loc.p) <= 10)
     {
@@ -2322,7 +2317,6 @@ void SmallPacket0x03D(map_session_data_t* const PSession, CCharEntity* const PCh
 void SmallPacket0x041(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    PrintPacket(data);
 
     uint8 SlotID = data.ref<uint8>(0x04);
 
@@ -2350,7 +2344,6 @@ void SmallPacket0x041(map_session_data_t* const PSession, CCharEntity* const PCh
 void SmallPacket0x042(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    PrintPacket(data);
 
     uint8 SlotID = data.ref<uint8>(0x04);
 
@@ -8239,7 +8232,6 @@ void SmallPacket0x112(map_session_data_t* const PSession, CCharEntity* const PCh
 void SmallPacket0x113(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    PrintPacket(data);
 
     if (PChar->status != STATUS_TYPE::NORMAL)
     {

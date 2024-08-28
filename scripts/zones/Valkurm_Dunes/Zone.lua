@@ -7,10 +7,6 @@ require('scripts/missions/amk/helpers')
 -----------------------------------
 local zoneObject = {}
 
-zoneObject.onChocoboDig = function(player, precheck)
-    return xi.chocoboDig.start(player, precheck)
-end
-
 zoneObject.onInitialize = function(zone)
     xi.conq.setRegionalConquestOverseers(zone:getRegionID())
     xi.mogTablet.onZoneInitialize(zone)
@@ -86,10 +82,13 @@ end
 
 zoneObject.onZoneWeatherChange = function(weather)
     local qm1 = GetNPCByID(ID.npc.SUNSAND_QM) -- Quest: An Empty Vessel
-    if weather == xi.weather.DUST_STORM then
-        qm1:setStatus(xi.status.NORMAL)
-    else
-        qm1:setStatus(xi.status.DISAPPEAR)
+
+    if qm1 then
+        if weather == xi.weather.DUST_STORM then
+            qm1:setStatus(xi.status.NORMAL)
+        else
+            qm1:setStatus(xi.status.DISAPPEAR)
+        end
     end
 end
 

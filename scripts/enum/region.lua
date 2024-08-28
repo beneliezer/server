@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class region
+---@enum xi.region
 xi.region =
 {
     RONFAURE         = 0,
