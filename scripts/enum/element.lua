@@ -1,6 +1,6 @@
 xi = xi or {}
 
----@class element
+---@enum xi.element
 xi.element =
 {
     NONE      = 0,

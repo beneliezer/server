@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class petType
+---@enum xi.petType
 xi.petType =
 {
     AVATAR             = 0,

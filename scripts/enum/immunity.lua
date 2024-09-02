@@ -1,6 +1,6 @@
 xi = xi or {}
 
----@class immunity
+---@enum xi.immunity
 xi.immunity =
 {
     NONE        = 0x00000000,

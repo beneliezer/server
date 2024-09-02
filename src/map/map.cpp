@@ -1,20 +1,20 @@
 ﻿/*
 ===========================================================================
 
-Copyright (c) 2010-2015 Darkstar Dev Teams
+  Copyright (c) 2010-2015 Darkstar Dev Teams
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see http://www.gnu.org/licenses/
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see http://www.gnu.org/licenses/
 
 ===========================================================================
 */
@@ -40,6 +40,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include <thread>
 
 #include "ability.h"
+#include "common/debug.h"
 #include "common/vana_time.h"
 #include "job_points.h"
 #include "linkshell.h"
@@ -186,10 +187,20 @@ int32 do_init(int32 argc, char** argv)
 
 #ifdef TRACY_ENABLE
     ShowInfo("*** TRACY IS ENABLED ***");
+
+    if (!debug::isUserRoot())
+    {
+        ShowWarning("You are NOT running as the root superuser or admin.");
+        ShowWarning("This is required for Tracy to work properly.");
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+    }
 #endif // TRACY_ENABLE
 
     ShowInfo("do_init: begin server initialization");
+
+    // These aren't set unless --ip or --port is set, respectively.
     map_ip.s_addr = 0;
+    map_port      = 0;
 
     for (int i = 1; i < argc; i++)
     {
@@ -568,11 +579,13 @@ int32 do_sockets(fd_set* rfd, duration next)
                 }
             }
 
-            map_session_data->last_update = time(nullptr);
-            size_t size                   = ret;
+            size_t size = ret;
 
             if (recv_parse(g_PBuff, &size, &from, map_session_data) != -1)
             {
+                // Update the time we last got a valid packet
+                map_session_data->last_update = time(nullptr);
+
                 // If the previous package was lost, then we do not collect a new one,
                 // and send the previous packet again
                 if (!parse(g_PBuff, &size, &from, map_session_data))
@@ -588,6 +601,7 @@ int32 do_sockets(fd_set* rfd, duration next)
                 map_session_data->server_packet_data = data;
                 map_session_data->server_packet_size = size;
             }
+
             if (map_session_data->shuttingDown > 0)
             {
                 map_close_session(server_clock::now(), map_session_data);
@@ -637,7 +651,7 @@ int32 map_decipher_packet(int8* buff, size_t size, sockaddr_in* from, map_sessio
         return 0;
     }
 
-    ShowError(fmt::format("map_encipher_packet: bad packet from <{}>", ip2str(ip)));
+    ShowError(fmt::format("map_decipher_packet: bad packet from <{}>", ip2str(ip)));
     return -1;
 }
 
@@ -694,7 +708,8 @@ int32 recv_parse(int8* buff, size_t* buffsize, sockaddr_in* from, map_session_da
                 db::extractFromBlob(rset, "session_key", map_session_data->blowfish.key);
             }
 
-            map_session_data->PChar = charutils::LoadChar(CharID);
+            map_session_data->PChar  = charutils::LoadChar(CharID);
+            map_session_data->charID = CharID;
         }
         map_session_data->client_packet_id = 0;
         map_session_data->server_packet_id = 0;
@@ -1040,7 +1055,12 @@ int32 map_close_session(time_point tick, map_session_data_t* map_session_data)
         // clear accounts_sessions if character is logging out (not when zoning)
         if (map_session_data->shuttingDown == 1)
         {
-            _sql->Query("DELETE FROM accounts_sessions WHERE charid = %u", map_session_data->PChar->id);
+            _sql->Query("DELETE FROM accounts_sessions WHERE charid = %u", map_session_data->charID);
+        }
+        else
+        {
+            // Set client port to zero, indicating the client tried to zone out and no longer has a port until the next 0x00A
+            _sql->Query("UPDATE accounts_sessions SET client_port = 0, last_zoneout_time = NOW() WHERE charid = %u", map_session_data->charID);
         }
 
         uint64 port64 = map_session_data->client_port;
@@ -1082,7 +1102,7 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
         {
             if (PChar != nullptr && !PChar->isLinkDead)
             {
-                _sql->Query("UPDATE char_flags SET disconnecting = 1 WHERE charid = %u", PChar->id);
+                _sql->Query("UPDATE char_flags SET disconnecting = 1 WHERE charid = %u", map_session_data->charID);
 
                 PChar->isLinkDead = true;
                 PChar->updatemask |= UPDATE_HP;
@@ -1093,35 +1113,36 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
                     PChar->loc.zone->SpawnPCs(PChar);
                 }
             }
+
             if ((time(nullptr) - map_session_data->last_update) > settings::get<uint16>("map.MAX_TIME_LASTUPDATE"))
             {
+                bool otherMap = false;
+
+                // check if session is attached to a different map server...
+                const char* fmtQuery = "select server_addr, server_port from accounts_sessions WHERE charid = %u";
+                _sql->Query(fmtQuery, map_session_data->charID);
+                if (_sql->NextRow() == SQL_SUCCESS)
+                {
+                    uint32 server_addr = _sql->GetUIntData(0);
+                    uint32 server_port = _sql->GetUIntData(1);
+
+                    // s_addr of 0 is single process map server without IP address set explicitly in commandline
+                    // map_port is 0 without the port being explicitly set in commandline
+                    if ((map_ip.s_addr != 0 && server_addr != map_ip.s_addr) || (map_port != 0 && server_port != map_port))
+                    {
+                        otherMap = true;
+                    }
+                }
+
                 if (PChar != nullptr)
                 {
                     // Check if the PChar current zone is on this server
-                    CZone* PZone    = nullptr;
-                    bool   otherMap = false;
+                    CZone* PZone = nullptr;
 
                     // Get zone if available
                     if (PChar->loc.zone && PChar->loc.zone->GetID() && (g_PZoneList.find(PChar->loc.zone->GetID()) != g_PZoneList.end()))
                     {
                         PZone = PChar->loc.zone;
-                    }
-
-                    // if PChar->loc.zone != null, maybe we didn't receive 0x00D, check accounts_sessions
-                    if (PZone)
-                    {
-                        const char* fmtQuery = "select server_addr, server_port from accounts_sessions WHERE charid = %u";
-                        _sql->Query(fmtQuery, PChar->id);
-                        if (_sql->NextRow() == SQL_SUCCESS)
-                        {
-                            uint32 server_addr = _sql->GetUIntData(0);
-                            uint32 server_port = _sql->GetUIntData(1);
-
-                            if (server_addr != PZone->GetIP() || server_port != PZone->GetPort())
-                            {
-                                otherMap = true;
-                            }
-                        }
                     }
 
                     if (map_session_data->shuttingDown == 0)
@@ -1184,7 +1205,7 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
                         {
                             // Player session is attached to this map process and has stopped responding.
                             map_session_data->PChar->StatusEffectContainer->SaveStatusEffects(true);
-                            _sql->Query("DELETE FROM accounts_sessions WHERE charid = %u", map_session_data->PChar->id);
+                            _sql->Query("DELETE FROM accounts_sessions WHERE charid = %u", map_session_data->charID);
                         }
 
                         ShowDebug(fmt::format("Clearing map server session for player: {} in zone: {} (On other map server = {})", PChar->name, PChar->loc.zone ? PChar->loc.zone->getName() : "None", otherMap ? "Yes" : "No"));
@@ -1202,13 +1223,14 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
                         continue;
                     }
                 }
-                else if (map_session_data->shuttingDown == 0)
+                else
                 {
-                    ShowWarning("map_cleanup: WHITHOUT CHAR timed out, session closed");
-
-                    const char* Query = "DELETE FROM accounts_sessions WHERE client_addr = %u AND client_port = %u";
-                    _sql->Query(Query, map_session_data->client_addr, map_session_data->client_port);
-
+                    ShowWarning("map_cleanup: WITHOUT CHAR timed out, session closed on this process");
+                    if (!otherMap)
+                    {
+                        const char* Query = "DELETE FROM accounts_sessions WHERE charid = %u";
+                        _sql->Query(Query, map_session_data->charID);
+                    }
                     destroy_arr(map_session_data->server_packet_data);
                     map_session_list.erase(it++);
                     destroy(map_session_data);
@@ -1218,7 +1240,7 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
         }
         else if (PChar != nullptr && PChar->isLinkDead)
         {
-            _sql->Query("UPDATE char_flags SET disconnecting = 0 WHERE charid = %u", PChar->id);
+            _sql->Query("UPDATE char_flags SET disconnecting = 0 WHERE charid = %u", map_session_data->charID);
 
             PChar->isLinkDead = false;
             PChar->updatemask |= UPDATE_HP;

@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class attackType
+---@enum xi.attackType
 xi.attackType =
 {
     NONE     = 0,

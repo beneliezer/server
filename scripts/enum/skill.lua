@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class skill
+---@enum xi.skill
 xi.skill =
 {
     -- Combat Skills

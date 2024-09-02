@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class followType
+---@enum xi.followType
 xi.followType =
 {
     NONE     = 0,

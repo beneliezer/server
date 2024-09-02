@@ -7,10 +7,6 @@ require('scripts/quests/i_can_hear_a_rainbow')
 -----------------------------------
 local zoneObject = {}
 
-zoneObject.onChocoboDig = function(player, precheck)
-    return xi.chocoboDig.start(player, precheck)
-end
-
 zoneObject.onInitialize = function(zone)
     laTheineGlobal.moveFallenEgg()
     xi.chocobo.initZone(zone)
@@ -54,8 +50,12 @@ end
 zoneObject.onZoneWeatherChange = function(weather)
     local rainbow = GetNPCByID(ID.npc.RAINBOW)
     local timeOfTheDay = VanadielTOTD()
-    local setRainbow = rainbow:getLocalVar('setRainbow')
 
+    if not rainbow then
+        return
+    end
+
+    local setRainbow = rainbow:getLocalVar('setRainbow')
     if
         setRainbow == 1 and
         weather ~= xi.weather.RAIN and
@@ -76,6 +76,11 @@ end
 
 zoneObject.onTOTDChange = function(timeOfTheDay)
     local rainbow = GetNPCByID(ID.npc.RAINBOW)
+
+    if not rainbow then
+        return
+    end
+
     local setRainbow = rainbow:getLocalVar('setRainbow')
 
     if

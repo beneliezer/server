@@ -3,7 +3,7 @@
 -----------------------------------
 xi = xi or {}
 
----@class zone
+---@enum xi.zone
 xi.zone =
 {
     UNKNOWN                         = 0,
