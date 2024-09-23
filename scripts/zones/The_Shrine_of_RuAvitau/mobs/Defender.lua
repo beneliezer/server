@@ -2,6 +2,7 @@
 -- Area: The Shrine of Ru'Avitau
 --  Mob: Defender
 -----------------------------------
+---@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -10,7 +11,6 @@ end
 
 entity.onMobFight = function(mob, target)
     local auraGear = GetMobByID(mob:getID() + 1)
-
     if not auraGear then
         return
     end

@@ -279,6 +279,10 @@ namespace charutils
     bool hasEntitySpawned(CCharEntity* PChar, CBaseEntity* entity);
 
     uint32 getCharIdFromName(std::string const& name);
+
+    void forceSynthCritFail(std::string sourceFunction, CCharEntity* PChar);
+
+    void removeCharFromZone(CCharEntity* PChar);
 }; // namespace charutils
 
 #endif // _CHARUTILS_H

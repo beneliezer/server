@@ -102,14 +102,11 @@ mission.sections =
                 end,
             },
 
-            onZoneIn =
-            {
-                function(player, prevZone)
-                    if player:getMissionStatus(mission.areaId, xi.mission.status.COP.SANDORIA) == 0 then
-                        return 14
-                    end
-                end,
-            },
+            onZoneIn = function(player, prevZone)
+                if player:getMissionStatus(mission.areaId, xi.mission.status.COP.SANDORIA) == 0 then
+                    return 14
+                end
+            end,
 
             onEventFinish =
             {
@@ -253,14 +250,11 @@ mission.sections =
                 end,
             },
 
-            onZoneIn =
-            {
-                function(player, prevZone)
-                    if player:getMissionStatus(mission.areaId, xi.mission.status.COP.WINDURST) == 0 then
-                        return 871
-                    end
-                end,
-            },
+            onZoneIn = function(player, prevZone)
+                if player:getMissionStatus(mission.areaId, xi.mission.status.COP.WINDURST) == 0 then
+                    return 871
+                end
+            end,
 
             onEventFinish =
             {
@@ -424,15 +418,12 @@ mission.sections =
                 end,
             },
 
-            onZoneOut =
-            {
-                function(player)
-                    if player:hasKeyItem(xi.ki.MIMEO_JEWEL) then
-                        player:messageSpecial(attohwaChasmID.text.MIMEO_JEWEL_OFFSET + 4)
-                        player:delKeyItem(xi.ki.MIMEO_JEWEL)
-                    end
-                end,
-            },
+            onZoneOut = function(player)
+                if player:hasKeyItem(xi.ki.MIMEO_JEWEL) then
+                    player:messageSpecial(attohwaChasmID.text.MIMEO_JEWEL_OFFSET + 4)
+                    player:delKeyItem(xi.ki.MIMEO_JEWEL)
+                end
+            end,
 
             onEventFinish =
             {

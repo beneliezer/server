@@ -69,6 +69,7 @@ xi.abyssea.abyssiteType =
     DEMILUNE     = 20,
 }
 
+---@enum xi.abyssea.itemType
 xi.abyssea.itemType =
 {
     ITEM        = 1,
@@ -777,7 +778,10 @@ xi.abyssea.giveNMDrops = function(mob, player, ID)
     local playerClaimed = GetPlayerByID(mob:getLocalVar('[ClaimedBy]'))
 
     for _, keyItemId in pairs(normalDrops) do
-        if xi.abyssea.canGiveNMKI(mob, 20) then
+        if
+            playerClaimed and
+            xi.abyssea.canGiveNMKI(mob, 20)
+        then
             npcUtil.giveKeyItem(playerClaimed, keyItemId, ID.text.PLAYER_KEYITEM_OBTAINED)
         end
     end
@@ -815,17 +819,19 @@ xi.abyssea.getDemiluneAbyssite = function(player)
 end
 
 xi.abyssea.getNewYellowWeakness = function(mob)
-    local day = VanadielDayOfTheWeek()
-    local weakness = math.random(day - 1, day + 1)
+    local currentDay = VanadielDayOfTheWeek()                      -- Fetch current day.
+    local chosenDay  = math.random(currentDay - 1, currentDay + 1) -- It can be the element of the same day, the day before or the day after.
 
-    if weakness < 0 then
-        weakness = 7
-    elseif weakness > 7 then
-        weakness = 0
+    -- Acount for day element cycling.
+    if chosenDay < xi.day.FIRESDAY then
+        chosenDay = xi.day.DARKSDAY
+    elseif chosenDay > xi.day.DARKSDAY then
+        chosenDay = xi.day.FIRESDAY
     end
 
-    local element = xi.magic.dayElement[weakness]
-    return yellowWeakness[element][math.random(#yellowWeakness[element])]
+    local element = xi.magic.dayElement[chosenDay]
+
+    return yellowWeakness[element][math.random(1, #yellowWeakness[element])] -- Choose an specific spell the mob is weak to.
 end
 
 xi.abyssea.getNewRedWeakness = function(mob)

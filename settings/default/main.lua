@@ -291,6 +291,9 @@ xi.settings.main =
     CHOCOBO_RAISING_DISABLE_RETIREMENT  = false, -- true/false.
     CHOCOBO_RAISING_STAT_GROWTH_CAP     = 512,   -- int.
 
+    -- SYNERGY (HEAVILY-IN-DEVELOPMENT, USE AT YOUR OWN RISK)
+    ENABLE_SYNERGY = false, -- true/false. Enable Synergy features.
+
     -- MISC
     AVATAR_DAMAGE_MOD            = .6,
     RIVERNE_PORTERS              = 120,   -- Time in seconds that Unstable Displacements in Cape Riverne stay open after trading a scale.
