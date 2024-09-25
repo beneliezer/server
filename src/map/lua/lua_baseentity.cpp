@@ -2459,8 +2459,12 @@ void CLuaBaseEntity::leaveGame()
         return;
     }
 
-    auto* PChar = static_cast<CCharEntity*>(m_PBaseEntity);
-    charutils::ForceLogout(PChar);
+    auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity);
+    if (PChar)
+    {
+        // Because we can't detect if this is happening in the middle of an effect wearing off or not, this can be processed after player tick in CZoneEntities::ZoneServer
+        PChar->status = STATUS_TYPE::SHUTDOWN;
+    }
 }
 
 /************************************************************************
@@ -3018,12 +3022,11 @@ void CLuaBaseEntity::setPos(sol::variadic_args va)
                 return;
             }
 
-            PChar->loc.destination = zoneid;
-            PChar->status          = STATUS_TYPE::DISAPPEAR;
-            PChar->loc.boundary    = 0;
-            PChar->m_moghouseID    = 0;
-            PChar->clearPacketList();
-            charutils::SendToZone(PChar, 2, ipp);
+            PChar->loc.destination     = zoneid;
+            PChar->status              = STATUS_TYPE::DISAPPEAR;
+            PChar->loc.boundary        = 0;
+            PChar->m_moghouseID        = 0;
+            PChar->requestedZoneChange = true;
         }
         else if (PChar->status != STATUS_TYPE::DISAPPEAR)
         {
@@ -3047,18 +3050,10 @@ void CLuaBaseEntity::warp()
         return;
     }
 
-    auto* PChar = static_cast<CCharEntity*>(m_PBaseEntity);
-
-    PChar->loc.boundary    = 0;
-    PChar->m_moghouseID    = 0;
-    PChar->loc.p           = PChar->profile.home_point.p;
-    PChar->loc.destination = PChar->profile.home_point.destination;
-
-    PChar->status    = STATUS_TYPE::DISAPPEAR;
-    PChar->animation = ANIMATION_NONE;
-
-    PChar->clearPacketList();
-    charutils::SendToZone(PChar, 2, zoneutils::GetZoneIPP(m_PBaseEntity->loc.destination));
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        PChar->requestedWarp = true;
+    }
 }
 
 /************************************************************************
@@ -9383,6 +9378,27 @@ void CLuaBaseEntity::setHP(int32 value)
     {
         PBattle->PLastAttacker = nullptr;
     }
+}
+
+/************************************************************************
+ *  Function: setMaxHP()
+ *  Purpose : Sets the Maximum Hit Points of an Entity
+ *  Example : player:setMaxHP(100)
+ *  Notes   :
+ ************************************************************************/
+
+void CLuaBaseEntity::setMaxHP(int32 value)
+{
+    if (m_PBaseEntity->objtype == TYPE_NPC)
+    {
+        ShowWarning("Invalid Entity (NPC: %s) calling function.", m_PBaseEntity->getName());
+        return;
+    }
+
+    auto* PBattle = static_cast<CBattleEntity*>(m_PBaseEntity);
+
+    PBattle->health.maxhp = std::max(1, value);
+    PBattle->UpdateHealth();
 }
 
 /************************************************************************
@@ -18319,6 +18335,7 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("addHPLeaveSleeping", CLuaBaseEntity::addHPLeaveSleeping);
 
     SOL_REGISTER("setHP", CLuaBaseEntity::setHP);
+    SOL_REGISTER("setMaxHP", CLuaBaseEntity::setMaxHP);
     SOL_REGISTER("restoreHP", CLuaBaseEntity::restoreHP);
     SOL_REGISTER("delHP", CLuaBaseEntity::delHP);
     SOL_REGISTER("takeDamage", CLuaBaseEntity::takeDamage);

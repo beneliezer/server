@@ -86,6 +86,7 @@
 #include "roe.h"
 #include "spell.h"
 #include "status_effect_container.h"
+#include "trade_container.h"
 #include "trait.h"
 #include "treasure_pool.h"
 #include "unitychat.h"
@@ -103,6 +104,7 @@
 #include "itemutils.h"
 #include "petutils.h"
 #include "puppetutils.h"
+#include "synthutils.h"
 #include "zoneutils.h"
 
 /************************************************************************
@@ -6521,7 +6523,15 @@ namespace charutils
             PChar->resetPetZoningInfo();
         }
 
+        // If player somehow gets zoned, force crit fail their synth
+        if (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0)
+        {
+            charutils::forceSynthCritFail("SendToZone", PChar);
+        }
+
         PChar->pushPacket(new CServerIPPacket(PChar, type, ipp));
+
+        removeCharFromZone(PChar);
     }
 
     void ForceLogout(CCharEntity* PChar)
@@ -6541,18 +6551,22 @@ namespace charutils
         SendToZone(PChar, 2, zoneutils::GetZoneIPP(PChar->loc.destination));
     }
 
-    void HomePoint(CCharEntity* PChar)
+    void HomePoint(CCharEntity* PChar, bool resetHPMP)
     {
         TracyZoneScoped;
 
-        // remove weakness on homepoint
-        PChar->StatusEffectContainer->DelStatusEffectSilent(EFFECT_WEAKNESS);
-        PChar->StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_SYNC);
+        // player initiated warp/warp 2 or otherwise
+        if (resetHPMP)
+        {
+            // remove weakness on homepoint
+            PChar->StatusEffectContainer->DelStatusEffectSilent(EFFECT_WEAKNESS);
+            PChar->StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_SYNC);
 
-        PChar->SetDeathTimestamp(0);
+            PChar->SetDeathTimestamp(0);
 
-        PChar->health.hp = PChar->GetMaxHP();
-        PChar->health.mp = PChar->GetMaxMP();
+            PChar->health.hp = PChar->GetMaxHP();
+            PChar->health.mp = PChar->GetMaxMP();
+        }
 
         PChar->loc.boundary    = 0;
         PChar->loc.p           = PChar->profile.home_point.p;
@@ -7120,6 +7134,125 @@ namespace charutils
             return _sql->GetUIntData(0);
         }
         return 0;
+    }
+
+    void forceSynthCritFail(std::string sourceFunction, CCharEntity* PChar)
+    {
+        // NOTE:
+        // Supposed non-losable items are reportedly lost if this condition is met:
+        // https://ffxiclopedia.fandom.com/wiki/Lu_Shang%27s_Fishing_Rod
+        // The broken rod can never be lost in a normal failed synth. It will only be lost if the synth is
+        // interrupted in some way, such as by being attacked or moving to another area (e.g. ship docking).
+
+        ShowWarning("%s: %s attempting to zone in the middle of a synth, failing their synth!", sourceFunction, PChar->getName());
+        PChar->setModifier(Mod::SYNTH_FAIL_RATE, 10000); // Force crit fail
+        synthutils::doSynthFail(PChar);
+
+        PChar->CraftContainer->Clean(); // Clean to reset m_ItemCount to 0
+    }
+
+    void removeCharFromZone(CCharEntity* PChar)
+    {
+        map_session_data_t* PSession = nullptr;
+
+        for (auto session : map_session_list)
+        {
+            if (session.second->charID == PChar->id)
+            {
+                PSession = session.second;
+                break;
+            }
+        }
+
+        // Store old blowfish, recalculate expected new blowfish
+        if (PSession)
+        {
+            PSession->blowfish.status = BLOWFISH_PENDING_ZONE;
+        }
+
+        PChar->TradePending.clean();
+        PChar->InvitePending.clean();
+        PChar->PWideScanTarget = nullptr;
+
+        if (PChar->animation == ANIMATION_ATTACK)
+        {
+            PChar->animation = ANIMATION_NONE;
+            PChar->updatemask |= UPDATE_HP;
+        }
+
+        if (!PChar->PTrusts.empty())
+        {
+            PChar->ClearTrusts();
+        }
+
+        if (PChar->status == STATUS_TYPE::SHUTDOWN)
+        {
+            if (PChar->PParty != nullptr)
+            {
+                if (PChar->PParty->m_PAlliance != nullptr)
+                {
+                    if (PChar->PParty->GetLeader() == PChar)
+                    {
+                        if (PChar->PParty->HasOnlyOneMember())
+                        {
+                            if (PChar->PParty->m_PAlliance->hasOnlyOneParty())
+                            {
+                                PChar->PParty->m_PAlliance->dissolveAlliance();
+                            }
+                            else
+                            {
+                                PChar->PParty->m_PAlliance->removeParty(PChar->PParty);
+                            }
+                        }
+                        else
+                        { // party leader logged off - will pass party lead
+                            PChar->PParty->RemoveMember(PChar);
+                        }
+                    }
+                    else
+                    { // not party leader - just drop from party
+                        PChar->PParty->RemoveMember(PChar);
+                    }
+                }
+                else
+                {
+                    // normal party - just drop group
+                    PChar->PParty->RemoveMember(PChar);
+                }
+            }
+
+            if (PChar->shouldPetPersistThroughZoning())
+            {
+                PChar->setPetZoningInfo();
+            }
+            else
+            {
+                PChar->resetPetZoningInfo();
+            }
+
+            PSession->shuttingDown = 1;
+            _sql->Query("UPDATE char_stats SET zoning = 0 WHERE charid = %u", PChar->id);
+        }
+        else
+        {
+            PSession->shuttingDown = 2;
+            _sql->Query("UPDATE char_stats SET zoning = 1 WHERE charid = %u", PChar->id);
+            charutils::CheckEquipLogic(PChar, SCRIPT_CHANGEZONE, PChar->getZone());
+        }
+
+        if (PChar->loc.zone != nullptr)
+        {
+            PChar->loc.zone->DecreaseZoneCounter(PChar);
+        }
+
+        PChar->StatusEffectContainer->SaveStatusEffects(PSession->shuttingDown == 1);
+        PChar->PersistData();
+        charutils::SavePlayTime(PChar);
+        charutils::SaveCharStats(PChar);
+        charutils::SaveCharExp(PChar, PChar->GetMJob());
+        charutils::SaveEminenceData(PChar);
+
+        PChar->status = STATUS_TYPE::DISAPPEAR;
     }
 
 }; // namespace charutils

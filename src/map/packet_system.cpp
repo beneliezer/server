@@ -268,35 +268,21 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
         }
     }
 
-    if (PSession->blowfish.status == BLOWFISH_WAITING) // Generate new blowfish session, call zone in, etc, only once.
+    // No real distinction between these two states in the 0x00A handler --
+    // Key is already assumed to be incremented correctly,
+    // Pending zone is same process transfer, and waiting is new login or different process.
+    if (PSession->blowfish.status == BLOWFISH_PENDING_ZONE || PSession->blowfish.status == BLOWFISH_WAITING) // Call zone in, etc, only once.
     {
+        PSession->blowfish.status = BLOWFISH_ACCEPTED;
         PChar->clearPacketList();
 
         if (PChar->loc.zone != nullptr)
         {
-            // Remove the char from previous zone, and unset shuttingDown (already in next zone)
-            auto basicPacket = CBasicPacket();
-            PacketParser[0x00D](PSession, PChar, basicPacket);
+            ShowError(fmt::format("{} sent 0x00A while their original zone wasn't wiped!", PChar->getName()));
+            return;
         }
 
         PSession->shuttingDown = 0;
-        PSession->blowfish.key[4] += 2;
-        PSession->blowfish.status = BLOWFISH_SENT;
-
-        md5((uint8*)(PSession->blowfish.key), PSession->blowfish.hash, 20);
-
-        for (uint32 i = 0; i < 16; ++i)
-        {
-            if (PSession->blowfish.hash[i] == 0)
-            {
-                memset(PSession->blowfish.hash + i, 0, 16 - i);
-                break;
-            }
-        }
-        blowfish_init((int8*)PSession->blowfish.hash, 16, PSession->blowfish.P, PSession->blowfish.S[0]);
-
-        char session_key[20 * 2 + 1];
-        bin2hex(session_key, (uint8*)PSession->blowfish.key, 20);
 
         uint16 destination = PChar->loc.destination;
         CZone* destZone    = zoneutils::GetZone(destination);
@@ -306,7 +292,7 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
             // TODO: work out how to drop player in moghouse that exits them to the zone they were in before this happened, like we used to.
             ShowWarning("packet_system::SmallPacket0x00A player tried to enter zone that was invalid or out of range");
             ShowWarning("packet_system::SmallPacket0x00A dumping player `%s` to homepoint!", PChar->getName());
-            charutils::HomePoint(PChar);
+            charutils::HomePoint(PChar, true);
             return;
         }
 
@@ -314,7 +300,7 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
 
         PChar->m_ZonesList[PChar->getZone() >> 3] |= (1 << (PChar->getZone() % 8));
 
-        const char* fmtQuery = "UPDATE accounts_sessions SET targid = %u, session_key = x'%s', server_addr = %u, client_port = %u, last_zoneout_time = 0 WHERE charid = %u";
+        const char* fmtQuery = "UPDATE accounts_sessions SET targid = %u, server_addr = %u, client_port = %u, last_zoneout_time = 0 WHERE charid = %u";
 
         // Current zone could either be current zone or destination
         CZone* currentZone = zoneutils::GetZone(PChar->getZone());
@@ -325,7 +311,7 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
             return;
         }
 
-        _sql->Query(fmtQuery, PChar->targid, session_key, currentZone->GetIP(), PSession->client_port, PChar->id);
+        _sql->Query(fmtQuery, PChar->targid, currentZone->GetIP(), PSession->client_port, PChar->id);
 
         fmtQuery  = "SELECT death FROM char_stats WHERE charid = %u";
         int32 ret = _sql->Query(fmtQuery, PChar->id);
@@ -469,7 +455,7 @@ void SmallPacket0x00C(map_session_data_t* const PSession, CCharEntity* const PCh
 /************************************************************************
  *                                                                       *
  *  Player Leaving Zone (Dezone)                                         *
- *                                                                       *
+ *  It is not reliable to recieve this packet, so do nothing.            *
  ************************************************************************/
 
 void SmallPacket0x00D(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
@@ -477,107 +463,8 @@ void SmallPacket0x00D(map_session_data_t* const PSession, CCharEntity* const PCh
     TracyZoneScoped;
 
     std::ignore = data;
-
-    if (PChar->status == STATUS_TYPE::DISAPPEAR && (PSession->blowfish.status == BLOWFISH_WAITING || PSession->blowfish.status == BLOWFISH_SENT)) // Character has already requested to zone, do nothing.
-    {
-        return;
-    }
-
-    PSession->blowfish.status = BLOWFISH_WAITING;
-
-    PChar->TradePending.clean();
-    PChar->InvitePending.clean();
-    PChar->PWideScanTarget = nullptr;
-
-    if (PChar->animation == ANIMATION_ATTACK)
-    {
-        PChar->animation = ANIMATION_NONE;
-        PChar->updatemask |= UPDATE_HP;
-    }
-
-    if (!PChar->PTrusts.empty())
-    {
-        PChar->ClearTrusts();
-    }
-
-    if (PChar->status == STATUS_TYPE::SHUTDOWN)
-    {
-        if (PChar->PParty != nullptr)
-        {
-            if (PChar->PParty->m_PAlliance != nullptr)
-            {
-                if (PChar->PParty->GetLeader() == PChar)
-                {
-                    if (PChar->PParty->HasOnlyOneMember())
-                    {
-                        if (PChar->PParty->m_PAlliance->hasOnlyOneParty())
-                        {
-                            PChar->PParty->m_PAlliance->dissolveAlliance();
-                        }
-                        else
-                        {
-                            PChar->PParty->m_PAlliance->removeParty(PChar->PParty);
-                        }
-                    }
-                    else
-                    { // party leader logged off - will pass party lead
-                        PChar->PParty->RemoveMember(PChar);
-                    }
-                }
-                else
-                { // not party leader - just drop from party
-                    PChar->PParty->RemoveMember(PChar);
-                }
-            }
-            else
-            {
-                // normal party - just drop group
-                PChar->PParty->RemoveMember(PChar);
-            }
-        }
-
-        if (PChar->shouldPetPersistThroughZoning())
-        {
-            PChar->setPetZoningInfo();
-        }
-        else
-        {
-            PChar->resetPetZoningInfo();
-        }
-
-        PSession->shuttingDown = 1;
-        _sql->Query("UPDATE char_stats SET zoning = 0 WHERE charid = %u", PChar->id);
-    }
-    else
-    {
-        PSession->shuttingDown = 2;
-        _sql->Query("UPDATE char_stats SET zoning = 1 WHERE charid = %u", PChar->id);
-        charutils::CheckEquipLogic(PChar, SCRIPT_CHANGEZONE, PChar->getZone());
-
-        if (PChar->CraftContainer->getItemsCount() > 0 && PChar->animation == ANIMATION_SYNTH)
-        {
-            // NOTE:
-            // Supposed non-losable items are reportely lost if this condition is met:
-            // https://ffxiclopedia.fandom.com/wiki/Lu_Shang%27s_Fishing_Rod
-            // The broken rod can never be lost in a normal failed synth. It will only be lost if the synth is
-            // interrupted in some way, such as by being attacked or moving to another area (e.g. ship docking).
-
-            ShowWarning("SmallPacket0x00D: %s attempting to zone in the middle of a synth, failing their synth!", PChar->getName());
-            synthutils::doSynthFail(PChar);
-        }
-    }
-
-    if (PChar->loc.zone != nullptr)
-    {
-        PChar->loc.zone->DecreaseZoneCounter(PChar);
-    }
-
-    PChar->PersistData();
-    charutils::SaveCharStats(PChar);
-    charutils::SaveCharExp(PChar, PChar->GetMJob());
-    charutils::SaveEminenceData(PChar);
-
-    PChar->status = STATUS_TYPE::DISAPPEAR;
+    std::ignore = PSession;
+    std::ignore = PChar;
 }
 
 /************************************************************************
@@ -900,7 +787,7 @@ void SmallPacket0x01A(map_session_data_t* const PSession, CCharEntity* const PCh
                 return;
             }
 
-            if (PChar->m_Costume != 0 || PChar->animation == ANIMATION_SYNTH)
+            if (PChar->m_Costume != 0 || PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0))
             {
                 PChar->pushPacket(new CReleasePacket(PChar, RELEASE_TYPE::STANDARD));
                 return;
@@ -1056,7 +943,7 @@ void SmallPacket0x01A(map_session_data_t* const PSession, CCharEntity* const PCh
             }
 
             PChar->setCharVar("expLost", 0);
-            charutils::HomePoint(PChar);
+            charutils::HomePoint(PChar, true);
         }
         break;
         case 0x0C: // assist
@@ -1594,8 +1481,9 @@ void SmallPacket0x032(map_session_data_t* const PSession, CCharEntity* const PCh
             return;
         }
 
-        // If either player is crafting, don't allow the trade request
-        if (PChar->animation == ANIMATION_SYNTH || PTarget->animation == ANIMATION_SYNTH)
+        // If either player is crafting, don't allow the trade request.
+        if (PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0) ||
+            PTarget->animation == ANIMATION_SYNTH || (PTarget->CraftContainer && PTarget->CraftContainer->getItemsCount() > 0))
         {
             ShowDebug("%s trade request with %s was blocked.", PChar->getName(), PTarget->getName());
             PChar->pushPacket(new CTradeActionPacket(PTarget, 0x07));
@@ -2465,7 +2353,7 @@ void SmallPacket0x04D(map_session_data_t* const PSession, CCharEntity* const PCh
         return;
     }
 
-    if (PChar->animation == ANIMATION_SYNTH)
+    if (PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0))
     {
         ShowWarning("SmallPacket0x04D: %s attempting to access delivery box in the middle of a synth!", PChar->getName());
         return;
@@ -5007,7 +4895,7 @@ void SmallPacket0x083(map_session_data_t* const PSession, CCharEntity* const PCh
 void SmallPacket0x084(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    if (PChar->animation != ANIMATION_SYNTH)
+    if (PChar->animation != ANIMATION_SYNTH && (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() == 0))
     {
         uint32 quantity = data.ref<uint32>(0x04);
         uint16 itemID   = data.ref<uint16>(0x08);
@@ -5043,26 +4931,29 @@ void SmallPacket0x085(map_session_data_t* const PSession, CCharEntity* const PCh
     CItem* gil   = PChar->getStorage(LOC_INVENTORY)->GetItem(0);
     CItem* PItem = PChar->getStorage(LOC_INVENTORY)->GetItem(slotID);
 
-    if ((PItem != nullptr) && ((gil != nullptr) && gil->isType(ITEM_CURRENCY)))
+    if (PItem != nullptr && (gil != nullptr && gil->isType(ITEM_CURRENCY)))
     {
+        if (PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0))
+        {
+            ShowWarning("SmallPacket0x085: Player %s trying to sell while in the middle of a synth!", PChar->getName());
+            return;
+        }
+
         if (quantity < 1 || quantity > PItem->getStackSize()) // Possible exploit
         {
-            ShowWarning("SmallPacket0x085: Player %s trying to sell invalid quantity %u of itemID %u [to VENDOR] ",
-                        PChar->getName(), quantity, PItem->getID());
+            ShowWarning("SmallPacket0x085: Player %s trying to sell invalid quantity %u of itemID %u [to VENDOR] ", PChar->getName(), quantity, PItem->getID());
             return;
         }
 
         if (PItem->isSubType(ITEM_LOCKED)) // Possible exploit
         {
-            ShowWarning("SmallPacket0x085: Player %s trying to sell %u of a LOCKED item! ID %i [to VENDOR] ",
-                        PChar->getName(), quantity, PItem->getID());
+            ShowWarning("SmallPacket0x085: Player %s trying to sell %u of a LOCKED item! ID %i [to VENDOR] ", PChar->getName(), quantity, PItem->getID());
             return;
         }
 
         if (PItem->getReserve() > 0) // Usually caused by bug during synth, trade, etc. reserving the item. We don't want such items sold in this state.
         {
-            ShowError("SmallPacket0x085: Player %s trying to sell %u of a RESERVED(%u) item! ID %i [to VENDOR] ",
-                      PChar->getName(), quantity, PItem->getReserve(), PItem->getID());
+            ShowError("SmallPacket0x085: Player %s trying to sell %u of a RESERVED(%u) item! ID %i [to VENDOR] ", PChar->getName(), quantity, PItem->getReserve(), PItem->getID());
             return;
         }
 
@@ -5093,7 +4984,7 @@ void SmallPacket0x096(map_session_data_t* const PSession, CCharEntity* const PCh
 
     // If the player is already crafting, don't allow them to craft.
     // This prevents packet injection based multi-craft, or time-based exploits.
-    if (PChar->animation == ANIMATION_SYNTH)
+    if (PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0))
     {
         return;
     }
@@ -5428,7 +5319,7 @@ void SmallPacket0x0AB(map_session_data_t* const PSession, CCharEntity* const PCh
 void SmallPacket0x0AC(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    if (PChar->animation != ANIMATION_SYNTH)
+    if (PChar->animation != ANIMATION_SYNTH && (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() == 0))
     {
         if (PChar->PGuildShop != nullptr)
         {
@@ -6815,7 +6706,7 @@ void SmallPacket0x0EA(map_session_data_t* const PSession, CCharEntity* const PCh
     TracyZoneScoped;
 
     // Prevent sitting while crafting.
-    if (PChar->CraftContainer->getItemsCount() > 0 && PChar->animation == ANIMATION_SYNTH)
+    if (PChar->animation == ANIMATION_SYNTH || (PChar->CraftContainer && PChar->CraftContainer->getItemsCount() > 0))
     {
         return;
     }

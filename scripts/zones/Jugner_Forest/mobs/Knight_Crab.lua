@@ -5,6 +5,7 @@
 local ID = zones[xi.zone.JUGNER_FOREST]
 mixins = { require('scripts/mixins/rage') }
 -----------------------------------
+---@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -23,7 +24,6 @@ end
 
 entity.onMobDespawn = function(mob)
     local kingArthro = GetMobByID(ID.mob.KING_ARTHRO)
-
     if not kingArthro then
         return
     end
