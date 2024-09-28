@@ -8,7 +8,6 @@ mixins =
     require('scripts/mixins/families/uragnite'),
 }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

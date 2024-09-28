@@ -4,7 +4,6 @@
 -- Type: Fireserpent General
 -- !pos -105.979 -7 39.692 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

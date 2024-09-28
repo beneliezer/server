@@ -2,7 +2,6 @@
 -- Area: Yhoator Jungle (124)
 --   NM: Powderer Penny
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

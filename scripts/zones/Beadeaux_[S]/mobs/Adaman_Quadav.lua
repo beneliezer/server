@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BEADEAUX_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local eathoPHTable =

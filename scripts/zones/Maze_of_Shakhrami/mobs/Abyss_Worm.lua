@@ -2,7 +2,6 @@
 -- Area: Maze of Shakhrami
 --  Mob: Abyss Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Leujaoam Sanctum (Leujaoam Cleansing)
 --  Mob: Leujaoam Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -13,9 +12,6 @@ end
 
 entity.onMobDeath = function(mob, player, optParams)
     local instance = mob:getInstance()
-    if not instance then
-        return
-    end
 
     if mob:getLocalVar('Killed') == 0 then
         instance:setProgress(instance:getProgress() + 1)

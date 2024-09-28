@@ -2,7 +2,6 @@
 -- Area: Davoi
 --  NPC: _454
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

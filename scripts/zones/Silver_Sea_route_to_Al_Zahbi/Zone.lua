@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Silver_Sea_route_to_Al_Zahbi
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

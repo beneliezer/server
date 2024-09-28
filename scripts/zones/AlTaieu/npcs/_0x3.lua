@@ -3,7 +3,6 @@
 --  NPC: Rubious Crystal (East Tower)
 -- !pos 683.718 -6.250 -222.167 33
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

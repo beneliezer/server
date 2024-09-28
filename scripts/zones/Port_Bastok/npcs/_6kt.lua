@@ -2,7 +2,6 @@
 -- Area: Port Bastok
 --  NPC: Drawbridge
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

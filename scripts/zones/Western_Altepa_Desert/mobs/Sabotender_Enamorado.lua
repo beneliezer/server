@@ -2,7 +2,6 @@
 -- Area: Western Altepa Desert
 --  Mob: Sabotender Enamorado
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

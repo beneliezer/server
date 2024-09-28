@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Waughroon_Shrine (144)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

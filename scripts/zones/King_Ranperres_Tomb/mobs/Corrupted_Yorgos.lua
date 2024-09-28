@@ -2,7 +2,6 @@
 -- Area: King Ranperres Tomb
 --   NM: Corrupted Yorgos
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Bastok_Markets (235)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

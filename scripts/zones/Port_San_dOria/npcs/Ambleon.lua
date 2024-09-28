@@ -4,7 +4,6 @@
 -- Type: NPC World Pass Dealer
 -- !pos 71.622 -17 -137.134 232
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

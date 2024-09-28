@@ -7,7 +7,6 @@
 -- !pos ? ? ? 27
 -- !pos ? ? ? 27
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

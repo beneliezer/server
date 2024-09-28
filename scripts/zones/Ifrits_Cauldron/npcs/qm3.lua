@@ -4,7 +4,6 @@
 -- Quests: Blood and Glory (Retribution WSNM "Cailleach Bheur")
 -- !pos 119 20 144 205
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

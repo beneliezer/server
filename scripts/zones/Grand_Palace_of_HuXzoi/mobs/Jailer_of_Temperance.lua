@@ -5,7 +5,6 @@
 local huxzoiGlobal = require('scripts/zones/Grand_Palace_of_HuXzoi/globals')
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.DAVOI]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local steelbiterPHTable =

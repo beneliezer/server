@@ -3,7 +3,6 @@
 --  Mob: Koenigstiger
 -- Involved in Quests: Unbridled Passion (RNG AF3)
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Oldton Movalpolos
 --  NPC: Mining Point
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

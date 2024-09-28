@@ -2,7 +2,6 @@
 -- Area: Gusgen Mines
 --   NM: Asphyxiated Amsel
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobRoam = function(mob)

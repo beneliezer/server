@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.RIVERNE_SITE_A01]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local function disturbMob(mob)

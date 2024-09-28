@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Woh Gates
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

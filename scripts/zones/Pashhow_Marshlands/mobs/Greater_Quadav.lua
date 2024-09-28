@@ -2,7 +2,6 @@
 -- Area: Pashhow Marshlands
 --  Mob: Greater Quadav
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

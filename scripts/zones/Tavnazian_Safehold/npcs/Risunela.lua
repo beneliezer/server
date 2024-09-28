@@ -2,7 +2,6 @@
 -- Area: Tavnazian Safehold
 --  NPC: Risunela
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

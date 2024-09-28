@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PORT_BASTOK]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

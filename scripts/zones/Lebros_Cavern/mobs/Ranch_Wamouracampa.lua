@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/wamouracampa') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -38,10 +37,6 @@ entity.onMobDespawn = function(mob)
     end
 
     local instance = mob:getInstance()
-    if not instance then
-        return
-    end
-
     instance:setProgress(instance:getProgress() + 1)
 end
 

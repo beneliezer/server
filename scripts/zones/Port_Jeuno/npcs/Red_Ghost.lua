@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Red Ghost
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

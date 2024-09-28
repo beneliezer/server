@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.NORG]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

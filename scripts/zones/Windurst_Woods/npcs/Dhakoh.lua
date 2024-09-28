@@ -2,7 +2,6 @@
 -- Area: Windurst Woods
 --  NPC: Dhakoh
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

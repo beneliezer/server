@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Sealions_Den (32)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

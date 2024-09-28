@@ -4,7 +4,6 @@
 -- Type: Allegiance Changer NPC
 -- !pos -247.422 7.000 28.992 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

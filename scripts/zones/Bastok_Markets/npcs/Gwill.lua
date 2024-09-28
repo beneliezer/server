@@ -3,7 +3,6 @@
 --  NPC: Gwill
 -- !pos -317.829 -15.948 -177.375 235
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

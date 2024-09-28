@@ -2,7 +2,6 @@
 -- Area: Western Altepa Desert
 --  Mob: Antican Secutor
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

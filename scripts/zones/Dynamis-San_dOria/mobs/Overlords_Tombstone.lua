@@ -3,7 +3,6 @@
 --  Mob: Overlord's Tombstone
 -- Note: Mega Boss
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

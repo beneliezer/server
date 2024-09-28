@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens: Moghouse
 --  NPC: Symphonic Curator
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

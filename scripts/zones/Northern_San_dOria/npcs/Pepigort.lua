@@ -3,7 +3,6 @@
 --  NPC: Pepigort
 -- !pos -126.739 11.999 262.757 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

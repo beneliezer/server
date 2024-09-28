@@ -6,7 +6,6 @@
 local ID = zones[xi.zone.BHAFLAU_THICKETS]
 mixins = { require('scripts/mixins/families/puk') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local nisPukPHTable =

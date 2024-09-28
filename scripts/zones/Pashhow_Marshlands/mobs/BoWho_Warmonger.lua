@@ -2,7 +2,6 @@
 -- Area: Pashhow Marshlands
 --   NM: Bo'Who Warmonger
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

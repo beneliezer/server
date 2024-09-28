@@ -4,7 +4,6 @@
 -- Quests: Shoot First, Ask Questions Later (Detonator WSNM "Beet Leafhopper")
 -- !pos -11 -19 -177 153
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

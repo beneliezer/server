@@ -2,7 +2,6 @@
 -- Area: Norg
 --  NPC: Deigoff
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

@@ -4,7 +4,6 @@
 -- Type: Fishing Guild Master
 -- !pos -182.230 -3.835 61.373 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

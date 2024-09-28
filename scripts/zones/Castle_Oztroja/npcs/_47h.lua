@@ -6,7 +6,6 @@
 -----------------------------------
 local oztrojaGlobal = require('scripts/zones/Castle_Oztroja/globals')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

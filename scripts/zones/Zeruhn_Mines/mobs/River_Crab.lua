@@ -2,7 +2,6 @@
 -- Area: Zeruhn Mines (172)
 --  Mob: River Crab
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

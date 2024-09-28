@@ -4,7 +4,6 @@
 --  NPC: Zayhi-Bauhi
 --  Starts and Finishes Quest: To Bee or Not to Bee?
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

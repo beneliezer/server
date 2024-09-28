@@ -4,7 +4,6 @@
 -- Involved In Quest: Wings of Gold
 -- !zone 157
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

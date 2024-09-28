@@ -3,7 +3,6 @@
 --  NPC: Behff Oibbah
 -- !pos 81 0 -17 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

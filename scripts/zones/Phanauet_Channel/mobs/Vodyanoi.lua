@@ -3,7 +3,6 @@
 --   NM: Vodyanoi
 -- !pos -2.0 -3.0 9.6 1
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -6,7 +6,6 @@
 mixins = { require('scripts/mixins/families/antlion_ambush') }
 local ID = zones[xi.zone.ATTOHWA_CHASM]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local ambusherAntlionPHTable =

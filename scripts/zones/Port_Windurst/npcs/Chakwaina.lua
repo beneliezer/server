@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Chakwaina
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

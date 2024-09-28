@@ -4,7 +4,6 @@
 -- Involved with mission "The Road Forks"
 -- !pos -123.770 -6.654 -469.062 2
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

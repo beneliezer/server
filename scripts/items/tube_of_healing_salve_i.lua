@@ -16,6 +16,7 @@ end
 
 itemObject.onItemUse = function(target)
     local pet = target:getPet()
+
     if not pet then
         return
     end

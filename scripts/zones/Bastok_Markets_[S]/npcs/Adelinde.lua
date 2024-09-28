@@ -2,7 +2,6 @@
 -- Area: Bastok Markets (S) (H-6)
 --  NPC: Adelinde
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

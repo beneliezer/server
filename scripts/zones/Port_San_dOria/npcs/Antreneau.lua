@@ -4,7 +4,6 @@
 -- !pos -71 -5 -39 232
 -- Involved in Quests: A Taste For Meat, Over The Hills And Far Away
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

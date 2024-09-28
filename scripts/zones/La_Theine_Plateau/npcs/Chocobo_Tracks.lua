@@ -4,7 +4,6 @@
 -- Involved in quest: Chocobo on the Loose!
 -- !pos -556 0 523 102
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: Felourie
 -- !pos -300.134 -2.999 505.016 2
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

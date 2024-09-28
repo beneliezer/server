@@ -142,8 +142,7 @@ mission.sections =
                             player:addMission(xi.mission.log_id.ZILART, xi.mission.id.zilart.THE_NEW_FRONTIER)
                         end
 
-                        -- TODO: Check captures, the player is most likely zoned and this even triggered via onZoneIn
-                        player:startEvent(7)
+                        return mission:progressEvent(7)
                     end
                 end,
 
@@ -160,14 +159,17 @@ mission.sections =
 
         [xi.zone.CASTLE_ZVAHL_BAILEYS] =
         {
-            afterZoneIn = function(player)
-                if
-                    player:getMissionStatus(mission.areaId) == 4 and
-                    not player:hasKeyItem(xi.ki.SHADOW_FRAGMENT)
-                then
-                    npcUtil.giveKeyItem(player, xi.ki.SHADOW_FRAGMENT)
-                end
-            end,
+            afterZoneIn =
+            {
+                function(player)
+                    if
+                        player:getMissionStatus(mission.areaId) == 4 and
+                        not player:hasKeyItem(xi.ki.SHADOW_FRAGMENT)
+                    then
+                        npcUtil.giveKeyItem(player, xi.ki.SHADOW_FRAGMENT)
+                    end
+                end,
+            },
         },
     },
 }

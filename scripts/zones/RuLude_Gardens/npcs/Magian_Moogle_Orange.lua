@@ -4,7 +4,6 @@
 -- Type: Magian Trials NPC (Weapons)
 -- !pos -11 2.453 118 64
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

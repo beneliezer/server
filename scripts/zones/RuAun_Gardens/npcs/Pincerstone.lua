@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.RUAUN_GARDENS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pincerstoneTable =

@@ -2,7 +2,6 @@
 -- Area: Jugner Forest (S)
 --  NPC: Glowing Pebbles
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

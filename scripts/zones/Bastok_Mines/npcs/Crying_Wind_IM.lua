@@ -3,7 +3,6 @@
 --  NPC: Crying Wind, I.M.
 -- !pos -2 -1 -119 234
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.BASTOK

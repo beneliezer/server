@@ -2,7 +2,6 @@
 -- Area: Wajaom Woodlands
 --  NPC: Survival Guide
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, targetNpc)

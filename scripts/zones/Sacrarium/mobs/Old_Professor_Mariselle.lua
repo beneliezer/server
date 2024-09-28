@@ -5,7 +5,6 @@
 local ID = zones[xi.zone.SACRARIUM]
 local professorTables = require('scripts/zones/Sacrarium/globals')
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -68,11 +67,7 @@ entity.onMobFight = function(mob, target)
     -- This happens to all mobs, but due to the teleport mechanics can sometimes cause issues --
     -- TODO Remove de-aggro when OOB Navmesh issues are fixed
 
-    local mobTarget = mob:getTarget()
-    if
-        mobTarget and
-        mob:checkDistance(mobTarget) > 55
-    then
+    if mob:checkDistance(mob:getTarget()) > 55 then
         mob:disengage()
         mob:resetEnmity(target)
     end

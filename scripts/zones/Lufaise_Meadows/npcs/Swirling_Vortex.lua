@@ -3,7 +3,6 @@
 --  NPC: Swirling Vortex
 --  Entrance to Valkurm Dunes
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

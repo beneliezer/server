@@ -2,7 +2,6 @@
 -- Area: Korroloka Tunnel
 --  Mob: Greater Pugil
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

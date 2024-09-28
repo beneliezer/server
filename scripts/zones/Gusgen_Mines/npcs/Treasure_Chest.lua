@@ -4,7 +4,6 @@
 -- Involved In Quest: The Goblin Tailor
 -- !zone 196
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

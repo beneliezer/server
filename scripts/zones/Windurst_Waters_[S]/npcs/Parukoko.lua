@@ -3,7 +3,6 @@
 --  NPC: Parukoko
 -- !pos -32.400 -3.5 -103.666 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

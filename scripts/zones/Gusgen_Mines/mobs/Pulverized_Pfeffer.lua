@@ -2,7 +2,6 @@
 -- Area: Gusgen Mines
 --   NM: Pulverized Pfeffer
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobRoam = function(mob)

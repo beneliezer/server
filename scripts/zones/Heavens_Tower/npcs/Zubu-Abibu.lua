@@ -2,7 +2,6 @@
 -- Area: Heaven's Tower
 --  NPC: Zubu-Abibu
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

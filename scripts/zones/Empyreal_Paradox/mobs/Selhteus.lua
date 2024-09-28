@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.EMPYREAL_PARADOX]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -4,7 +4,7 @@
 -- Food Effect: 3 Min, All Races
 -----------------------------------
 -- Strength 1
--- Base speed 10% or +5
+-- Speed 12.5%
 -----------------------------------
 ---@type TItemFood
 local itemObject = {}
@@ -19,12 +19,12 @@ end
 
 itemObject.onEffectGain = function(target, effect)
     target:addMod(xi.mod.STR, 1)
-    target:addMod(xi.mod.MOVE_SPEED_QUICKENING, 5)
+    target:addMod(xi.mod.MOVE_SPEED_QUICKENING, 12)
 end
 
 itemObject.onEffectLose = function(target, effect)
     target:delMod(xi.mod.STR, 1)
-    target:delMod(xi.mod.MOVE_SPEED_QUICKENING, 5)
+    target:delMod(xi.mod.MOVE_SPEED_QUICKENING, 12)
 end
 
 return itemObject

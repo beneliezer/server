@@ -3,7 +3,6 @@
 --  NPC: Sentinel_Column
 -- !pos 643 0 -609 38
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -4,7 +4,6 @@
 -- Unlocks: Geo-Slow
 -- !pos 162.194 -3.250 38.661 147
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

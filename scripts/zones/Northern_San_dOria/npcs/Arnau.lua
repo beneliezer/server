@@ -4,7 +4,6 @@
 -- Involved in Mission: Save the Children
 -- !pos 148 0 139 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

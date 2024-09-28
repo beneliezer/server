@@ -2,7 +2,6 @@
 -- Area: Cape Teriggan
 --   NM: Zmey Gorynych
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

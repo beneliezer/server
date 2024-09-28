@@ -3,7 +3,6 @@
 --  NPC: Sujyahn
 -- !pos -48.213 -1 34.723 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

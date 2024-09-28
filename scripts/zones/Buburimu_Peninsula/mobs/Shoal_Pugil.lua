@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BUBURIMU_PENINSULA]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local buburimbooPHTable =

@@ -2,7 +2,6 @@
 -- Area: Buburimu Peninsula
 --  Mob: Bull Dhalmel
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

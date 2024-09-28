@@ -2,7 +2,6 @@
 -- Area: Port San d'Oria
 --  NPC: Arminibit
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

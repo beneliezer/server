@@ -3,7 +3,6 @@
 --  NPC: Ugahar
 -- !pos 52.262 -1 123.185 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

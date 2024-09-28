@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Dabaide-Obaide
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

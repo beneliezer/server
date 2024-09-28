@@ -6,7 +6,6 @@
 mixins = { require('scripts/mixins/families/ziz') }
 local ID = zones[xi.zone.MAMOOK]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local zizzyPHTable =

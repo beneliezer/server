@@ -4,7 +4,6 @@
 -- !pos -31.000, 47.000, -681.000 45
 -- Teleports Players to Tahrongi Canyon
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

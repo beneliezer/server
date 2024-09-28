@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ARRAPAGO_REEF]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -73,9 +72,6 @@ entity.onEventFinish = function(player, csid, option, npc)
     end
 end
 
--- TODO: NPC does not support onInstanceCreated.  Move relevant
--- code to instance script when created.
---[[
 entity.onInstanceCreated = function(player, target, instance)
     if instance then
         instance:setLevelCap(player:getCharVar('AssaultCap'))
@@ -100,6 +96,5 @@ entity.onInstanceCreated = function(player, target, instance)
         player:instanceEntry(target, 3)
     end
 end
-]]
 
 return entity

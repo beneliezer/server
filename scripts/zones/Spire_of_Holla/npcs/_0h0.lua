@@ -2,7 +2,6 @@
 -- Area: Spire of Holla
 --  NPC: Web of Recollection
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

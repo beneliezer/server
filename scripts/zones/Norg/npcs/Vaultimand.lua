@@ -4,7 +4,6 @@
 -- Type: Fame Checker
 -- !pos -10.839 -1 18.730 252
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

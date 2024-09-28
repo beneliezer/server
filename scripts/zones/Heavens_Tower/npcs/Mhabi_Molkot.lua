@@ -4,7 +4,6 @@
 -- Type: Conflict Director
 -- !pos -3.767 -0.501 23.920 242
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

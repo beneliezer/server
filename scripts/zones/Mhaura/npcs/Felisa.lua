@@ -3,7 +3,6 @@
 --  NPC: Felisa
 -- Admits players to the dock in Mhaura.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

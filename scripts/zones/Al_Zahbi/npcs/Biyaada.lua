@@ -4,7 +4,6 @@
 -- Type: Rughadjeen's Attendant
 -- !pos -65.802 -6.999 69.273 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

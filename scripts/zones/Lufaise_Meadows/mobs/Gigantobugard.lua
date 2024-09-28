@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.LUFAISE_MEADOWS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local megalobugardPHTable =

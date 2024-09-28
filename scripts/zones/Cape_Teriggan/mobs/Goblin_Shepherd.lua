@@ -2,7 +2,6 @@
 -- Area: Cape Teriggan
 --  Mob: Goblin Shepherd
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

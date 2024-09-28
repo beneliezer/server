@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Full_Moon_Fountain (170)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -2,7 +2,6 @@
 -- Area: Western_Adoulin
 --  NPC: HomePoint#1
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local hpEvent = 8700

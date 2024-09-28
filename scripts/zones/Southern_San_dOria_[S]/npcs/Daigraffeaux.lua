@@ -4,7 +4,6 @@
 -- !pos -7 2 -89 80
 -- Involved in Perils of the Griffon, Songbirds in a Snowstorm
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

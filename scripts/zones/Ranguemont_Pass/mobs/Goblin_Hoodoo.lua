@@ -2,7 +2,6 @@
 -- Area: Ranguemont Pass
 --  Mob: Goblin Hoodoo
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -5,7 +5,6 @@
 local ID = zones[xi.zone.THE_ASHU_TALIF]
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -31,9 +30,7 @@ end
 
 entity.onMobDespawn = function(mob)
     local instance = mob:getInstance()
-    if instance then
-        instance:setProgress(instance:getProgress() + 1)
-    end
+    instance:setProgress(instance:getProgress() + 1)
 end
 
 return entity

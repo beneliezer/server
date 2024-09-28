@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.EAST_SARUTABARUTA]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- TODO: These really should be split out into unique NPCs, as this handles all

@@ -46,14 +46,17 @@ quest.sections =
 
         [xi.zone.ZERUHN_MINES] =
         {
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.PALBOROUGH_MINES and
-                    not player:hasItem(xi.item.CHAOSBRINGER)
-                then
-                    return 131
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.PALBOROUGH_MINES and
+                        not player:hasItem(xi.item.CHAOSBRINGER)
+                    then
+                        return 131
+                    end
+                end,
+            },
 
             onEventFinish =
             {

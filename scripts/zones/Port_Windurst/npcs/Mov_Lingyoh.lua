@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Mov Lingyoh
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

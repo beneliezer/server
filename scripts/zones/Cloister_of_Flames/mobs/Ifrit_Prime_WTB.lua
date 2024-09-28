@@ -5,7 +5,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -60,7 +59,7 @@ entity.onMobWeaponSkill = function(target, mob, skill)
     end
 end
 
-entity.onMobEngage = function(mob, target)
+entity.onMobEngaged = function(mob, target)
     mob:setLocalVar('healTimer', os.time() + math.random(30, 60))
     mob:setLocalVar('hateTimer', os.time() + math.random(10, 20))
 end

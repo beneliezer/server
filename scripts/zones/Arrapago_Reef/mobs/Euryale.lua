@@ -2,7 +2,6 @@
 -- Area: Arrapago Reef
 --   NM: Euryale
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -6,7 +6,6 @@
 local ID = zones[xi.zone.MINE_SHAFT_2716]
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -50,10 +49,7 @@ entity.onMobFight = function(mob, target)
             mob:resetEnmity(target)
 
             if randMoblin then
-                local randMoblinTarget = randMoblin:getTarget()
-                if randMoblinTarget then
-                    mob:updateEnmity(randMoblinTarget) -- attack the chosen random moblin's target
-                end
+                mob:updateEnmity(randMoblin:getTarget()) -- attack the chosen random moblin's target
             end
         end
     end

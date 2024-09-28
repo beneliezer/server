@@ -2,7 +2,6 @@
 -- Area: Tahrongi Canyon
 --   NM: Herbage Hunter
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

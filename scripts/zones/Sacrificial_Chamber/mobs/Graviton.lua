@@ -9,7 +9,6 @@ mixins =
     require('scripts/mixins/job_special')
 }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -28,7 +27,7 @@ entity.onMobFight = function(mob, target)
     end
 end
 
-entity.onMobDisengage = function(mob)
+entity.onMobDisengage = function(mob, weather)
     mob:setLocalVar('everyonesRancorUsed', 0)
 end
 

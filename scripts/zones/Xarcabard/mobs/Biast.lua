@@ -2,7 +2,6 @@
 -- Area: Xarcabard
 --   NM: Biast
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

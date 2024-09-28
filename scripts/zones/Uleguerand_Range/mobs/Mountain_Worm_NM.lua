@@ -4,7 +4,6 @@
 --  https://www.bg-wiki.com/ffxi/Mountain_Worm_(NM)
 -- TODO allow deaggro (core CMobEntity::CanDeaggro() forces NM and Battlefield mobs to never stop chasing)
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

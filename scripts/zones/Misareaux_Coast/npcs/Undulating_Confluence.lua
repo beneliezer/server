@@ -3,7 +3,6 @@
 --  NPC: Undulating Confluence
 -- !pos --48.908 -23.302 572.269 25
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

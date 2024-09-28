@@ -131,11 +131,14 @@ mission.sections =
 
         [xi.zone.THE_SHROUDED_MAW] =
         {
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 3 then
-                    return 2
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 3 then
+                        return 2
+                    end
+                end,
+            },
 
             onEventFinish =
             {

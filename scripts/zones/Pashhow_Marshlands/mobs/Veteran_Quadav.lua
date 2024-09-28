@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PASHHOW_MARSHLANDS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local niZhoPHTable =

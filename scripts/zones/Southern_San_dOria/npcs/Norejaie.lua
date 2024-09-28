@@ -4,7 +4,6 @@
 -- Type: Quest NPC - Involved in Eco-Warrior (San d'Oria)
 -- !pos 83.924 1 110.54 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

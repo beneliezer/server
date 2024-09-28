@@ -3,7 +3,6 @@
 --  NPC: Quam Jitahr
 -- !pos -43 0 -105 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

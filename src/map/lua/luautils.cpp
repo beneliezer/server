@@ -89,7 +89,6 @@
 #include "spell.h"
 #include "status_effect_container.h"
 #include "timetriggers.h"
-#include "trade_container.h"
 #include "transport.h"
 #include "weapon_skill.h"
 #include "zone.h"
@@ -103,7 +102,6 @@
 #include "utils/mobutils.h"
 #include "utils/moduleutils.h"
 #include "utils/serverutils.h"
-#include "utils/synergyutils.h"
 #include "utils/zoneutils.h"
 
 void ReportErrorToPlayer(CBaseEntity* PEntity, std::string const& message = "") noexcept
@@ -145,7 +143,7 @@ namespace luautils
     /**
      * @brief Initialization of Lua user classes and global functions.
      */
-    void init()
+    int32 init()
     {
         TracyZoneScoped;
 
@@ -234,8 +232,6 @@ namespace luautils
         lua.set_function("SendLuaFuncStringToZone", &luautils::SendLuaFuncStringToZone);
         lua.set_function("RoeParseRecords", &roeutils::ParseRecords);
         lua.set_function("RoeParseTimed", &roeutils::ParseTimedSchedule);
-        lua.set_function("GetSynergyRecipeByID", &luautils::GetSynergyRecipeByID);
-        lua.set_function("GetSynergyRecipeByTrade", &luautils::GetSynergyRecipeByTrade);
 
         // This binding specifically exists to forcefully crash the server.
         // clang-format off
@@ -361,6 +357,8 @@ namespace luautils
         filewatcher = std::make_unique<Filewatcher>(std::vector<std::string>{ "scripts", "modules", "settings" });
 
         TracyReportLuaMemory(lua.lua_state());
+
+        return 0;
     }
 
     void cleanup()
@@ -368,7 +366,7 @@ namespace luautils
         moduleutils::CleanupLuaModules();
     }
 
-    void garbageCollectStep()
+    int32 garbageCollectStep()
     {
         TracyZoneScoped;
         TracyReportLuaMemory(lua.lua_state());
@@ -382,9 +380,11 @@ namespace luautils
         ShowInfo("Current State Top: %d, Total Memory Used: %dkb", lua_gettop(lua.lua_state()), lua.memory_used() / 1024);
 
         TracyReportLuaMemory(lua.lua_state());
+
+        return 0;
     }
 
-    void garbageCollectFull()
+    int32 garbageCollectFull()
     {
         TracyZoneScoped;
         TracyReportLuaMemory(lua.lua_state());
@@ -399,6 +399,8 @@ namespace luautils
         ShowInfo("Current State Top: %d, Total Memory Used: %dkb -> %dkb", lua_gettop(lua.lua_state()), before_mem_kb, after_mem_kb);
 
         TracyReportLuaMemory(lua.lua_state());
+
+        return 0;
     }
 
     void ReloadFilewatchList()
@@ -1247,10 +1249,16 @@ namespace luautils
         return std::optional<CLuaBaseEntity>(PEntity);
     }
 
-    void WeekUpdateConquest(uint8 updateType)
+    void WeekUpdateConquest(sol::variadic_args va)
     {
         TracyZoneScoped;
-        conquest::UpdateConquestGM(static_cast<ConquestUpdate>(updateType));
+
+        ConquestUpdate type = Conquest_Tally_Start;
+        if (va.size())
+        {
+            type = static_cast<ConquestUpdate>(va.get<uint8>(0));
+        }
+        conquest::UpdateConquestGM(type);
     }
 
     uint8 GetRegionOwner(uint8 type)
@@ -1305,7 +1313,7 @@ namespace luautils
      *                                                                       *
      ************************************************************************/
 
-    void SetRegionalConquestOverseers(uint8 regionID)
+    int32 SetRegionalConquestOverseers(uint8 regionID)
     {
         TracyZoneScoped;
 
@@ -1314,7 +1322,7 @@ namespace luautils
         {
             sol::error err = setRegionalConquestOverseers;
             ShowError("luautils::setRegionalConquestOverseers: %s", err.what());
-            return;
+            return -1;
         }
 
         auto result = setRegionalConquestOverseers(regionID);
@@ -1322,7 +1330,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::setRegionalConquestOverseers: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void SendLuaFuncStringToZone(uint16 zoneId, std::string const& str)
@@ -1826,7 +1837,7 @@ namespace luautils
         return true;
     }
 
-    void OnZoneInitialise(uint16 ZoneID)
+    int32 OnZoneInitialise(uint16 ZoneID)
     {
         TracyZoneScoped;
 
@@ -1835,7 +1846,7 @@ namespace luautils
         if (PZone == nullptr)
         {
             ShowWarning("Skipping init for disabled zone %d.", ZoneID);
-            return;
+            return -1;
         }
 
         auto name     = PZone->getName();
@@ -1848,7 +1859,7 @@ namespace luautils
         auto onInitialize = lua["xi"]["zones"][name]["Zone"]["onInitialize"];
         if (!onInitialize.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInitialize(CLuaZone(PZone));
@@ -1856,7 +1867,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInitialize: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void OnZoneTick(CZone* PZone)
@@ -1882,7 +1896,7 @@ namespace luautils
         }
     }
 
-    void OnGameIn(CCharEntity* PChar, bool zoning)
+    int32 OnGameIn(CCharEntity* PChar, bool zoning)
     {
         TracyZoneScoped;
 
@@ -1892,7 +1906,7 @@ namespace luautils
         if (!onGameIn.valid())
         {
             ShowError("luautils::onGameIn");
-            return;
+            return -1;
         }
 
         auto result = onGameIn(CLuaBaseEntity(PChar), PChar->GetPlayTime(false) == 0, zoning);
@@ -1901,7 +1915,10 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onGameIn: %s", err.what());
             ReportErrorToPlayer(PChar, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void OnZoneIn(CCharEntity* PChar)
@@ -1996,14 +2013,14 @@ namespace luautils
         }
     }
 
-    void OnTriggerAreaEnter(CCharEntity* PChar, CTriggerArea* PTriggerArea)
+    int32 OnTriggerAreaEnter(CCharEntity* PChar, CTriggerArea* PTriggerArea)
     {
         TracyZoneScoped;
 
         // Do not enter trigger areas while loading in. Set in xi.player.onGameIn
         if (PChar->GetLocalVar("ZoningIn") > 0)
         {
-            return;
+            return 0;
         }
 
         std::string                 filename;
@@ -2047,10 +2064,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onTriggerAreaEnter: %s", err.what());
             ReportErrorToPlayer(PChar, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnTriggerAreaLeave(CCharEntity* PChar, CTriggerArea* PTriggerArea)
+    int32 OnTriggerAreaLeave(CCharEntity* PChar, CTriggerArea* PTriggerArea)
     {
         TracyZoneScoped;
 
@@ -2095,7 +2115,10 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onTriggerAreaLeave: %s", err.what());
             ReportErrorToPlayer(PChar, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     int32 OnTrigger(CCharEntity* PChar, CBaseEntity* PNpc)
@@ -2261,7 +2284,7 @@ namespace luautils
         return 0;
     }
 
-    void OnTrade(CCharEntity* PChar, CBaseEntity* PNpc)
+    int32 OnTrade(CCharEntity* PChar, CBaseEntity* PNpc)
     {
         TracyZoneScoped;
 
@@ -2283,23 +2306,26 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onTrade: %s", err.what());
             ReportErrorToPlayer(PChar, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnNpcSpawn(CBaseEntity* PNpc)
+    int32 OnNpcSpawn(CBaseEntity* PNpc)
     {
         TracyZoneScoped;
 
         if (PNpc == nullptr)
         {
             ShowError("luautils::onNpcSpawn: Npc not found!");
-            return;
+            return 0;
         }
 
         auto onSpawn = getEntityCachedFunction(PNpc, "onSpawn");
         if (!onSpawn.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onSpawn(CLuaBaseEntity(PNpc));
@@ -2307,11 +2333,14 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onNpcSpawn: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     // Used by mobs
-    void OnAdditionalEffect(CBattleEntity* PAttacker, CBattleEntity* PDefender, actionTarget_t* Action, int32 damage)
+    int32 OnAdditionalEffect(CBattleEntity* PAttacker, CBattleEntity* PDefender, actionTarget_t* Action, int32 damage)
     {
         TracyZoneScoped;
 
@@ -2325,7 +2354,7 @@ namespace luautils
 
         if (!onAdditionalEffect.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onAdditionalEffect(CLuaBaseEntity(PAttacker), CLuaBaseEntity(PDefender), damage);
@@ -2333,16 +2362,18 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onAdditionalEffect: %s", err.what());
-            return;
+            return -1;
         }
 
         Action->additionalEffect = (SUBEFFECT)(result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0);
         Action->addEffectMessage = result.get_type(1) == sol::type::number ? result.get<int32>(1) : 0;
         Action->addEffectParam   = result.get_type(2) == sol::type::number ? result.get<int32>(2) : 0;
+
+        return 0;
     }
 
     // Used by mobs
-    void OnSpikesDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, actionTarget_t* Action, int32 damage)
+    int32 OnSpikesDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, actionTarget_t* Action, int32 damage)
     {
         TracyZoneScoped;
 
@@ -2352,7 +2383,7 @@ namespace luautils
         auto onSpikesDamage = lua["xi"]["zones"][zone]["mobs"][name]["onSpikesDamage"];
         if (!onSpikesDamage.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onSpikesDamage(CLuaBaseEntity(PDefender), CLuaBaseEntity(PAttacker), damage);
@@ -2360,12 +2391,14 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onSpikesDamage: %s", err.what());
-            return;
+            return -1;
         }
 
         Action->spikesEffect  = (SUBEFFECT)(result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0);
         Action->spikesMessage = result.get_type(1) == sol::type::number ? result.get<int32>(1) : 0;
         Action->spikesParam   = result.get_type(2) == sol::type::number ? result.get<int32>(2) : 0;
+
+        return 0;
     }
 
     // Used by items
@@ -2399,16 +2432,15 @@ namespace luautils
         return 0;
     }
 
-    // NOTE: This is currently unused
     // future use: migrating items to scripts\globals\additional_effects.lua
-    void additionalEffectSpikes(CBattleEntity* PDefender, CBattleEntity* PAttacker, CItemEquipment* PItem, actionTarget_t* Action, int32 baseAttackDamage)
+    int32 additionalEffectSpikes(CBattleEntity* PDefender, CBattleEntity* PAttacker, CItemEquipment* PItem, actionTarget_t* Action, int32 baseAttackDamage)
     {
         TracyZoneScoped;
 
         auto additionalEffectSpikes = lua["xi"]["additionalEffect"]["spikes"];
         if (!additionalEffectSpikes.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = additionalEffectSpikes(CLuaBaseEntity(PDefender), CLuaBaseEntity(PAttacker), baseAttackDamage, CLuaItem(PItem));
@@ -2416,15 +2448,17 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::additionalEffectSpikes: %s", err.what());
-            return;
+            return -1;
         }
 
         Action->additionalEffect = (SUBEFFECT)(result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0);
         Action->addEffectMessage = result.get_type(1) == sol::type::number ? result.get<int32>(1) : 0;
         Action->addEffectParam   = result.get_type(2) == sol::type::number ? result.get<int32>(2) : 0;
+
+        return 0;
     }
 
-    void OnEffectGain(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
+    int32 OnEffectGain(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
     {
         TracyZoneScoped;
 
@@ -2433,7 +2467,7 @@ namespace luautils
         sol::function onEffectGain = GetCacheEntryFromFilename(filename)["onEffectGain"].get<sol::function>();
         if (!onEffectGain.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onEffectGain(CLuaBaseEntity(PEntity), CLuaStatusEffect(PStatusEffect));
@@ -2442,10 +2476,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onEffectGain: %s", err.what());
             ReportErrorToPlayer(PEntity, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnEffectTick(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
+    int32 OnEffectTick(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
     {
         TracyZoneScoped;
 
@@ -2454,7 +2491,7 @@ namespace luautils
         sol::function onEffectTick = GetCacheEntryFromFilename(filename)["onEffectTick"].get<sol::function>();
         if (!onEffectTick.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onEffectTick(CLuaBaseEntity(PEntity), CLuaStatusEffect(PStatusEffect));
@@ -2463,10 +2500,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onEffectTick: %s", err.what());
             ReportErrorToPlayer(PEntity, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnEffectLose(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
+    int32 OnEffectLose(CBattleEntity* PEntity, CStatusEffect* PStatusEffect)
     {
         TracyZoneScoped;
 
@@ -2475,7 +2515,7 @@ namespace luautils
         sol::function onEffectLose = GetCacheEntryFromFilename(filename)["onEffectLose"].get<sol::function>();
         if (!onEffectLose.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onEffectLose(CLuaBaseEntity(PEntity), CLuaStatusEffect(PStatusEffect));
@@ -2484,10 +2524,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onEffectLose: %s", err.what());
             ReportErrorToPlayer(PEntity, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnAttachmentEquip(CBattleEntity* PEntity, CItemPuppet* attachment)
+    int32 OnAttachmentEquip(CBattleEntity* PEntity, CItemPuppet* attachment)
     {
         TracyZoneScoped;
 
@@ -2496,7 +2539,7 @@ namespace luautils
         auto onEquip = lua["xi"]["actions"]["abilities"]["pets"]["attachments"][name]["onEquip"];
         if (!onEquip.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onEquip(CLuaBaseEntity(PEntity), CLuaItem(attachment));
@@ -2504,10 +2547,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onEquip: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnAttachmentUnequip(CBattleEntity* PEntity, CItemPuppet* attachment)
+    int32 OnAttachmentUnequip(CBattleEntity* PEntity, CItemPuppet* attachment)
     {
         TracyZoneScoped;
 
@@ -2516,7 +2562,7 @@ namespace luautils
         auto onUnequip = lua["xi"]["actions"]["abilities"]["pets"]["attachments"][name]["onUnequip"];
         if (!onUnequip.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onUnequip(CLuaBaseEntity(PEntity), CLuaItem(attachment));
@@ -2524,10 +2570,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onUnequip: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnManeuverGain(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
+    int32 OnManeuverGain(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
     {
         TracyZoneScoped;
 
@@ -2536,7 +2585,7 @@ namespace luautils
         auto onManeuverGain = lua["xi"]["actions"]["abilities"]["pets"]["attachments"][name]["onManeuverGain"];
         if (!onManeuverGain.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onManeuverGain(CLuaBaseEntity(PEntity), CLuaItem(attachment), maneuvers);
@@ -2544,10 +2593,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onManeuverGain: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnManeuverLose(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
+    int32 OnManeuverLose(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
     {
         TracyZoneScoped;
 
@@ -2556,7 +2608,7 @@ namespace luautils
         auto onManeuverLose = lua["xi"]["actions"]["abilities"]["pets"]["attachments"][name]["onManeuverLose"];
         if (!onManeuverLose.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onManeuverLose(CLuaBaseEntity(PEntity), CLuaItem(attachment), maneuvers);
@@ -2564,10 +2616,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onManeuverLose: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnUpdateAttachment(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
+    int32 OnUpdateAttachment(CBattleEntity* PEntity, CItemPuppet* attachment, uint8 maneuvers)
     {
         TracyZoneScoped;
 
@@ -2576,7 +2631,7 @@ namespace luautils
         auto onUpdate = lua["xi"]["actions"]["abilities"]["pets"]["attachments"][name]["onUpdate"];
         if (!onUpdate.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onUpdate(CLuaBaseEntity(PEntity), CLuaItem(attachment), maneuvers);
@@ -2584,12 +2639,15 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onUpdate: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     // We check the possibility of using the item.
     // If all is well, then return value - 0, in case of failure - error message number
-    auto OnItemCheck(CBaseEntity* PTarget, CItem* PItem, ITEMCHECK param, CBaseEntity* PCaster) -> std::tuple<int32, int32, int32>
+    std::tuple<int32, int32, int32> OnItemCheck(CBaseEntity* PTarget, CItem* PItem, ITEMCHECK param, CBaseEntity* PCaster)
     {
         TracyZoneScoped;
 
@@ -2626,7 +2684,7 @@ namespace luautils
     // We use the subject. The return value is the message number or 0.
     // It is also necessary to somehow pass the message parameter (for example,
     // number of recovered MP)
-    void OnItemUse(CBaseEntity* PUser, CBaseEntity* PTarget, CItem* PItem)
+    int32 OnItemUse(CBaseEntity* PUser, CBaseEntity* PTarget, CItem* PItem)
     {
         TracyZoneScoped;
 
@@ -2635,7 +2693,7 @@ namespace luautils
         sol::function onItemUse = GetCacheEntryFromFilename(filename)["onItemUse"].get<sol::function>();
         if (!onItemUse.valid())
         {
-            return;
+            return -1;
         }
 
         // using an item removes invisible status effect
@@ -2653,11 +2711,14 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onItemUse: %s", err.what());
             ReportErrorToPlayer(PUser, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     // Trigger Code on an item when it has been dropped
-    void OnItemDrop(CBaseEntity* PUser, CItem* PItem)
+    int32 OnItemDrop(CBaseEntity* PUser, CItem* PItem)
     {
         TracyZoneScoped;
 
@@ -2666,7 +2727,7 @@ namespace luautils
         sol::function onItemDrop = GetCacheEntryFromFilename(filename)["onItemDrop"].get<sol::function>();
         if (!onItemDrop.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onItemDrop(CLuaBaseEntity(PUser), CLuaItem(PItem));
@@ -2675,10 +2736,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onItemDrop: %s", err.what());
             ReportErrorToPlayer(PUser, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnItemEquip(CBaseEntity* PUser, CItem* PItem)
+    int32 OnItemEquip(CBaseEntity* PUser, CItem* PItem)
     {
         TracyZoneScoped;
 
@@ -2687,7 +2751,7 @@ namespace luautils
         sol::function onItemEquip = GetCacheEntryFromFilename(filename)["onItemEquip"].get<sol::function>();
         if (!onItemEquip.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onItemEquip(CLuaBaseEntity(PUser), CLuaItem(PItem));
@@ -2696,10 +2760,13 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onItemEquip: %s", err.what());
             ReportErrorToPlayer(PUser, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnItemUnequip(CBaseEntity* PUser, CItem* PItem)
+    int32 OnItemUnequip(CBaseEntity* PUser, CItem* PItem)
     {
         TracyZoneScoped;
 
@@ -2708,7 +2775,7 @@ namespace luautils
         sol::function onItemUnequip = GetCacheEntryFromFilename(filename)["onItemUnequip"].get<sol::function>();
         if (!onItemUnequip.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onItemUnequip(CLuaBaseEntity(PUser), CLuaItem(PItem));
@@ -2717,18 +2784,21 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onItemUnequip: %s", err.what());
             ReportErrorToPlayer(PUser, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     // Check for gear sets  (e.g Set: enhances haste effect)
-    void CheckForGearSet(CBaseEntity* PTarget)
+    int32 CheckForGearSet(CBaseEntity* PTarget)
     {
         TracyZoneScoped;
 
         auto checkForGearSet = lua["xi"]["gear_sets"]["checkForGearSet"];
         if (!checkForGearSet.valid())
         {
-            return;
+            return 56;
         }
 
         auto result = checkForGearSet(CLuaBaseEntity(PTarget));
@@ -2737,7 +2807,10 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::CheckForGearSet: %s", err.what());
             ReportErrorToPlayer(PTarget, err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     int32 OnSpellCast(CBattleEntity* PCaster, CBattleEntity* PTarget, CSpell* PSpell)
@@ -2747,13 +2820,13 @@ namespace luautils
         if (PSpell == nullptr)
         {
             ShowError("luautils::OnSpellCast: Spell not found!");
-            return 0;
+            return -1;
         }
 
         auto onSpellCast = getSpellCachedFunction(PSpell, "onSpellCast");
         if (!onSpellCast.valid())
         {
-            return 0;
+            return -1;
         }
 
         auto result = onSpellCast(CLuaBaseEntity(PCaster), CLuaBaseEntity(PTarget), CLuaSpell(PSpell));
@@ -2762,26 +2835,26 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onSpellCast: %s", err.what());
             ReportErrorToPlayer(PCaster, err.what());
-            return 0;
+            return -1;
         }
 
         int32 retVal = result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0;
         return retVal;
     }
 
-    void OnSpellPrecast(CBattleEntity* PCaster, CSpell* PSpell)
+    int32 OnSpellPrecast(CBattleEntity* PCaster, CSpell* PSpell)
     {
         TracyZoneScoped;
 
         if (PCaster->objtype != TYPE_MOB)
         {
-            return;
+            return -1;
         }
 
         sol::function onSpellPrecast = getEntityCachedFunction(PCaster, "onSpellPrecast");
         if (!onSpellPrecast.valid())
         {
-            return;
+            return 0;
         }
 
         auto result = onSpellPrecast(CLuaBaseEntity(PCaster), CLuaSpell(PSpell));
@@ -2790,7 +2863,10 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::onSpellPrecast: %s", err.what());
             ReportErrorToPlayer(PCaster, err.what());
+            return 0;
         }
+
+        return 0;
     }
 
     std::optional<SpellID> OnMobMagicPrepare(CBattleEntity* PCaster, CBattleEntity* PTarget, std::optional<SpellID> startingSpellId)
@@ -2834,19 +2910,19 @@ namespace luautils
 
     // Called when mob is targeted by a spell.
     // Note: does not differentiate between offensive and defensive spells
-    void OnMagicHit(CBattleEntity* PCaster, CBattleEntity* PTarget, CSpell* PSpell)
+    int32 OnMagicHit(CBattleEntity* PCaster, CBattleEntity* PTarget, CSpell* PSpell)
     {
         TracyZoneScoped;
 
         if (PSpell == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMagicHit = getEntityCachedFunction(PTarget, "onMagicHit");
         if (!onMagicHit.valid())
         {
-            return;
+            return 0;
         }
 
         auto result = onMagicHit(CLuaBaseEntity(PCaster), CLuaBaseEntity(PTarget), CLuaSpell(PSpell));
@@ -2854,19 +2930,21 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMagicHit: %s", err.what());
-            return;
+            return -1;
         }
+
+        return result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0;
     }
 
     // Called when mob is struck by a Weaponskill
-    void OnWeaponskillHit(CBattleEntity* PMob, CBaseEntity* PAttacker, uint16 PWeaponskill)
+    int32 OnWeaponskillHit(CBattleEntity* PMob, CBaseEntity* PAttacker, uint16 PWeaponskill)
     {
         TracyZoneScoped;
 
         sol::function onWeaponskillHit = getEntityCachedFunction(PMob, "onWeaponskillHit");
         if (!onWeaponskillHit.valid())
         {
-            return;
+            return 0;
         }
 
         auto result = onWeaponskillHit(CLuaBaseEntity(PMob), CLuaBaseEntity(PAttacker), PWeaponskill);
@@ -2874,8 +2952,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onWeaponskillHit: %s", err.what());
-            return;
+            return 0;
         }
+
+        return result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0;
     }
 
     bool OnTrustSpellCastCheckBattlefieldTrusts(CBattleEntity* PCaster) // Check if trust count would go over the limit when cast finishes (for simultaneous multi-party casts
@@ -2900,14 +2980,14 @@ namespace luautils
         return result.get_type(0) == sol::type::boolean ? result.get<bool>(0) : true;
     }
 
-    void OnMobInitialize(CBaseEntity* PMob)
+    int32 OnMobInitialize(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         sol::function onMobInitialize = getEntityCachedFunction(PMob, "onMobInitialize");
         if (!onMobInitialize.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobInitialize(CLuaBaseEntity(PMob));
@@ -2915,17 +2995,20 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobInitialize: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     // Called during server startup, file reads are OK!
-    void ApplyMixins(CBaseEntity* PMob)
+    int32 ApplyMixins(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr || PMob->objtype != TYPE_MOB)
         {
-            return;
+            return -1;
         }
 
         // Clear out globals
@@ -2940,21 +3023,21 @@ namespace luautils
         auto script_result = lua.safe_script_file(filename);
         if (!script_result.valid())
         {
-            return;
+            return -1;
         }
 
         // get the global function "applyMixins"
         sol::function applyMixins = lua["applyMixins"];
         if (!applyMixins.valid())
         {
-            return;
+            return -1;
         }
 
         // get the parameter "mixins"
         auto mixins = lua["mixins"];
         if (!mixins.valid())
         {
-            return;
+            return -1;
         }
 
         // get the parameter "mixinOptions" (optional)
@@ -2966,16 +3049,18 @@ namespace luautils
             sol::error err = result;
             ShowError("luautils::applyMixins: %s", err.what());
         }
+
+        return 0;
     }
 
     // Called during server startup, file reads are OK!
-    void ApplyZoneMixins(CBaseEntity* PMob)
+    int32 ApplyZoneMixins(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr || PMob->objtype != TYPE_MOB)
         {
-            return;
+            return -1;
         }
 
         // Clear out any previous global definitions
@@ -2987,21 +3072,21 @@ namespace luautils
         auto script_result = lua.safe_script_file(filename);
         if (!script_result.valid())
         {
-            return;
+            return -1;
         }
 
         // get the global function "applyMixins"
         sol::function applyMixins = lua["applyMixins"];
         if (!applyMixins.valid())
         {
-            return;
+            return -1;
         }
 
         // get the parameter "mixins"
         auto mixins = lua["mixins"];
         if (!mixins.valid())
         {
-            return;
+            return -1;
         }
 
         // get the parameter "mixinOptions" (optional)
@@ -3012,22 +3097,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::applyMixins %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnPath(CBaseEntity* PEntity)
+    int32 OnPath(CBaseEntity* PEntity)
     {
         TracyZoneScoped;
 
         if (PEntity == nullptr || PEntity->objtype == TYPE_PC)
         {
-            return;
+            return -1;
         }
 
         sol::function onPath = getEntityCachedFunction(PEntity, "onPath");
         if (!onPath.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onPath(CLuaBaseEntity(PEntity));
@@ -3035,22 +3123,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onPath: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnPathPoint(CBaseEntity* PEntity)
+    int32 OnPathPoint(CBaseEntity* PEntity)
     {
         TracyZoneScoped;
 
         if (PEntity == nullptr || PEntity->objtype == TYPE_PC)
         {
-            return;
+            return -1;
         }
 
         sol::function onPathPoint = getEntityCachedFunction(PEntity, "onPathPoint");
         if (!onPathPoint.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onPathPoint(CLuaBaseEntity(PEntity));
@@ -3058,22 +3149,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::OnPathPoint: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnPathComplete(CBaseEntity* PEntity)
+    int32 OnPathComplete(CBaseEntity* PEntity)
     {
         TracyZoneScoped;
 
         if (PEntity == nullptr || PEntity->objtype == TYPE_PC)
         {
-            return;
+            return -1;
         }
 
         sol::function onPathComplete = getEntityCachedFunction(PEntity, "onPathComplete");
         if (!onPathComplete.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onPathComplete(CLuaBaseEntity(PEntity));
@@ -3081,7 +3175,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::OnPathComplete: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     int32 OnBattlefieldHandlerInitialise(CZone* PZone)
@@ -3115,25 +3212,25 @@ namespace luautils
         return result.get_type(0) == sol::type::number ? result.get<int32>(0) : MaxAreas;
     }
 
-    void OnBattlefieldInitialise(CBattlefield* PBattlefield)
+    int32 OnBattlefieldInitialise(CBattlefield* PBattlefield)
     {
         TracyZoneScoped;
 
         if (PBattlefield == nullptr)
         {
-            return;
+            return -1;
         }
 
-        invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldInitialise", CLuaBattlefield(PBattlefield));
+        return invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldInitialise", CLuaBattlefield(PBattlefield));
     }
 
-    void OnBattlefieldTick(CBattlefield* PBattlefield)
+    int32 OnBattlefieldTick(CBattlefield* PBattlefield)
     {
         TracyZoneScoped;
 
         if (PBattlefield == nullptr)
         {
-            return;
+            return -1;
         }
 
         auto name    = PBattlefield->GetName();
@@ -3141,31 +3238,32 @@ namespace luautils
 
         if (invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldTick", CLuaBattlefield(PBattlefield), seconds) == 0)
         {
-            return;
+            return 0;
         }
 
         ShowError("luautils::onBattlefieldTick: Unable to find onBattlefieldTick function for %s", name);
+        return -1;
     }
 
-    void OnBattlefieldStatusChange(CBattlefield* PBattlefield)
+    int32 OnBattlefieldStatusChange(CBattlefield* PBattlefield)
     {
         TracyZoneScoped;
 
         if (PBattlefield == nullptr)
         {
-            return;
+            return -1;
         }
 
-        invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldStatusChange", CLuaBattlefield(PBattlefield), PBattlefield->GetStatus());
+        return invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldStatusChange", CLuaBattlefield(PBattlefield), PBattlefield->GetStatus());
     }
 
-    void OnMobEngage(CBaseEntity* PMob, CBaseEntity* PTarget)
+    int32 OnMobEngage(CBaseEntity* PMob, CBaseEntity* PTarget)
     {
         TracyZoneScoped;
 
         if (PTarget == nullptr || PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         std::string filename;
@@ -3187,7 +3285,7 @@ namespace luautils
         sol::function onMobEngage = getEntityCachedFunction(PMob, "onMobEngage");
         if (!onMobEngage.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobEngage(CLuaBaseEntity(PMob), CLuaBaseEntity(PTarget));
@@ -3195,22 +3293,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobEngage: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobDisengage(CBaseEntity* PMob)
+    int32 OnMobDisengage(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobDisengage = getEntityCachedFunction(PMob, "onMobDisengage");
         if (!onMobDisengage.valid())
         {
-            return;
+            return -1;
         }
 
         uint8 weather = PMob->loc.zone->GetWeather();
@@ -3220,21 +3321,24 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobDisengage: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobFollow(CBaseEntity* PMob, CBaseEntity* PTarget)
+    int32 OnMobFollow(CBaseEntity* PMob, CBaseEntity* PTarget)
     {
         TracyZoneScoped;
         if (PTarget == nullptr || PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobFollow = getEntityCachedFunction(PMob, "onMobFollow");
         if (!onMobFollow.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobFollow(CLuaBaseEntity(PMob), CLuaBaseEntity(PTarget));
@@ -3242,21 +3346,24 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobFollow: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobUnfollow(CBaseEntity* PMob, CBaseEntity* PTarget)
+    int32 OnMobUnfollow(CBaseEntity* PMob, CBaseEntity* PTarget)
     {
         TracyZoneScoped;
         if (PTarget == nullptr || PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobUnfollow = getEntityCachedFunction(PMob, "onMobUnfollow");
         if (!onMobUnfollow.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobUnfollow(CLuaBaseEntity(PMob), CLuaBaseEntity(PTarget));
@@ -3264,16 +3371,19 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobUnfollow: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobDrawIn(CBaseEntity* PMob, CBaseEntity* PTarget)
+    int32 OnMobDrawIn(CBaseEntity* PMob, CBaseEntity* PTarget)
     {
         TracyZoneScoped;
 
         if (PTarget == nullptr || PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         auto filename = fmt::format("./scripts/zones/{}/mobs/{}.lua", PMob->loc.zone->getName(), PMob->getName());
@@ -3287,7 +3397,7 @@ namespace luautils
         sol::function onMobDrawIn = getEntityCachedFunction(PMob, "onMobDrawIn");
         if (!onMobDrawIn.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobDrawIn(CLuaBaseEntity(PMob), CLuaBaseEntity(PTarget));
@@ -3295,22 +3405,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobDrawIn: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobFight(CBaseEntity* PMob, CBaseEntity* PTarget)
+    int32 OnMobFight(CBaseEntity* PMob, CBaseEntity* PTarget)
     {
         TracyZoneScoped;
 
         if (PTarget == nullptr || PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobFight = getEntityCachedFunction(PMob, "onMobFight");
         if (!onMobFight.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobFight(CLuaBaseEntity(PMob), CLuaBaseEntity(PTarget));
@@ -3318,22 +3431,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobFight: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnCriticalHit(CBattleEntity* PMob, CBattleEntity* PAttacker)
+    int32 OnCriticalHit(CBattleEntity* PMob, CBattleEntity* PAttacker)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onCriticalHit = getEntityCachedFunction(PMob, "onCriticalHit");
         if (!onCriticalHit.valid())
         {
-            return;
+            return -1;
         }
 
         std::optional<CLuaBaseEntity> optionalKiller = std::nullopt;
@@ -3347,16 +3463,19 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onCriticalHit %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobDeath(CBaseEntity* PMob, CBaseEntity* PKiller)
+    int32 OnMobDeath(CBaseEntity* PMob, CBaseEntity* PKiller)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         std::string zone_name = PMob->loc.zone->getName();
@@ -3375,7 +3494,7 @@ namespace luautils
             auto onMobDeathEx = lua["xi"]["mob"]["onMobDeathEx"];
             if (!onMobDeathEx.valid())
             {
-                return;
+                return -1;
             }
 
             // clang-format off
@@ -3457,23 +3576,26 @@ namespace luautils
             {
                 sol::error err = result;
                 ShowError("luautils::onMobDeath: %s", err.what());
+                return -1;
             }
         }
+
+        return 0;
     }
 
-    void OnMobSpawn(CBaseEntity* PMob)
+    int32 OnMobSpawn(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobSpawn = getEntityCachedFunction(PMob, "onMobSpawn");
         if (!onMobSpawn.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobSpawn(CLuaBaseEntity(PMob));
@@ -3481,22 +3603,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobSpawn: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobRoamAction(CBaseEntity* PMob)
+    int32 OnMobRoamAction(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr || PMob->objtype != TYPE_MOB)
         {
-            return;
+            return -1;
         }
 
         sol::function onMobRoamAction = getEntityCachedFunction(PMob, "onMobRoamAction");
         if (!onMobRoamAction.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobRoamAction(CLuaBaseEntity(PMob));
@@ -3504,17 +3629,20 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobRoonMobRoamActionam: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobRoam(CBaseEntity* PMob)
+    int32 OnMobRoam(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         sol::function onMobRoam = getEntityCachedFunction(PMob, "onMobRoam");
         if (!onMobRoam.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobRoam(CLuaBaseEntity(PMob));
@@ -3522,22 +3650,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobRoam: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnMobDespawn(CBaseEntity* PMob)
+    int32 OnMobDespawn(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr)
         {
-            return;
+            return -1;
         }
 
         auto onMobDespawn = getEntityCachedFunction(PMob, "onMobDespawn");
         if (!onMobDespawn.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onMobDespawn(CLuaBaseEntity(PMob));
@@ -3545,22 +3676,25 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onMobDespawn: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnPetLevelRestriction(CBaseEntity* PMob)
+    int32 OnPetLevelRestriction(CBaseEntity* PMob)
     {
         TracyZoneScoped;
 
         if (PMob == nullptr || PMob->objtype != TYPE_PET)
         {
-            return;
+            return -1;
         }
 
         sol::function onPetLevelRestriction = getEntityCachedFunction(PMob, "onPetLevelRestriction");
         if (!onPetLevelRestriction.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onPetLevelRestriction(CLuaBaseEntity(PMob));
@@ -3568,10 +3702,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onPetLevelRestriction: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnGameDay(CZone* PZone)
+    int32 OnGameDay(CZone* PZone)
     {
         TracyZoneScoped;
 
@@ -3580,7 +3717,7 @@ namespace luautils
         auto onGameDay = lua["xi"]["zones"][name]["Zone"]["onGameDay"];
         if (!onGameDay.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onGameDay();
@@ -3588,10 +3725,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onGameDay: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnGameHour(CZone* PZone)
+    int32 OnGameHour(CZone* PZone)
     {
         TracyZoneScoped;
 
@@ -3600,7 +3740,7 @@ namespace luautils
         auto onGameHour = lua["xi"]["zones"][name]["Zone"]["onGameHour"];
         if (!onGameHour.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onGameHour(CLuaZone(PZone));
@@ -3608,10 +3748,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onGameHour: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnZoneWeatherChange(uint16 ZoneID, uint8 weather)
+    int32 OnZoneWeatherChange(uint16 ZoneID, uint8 weather)
     {
         TracyZoneScoped;
 
@@ -3619,7 +3762,7 @@ namespace luautils
         if (PZone == nullptr)
         {
             ShowWarning("Invalid ZoneID passed to function (%d).", ZoneID);
-            return;
+            return -1;
         }
 
         auto name = PZone->getName();
@@ -3627,7 +3770,7 @@ namespace luautils
         auto onZoneWeatherChange = lua["xi"]["zones"][name]["Zone"]["onZoneWeatherChange"];
         if (!onZoneWeatherChange.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onZoneWeatherChange(weather);
@@ -3635,10 +3778,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onZoneWeatherChange: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnTOTDChange(uint16 ZoneID, uint8 TOTD)
+    int32 OnTOTDChange(uint16 ZoneID, uint8 TOTD)
     {
         TracyZoneScoped;
 
@@ -3646,7 +3792,7 @@ namespace luautils
         if (PZone == nullptr)
         {
             ShowWarning("Invalid ZoneID passed to function (%d).", ZoneID);
-            return;
+            return -1;
         }
 
         auto name = PZone->getName();
@@ -3654,7 +3800,7 @@ namespace luautils
         auto onTOTDChange = lua["xi"]["zones"][name]["Zone"]["onTOTDChange"];
         if (!onTOTDChange.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onTOTDChange(TOTD);
@@ -3662,7 +3808,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onTOTDChange: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     std::tuple<int32, uint8, uint8> OnUseWeaponSkill(CBattleEntity* PChar, CBaseEntity* PMob, CWeaponSkill* wskill, uint16 tp, bool primary, action_t& action,
@@ -4268,7 +4417,7 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::OnCanUseSpell: %s", err.what());
-            return false;
+            return 0;
         }
 
         return result.get_type(0) == sol::type::boolean ? result.get<bool>(0) : true;
@@ -4308,7 +4457,7 @@ namespace luautils
         return cachedInstanceScript;
     }
 
-    void OnInstanceZoneIn(CCharEntity* PChar, CInstance* PInstance)
+    int32 OnInstanceZoneIn(CCharEntity* PChar, CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4319,7 +4468,7 @@ namespace luautils
         auto onInstanceZoneIn = lua["xi"]["zones"][name]["Zone"]["onInstanceZoneIn"];
         if (!onInstanceZoneIn.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceZoneIn(CLuaBaseEntity(PChar), CLuaInstance(PInstance));
@@ -4327,7 +4476,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceZoneIn %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void AfterInstanceRegister(CBaseEntity* PChar)
@@ -4380,7 +4532,7 @@ namespace luautils
         return result.get_type(0) == sol::type::number ? result.get<int32>(0) : 0;
     }
 
-    void OnInstanceTimeUpdate(CZone* PZone, CInstance* PInstance, uint32 time)
+    int32 OnInstanceTimeUpdate(CZone* PZone, CInstance* PInstance, uint32 time)
     {
         TracyZoneScoped;
 
@@ -4389,7 +4541,7 @@ namespace luautils
         auto onInstanceTimeUpdate = GetCacheEntryFromFilename(instanceData.filename)["onInstanceTimeUpdate"];
         if (!onInstanceTimeUpdate.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceTimeUpdate(CLuaInstance(PInstance), time);
@@ -4397,10 +4549,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceTimeUpdate %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnInstanceFailure(CInstance* PInstance)
+    int32 OnInstanceFailure(CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4409,7 +4564,7 @@ namespace luautils
         auto onInstanceFailure = GetCacheEntryFromFilename(instanceData.filename)["onInstanceFailure"];
         if (!onInstanceFailure.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceFailure(CLuaInstance(PInstance));
@@ -4417,7 +4572,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceFailure %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     /************************************************************************
@@ -4426,7 +4584,7 @@ namespace luautils
      *                                                                       *
      ************************************************************************/
 
-    void OnInstanceCreatedCallback(CCharEntity* PChar, CInstance* PInstance)
+    int32 OnInstanceCreatedCallback(CCharEntity* PChar, CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4436,7 +4594,7 @@ namespace luautils
         if (!onInstanceCreatedCallback.valid())
         {
             ShowError("luautils::OnInstanceCreatedCallback: undefined procedure onInstanceCreatedCallback");
-            return;
+            return -1;
         }
 
         auto result = onInstanceCreatedCallback(CLuaBaseEntity(PChar), CLuaInstance(PInstance));
@@ -4444,10 +4602,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::OnInstanceCreatedCallback %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnInstanceCreated(CInstance* PInstance)
+    int32 OnInstanceCreated(CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4457,7 +4618,7 @@ namespace luautils
         auto onInstanceCreated = lua["xi"]["zones"][zone]["instances"][name]["onInstanceCreated"];
         if (!onInstanceCreated.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceCreated(CLuaInstance(PInstance));
@@ -4465,10 +4626,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceCreated %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnInstanceProgressUpdate(CInstance* PInstance)
+    int32 OnInstanceProgressUpdate(CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4478,7 +4642,7 @@ namespace luautils
         auto onInstanceProgressUpdate = lua["xi"]["zones"][zone]["instances"][name]["onInstanceProgressUpdate"];
         if (!onInstanceProgressUpdate.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceProgressUpdate(CLuaInstance(PInstance), PInstance->GetProgress());
@@ -4486,11 +4650,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceProgressUpdate %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    // TODO: This is currently unused
-    void OnInstanceStageChange(CInstance* PInstance)
+    int32 OnInstanceStageChange(CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4500,7 +4666,7 @@ namespace luautils
         auto onInstanceStageChange = lua["xi"]["zones"][zone]["instances"][name]["onInstanceStageChange"];
         if (!onInstanceStageChange.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceStageChange(CLuaInstance(PInstance), PInstance->GetStage());
@@ -4508,10 +4674,13 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceStageChange %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
-    void OnInstanceComplete(CInstance* PInstance)
+    int32 OnInstanceComplete(CInstance* PInstance)
     {
         TracyZoneScoped;
 
@@ -4521,7 +4690,7 @@ namespace luautils
         auto onInstanceComplete = lua["xi"]["zones"][zone]["instances"][name]["onInstanceComplete"];
         if (!onInstanceComplete.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onInstanceComplete(CLuaInstance(PInstance));
@@ -4529,7 +4698,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onInstanceComplete %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void StartElevator(uint32 ElevatorID)
@@ -4612,7 +4784,7 @@ namespace luautils
         charutils::ClearCharVarFromAll(varName);
     }
 
-    void OnTransportEvent(CCharEntity* PChar, uint32 TransportID)
+    int32 OnTransportEvent(CCharEntity* PChar, uint32 TransportID)
     {
         TracyZoneScoped;
 
@@ -4621,7 +4793,7 @@ namespace luautils
         auto onTransportEvent = lua["xi"]["zones"][name]["Zone"]["onTransportEvent"];
         if (!onTransportEvent.valid())
         {
-            return;
+            return -1;
         }
 
         auto result = onTransportEvent(CLuaBaseEntity(PChar), TransportID);
@@ -4629,7 +4801,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onTransportEvent: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void OnTimeTrigger(CNpcEntity* PNpc, uint8 triggerID)
@@ -4651,7 +4826,7 @@ namespace luautils
         }
     }
 
-    void OnConquestUpdate(CZone* PZone, ConquestUpdate type, uint8 influence, uint8 owner, uint8 ranking, bool isConquestAlliance)
+    int32 OnConquestUpdate(CZone* PZone, ConquestUpdate type, uint8 influence, uint8 owner, uint8 ranking, bool isConquestAlliance)
     {
         TracyZoneScoped;
 
@@ -4660,7 +4835,7 @@ namespace luautils
         auto onConquestUpdate = lua["xi"]["zones"][name]["Zone"]["onConquestUpdate"];
         if (!onConquestUpdate.valid())
         {
-            return;
+            return -1;
         }
 
         CLuaZone LuaZone(PZone);
@@ -4671,7 +4846,10 @@ namespace luautils
         {
             sol::error err = result;
             ShowError("luautils::onConquestUpdate: %s", err.what());
+            return -1;
         }
+
+        return 0;
     }
 
     void OnServerStart()
@@ -5699,124 +5877,5 @@ namespace luautils
         PEntity->updatemask |= UPDATE_ALL_CHAR;
 
         return CLuaBaseEntity(PEntity);
-    }
-
-    auto GetSynergyRecipeByID(uint32 id) -> sol::table
-    {
-        auto maybeResult = synergyutils::GetSynergyRecipeByID(id);
-        if (!maybeResult.has_value())
-        {
-            return sol::lua_nil;
-        }
-        const auto result = *maybeResult;
-
-        sol::table table = lua.create_table();
-
-        table["id"]                    = result.id;
-        table["primary_skill"]         = result.primary_skill;
-        table["primary_rank"]          = result.primary_rank;
-        table["secondary_skill"]       = result.secondary_skill;
-        table["secondary_rank"]        = result.secondary_rank;
-        table["tertiary_skill"]        = result.tertiary_skill;
-        table["tertiary_rank"]         = result.tertiary_rank;
-        table["cost_fire_fewell"]      = result.cost_fire_fewell;
-        table["cost_ice_fewell"]       = result.cost_ice_fewell;
-        table["cost_wind_fewell"]      = result.cost_wind_fewell;
-        table["cost_earth_fewell"]     = result.cost_earth_fewell;
-        table["cost_lightning_fewell"] = result.cost_lightning_fewell;
-        table["cost_water_fewell"]     = result.cost_water_fewell;
-        table["cost_light_fewell"]     = result.cost_light_fewell;
-        table["cost_dark_fewell"]      = result.cost_dark_fewell;
-        table["ingredient1"]           = result.ingredient1;
-        table["ingredient2"]           = result.ingredient2;
-        table["ingredient3"]           = result.ingredient3;
-        table["ingredient4"]           = result.ingredient4;
-        table["ingredient5"]           = result.ingredient5;
-        table["ingredient6"]           = result.ingredient6;
-        table["ingredient7"]           = result.ingredient7;
-        table["ingredient8"]           = result.ingredient8;
-        table["result"]                = result.result;
-        table["resultHQ1"]             = result.resultHQ1;
-        table["resultHQ2"]             = result.resultHQ2;
-        table["resultHQ3"]             = result.resultHQ3;
-        table["resultQty"]             = result.resultQty;
-        table["resultHQ1Qty"]          = result.resultHQ1Qty;
-        table["resultHQ2Qty"]          = result.resultHQ2Qty;
-        table["resultHQ3Qty"]          = result.resultHQ3Qty;
-        table["resultName"]            = result.resultName;
-
-        return table;
-    }
-
-    auto GetSynergyRecipeByTrade(CLuaTradeContainer luaTradeContainer) -> sol::table
-    {
-        auto tradeContainer = luaTradeContainer.GetTradeContainer();
-
-        std::vector<uint16> itemIds;
-        for (uint8 i = 0; i < 8; i++)
-        {
-            auto itemId = tradeContainer->getItemID(i);
-            if (itemId == 0)
-            {
-                continue;
-            }
-            itemIds.push_back(itemId);
-        }
-
-        // We will sort now, because we want to insert zeroes at the end of the vector for lookup
-        std::sort(itemIds.begin(), itemIds.end());
-
-        // We will still need to fill out the call to GetSynergyRecipeByIngredients
-        // with zeroes for empty slots.
-        while (itemIds.size() < 8)
-        {
-            itemIds.push_back(0);
-        }
-
-        auto maybeResult = synergyutils::GetSynergyRecipeByIngredients(
-            itemIds[0], itemIds[1], itemIds[2], itemIds[3],
-            itemIds[4], itemIds[5], itemIds[6], itemIds[7]);
-        if (!maybeResult.has_value())
-        {
-            return sol::lua_nil;
-        }
-        const auto result = *maybeResult;
-
-        sol::table table = lua.create_table();
-
-        table["id"]                    = result.id;
-        table["primary_skill"]         = result.primary_skill;
-        table["primary_rank"]          = result.primary_rank;
-        table["secondary_skill"]       = result.secondary_skill;
-        table["secondary_rank"]        = result.secondary_rank;
-        table["tertiary_skill"]        = result.tertiary_skill;
-        table["tertiary_rank"]         = result.tertiary_rank;
-        table["cost_fire_fewell"]      = result.cost_fire_fewell;
-        table["cost_ice_fewell"]       = result.cost_ice_fewell;
-        table["cost_wind_fewell"]      = result.cost_wind_fewell;
-        table["cost_earth_fewell"]     = result.cost_earth_fewell;
-        table["cost_lightning_fewell"] = result.cost_lightning_fewell;
-        table["cost_water_fewell"]     = result.cost_water_fewell;
-        table["cost_light_fewell"]     = result.cost_light_fewell;
-        table["cost_dark_fewell"]      = result.cost_dark_fewell;
-        table["ingredient1"]           = result.ingredient1;
-        table["ingredient2"]           = result.ingredient2;
-        table["ingredient3"]           = result.ingredient3;
-        table["ingredient4"]           = result.ingredient4;
-        table["ingredient5"]           = result.ingredient5;
-        table["ingredient6"]           = result.ingredient6;
-        table["ingredient7"]           = result.ingredient7;
-        table["ingredient8"]           = result.ingredient8;
-        table["result"]                = result.result;
-        table["resultHQ1"]             = result.resultHQ1;
-        table["resultHQ2"]             = result.resultHQ2;
-        table["resultHQ3"]             = result.resultHQ3;
-        table["resultQty"]             = result.resultQty;
-        table["resultHQ1Qty"]          = result.resultHQ1Qty;
-        table["resultHQ2Qty"]          = result.resultHQ2Qty;
-        table["resultHQ3Qty"]          = result.resultHQ3Qty;
-        table["resultName"]            = result.resultName;
-
-        return table;
     }
 }; // namespace luautils

@@ -3,7 +3,6 @@
 --  NPC: The Mute
 -- !zone 148
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

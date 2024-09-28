@@ -2,7 +2,6 @@
 -- Area: Boneyard_Gully
 --  Mob: Shikaree X
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

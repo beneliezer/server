@@ -3,7 +3,6 @@
 --  NPC: Toads Footprint
 -- !pos 216.1 -23.818 -102.464 65
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

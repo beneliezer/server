@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Kamihr Drifts
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

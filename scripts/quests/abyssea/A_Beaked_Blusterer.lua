@@ -42,9 +42,12 @@ quest.sections =
 
         [xi.zone.SOUTH_GUSTABERG] =
         {
-            onZoneIn = function(player, prevZone)
-                return 1
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 1
+                end,
+            },
 
             onEventUpdate =
             {

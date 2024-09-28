@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.QUICKSAND_CAVES]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -21,6 +20,7 @@ entity.onTrigger = function(player, npc)
     end
 
     player:messageSpecial(ID.text.DOOR_FIRMLY_SHUT)
+    return 1
 end
 
 entity.onEventUpdate = function(player, csid, option, npc)

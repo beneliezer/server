@@ -2,7 +2,6 @@
 -- Area: Tavnazian Safehold
 --  NPC: Tiruru
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

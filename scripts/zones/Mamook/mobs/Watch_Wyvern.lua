@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.MAMOOK]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local firedancePHTable =

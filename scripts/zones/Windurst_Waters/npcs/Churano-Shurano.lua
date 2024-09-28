@@ -3,7 +3,6 @@
 --  NPC: Churano-Shurano
 -- !pos -60.8 -11.2 98.9 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.FEIYIN]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local northernShadowPHTable =

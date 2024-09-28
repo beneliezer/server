@@ -4,7 +4,6 @@
 -- Used in Quest: The Holy Crest
 -- !pos 234 0.1 -110 198
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

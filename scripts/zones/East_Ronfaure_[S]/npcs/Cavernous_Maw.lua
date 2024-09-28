@@ -4,7 +4,6 @@
 -- Teleports Players to East Ronfaure
 -- !pos 322 -59 503 81
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

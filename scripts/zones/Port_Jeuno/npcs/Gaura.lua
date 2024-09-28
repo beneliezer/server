@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Guara
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

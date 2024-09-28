@@ -2,7 +2,6 @@
 -- Area: Bostaunieux Oubliette
 --  Mob: Nachtmahr
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

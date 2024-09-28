@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Shemo
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local beastmanSeal       = 0

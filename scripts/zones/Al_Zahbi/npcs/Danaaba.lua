@@ -3,7 +3,6 @@
 --  NPC: Danaaba
 -- !pos -17.375 -6.999 59.161 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

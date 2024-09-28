@@ -2,7 +2,6 @@
 -- Area: Sauromugue Champaign
 --  Mob: Yagudo Theologist
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

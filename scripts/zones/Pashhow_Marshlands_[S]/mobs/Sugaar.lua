@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/peiste') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

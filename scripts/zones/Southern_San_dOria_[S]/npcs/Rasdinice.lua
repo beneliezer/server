@@ -4,7 +4,6 @@
 -- !pos -8 1 35 80
 -- Campaign Ops NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

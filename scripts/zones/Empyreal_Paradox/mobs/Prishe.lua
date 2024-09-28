@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.EMPYREAL_PARADOX]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -30,11 +29,8 @@ entity.onMobRoam = function(mob)
         mob:setLocalVar('ready', promathia)
         mob:setLocalVar('wait', 0)
     elseif ready > 0 then
-        local readyMob = GetMobByID(ready)
-        if readyMob then
-            mob:addEnmity(readyMob, 0, 1)
-            mob:updateEnmity(readyMob)
-        end
+        mob:addEnmity(GetMobByID(ready), 0, 1)
+        mob:updateEnmity()
     else
         mob:setLocalVar('wait', wait + 3)
     end

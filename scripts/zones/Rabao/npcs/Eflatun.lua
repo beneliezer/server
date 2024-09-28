@@ -2,7 +2,6 @@
 -- Area: Rabao
 --  NPC: Eflatun
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

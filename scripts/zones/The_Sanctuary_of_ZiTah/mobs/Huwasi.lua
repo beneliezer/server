@@ -2,7 +2,6 @@
 -- Area: The Sanctuary of Zi'Tah
 --   NM: Huwasi
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

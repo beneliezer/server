@@ -2,7 +2,6 @@
 -- Area: West Sarutabaruta
 --  Mob: Savanna Rarab
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -4,7 +4,6 @@
 -- Involved with Quest: 'Raptor Rapture'
 -- !pos 13 0 -143 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

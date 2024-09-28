@@ -4,7 +4,6 @@
 -- BCNM: Eye of the Tiger
 -- TODO: code special attacks Crossthrash and Gerjis' Grip
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

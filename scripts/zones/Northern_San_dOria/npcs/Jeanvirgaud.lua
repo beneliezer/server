@@ -4,7 +4,6 @@
 -- Outpost Teleporter NPC
 -- !pos 111 -0.199 -6 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local teleporterNation = xi.nation.SANDORIA

@@ -3,7 +3,6 @@
 --  NPC: Avandale
 -- !pos -105.524 -9 -125.274 232
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

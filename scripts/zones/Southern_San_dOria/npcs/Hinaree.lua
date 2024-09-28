@@ -3,7 +3,6 @@
 --  NPC: Hinaree
 -- !pos -301.535 -10.199 97.698 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

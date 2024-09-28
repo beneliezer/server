@@ -3,7 +3,6 @@
 --  NPC: Aivedoir
 -- !pos -123.119 7.999 134.490 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

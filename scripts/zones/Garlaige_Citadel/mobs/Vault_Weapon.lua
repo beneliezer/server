@@ -2,7 +2,6 @@
 -- Area: Garlaige Citadel
 --  Mob: Vault Weapon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

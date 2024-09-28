@@ -2,7 +2,6 @@
 -- Area: Northern San d'Oria
 --  NPC: Pulloie
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

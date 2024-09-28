@@ -2,7 +2,6 @@
 -- Area: Ru'Lud Gardens
 --  NPC: Venessa
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

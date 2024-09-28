@@ -3,7 +3,6 @@
 --  NPC: Goltata
 --  Involved in Quests: Wonder Wands
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

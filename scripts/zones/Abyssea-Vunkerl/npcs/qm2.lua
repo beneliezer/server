@@ -4,7 +4,6 @@
 -- Spawns Quasimodo
 -- !pos -278 -40 -367 217
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

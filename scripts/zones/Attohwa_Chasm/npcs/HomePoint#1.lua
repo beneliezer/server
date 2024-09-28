@@ -2,7 +2,6 @@
 -- Area: Attohwa Chasm
 --  NPC: HomePoint#2
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local hpEvent = 8700

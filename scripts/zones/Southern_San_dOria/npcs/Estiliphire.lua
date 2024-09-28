@@ -4,7 +4,6 @@
 -- Type: Event Sideshow NPC
 -- !pos -41.550 1.999 -2.845 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

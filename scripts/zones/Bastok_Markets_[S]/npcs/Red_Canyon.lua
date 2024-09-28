@@ -2,7 +2,6 @@
 -- Area: Bastok Markets (S)
 --  NPC: Red Canyon
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

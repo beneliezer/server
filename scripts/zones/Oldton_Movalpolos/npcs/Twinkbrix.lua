@@ -4,7 +4,6 @@
 -- Type: Warp NPC
 -- !pos -292.779 6.999 -263.153 11
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

@@ -1,7 +1,6 @@
 -----------------------------------
 --  VNM: Lord Ruthven
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

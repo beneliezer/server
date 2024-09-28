@@ -2,7 +2,6 @@
 -- Area: The Eldieme Necropolis
 --  Mob: Azer
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

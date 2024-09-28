@@ -27,9 +27,12 @@ mission.sections =
 
         [xi.zone.LEAFALLIA] =
         {
-            onZoneIn = function(player, prevZone)
-                return 11
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 11
+                end,
+            },
 
             onEventFinish =
             {

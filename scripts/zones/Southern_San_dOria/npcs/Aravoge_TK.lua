@@ -2,7 +2,6 @@
 -- Area: Southern San d'Oria
 --  NPC: Aravoge, T.K.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.SANDORIA

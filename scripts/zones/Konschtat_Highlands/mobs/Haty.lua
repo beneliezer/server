@@ -4,7 +4,6 @@
 -----------------------------------
 require('scripts/quests/tutorial')
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobRoam = function(mob)

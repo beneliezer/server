@@ -4,7 +4,6 @@
 -- Unlocks: Geo-Torpor
 -- !pos -141.138 -34.642 127.197 112
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

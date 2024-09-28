@@ -2,7 +2,6 @@
 -- Area: Ru'Lud Gardens
 --  NPC: Sitting Ram
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

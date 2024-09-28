@@ -4,7 +4,6 @@
 -- Involved in Mission: The Mithra and the Crystal (Zilart 12)
 -- !pos 0 8 73 247
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

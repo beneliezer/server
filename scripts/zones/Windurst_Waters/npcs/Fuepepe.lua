@@ -4,7 +4,6 @@
 -- Involved in Quest: Class Reunion
 -- !pos 161 -2 161 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

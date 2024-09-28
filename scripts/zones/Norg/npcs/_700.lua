@@ -3,7 +3,6 @@
 --  NPC: Oaken door (Gilgamesh's room)
 -- !pos 97 -7 -12 252
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

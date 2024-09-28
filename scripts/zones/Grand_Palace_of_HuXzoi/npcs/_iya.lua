@@ -3,7 +3,6 @@
 --  NPC: Gate of the Gods
 -- !pos -20 0.1 -283 34
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

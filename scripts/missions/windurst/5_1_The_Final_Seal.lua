@@ -135,11 +135,14 @@ mission.sections =
 
         [xi.zone.FEIYIN] =
         {
-            onZoneIn = function(player, prevZone)
-                if player:getMissionStatus(mission.areaId) == 10 then
-                    return 1
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if player:getMissionStatus(mission.areaId) == 10 then
+                        return 1
+                    end
+                end,
+            },
 
             onEventFinish =
             {

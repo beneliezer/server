@@ -5,7 +5,6 @@
 -- Involved in Knot Quite There, A Manifest Problem
 -- Appears during Campaign Battles in as the leader of the Scarlet Boar Esquires.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

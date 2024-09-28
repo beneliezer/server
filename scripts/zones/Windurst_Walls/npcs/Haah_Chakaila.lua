@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Haah Chakaila
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

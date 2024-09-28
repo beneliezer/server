@@ -2,7 +2,6 @@
 -- Area: Cape Teriggan
 --   NM: Killer Jonny
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

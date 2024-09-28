@@ -4,7 +4,6 @@
 -- !pos -133.197 20.242 -181.658 215
 -- Notes: Teleports Players to Buburimu Peninsula
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

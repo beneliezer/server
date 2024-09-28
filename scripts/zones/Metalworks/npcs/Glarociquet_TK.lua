@@ -3,7 +3,6 @@
 --  NPC: Glarociquet, T.K.
 -- !pos 19 -16 -28 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.SANDORIA

@@ -2,7 +2,6 @@
 -- Area: Temple of Uggalepih
 --  Mob: Hover Tank
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

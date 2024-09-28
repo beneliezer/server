@@ -2,7 +2,6 @@
 -- Area: Labyrinth of Onzozo
 --   NM: Ose
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

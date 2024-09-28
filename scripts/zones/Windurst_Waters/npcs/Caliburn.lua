@@ -2,7 +2,6 @@
 -- Area: Windurst Waters
 --  NPC: Caliburn
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

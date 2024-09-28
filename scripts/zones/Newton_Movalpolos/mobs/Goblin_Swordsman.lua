@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.NEWTON_MOVALPOLOS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local swashstoxPHTable =

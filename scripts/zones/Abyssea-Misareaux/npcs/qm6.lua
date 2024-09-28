@@ -4,7 +4,6 @@
 -- Spawns Ironclad Observer
 -- !pos -198.742 -32.162 77.431 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

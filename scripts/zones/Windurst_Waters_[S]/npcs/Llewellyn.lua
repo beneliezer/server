@@ -4,7 +4,6 @@
 -- Type: Campaign Evaluator
 -- !pos -6.907 -2 42.871 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

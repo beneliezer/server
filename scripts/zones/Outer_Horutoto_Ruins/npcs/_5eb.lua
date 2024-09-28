@@ -4,7 +4,6 @@
 -- Involved In Mission: Full Moon Fountain
 -- !pos -291 0 -659 194
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

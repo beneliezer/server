@@ -2,7 +2,6 @@
 -- Area: Aht Urhgan Whitegate
 -- Gate: The Colosseum
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

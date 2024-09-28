@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PALBOROUGH_MINES]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local ziGhiBoneeater =

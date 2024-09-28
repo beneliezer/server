@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Ship_bound_for_Mhaura_Pirates (228)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

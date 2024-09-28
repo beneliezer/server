@@ -2,7 +2,6 @@
 -- Area: North Gustaberg
 --   NM: Maighdean Uaine
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

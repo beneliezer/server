@@ -3,7 +3,6 @@
 --  NPC: Water Protocrystal
 -- !pos 560 36 560 211
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

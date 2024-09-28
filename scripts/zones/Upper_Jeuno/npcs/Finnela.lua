@@ -3,7 +3,6 @@
 --  NPC: Finnela
 -- !pos -51.880 -1 106.486 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

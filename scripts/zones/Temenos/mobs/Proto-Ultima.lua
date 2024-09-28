@@ -4,61 +4,7 @@
 -----------------------------------
 local ID = zones[xi.zone.TEMENOS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
-
-local citadelBusterTimers =
-{
-    [0] = 0,
-    [1] = 10000,
-    [2] = 10000,
-    [3] = 5000,
-    [4] = 1000,
-    [5] = 1000,
-    [6] = 1000,
-    [7] = 1000,
-    [8] = 1000,
-    [9] = 500,
-}
-
-local function sendMessageToList(playerList, messageID)
-    for _, member in pairs(playerList) do
-        member:messageSpecial(messageID)
-    end
-end
-
-local executeCitadelBusterState
-executeCitadelBusterState = function(mob)
-    if mob:isDead() then
-        return
-    end
-
-    local state = mob:getLocalVar('citadelBusterState')
-    local battlefield = mob:getBattlefield()
-    local players = battlefield:getPlayers()
-
-    -- Message-only states
-    if state < 8 then
-        sendMessageToList(players, ID.text.CITADEL_BASE + state)
-    elseif state == 8 then
-        mob:useMobAbility(1540)
-    else
-        mob:setLocalVar('citadelBusterState', 0)
-        mob:setMagicCastingEnabled(true)
-        mob:setAutoAttackEnabled(true)
-        mob:setMobAbilityEnabled(true)
-        mob:setMobMod(xi.mobMod.DRAW_IN, 0)
-        -- Use Citadel Buster at a regular interval
-        mob:setLocalVar('citadelBusterTime', os.time() + math.random(90, 100))
-        return
-    end
-
-    state = state + 1
-    mob:setLocalVar('citadelBusterState', state)
-    mob:timer(citadelBusterTimers[state], function(mobArg)
-        executeCitadelBusterState(mobArg)
-    end)
-end
 
 entity.onMobSpawn = function(mob)
     mob:setMagicCastingEnabled(false)
@@ -100,7 +46,7 @@ entity.onMobFight = function(mob, target)
         mob:setMagicCastingEnabled(false)
         mob:setAutoAttackEnabled(false)
         mob:setMobMod(xi.mobMod.DRAW_IN, 1)
-        executeCitadelBusterState(mob)
+        entity.executeCitadelBusterState(mob)
     end
 end
 
@@ -118,6 +64,58 @@ entity.onMobDeath = function(mob, player, optParams)
     if player then
         player:addTitle(xi.title.TEMENOS_LIBERATOR)
     end
+end
+
+local citadelBusterTimers =
+{
+    [0] = 0,
+    [1] = 10000,
+    [2] = 10000,
+    [3] = 5000,
+    [4] = 1000,
+    [5] = 1000,
+    [6] = 1000,
+    [7] = 1000,
+    [8] = 1000,
+    [9] = 500,
+}
+
+local function sendMessageToList(playerList, messageID)
+    for _, member in pairs(playerList) do
+        member:messageSpecial(messageID)
+    end
+end
+
+entity.executeCitadelBusterState = function(mob)
+    if mob:isDead() then
+        return
+    end
+
+    local state = mob:getLocalVar('citadelBusterState')
+    local battlefield = mob:getBattlefield()
+    local players = battlefield:getPlayers()
+
+    -- Message-only states
+    if state < 8 then
+        sendMessageToList(players, ID.text.CITADEL_BASE + state)
+    elseif state == 8 then
+        mob:useMobAbility(1540)
+    else
+        mob:setLocalVar('citadelBusterState', 0)
+        mob:setMagicCastingEnabled(true)
+        mob:setAutoAttackEnabled(true)
+        mob:setMobAbilityEnabled(true)
+        mob:setMobMod(xi.mobMod.DRAW_IN, 0)
+        -- Use Citadel Buster at a regular interval
+        mob:setLocalVar('citadelBusterTime', os.time() + math.random(90, 100))
+        return
+    end
+
+    state = state + 1
+    mob:setLocalVar('citadelBusterState', state)
+    mob:timer(citadelBusterTimers[state], function(mobArg)
+        entity.executeCitadelBusterState(mobArg)
+    end)
 end
 
 return entity

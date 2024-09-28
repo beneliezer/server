@@ -4,7 +4,6 @@
 -- Involved in Quests: Breaking Barriers
 -- !pos 179 -33 82 112
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

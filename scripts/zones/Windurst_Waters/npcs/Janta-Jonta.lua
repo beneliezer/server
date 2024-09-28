@@ -2,7 +2,6 @@
 -- Area: Windurst Waters
 --  NPC: Janta-Jonta
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

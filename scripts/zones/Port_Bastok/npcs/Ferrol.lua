@@ -3,7 +3,6 @@
 --  NPC: Ferrol
 -- !pos 33.708 6.499 -39.425 236
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

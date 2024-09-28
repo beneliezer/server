@@ -4,7 +4,6 @@
 -- Involved In Mission: The Jester Who'd Be King
 -- !pos -424.255 -1.909 619.995
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

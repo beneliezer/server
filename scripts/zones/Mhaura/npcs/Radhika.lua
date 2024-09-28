@@ -3,7 +3,6 @@
 --  NPC: Radhika
 -- !pos 34.124 -8.999 39.629 249
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

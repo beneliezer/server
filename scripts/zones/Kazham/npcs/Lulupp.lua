@@ -3,7 +3,6 @@
 --  NPC: Lulupp
 -- !pos -26.567 -3.5 -3.544 250
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

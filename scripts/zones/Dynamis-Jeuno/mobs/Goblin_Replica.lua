@@ -2,7 +2,6 @@
 -- Area: Dynamis - Jeuno
 --  Mob: Goblin Replica
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

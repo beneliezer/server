@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.NORTH_GUSTABERG]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local maighdeanPHTable =

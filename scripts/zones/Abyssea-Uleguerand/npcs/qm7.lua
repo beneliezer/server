@@ -4,7 +4,6 @@
 -- Spawns Veri Selen
 -- !pos 13 -140 470 253
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

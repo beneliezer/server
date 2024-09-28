@@ -4,7 +4,6 @@
 -- Spawns Chillwing Hwitti
 -- !pos -484 -20 -85 253
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

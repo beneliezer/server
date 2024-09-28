@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Door: Arrivals (from San d'Oria)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

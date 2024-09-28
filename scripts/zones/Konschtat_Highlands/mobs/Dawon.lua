@@ -1,7 +1,6 @@
 -----------------------------------
 --  VNM: Dawon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

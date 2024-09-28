@@ -4,7 +4,6 @@
 -- Involved in Quest: Hitting the Marquisate (THF AF3)
 -- !pos -245.603 -5.500 139.855 200
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

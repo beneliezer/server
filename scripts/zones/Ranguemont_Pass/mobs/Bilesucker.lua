@@ -2,7 +2,6 @@
 -- Area: Ranguemont Pass
 --  Mob: Bilesucker
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

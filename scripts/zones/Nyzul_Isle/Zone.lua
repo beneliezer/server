@@ -1,17 +1,18 @@
 -----------------------------------
 -- Zone: Nyzul_Isle
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
 end
 
 zoneObject.onInstanceZoneIn = function(player, instance)
+    local cs = -1
+
     if player:getInstance() == nil then
         player:setPos(0, 0, 0, 0, xi.zone.ALZADAAL_UNDERSEA_RUINS)
 
-        return
+        return cs
     end
 
     local pos = player:getPos()
@@ -29,6 +30,8 @@ zoneObject.onInstanceZoneIn = function(player, instance)
     player:entityVisualPacket('1pa1')
     player:entityVisualPacket('1pb1')
     player:entityVisualPacket('2pb1')
+
+    return cs
 end
 
 -- NOTE: This is called after onInstanceZoneIn for the fade in cutscene.

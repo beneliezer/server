@@ -3,7 +3,6 @@
 --  NPC: ??? (qm9)
 -- Note: Spawns Dagourmarche
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

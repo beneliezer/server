@@ -4,7 +4,6 @@
 -- Spawns Cirein-Croin
 -- !pos 38 -15 534 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

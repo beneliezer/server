@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.THE_SHROUDED_MAW]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 -- TODO: CoP Diabolos

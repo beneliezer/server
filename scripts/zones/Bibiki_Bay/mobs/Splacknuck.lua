@@ -2,7 +2,6 @@
 -- Area: Bibiki Bay
 --   NM: Splacknuck
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

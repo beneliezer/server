@@ -16,7 +16,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PHOMIUNA_AQUEDUCTS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- Ladder positions which have events associated with them.  There is one

@@ -4,7 +4,6 @@
 -- Finishes Quest: Enveloped in Darkness
 -- !pos 59 0.1 66 197
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ULEGUERAND_RANGE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 --https://ffxiclopedia.fandom.com/wiki/Talk:White_Coney#Testimonials

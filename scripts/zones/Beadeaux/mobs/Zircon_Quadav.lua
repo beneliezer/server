@@ -7,7 +7,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BEADEAUX]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local zoKhuPHTable =

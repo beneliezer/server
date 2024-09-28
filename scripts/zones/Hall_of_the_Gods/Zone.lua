@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Hall_of_the_Gods (251)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

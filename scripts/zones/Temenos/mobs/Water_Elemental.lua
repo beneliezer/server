@@ -2,7 +2,6 @@
 -- Area: Central Temenos 2nd Floor
 --  Mob: Water Elemental
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

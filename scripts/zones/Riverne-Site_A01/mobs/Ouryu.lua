@@ -3,14 +3,13 @@
 -- Riverne Site A, Cloud Evokers
 -- !pos 184 0 344 30
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.DRAW_IN, 15)
 end
 
-entity.onMobSpawn = function(mob)
+entity.onMobSpawn = function(mob, player, optParams)
     mob:setMobMod(xi.mobMod.WEAPON_BONUS, 60) -- Level 85 + 60 = 145 Base Weapon Damage
 end
 

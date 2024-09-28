@@ -2,7 +2,6 @@
 -- Area: Rala Waterways (258)
 --  NPC: _76r - Sluice Gate 2 Controller
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

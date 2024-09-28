@@ -3,7 +3,6 @@
 --  NPC: Old Toolbox
 -- Continues Quest: The Eleventh's Hour (100%)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -27,9 +27,12 @@ mission.sections =
 
         [xi.zone.CELENNIA_MEMORIAL_LIBRARY] =
         {
-            onZoneIn = function(player, prevZone)
-                return 3
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 3
+                end,
+            },
 
             onEventFinish =
             {

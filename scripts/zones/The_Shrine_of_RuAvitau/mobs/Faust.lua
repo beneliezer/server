@@ -3,7 +3,6 @@
 --  Mob: Faust
 -- TODO: Faust should WS ~3 times in a row each time.
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local east = 0

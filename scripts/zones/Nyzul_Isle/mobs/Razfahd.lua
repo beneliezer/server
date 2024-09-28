@@ -2,7 +2,6 @@
 -- Area: Nyzul Isle (Nashmeira's Plea)
 --  Mob: Razfahd
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -18,10 +17,6 @@ entity.onMobFight = function(mob, target)
         mob:useMobAbility(1183)
 
         local instance = mob:getInstance()
-        if not instance then
-            return
-        end
-
         instance:setProgress(instance:getProgress() + 1)
 
         mob:setLocalVar('perfectdef', 1)

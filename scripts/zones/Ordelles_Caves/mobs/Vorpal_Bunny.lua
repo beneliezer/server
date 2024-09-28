@@ -2,7 +2,6 @@
 -- Area: Ordelle's Caves
 --  Mob: Vorpal Bunny
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WINDURST_WALLS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

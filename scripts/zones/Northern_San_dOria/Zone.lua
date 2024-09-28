@@ -4,7 +4,6 @@
 local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 require('scripts/quests/flyers_for_regine')
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

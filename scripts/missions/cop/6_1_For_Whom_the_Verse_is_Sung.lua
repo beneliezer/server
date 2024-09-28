@@ -36,11 +36,14 @@ mission.sections =
                 end,
             },
 
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 2 then
-                    return 10047
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 2 then
+                        return 10047
+                    end
+                end,
+            },
 
             onEventFinish =
             {

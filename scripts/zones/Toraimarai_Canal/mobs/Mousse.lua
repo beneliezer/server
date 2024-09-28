@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.TORAIMARAI_CANAL]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local konjacPHTable =

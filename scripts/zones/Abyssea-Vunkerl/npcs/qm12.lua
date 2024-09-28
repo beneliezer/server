@@ -4,7 +4,6 @@
 -- Spawns Gnawtooth Gary
 -- !pos -343 -39 -644 217
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

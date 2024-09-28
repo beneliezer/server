@@ -2,7 +2,6 @@
 -- Area: Yuhtunga Jungle
 --  Mob: Yuhtunga Mandragora
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

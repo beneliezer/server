@@ -3,7 +3,6 @@
 --  NPC: Yevgeny, I.M.
 -- !pos 45 -1 0 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.BASTOK

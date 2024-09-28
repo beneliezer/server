@@ -3,7 +3,6 @@
 --  NPC: Domhnall
 -- !pos -104.611 -5.825 -81.531 235
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

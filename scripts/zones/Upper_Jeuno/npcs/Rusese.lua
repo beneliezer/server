@@ -3,7 +3,6 @@
 --  NPC: Rusese
 -- Map Seller NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

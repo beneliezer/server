@@ -11,7 +11,6 @@
 -- The Promise
 -- !pos -26.8 -6 190 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

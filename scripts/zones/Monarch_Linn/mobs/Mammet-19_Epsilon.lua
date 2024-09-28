@@ -2,7 +2,6 @@
 -- Area: Monarch Linn
 --  Mob: Mammet-19 Epsilon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local forms =

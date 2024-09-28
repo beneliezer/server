@@ -27,9 +27,12 @@ mission.sections =
 
         [xi.zone.RALA_WATERWAYS] =
         {
-            onZoneIn = function(player, prevZone)
-                return 342
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 342
+                end,
+            },
 
             onEventFinish =
             {

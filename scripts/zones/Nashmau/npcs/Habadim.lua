@@ -2,7 +2,6 @@
 -- Area: Nashmau
 --  NPC: Habadim
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

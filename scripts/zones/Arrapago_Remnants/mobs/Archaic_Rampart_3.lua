@@ -4,18 +4,13 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/rampart') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
 end
 
 entity.onMobFight = function(mob, target)
-    local instance = mob:getInstance()
-    if not instance then
-        return
-    end
-
+    local instance  = mob:getInstance()
     local popTime   = mob:getLocalVar('lastPetPop')
     local mobPos    = mob:getPos()
     local firstPet  = GetMobByID((mob:getID() + 1), instance)

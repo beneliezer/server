@@ -2,7 +2,6 @@
 -- Area: Al Zahbi
 --  NPC: Sojan-Tamjan
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

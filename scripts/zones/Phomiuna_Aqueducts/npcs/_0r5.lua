@@ -3,7 +3,6 @@
 --  NPC: Ornate Gate
 -- !pos -95 -24 60 27
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

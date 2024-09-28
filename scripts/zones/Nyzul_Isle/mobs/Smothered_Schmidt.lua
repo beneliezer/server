@@ -3,7 +3,6 @@
 -- Area: Nyzul Isle
 -- Info: NM
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -3,7 +3,6 @@
 --  NPC: Geomagnetic Fount
 -- !pos 51.805 -2.495 6.825
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

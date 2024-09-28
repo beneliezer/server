@@ -4,7 +4,6 @@
 -- Type: Assault Mission Giver
 -- !pos 134.098 0.161 -43.759 50
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local items =

@@ -2,7 +2,6 @@
 -- Area: Lower Delkfutt's Tower
 --  Mob: Ancient Bat
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

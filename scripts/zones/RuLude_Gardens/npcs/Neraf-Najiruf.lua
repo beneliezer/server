@@ -4,7 +4,6 @@
 -- Involved in Quests: Save my Sister
 -- !pos -36 2 60 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Upper Jeuno
 --  NPC: Moritz
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

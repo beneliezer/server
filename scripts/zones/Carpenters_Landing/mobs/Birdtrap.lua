@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.CARPENTERS_LANDING]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local orctrapPHTable =

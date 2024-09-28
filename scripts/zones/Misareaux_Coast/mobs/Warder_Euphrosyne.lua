@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/warders_cop') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

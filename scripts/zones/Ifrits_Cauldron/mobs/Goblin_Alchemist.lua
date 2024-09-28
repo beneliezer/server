@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.IFRITS_CAULDRON]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local foreseerPHTable =

@@ -3,7 +3,6 @@
 --  NPC: Lourdaude
 -- !pos 215.597 -2.689 -526.021 2
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

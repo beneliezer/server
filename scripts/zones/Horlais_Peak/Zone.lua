@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Horlais_Peak (139)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

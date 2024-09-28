@@ -3,7 +3,6 @@
 --  NPC: Brygid
 -- !pos -90 -4 -108 235
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

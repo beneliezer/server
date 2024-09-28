@@ -2,7 +2,6 @@
 -- Area: Lower Delkfutt's Tower
 --   NM: Disaster Idol
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

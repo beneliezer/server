@@ -3,7 +3,6 @@
 --  NPC: Zekobi-Morokobi
 -- !pos 41.258 -5.999 -74.105 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

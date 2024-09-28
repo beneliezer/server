@@ -2,7 +2,6 @@
 -- Area: Chateau d'Oraguille
 --  NPC: Ferdechiond
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

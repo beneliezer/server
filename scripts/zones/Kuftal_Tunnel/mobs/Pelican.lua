@@ -2,7 +2,6 @@
 -- Area: Kuftal Tunnel
 --   NM: Pelican
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

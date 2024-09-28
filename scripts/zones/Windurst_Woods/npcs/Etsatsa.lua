@@ -2,7 +2,6 @@
 -- Area: Windurst Woods
 --  NPC: Etsatsa
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

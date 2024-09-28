@@ -2,7 +2,6 @@
 -- Area: Ranguemont Pass
 --  Mob: Hovering Oculus
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

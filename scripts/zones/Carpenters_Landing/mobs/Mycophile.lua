@@ -2,7 +2,6 @@
 -- Area: Carpenters Landing
 --   NM: Mycophile
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

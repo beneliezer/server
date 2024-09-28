@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.EAST_SARUTABARUTA]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local spinySpipiPHTable =

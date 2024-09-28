@@ -3,7 +3,6 @@
 -- NPC: Mediverchanne
 -- !pos -266.977 3.999 -524.848 70
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

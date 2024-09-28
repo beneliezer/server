@@ -2,7 +2,6 @@
 -- Area: Batallia Downs
 --   NM: Eyegouger
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

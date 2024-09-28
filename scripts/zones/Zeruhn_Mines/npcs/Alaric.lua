@@ -2,7 +2,6 @@
 -- Area: Zeruhn Mines
 --  NPC: Alaric
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

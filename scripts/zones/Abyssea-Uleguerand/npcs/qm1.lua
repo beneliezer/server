@@ -4,7 +4,6 @@
 -- Spawns Ironclad Triturator
 -- !pos -10 -175 56 253
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

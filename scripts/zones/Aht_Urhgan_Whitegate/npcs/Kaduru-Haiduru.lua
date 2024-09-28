@@ -3,7 +3,6 @@
 --  NPC: Kaduru-Haiduru
 -- Teleport NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local function canUse_KaduruHaiduru_Service(player)

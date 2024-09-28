@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BATALLIA_DOWNS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

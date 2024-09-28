@@ -2,7 +2,6 @@
 -- Area: Ve'Lugannon Palace
 --  NPC: Grounds Tome
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

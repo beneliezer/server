@@ -3,7 +3,6 @@
 --  NPC: Quasilumin
 -- !pos -27.443 -1 -636.850 33
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

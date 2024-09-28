@@ -2,7 +2,6 @@
 -- Area: The Eldieme Necropolis [S] (175)
 --  Mob: Chigoe
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

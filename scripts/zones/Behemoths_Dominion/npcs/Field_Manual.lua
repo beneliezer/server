@@ -2,7 +2,6 @@
 -- Field Manual
 -- Area: Behemoth's Dominion
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

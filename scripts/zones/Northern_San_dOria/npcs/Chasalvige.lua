@@ -3,7 +3,6 @@
 --  NPC: Chasalvige
 -- !pos 96.432 -0.520 134.046 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

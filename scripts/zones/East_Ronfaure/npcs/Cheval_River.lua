@@ -4,7 +4,6 @@
 -- !pos 223 -58 426 101
 -- Involved in Quest: "Waters of the Cheval"
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

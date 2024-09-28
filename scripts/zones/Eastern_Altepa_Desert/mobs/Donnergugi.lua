@@ -2,7 +2,6 @@
 -- Area: Eastern Altepa Desert
 --   NM: Donnergugi
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

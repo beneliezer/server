@@ -2,7 +2,6 @@
 -- Area: Mhaura
 --  NPC: Maximin
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

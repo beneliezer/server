@@ -3,7 +3,6 @@
 --  NPC: ??? (qm2)
 -- Note: Spawns Steelshank Kratzvatz
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

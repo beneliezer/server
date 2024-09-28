@@ -4,7 +4,6 @@
 -- Quests: Axe the Competition (Decimation WSNM "Yallery Brown")
 -- !pos 218 -8 206 159
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

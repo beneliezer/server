@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Castle_Zvahl_Keep_[S] (155)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

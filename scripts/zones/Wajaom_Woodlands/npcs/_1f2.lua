@@ -3,7 +3,6 @@
 --  NPC: Engraved Tablet
 -- !pos 233 -9 -634 51
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

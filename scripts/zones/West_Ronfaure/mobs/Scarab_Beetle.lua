@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WEST_RONFAURE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local fungusPHTable =

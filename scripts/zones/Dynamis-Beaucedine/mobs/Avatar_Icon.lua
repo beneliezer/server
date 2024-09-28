@@ -2,7 +2,6 @@
 -- Area: Dynamis - Beaucedine
 --  Mob: Avatar Icon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

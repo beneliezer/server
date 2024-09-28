@@ -2,7 +2,6 @@
 -- Area: Abyssea_Vunkeral
 --  NPC: Solgierte
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

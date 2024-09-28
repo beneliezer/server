@@ -2,7 +2,6 @@
 -- Area: Yuhtunga Jungle
 --   NM: Mischievous Micholas
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

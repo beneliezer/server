@@ -4,7 +4,6 @@
 -- Type: Bonecraft Guild Master
 -- !pos -6.175 -6.249 -144.667 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

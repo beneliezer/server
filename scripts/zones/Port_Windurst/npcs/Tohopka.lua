@@ -3,7 +3,6 @@
 -- NPC : Tohopka
 -- !pos -105.723 -10 83.813 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

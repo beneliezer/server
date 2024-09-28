@@ -4,7 +4,6 @@
 -- Involved in Quest: THF AF "As Thick As Thieves"
 -- !pos -193.869 15.400 276.837 120
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

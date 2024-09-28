@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.QUICKSAND_CAVES]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local nussknackerPHTable =

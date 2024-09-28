@@ -2,7 +2,6 @@
 -- Area: Crawlers' Nest (197)
 --   NM: Dynast Beetle
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

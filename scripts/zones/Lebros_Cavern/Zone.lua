@@ -1,16 +1,17 @@
 -----------------------------------
 -- Zone: Lebros_Cavern
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
 end
 
 zoneObject.onInstanceZoneIn = function(player, instance)
+    local cs = -1
+
     if player:getInstance() == nil then
         player:setPos(0, 0, 0, 0, xi.zone.MOUNT_ZHAYOLM)
-        return
+        return cs
     end
 
     local pos = player:getPos()
@@ -18,6 +19,8 @@ zoneObject.onInstanceZoneIn = function(player, instance)
         local entrypos = instance:getEntryPos()
         player:setPos(entrypos.x, entrypos.y, entrypos.z, entrypos.rot)
     end
+
+    return cs
 end
 
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
@@ -29,10 +32,6 @@ end
 zoneObject.onEventFinish = function(player, csid, option, npc)
     if csid == 102 then
         local instance = player:getInstance()
-        if not instance then
-            return
-        end
-
         local chars = instance:getChars()
 
         for _, entity in pairs(chars) do
@@ -42,7 +41,7 @@ zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onInstanceLoadFailed = function()
-    return xi.zone.MOUNT_ZHAYOLM
+    return 61
 end
 
 return zoneObject

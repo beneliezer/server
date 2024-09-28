@@ -4,7 +4,6 @@
 -- !pos 9 1 -35 80
 -- Survey NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Dynamis - Buburimu
 --  Mob: Goblin Statue
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

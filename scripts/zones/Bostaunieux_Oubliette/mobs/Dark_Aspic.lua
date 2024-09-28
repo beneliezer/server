@@ -2,7 +2,6 @@
 -- Area: Bostaunieux Oubliette (167)
 --  Mob: Dark Aspic
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

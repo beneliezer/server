@@ -2,7 +2,6 @@
 -- Area: LaLoff Amphitheater
 --  Mob: Ark Angel's Wyvern
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

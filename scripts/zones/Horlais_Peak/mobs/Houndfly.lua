@@ -3,7 +3,6 @@
 --  Mob: Houndfly
 -- BCNM: Dropping Like Flies
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

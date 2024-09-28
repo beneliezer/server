@@ -3,7 +3,6 @@
 --  NPC: Galmut's door
 -- !pos -80 0 104 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

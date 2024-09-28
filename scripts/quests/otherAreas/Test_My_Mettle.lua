@@ -75,7 +75,7 @@ quest.sections =
                             quest:setVar(player, 'Reward', betAmount * rewardMultiplier[vanaHoursRemaining])
                             quest:begin(player)
                         else
-                            player:messageSpecial(selbinaID.text.DONT_HAVE_ENOUGH_GIL)
+                            return quest:messageSpecial(selbinaID.text.DONT_HAVE_ENOUGH_GIL)
                         end
                     end
                 end,

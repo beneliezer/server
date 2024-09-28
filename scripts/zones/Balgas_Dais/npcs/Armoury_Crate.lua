@@ -3,7 +3,6 @@
 --  NPC: Armoury Crate
 -- Balgas Dais Burning Circle Armoury Crate
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Aht Urhgan Whitegate
 --  NPC: Zhamwaa
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

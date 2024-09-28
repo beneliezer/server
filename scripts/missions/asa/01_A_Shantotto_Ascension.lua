@@ -23,20 +23,22 @@ mission.sections =
 
         [xi.zone.WINDURST_WALLS] =
         {
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.WINDURST_WATERS or
-                    prevZone == xi.zone.WINDURST_WOODS
-                then
-                    return 510
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.WINDURST_WATERS or
+                        prevZone == xi.zone.WINDURST_WOODS
+                    then
+                        return 510
+                    end
+                end,
+            },
 
             onEventFinish =
             {
                 [510] = function(player, csid, option, npc)
-                    -- TODO: This is most likely a pos change, followed by onZoneIn event
-                    player:startEvent(514)
+                    return mission:event(514)
                 end,
 
                 [514] = function(player, csid, option, npc)

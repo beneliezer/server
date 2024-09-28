@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.XARCABARD]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local timewornPHTable =

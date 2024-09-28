@@ -3,7 +3,6 @@
 -- NPC: Joilevin
 -- !pos -319.937 0.000 -467.799 70
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

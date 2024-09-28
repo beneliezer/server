@@ -2,7 +2,6 @@
 -- Area: East Ronfaure
 --  Mob: Cheval Pugil
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

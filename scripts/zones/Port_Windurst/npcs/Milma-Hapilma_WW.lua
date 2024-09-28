@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Milma-Hapilma, W.W.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.WINDURST

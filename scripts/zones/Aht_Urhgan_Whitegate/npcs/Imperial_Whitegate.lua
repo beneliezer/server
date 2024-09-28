@@ -5,7 +5,6 @@
 -----------------------------------
 local whitegateShared = require('scripts/zones/Aht_Urhgan_Whitegate/Shared')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

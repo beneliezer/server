@@ -8,7 +8,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PROMYVION_DEM]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

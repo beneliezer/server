@@ -32,9 +32,6 @@ class CServerIPPacket : public CBasicPacket
 {
 public:
     CServerIPPacket(CCharEntity* PChar, uint8 type, uint64 ipp);
-
-    uint8  type;
-    uint64 ipp;
 };
 
 #endif

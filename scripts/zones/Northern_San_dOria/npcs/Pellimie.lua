@@ -3,7 +3,6 @@
 --  NPC: Pellimie
 -- !pos 145.459 0.000 131.540 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

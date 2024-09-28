@@ -2,7 +2,6 @@
 -- Area: Tavnazian Safehold
 --  NPC: Bibokk-Molbukk
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

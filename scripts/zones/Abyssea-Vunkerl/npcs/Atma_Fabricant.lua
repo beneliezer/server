@@ -2,7 +2,6 @@
 -- Zone: Abyssea - Vunkerl
 --  NPC: Atma Fabricant
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

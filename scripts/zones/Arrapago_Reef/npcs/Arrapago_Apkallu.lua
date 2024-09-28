@@ -2,7 +2,6 @@
 -- Area: Arrapago Reef
 --  NPC: Arrapago Apkallu
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

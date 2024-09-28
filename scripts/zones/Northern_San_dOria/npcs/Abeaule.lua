@@ -4,7 +4,6 @@
 -- Starts and Finishes Quest: The Trader in the Forest, The Medicine Woman
 -- !pos -136 -2 56 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

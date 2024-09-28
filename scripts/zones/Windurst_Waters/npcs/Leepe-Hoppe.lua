@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WINDURST_WATERS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local avatarKeyItems =
@@ -172,17 +171,17 @@ entity.onEventFinish = function(player, csid, option, npc)
         player:delQuest(xi.questLog.SANDORIA, xi.quest.id.sandoria.TRIAL_BY_ICE)
         player:delQuest(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.TRIAL_BY_LIGHTNING)
     elseif csid == 846 or csid == 850 then -- Turn-in event
-        local reward = xi.item.NONE
+        local reward = 0
         if option == 1 then
-            reward = xi.item.FENRIRS_STONE -- Fenrir's Stone
+            reward = 18165 -- Fenrir's Stone
         elseif option == 2 then
-            reward = xi.item.FENRIRS_CAPE -- Fenrir's Cape
+            reward = 13572 -- Fenrir's Cape
         elseif option == 3 then
-            reward = xi.item.FENRIRS_TORQUE -- Fenrir's Torque
+            reward = 13138 -- Fenrir's Torque
         elseif option == 4 then
-            reward = xi.item.FENRIRS_EARRING -- Fenrir's Earring
+            reward = 13399 -- Fenrir's Earring
         elseif option == 5 then
-            reward = xi.item.ANCIENTS_KEY -- Ancient's Key
+            reward = 1208 -- Ancient's Key
         elseif option == 6 then
             npcUtil.giveCurrency(player, 'gil', 15000)
         elseif option == 7 then
@@ -239,7 +238,7 @@ entity.onEventFinish = function(player, csid, option, npc)
     elseif
         csid == 897 and
         npcUtil.completeQuest(player, xi.questLog.WINDURST, xi.quest.id.windurst.TUNING_OUT, {
-            item = xi.item.CACHE_NEZ, -- Cache-Nez
+            item = 15180, -- Cache-Nez
             title = xi.title.FRIEND_OF_THE_HELMED,
         })
     then

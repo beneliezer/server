@@ -34,7 +34,7 @@ local orcItems =
 
 local function completePetition(player, posBit, numSignatures)
     mission:setVarBit(player, 'Status', posBit)
-    mission:incrementVar(player, 'Option', numSignatures)
+    mission:addVar(player, 'Option', numSignatures)
 
     local totalSignatures = mission:getVar(player, 'Option')
 

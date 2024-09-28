@@ -3,7 +3,6 @@
 --  NPC: Amagusa-Chigurusa
 -- !pos -28.746 -4.5 61.954 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

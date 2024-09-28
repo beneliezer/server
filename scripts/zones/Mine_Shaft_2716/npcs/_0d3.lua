@@ -2,7 +2,6 @@
 -- Area: Mine_Shaft_2716
 --  NPC: Shaft entrance
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

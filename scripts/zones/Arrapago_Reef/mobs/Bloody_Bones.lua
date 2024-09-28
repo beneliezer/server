@@ -2,7 +2,6 @@
 -- Area: Arrapago Reef
 --   NM: Bloody Bones
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

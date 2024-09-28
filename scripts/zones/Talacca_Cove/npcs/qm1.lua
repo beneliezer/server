@@ -2,7 +2,6 @@
 -- Area: Talacca_Cove
 --  NPC: ??? (corsair job flag quest)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

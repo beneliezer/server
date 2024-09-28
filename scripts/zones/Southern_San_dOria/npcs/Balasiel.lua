@@ -4,7 +4,6 @@
 -- Starts and Finishes: A Squire's Test, A Squire's Test II, A Knight's Test, Methods Create Madness
 -- !pos -136 -11 64 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

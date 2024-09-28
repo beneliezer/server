@@ -5,7 +5,6 @@
 -----------------------------------
 require('scripts/zones/Mamool_Ja_Training_Grounds/globals/zoneUtil')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Maze of Shakhrami
 --   NM: Gloombound Lurker
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

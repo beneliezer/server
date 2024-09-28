@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BHAFLAU_THICKETS]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

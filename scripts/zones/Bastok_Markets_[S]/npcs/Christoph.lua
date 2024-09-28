@@ -2,7 +2,6 @@
 -- Area: Bastok Markets (S) (H-7)
 --  NPC: Christoph
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

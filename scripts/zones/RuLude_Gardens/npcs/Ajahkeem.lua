@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Ajahkeem
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

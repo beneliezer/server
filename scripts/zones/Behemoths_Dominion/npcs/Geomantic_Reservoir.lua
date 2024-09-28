@@ -4,7 +4,6 @@
 -- Unlocks: Geo-DEX
 -- !pos -232.162 -20.199 4.927 127
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

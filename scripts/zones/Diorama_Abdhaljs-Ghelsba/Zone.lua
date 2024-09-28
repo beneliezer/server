@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Diorama_Abdhaljs-Ghelsba
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

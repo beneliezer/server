@@ -2,7 +2,6 @@
 -- Area: Batallia Downs
 --   NM: Prankster Maverix
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

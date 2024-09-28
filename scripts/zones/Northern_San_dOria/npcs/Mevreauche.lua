@@ -4,7 +4,6 @@
 -- Type: Smithing Guild Master
 -- !pos -193.584 10 148.655 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

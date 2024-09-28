@@ -2,7 +2,6 @@
 -- Area: Gusgen Mines
 --   NM: Crushed Krause
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobRoam = function(mob)

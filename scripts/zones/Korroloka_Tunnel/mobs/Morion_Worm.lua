@@ -2,7 +2,6 @@
 -- Area: Korroloka Tunnel (173)
 --  Mob: Morion Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

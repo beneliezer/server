@@ -2,7 +2,6 @@
 -- Area: Ordelle's Caves
 --  Mob: Goblin Furrier
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

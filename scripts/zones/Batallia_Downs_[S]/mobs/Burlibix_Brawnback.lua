@@ -2,7 +2,6 @@
 -- Area: Batallia Downs [S]
 --   NM: Burlibix Brawnback
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

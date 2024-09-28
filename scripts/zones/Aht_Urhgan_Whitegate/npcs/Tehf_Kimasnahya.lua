@@ -3,7 +3,6 @@
 --  NPC: Tehf Kimasnahya
 -- !pos -89.897 -1 6.199 50
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

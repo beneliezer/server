@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.LABYRINTH_OF_ONZOZO]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local hellionPHTable =

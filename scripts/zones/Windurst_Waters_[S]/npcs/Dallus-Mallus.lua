@@ -4,7 +4,6 @@
 -- Type: Campaign Intel Advisor
 -- !pos -13.666 -2 26.180 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

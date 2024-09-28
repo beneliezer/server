@@ -6,7 +6,6 @@
 local ID = zones[xi.zone.CARPENTERS_LANDING]
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

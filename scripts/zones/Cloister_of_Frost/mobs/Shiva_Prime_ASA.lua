@@ -5,7 +5,6 @@
 -----------------------------------
 require('scripts/missions/asa/helpers')
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

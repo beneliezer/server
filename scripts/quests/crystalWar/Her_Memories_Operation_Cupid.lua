@@ -25,11 +25,14 @@ quest.sections =
 
         [xi.zone.BATALLIA_DOWNS_S] =
         {
-            onZoneIn = function(player, prevZone)
-                if prevZone == xi.zone.JUGNER_FOREST_S then
-                    return 23
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if prevZone == xi.zone.JUGNER_FOREST_S then
+                        return 23
+                    end
+                end,
+            },
 
             onEventFinish =
             {
@@ -109,14 +112,17 @@ quest.sections =
 
         [xi.zone.BATALLIA_DOWNS_S] =
         {
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.ROLANBERRY_FIELDS_S and
-                    quest:getVar(player, 'Prog') == 2
-                then
-                    return 24
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.ROLANBERRY_FIELDS_S and
+                        quest:getVar(player, 'Prog') == 2
+                    then
+                        return 24
+                    end
+                end,
+            },
 
             onEventFinish =
             {

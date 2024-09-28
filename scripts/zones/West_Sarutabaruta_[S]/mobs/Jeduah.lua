@@ -2,7 +2,6 @@
 -- Area: West Sarutabaruta [S]
 --   NM: Jeduah
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

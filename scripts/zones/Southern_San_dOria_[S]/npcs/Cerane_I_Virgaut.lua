@@ -5,7 +5,6 @@
 -- Is dispatched to Campaign battles as the
 -- leader of the Aragoneu Knights.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

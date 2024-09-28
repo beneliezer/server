@@ -149,11 +149,14 @@ quest.sections =
 
         [xi.zone.PASHHOW_MARSHLANDS_S] =
         {
-            onZoneIn = function(player, prevZone)
-                if prevZone == xi.zone.GRAUBERG_S then
-                    return 901
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if prevZone == xi.zone.GRAUBERG_S then
+                        return 901
+                    end
+                end,
+            },
 
             onEventFinish =
             {
@@ -199,9 +202,12 @@ quest.sections =
 
         [xi.zone.PASHHOW_MARSHLANDS_S] =
         {
-            onZoneIn = function(player, prevZone)
-                return 902
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 902
+                end,
+            },
 
             onEventFinish =
             {

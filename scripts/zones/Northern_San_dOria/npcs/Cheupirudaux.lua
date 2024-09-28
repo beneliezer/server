@@ -5,7 +5,6 @@
 -- Involved in Quest: It's Raining Mannequins!
 -- !pos -138 12 250 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

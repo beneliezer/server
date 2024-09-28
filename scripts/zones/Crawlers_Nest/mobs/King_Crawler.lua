@@ -2,7 +2,6 @@
 -- Area: Crawlers' Nest
 --  Mob: King Crawler
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

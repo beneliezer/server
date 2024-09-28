@@ -4,7 +4,6 @@
 -- Teleports Players to West Sarutabaruta [S]
 -- !pos -2.229 0.001 -162.715 115
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

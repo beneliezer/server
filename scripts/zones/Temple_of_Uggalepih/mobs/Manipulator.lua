@@ -3,7 +3,6 @@
 --   NM: Manipulator
 -- Note: Paths around the 2 staircases
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local pathNodes =

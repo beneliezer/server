@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.DEN_OF_RANCOR]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local friarPHTable =

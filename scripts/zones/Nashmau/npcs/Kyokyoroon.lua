@@ -3,7 +3,6 @@
 --  NPC: Kyokyoroon
 -- !pos 18.020 -6.000 10.467 53
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

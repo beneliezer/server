@@ -3,7 +3,6 @@
 --  NPC: Iron Portcullis
 -- !pos 736.952 -34.000 -39.999 97
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

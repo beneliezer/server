@@ -3,7 +3,6 @@
 --  NPC: Salaheem's Sentinels (Door)
 -- !pos 23 -6 -63 50
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: Laillera
 -- !pos -127.297 -62.000 266.800 100
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 -- NPC: Amaduralle
 -- !pos -369.286 -4.000 -464.873 70
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

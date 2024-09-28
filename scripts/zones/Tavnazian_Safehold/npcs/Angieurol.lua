@@ -2,7 +2,6 @@
 -- Area: Tavnazian Safehold
 --  NPC: Angieurol
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

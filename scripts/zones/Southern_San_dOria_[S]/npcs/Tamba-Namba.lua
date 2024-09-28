@@ -4,7 +4,6 @@
 -- !pos 104 4 21 80
 -- Traveling Bard
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

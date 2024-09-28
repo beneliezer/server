@@ -2,7 +2,6 @@
 -- Area: Lufaise Meadows
 --   NM: Yal-un Eke
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

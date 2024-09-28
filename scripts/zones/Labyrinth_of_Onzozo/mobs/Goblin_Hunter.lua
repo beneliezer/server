@@ -2,7 +2,6 @@
 -- Area: Labyrinth of Onzozo
 --  Mob: Goblin Hunter
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

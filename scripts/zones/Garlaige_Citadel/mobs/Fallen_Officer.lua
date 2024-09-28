@@ -2,7 +2,6 @@
 -- Area: Garlaige Citadel
 --  Mob: Fallen Officer
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

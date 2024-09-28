@@ -2,7 +2,6 @@
 -- Area: Monastic Cavern
 --   NM: Bugaboo
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

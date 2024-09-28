@@ -4,7 +4,6 @@
 -- Type: Waterserpent General
 -- !pos -22.615 -7 78.907 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

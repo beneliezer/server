@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Khumo Daramasteh
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

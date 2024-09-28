@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.SOUTH_GUSTABERG]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local carneroPHTable =

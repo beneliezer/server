@@ -3,7 +3,6 @@
 --  NPC: Cochal-Monchal
 -- !pos -52 -6 110 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.YUGHOTT_GROTTO]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local ashmakerPHTable =

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.THE_SANCTUARY_OF_ZITAH]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,27 +3,18 @@
 -----------------------------------
 require('scripts/globals/interaction/container')
 -----------------------------------
----@see TInteractionContainer
----@class TMission : TInteractionContainer
----@field areaId integer
----@field missionId integer
+
 Mission = setmetatable({ areaId = -1 }, { __index = Container })
 Mission.__index = Mission
 
+---@diagnostic disable-next-line: duplicate-set-field
 Mission.__eq = function(m1, m2)
     return m1.areaId == m2.areaId and m1.missionId == m2.missionId
 end
 
----@type rewardParam
 Mission.reward = {}
 
----@type TMissionSection[]
-Mission.sections = {}
-
----@nodiscard
----@param areaId integer
----@param missionId integer
----@return TMission
+---@diagnostic disable-next-line: duplicate-set-field
 function Mission:new(areaId, missionId)
     local obj = Container:new(Mission.getVarPrefix(areaId, missionId))
     setmetatable(obj, self)
@@ -32,17 +23,10 @@ function Mission:new(areaId, missionId)
     return obj
 end
 
----@nodiscard
----@param areaId integer
----@param missionId integer
----@return string
 function Mission.getVarPrefix(areaId, missionId)
     return string.format('Mission[%d][%d]', areaId, missionId)
 end
 
----@nodiscard
----@param player CBaseEntity
----@return table<integer>
 function Mission:getCheckArgs(player)
     return { player:getCurrentMission(self.areaId), player:getMissionStatus(self.areaId) }
 end
@@ -51,14 +35,10 @@ end
 -- Mission operations
 -----------------------------------
 
----@param player CBaseEntity
----@return nil
 function Mission:begin(player)
     player:addMission(self.areaId, self.missionId)
 end
 
----@param player CBaseEntity
----@return boolean
 function Mission:complete(player)
     local didComplete = npcUtil.completeMission(player, self.areaId, self.missionId, self.reward)
     if didComplete then

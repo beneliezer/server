@@ -113,14 +113,17 @@ quest.sections =
                 end,
             },
 
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.EAST_RONFAURE_S and
-                    quest:getVar(player, 'Prog') == 1
-                then
-                    return 200
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.EAST_RONFAURE_S and
+                        quest:getVar(player, 'Prog') == 1
+                    then
+                        return 200
+                    end
+                end,
+            },
 
             onEventFinish =
             {

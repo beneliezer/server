@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Pantsa-Karutsa
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

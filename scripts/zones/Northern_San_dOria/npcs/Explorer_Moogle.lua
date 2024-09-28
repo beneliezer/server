@@ -2,7 +2,6 @@
 -- Area: Northern San d'Oria
 --  NPC: Explorer Moogle
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local eventId = 862

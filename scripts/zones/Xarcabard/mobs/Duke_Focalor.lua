@@ -2,7 +2,6 @@
 -- Area: Xarcabard
 --   NM: Duke Focalor
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

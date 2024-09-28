@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.THE_SHRINE_OF_RUAVITAU]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local doors =

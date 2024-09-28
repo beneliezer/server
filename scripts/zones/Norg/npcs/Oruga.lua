@@ -2,7 +2,6 @@
 -- Area: Norg
 --  NPC: Oruga
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

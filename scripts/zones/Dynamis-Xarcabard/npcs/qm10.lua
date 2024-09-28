@@ -3,7 +3,6 @@
 --  NPC: ??? (qm10)
 -- Note: Spawns Animated Great Axe
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

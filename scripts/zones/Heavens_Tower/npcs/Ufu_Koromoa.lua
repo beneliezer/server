@@ -3,7 +3,6 @@
 --  NPC: Ufu Koromoa
 -- !pos -2.074 -48 14.000 242
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

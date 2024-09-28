@@ -46,9 +46,12 @@ quest.sections =
 
         [xi.zone.LA_THEINE_PLATEAU] =
         {
-            onZoneIn = function(player, prevZone)
-                return 39
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 39
+                end,
+            },
 
             onEventUpdate =
             {

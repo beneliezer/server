@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.INNER_HORUTOTO_RUINS]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

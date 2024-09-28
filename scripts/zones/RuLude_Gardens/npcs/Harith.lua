@@ -3,7 +3,6 @@
 --  NPC: Harith
 -- !pos -4.349 1 134.014 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

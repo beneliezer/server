@@ -3,7 +3,6 @@
 --  NPC:Alrauverat
 -- !pos -101 0 -182 245
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.OTHER

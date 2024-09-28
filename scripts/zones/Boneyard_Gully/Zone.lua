@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Boneyard_Gully (8)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -2,7 +2,6 @@
 -- Area: The Ashu Talif (The Black Coffin)
 --  Mob: Ashu Talif Crew
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)
@@ -26,9 +25,7 @@ end
 
 entity.onMobDespawn = function(mob)
     local instance = mob:getInstance()
-    if instance then
-        instance:setProgress(instance:getProgress() + 1)
-    end
+    instance:setProgress(instance:getProgress() + 1)
 end
 
 return entity

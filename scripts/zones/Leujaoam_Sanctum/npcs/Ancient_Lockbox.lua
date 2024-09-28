@@ -2,7 +2,6 @@
 -- Area: Leujaoam Sanctum
 -- Ancient Lockbox
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

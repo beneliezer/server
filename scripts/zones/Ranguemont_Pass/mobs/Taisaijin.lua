@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.RANGUEMONT_PASS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -3,7 +3,6 @@
 --  NPC: Ponono
 -- !pos 156.069 -0.001 -15.667 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.KUFTAL_TUNNEL]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

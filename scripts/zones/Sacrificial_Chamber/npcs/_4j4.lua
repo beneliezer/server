@@ -3,7 +3,6 @@
 --  NPC: Mahogany Door
 -- !pos 300 30 -324 163
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

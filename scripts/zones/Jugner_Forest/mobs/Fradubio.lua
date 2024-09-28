@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.JUGNER_FOREST]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local updateRegen = function(mob)
@@ -35,12 +34,7 @@ entity.onMobWeaponSkill = function(target, mob, skill)
             if pet and not pet:isSpawned() then
                 pet:setSpawn(mob:getXPos() + 1, mob:getYPos(), mob:getZPos())
                 pet:spawn()
-
-                local mobTarget = mob:getTarget()
-                if mobTarget then
-                    pet:updateEnmity(mobTarget)
-                end
-
+                pet:updateEnmity(mob:getTarget())
                 break
             end
         end

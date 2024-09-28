@@ -2,7 +2,6 @@
 -- Area: Western Altepa Desert
 --  Mob: Desert Spider
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

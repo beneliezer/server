@@ -2,7 +2,6 @@
 -- Area: Inner Horutoto Ruins
 --  NPC: Grounds Tome
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

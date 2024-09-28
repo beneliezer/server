@@ -3,7 +3,6 @@
 -- Mob: Fire Elemental
 -- Quest: Waking the Beast
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Yavoraile
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

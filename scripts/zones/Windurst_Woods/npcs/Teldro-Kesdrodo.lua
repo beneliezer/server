@@ -3,7 +3,6 @@
 -- NPC : Teldro-Kesdrodo
 -- Unity NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

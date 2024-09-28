@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Wajaom_Woodlands (51)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

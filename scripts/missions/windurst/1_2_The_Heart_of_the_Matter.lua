@@ -367,9 +367,12 @@ mission.sections =
 
         [xi.zone.EAST_SARUTABARUTA] =
         {
-            onZoneIn = function(player, prevZone)
-                return 48
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 48
+                end,
+            },
 
             onEventFinish =
             {

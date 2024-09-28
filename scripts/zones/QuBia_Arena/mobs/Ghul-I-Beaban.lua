@@ -3,7 +3,6 @@
 --  Mob: Ghul-I-Beaban
 -- BCNM: Undying Promise
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local function reraiseGhul(mob, numReraises, target)

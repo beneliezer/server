@@ -3,7 +3,6 @@
 --  NPC: Tokaka
 -- Starts & Finishes Repeatable Quest: Something Fishy
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

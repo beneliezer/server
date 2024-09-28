@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.CRAWLERS_NEST_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local morillePHTable =

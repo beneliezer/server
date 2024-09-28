@@ -2,7 +2,6 @@
 -- Area: Garlaige Citadel
 --   NM: Frogamander
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -3,7 +3,6 @@
 --  NPC: Sohdede
 -- !pos -60.601 -7.499 111.639 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

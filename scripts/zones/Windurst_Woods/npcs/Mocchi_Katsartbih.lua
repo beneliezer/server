@@ -3,7 +3,6 @@
 --  NPC: Mocchi Katsartbih
 -- !pos -13.225 -4.888 -164.108 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

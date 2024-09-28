@@ -3,7 +3,6 @@
 --  NPC: Black Mud
 -- Starts & Finishes Quest: Drachenfall
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

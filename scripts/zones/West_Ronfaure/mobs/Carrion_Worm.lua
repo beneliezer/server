@@ -2,7 +2,6 @@
 -- Area: West Ronfaure
 --  Mob: Carrion Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

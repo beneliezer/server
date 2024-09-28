@@ -5,7 +5,6 @@
 -----------------------------------
 local func = require('scripts/zones/Carpenters_Landing/globals')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

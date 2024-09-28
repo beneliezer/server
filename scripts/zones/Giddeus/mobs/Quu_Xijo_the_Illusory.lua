@@ -2,7 +2,6 @@
 -- Area: Giddeus (145)
 --   NM: Quu Xijo the Illusory
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

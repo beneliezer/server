@@ -29,11 +29,14 @@ mission.sections =
         {
             ['Hollowed_Pathway'] = mission:progressEvent(32),
 
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 2 then
-                    mission:complete(player)
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 2 then
+                        mission:complete(player)
+                    end
+                end,
+            },
 
             onEventFinish =
             {
@@ -48,11 +51,14 @@ mission.sections =
 
         [xi.zone.CIRDAS_CAVERNS] =
         {
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 1 then
-                    return 29
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 1 then
+                        return 29
+                    end
+                end,
+            },
 
             onEventFinish =
             {

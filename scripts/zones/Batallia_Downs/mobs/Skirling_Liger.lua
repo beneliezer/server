@@ -2,7 +2,6 @@
 -- Area: Batallia Downs (105)
 --  Mob: Skirling Liger
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

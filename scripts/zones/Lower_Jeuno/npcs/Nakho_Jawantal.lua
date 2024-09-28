@@ -2,7 +2,6 @@
 -- Area: Lower Jeuno
 --  NPC: Jawantal
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

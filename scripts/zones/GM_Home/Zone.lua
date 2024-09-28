@@ -10,7 +10,6 @@
 -- 140 = Camera test.
 -- 141 = "Press confirm button to proceed" nonworking test.
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

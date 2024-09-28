@@ -2,7 +2,6 @@
 -- Area: Gustav Tunnel
 --  Mob: Goblin Shepherd
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

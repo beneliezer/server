@@ -2,7 +2,6 @@
 -- Area: Aht Urhgan Whitegate
 --  NPC: Door: Kokba Hostel
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

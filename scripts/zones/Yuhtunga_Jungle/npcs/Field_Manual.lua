@@ -2,7 +2,6 @@
 -- Area: Yuhtunga Jungle
 --  NPC: Field Manual
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

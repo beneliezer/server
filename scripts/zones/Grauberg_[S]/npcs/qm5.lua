@@ -4,7 +4,6 @@
 --  Quest - Fires of Discontent
 -- pos 258 33 516
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

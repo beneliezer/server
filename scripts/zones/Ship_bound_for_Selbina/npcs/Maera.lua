@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.SHIP_BOUND_FOR_SELBINA]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Bastok Markets
 --  NPC: Alert Gaze
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

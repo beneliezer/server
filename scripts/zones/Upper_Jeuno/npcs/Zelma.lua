@@ -2,7 +2,6 @@
 -- Area: Upper Jeuno
 --  NPC: Zelma
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -134,16 +134,14 @@ quest.sections =
             {
                 [631] = function(player, csid, option, npc)
                     if quest:getVar(player, 'Prog') == 2 then
-                        -- TODO: This is most likely not retail accurate, and need to check captures
-                        -- for forced zoning events.
-                        player:startEvent(632)
+                        return quest:progressEvent(632)
                     end
                 end,
 
                 [632] = function(player, csid, option, npc)
                     player:confirmTrade()
                     quest:setVar(player, 'Prog', 0)
-                    npcUtil.giveKeyItem(player, xi.ki.TEMPLE_KNIGHT_KEY)
+                    return quest:keyItem(xi.ki.TEMPLE_KNIGHT_KEY)
                 end
             },
         },

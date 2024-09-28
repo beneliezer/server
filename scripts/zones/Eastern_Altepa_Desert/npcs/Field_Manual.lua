@@ -2,7 +2,6 @@
 -- Field Manual
 -- Area: Eastern Altepa Desert
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

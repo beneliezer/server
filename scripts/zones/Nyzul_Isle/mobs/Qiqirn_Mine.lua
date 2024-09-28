@@ -3,7 +3,6 @@
 --  MOB: Qiqirn Mine
 -- Note: Explosive mine from Qiqrin
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

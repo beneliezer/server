@@ -18,7 +18,7 @@ xi.magic.spellFlag =
 -- Spell AOE IDs
 -----------------------------------
 
----@enum xi.magic.aoe
+---@enum xi.aoe
 xi.magic.aoe =
 {
     NONE        = 0,
@@ -34,7 +34,7 @@ xi.magic.aoe =
 -- Spell Groups
 -----------------------------------
 
----@enum xi.magic.spellGroup
+---@enum xi.spellGroup
 xi.magic.spellGroup =
 {
     NONE      = 0,
@@ -52,7 +52,7 @@ xi.magic.spellGroup =
 -- Spell Families
 -----------------------------------
 
----@enum xi.magic.spellFamily
+---@enum xi.spellFamily
 xi.magic.spellFamily =
 {
     NONE               = 0,
@@ -218,7 +218,7 @@ xi.magic.spellFamily =
 -- Spell IDs
 -----------------------------------
 
----@enum xi.magic.spell
+---@enum xi.spell
 xi.magic.spell =
 {
     CURE                  =    1,

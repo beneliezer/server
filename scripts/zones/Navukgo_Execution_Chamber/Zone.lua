@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Navukgo_Execution_Chamber (64)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

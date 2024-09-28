@@ -3,7 +3,6 @@
 --  Mob: Bitoso
 -- BCNM: Creeping Doom
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -9,8 +9,7 @@ local itemObject = {}
 
 itemObject.onItemCheck = function(target, item, param, caster)
     local pet = target:getPet()
-
-    if not pet then
+    if pet == nil then
         return xi.msg.basic.REQUIRES_A_PET
     elseif pet:hasStatusEffect(xi.effect.MEDICINE) then
         return xi.msg.basic.ITEM_NO_USE_MEDICATED
@@ -22,6 +21,7 @@ end
 itemObject.onItemUse = function(target)
     if target:addStatusEffect(xi.effect.MEDICINE, 0, 0, 180, 5320) then
         local pet = target:getPet()
+
         if not pet then
             return
         end

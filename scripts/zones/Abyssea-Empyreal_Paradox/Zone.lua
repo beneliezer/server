@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Abyssea - Empyreal_Paradox
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

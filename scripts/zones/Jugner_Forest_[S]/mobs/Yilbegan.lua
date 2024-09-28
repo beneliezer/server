@@ -1,7 +1,6 @@
 -----------------------------------
 --  VNM: Yilbegan
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

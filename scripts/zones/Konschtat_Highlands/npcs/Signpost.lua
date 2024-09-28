@@ -3,7 +3,6 @@
 --  NPC: Signpost
 -- !pos -183 65 599 108
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

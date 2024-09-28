@@ -3,7 +3,6 @@
 --  Mob: Annihilated Anthony
 -- BCNM: Celery
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

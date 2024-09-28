@@ -3,7 +3,6 @@
 --  Mob: Doll Factory
 -- BCNM: Factory Rejects
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

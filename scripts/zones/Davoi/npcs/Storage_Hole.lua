@@ -2,7 +2,6 @@
 -- Area: Davoi
 --  NPC: Storage Hole
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

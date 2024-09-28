@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Tavnazian_Safehold (26)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

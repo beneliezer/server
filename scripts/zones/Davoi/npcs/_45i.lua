@@ -4,7 +4,6 @@
 -- Used In Quest: Whence Blows the Wind
 -- !pos 380 0.1 -181 149
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: Ququroon
 -- !pos -2.400 -1 66.824 53
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

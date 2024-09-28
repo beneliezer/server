@@ -2,7 +2,6 @@
 -- Area: Qufim Island
 --  Mob: Atkorkamuy
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

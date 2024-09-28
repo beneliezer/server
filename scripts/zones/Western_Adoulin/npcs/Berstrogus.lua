@@ -3,7 +3,6 @@
 --  NPC: Berstrogus
 -- !pos -44 4 -10 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

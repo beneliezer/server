@@ -4,7 +4,6 @@
 -- !pos 108 2 -11 80 (Allied with San d'Oria)
 -- Freelance NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

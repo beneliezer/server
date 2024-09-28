@@ -3,7 +3,6 @@
 --  NPC: Antiquated_Sluice_Gate
 -- !pos -529.361 -7.000 59.988 258
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

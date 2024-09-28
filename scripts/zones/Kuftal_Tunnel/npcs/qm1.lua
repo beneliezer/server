@@ -7,7 +7,6 @@
 local ID = zones[xi.zone.KUFTAL_TUNNEL]
 local kuftalGlobal = require('scripts/zones/Kuftal_Tunnel/globals')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

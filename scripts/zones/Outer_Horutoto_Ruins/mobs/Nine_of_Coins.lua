@@ -2,7 +2,6 @@
 -- Area: Outer Horutoto Ruins
 --  Mob: Nine of Coins
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

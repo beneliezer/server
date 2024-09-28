@@ -2,7 +2,6 @@
 -- QuHau_Spring
 -- Area: Ro'Maeve
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

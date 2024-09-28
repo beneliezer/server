@@ -4,7 +4,6 @@
 -- Notes: Opens _0sw (Reliquiarium Gate)
 -- !pos 23.447 -1.563 50.941 28
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

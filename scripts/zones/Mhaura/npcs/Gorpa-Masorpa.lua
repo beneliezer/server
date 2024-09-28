@@ -2,7 +2,6 @@
 -- Area: Mhaura (249)
 -- Gorpa-Masorpa  : !pos -27.584 -15.990 52.565 249
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

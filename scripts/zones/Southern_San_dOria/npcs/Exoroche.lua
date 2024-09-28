@@ -4,7 +4,6 @@
 -- Involved in Quests: Father and Son, A Boy's Dream
 -- !pos 72 -1 60 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

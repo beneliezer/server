@@ -2,7 +2,6 @@
 -- Area: Bastok Markets (S) (H-10)
 --  NPC: Angry Bull (S)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

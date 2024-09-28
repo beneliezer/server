@@ -3,7 +3,6 @@
 --  Mob: Yali
 -- Windurst Mission 9-2
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

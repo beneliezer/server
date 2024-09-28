@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.AHT_URHGAN_WHITEGATE]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- Since every outcome includes a head, track number unlocked based on this.

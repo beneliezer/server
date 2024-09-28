@@ -4,7 +4,6 @@
 -- Type: Palace Guard
 -- !pos 100.580 -40.150 -63.830 257
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

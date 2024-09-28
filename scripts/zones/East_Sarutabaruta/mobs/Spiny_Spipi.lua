@@ -2,7 +2,6 @@
 -- Area: East Sarutabaruta
 --   NM: Spiny Spipi
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -3,7 +3,6 @@
 --  NPC: ??? (qm8)
 -- Note: Spawns Animated Claymore
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

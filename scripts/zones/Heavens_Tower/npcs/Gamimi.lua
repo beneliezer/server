@@ -4,7 +4,6 @@
 -- Type: GOLD WORLD PASS ARBITER
 -- !pos 4 0.1 32 242
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

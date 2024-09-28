@@ -2,7 +2,6 @@
 -- Area: Valkurm Dunes (103)
 --   NM: Golden Bat
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Phomiuna_Aqueducts
 --   NM: Tres Duendes
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

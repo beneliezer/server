@@ -2,7 +2,6 @@
 -- Area: Norg
 --  NPC: Ailee
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

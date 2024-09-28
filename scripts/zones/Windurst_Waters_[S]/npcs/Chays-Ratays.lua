@@ -3,7 +3,6 @@
 --  NPC: Chays-Ratays
 -- !pos -6.013 -4.999 -185.219 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

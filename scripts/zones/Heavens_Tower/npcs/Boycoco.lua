@@ -3,7 +3,6 @@
 --  NPC: Boycoco
 -- !pos -6.360 -26.5 -4.167 242
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: Sohyon
 -- !pos 47.286 -7.282 13.873 252
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
