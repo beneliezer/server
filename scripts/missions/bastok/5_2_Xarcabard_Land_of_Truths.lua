@@ -154,8 +154,7 @@ mission.sections =
                             player:addMission(xi.mission.log_id.ZILART, xi.mission.id.zilart.THE_NEW_FRONTIER)
                         end
 
-                        -- TODO: This is most likely a pos change followed by onZoneIn event
-                        player:startEvent(7)
+                        return mission:progressEvent(7)
                     end
                 end,
 

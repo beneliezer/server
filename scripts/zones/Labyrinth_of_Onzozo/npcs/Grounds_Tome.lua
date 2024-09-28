@@ -2,7 +2,6 @@
 -- Area: Labyrinth of Onzozo
 --  NPC: Grounds Tome
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

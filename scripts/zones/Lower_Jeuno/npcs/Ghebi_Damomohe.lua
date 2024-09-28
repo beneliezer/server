@@ -6,7 +6,6 @@
 -- !pos 16 0 -5 245
 -- TODO Enum shop items
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

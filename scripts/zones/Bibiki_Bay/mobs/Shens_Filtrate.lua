@@ -2,7 +2,6 @@
 -- Area: Bibiki Bay
 --  Mob: Shen's Filtrate - Shen Elemental
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

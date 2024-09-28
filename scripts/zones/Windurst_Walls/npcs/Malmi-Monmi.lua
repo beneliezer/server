@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Malmi-Monmi
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

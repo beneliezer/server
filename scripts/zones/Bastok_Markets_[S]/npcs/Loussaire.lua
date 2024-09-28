@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BASTOK_MARKETS_S]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -39,17 +38,17 @@ entity.onTrigger = function(player, npc)
                 gownQuestProgress == 2
             )
         then
-            local itemid   = xi.item.SCHOLARS_GOWN
+            local itemid   = 14580 -- Scholar's Gown
             local firstKI  = xi.ki.PEISTE_DUNG
             local secondKI = xi.ki.SAMPLE_OF_GRAUBERG_CHERT
 
             if loafersQuestProgress == 1 or loafersQuestProgress == 2 then
-                itemid   = xi.item.SCHOLARS_LOAFERS
+                itemid   = 15748 -- Scholar's Loafers
                 firstKI  = xi.ki.RAFFLESIA_DREAMSPIT
                 secondKI = xi.ki.DROGAROGAN_BONEMEAL
 
             elseif pantsQuestProgress == 1 or pantsQuestProgress == 2 then
-                itemid   = xi.item.SCHOLARS_PANTS
+                itemid   = 16311 -- Scholar's Pants
                 firstKI  = xi.ki.SLUG_MUCUS
                 secondKI = xi.ki.DJINN_EMBER
             end

@@ -2,7 +2,6 @@
 -- Area: Bastok Mines
 --  NPC: Explorer Moogle
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local eventId = 585

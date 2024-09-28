@@ -2,7 +2,6 @@
 -- Area: Inner Horutoto Ruins
 --  Mob: Skinnymajinx
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

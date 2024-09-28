@@ -2,7 +2,6 @@
 -- Area: West Sarutabaruta
 --   NM: Numbing Norman
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

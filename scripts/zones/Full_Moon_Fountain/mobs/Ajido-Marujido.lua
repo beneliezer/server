@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.FULL_MOON_FOUNTAIN]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

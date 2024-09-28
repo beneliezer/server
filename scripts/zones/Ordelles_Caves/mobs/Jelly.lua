@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ORDELLES_CAVES]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local agarPHTable =

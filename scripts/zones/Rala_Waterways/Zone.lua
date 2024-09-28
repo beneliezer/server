@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Rala Waterways (258)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -2,7 +2,6 @@
 -- Area: Apollyon (Central)
 --  Mob: Proto-Omega
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local quadrupedForm = function(mob)

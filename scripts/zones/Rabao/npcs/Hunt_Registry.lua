@@ -2,7 +2,6 @@
 -- Area: Rabao
 --  NPC: Hunt Registry
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

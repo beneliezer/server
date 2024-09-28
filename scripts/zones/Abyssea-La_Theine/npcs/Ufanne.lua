@@ -2,7 +2,6 @@
 -- Zone: Abyssea - La-Theine
 --  NPC: Ufanne
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

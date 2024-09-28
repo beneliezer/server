@@ -4,7 +4,6 @@
 -- Type: AH Manager
 -- !pos -17.661 -1 -117.352 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

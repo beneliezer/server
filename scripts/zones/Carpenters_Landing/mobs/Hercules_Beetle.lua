@@ -2,7 +2,6 @@
 -- Area: Carpenters Landing
 --   NM: Hercules Beetle
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

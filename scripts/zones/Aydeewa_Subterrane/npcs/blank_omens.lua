@@ -3,7 +3,6 @@
 --  NPC: Blank (Omens Quest)
 -- !pos 342.129 36.509 -24.856 68
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

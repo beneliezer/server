@@ -2,7 +2,6 @@
 -- Area: Korroloka Tunnel (173)
 --   NM: Cargo Crab Colin
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.GARLAIGE_CITADEL]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -26,6 +25,7 @@ entity.onTrigger = function(player, npc)
         player:startEvent(5)
     else
         player:messageSpecial(ID.text.OPEN_WITH_THE_RIGHT_KEY)
+        return 0
     end
 end
 

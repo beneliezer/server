@@ -6,7 +6,6 @@
 mixins = { require('scripts/mixins/families/marid'), require('scripts/mixins/families/chigoe_pet') }
 local ID = zones[xi.zone.BHAFLAU_THICKETS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local mahishasuraPHTable =

@@ -2,7 +2,6 @@
 -- Area: Mamool Ja Training Grounds
 -- Ancient Lockbox
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

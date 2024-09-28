@@ -4,7 +4,6 @@
 -- !pos -33 0 33 80
 -- Melody Minstrel
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

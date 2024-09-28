@@ -2,7 +2,6 @@
 -- Area: Fei'Yin
 --  Mob: Wekufe
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

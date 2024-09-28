@@ -3,7 +3,6 @@
 --  NPC: ??? (qm19)
 -- Note: Spawns Animated Horn
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

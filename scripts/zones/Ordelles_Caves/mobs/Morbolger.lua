@@ -2,7 +2,6 @@
 -- Area: Ordelles Caves (193)
 --   NM: Morbolger
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

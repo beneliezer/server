@@ -5,7 +5,6 @@
 -- Involved in Son and Father
 -- Hidden during Campaign Battle in the city
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

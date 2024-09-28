@@ -3,7 +3,6 @@
 --  NPC: Flame Spout
 -- !pos 193.967 -0.400 19.492 205
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

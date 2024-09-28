@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Noragu-Meragu
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

@@ -2,7 +2,6 @@
 -- Area: Qufim Island
 --  Mob: Clipper
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: North Gustaberg
 --  Mob: Tunnel Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

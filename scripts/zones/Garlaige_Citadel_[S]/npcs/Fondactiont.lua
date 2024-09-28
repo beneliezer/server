@@ -4,7 +4,6 @@
 -- Starts and Finishes Quest: The Fumbling Friar
 -- !pos -95 0 196 164
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -41,7 +40,7 @@ entity.onEventFinish = function(player, csid, option, npc)
         player:addQuest(xi.questLog.CRYSTAL_WAR, xi.quest.id.crystalWar.THE_FUMBLING_FRIAR)
     elseif
         csid == 28 and
-        npcUtil.completeQuest(player, xi.questLog.CRYSTAL_WAR, xi.quest.id.crystalWar.THE_FUMBLING_FRIAR, { item = xi.item.SCROLL_OF_RECALL_PASHH })
+        npcUtil.completeQuest(player, xi.questLog.CRYSTAL_WAR, xi.quest.id.crystalWar.THE_FUMBLING_FRIAR, { item = 4688 })
     then
         player:delKeyItem(xi.ki.ORNATE_PACKAGE)
     end

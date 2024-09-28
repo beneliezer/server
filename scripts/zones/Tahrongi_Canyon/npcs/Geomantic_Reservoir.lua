@@ -4,7 +4,6 @@
 -- Unlocks: Geo-Voidance
 -- !pos 78.056 15.998 117.224 117
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

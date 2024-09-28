@@ -4,7 +4,6 @@
 -- Starts Quest: Borghertz's Hands (AF Hands, Many job)
 -- !pos -5 1 48 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local prerequisites =

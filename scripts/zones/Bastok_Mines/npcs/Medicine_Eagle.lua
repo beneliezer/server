@@ -5,7 +5,6 @@
 -- !pos -40 0 38 234
 -- Events 1, 25, 176, 180, 181
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

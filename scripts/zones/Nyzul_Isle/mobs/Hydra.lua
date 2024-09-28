@@ -5,7 +5,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/nyzul_boss_drops') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local function handleRegen(mob, broken)

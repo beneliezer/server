@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.GUSGEN_MINES]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

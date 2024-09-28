@@ -3,7 +3,6 @@
 --  Mob: Fistule
 -- Note: Spawn by dissolve Guimauve, Bloodguzzler or Lentor
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local getNearestMob = function(fistule, mobs)

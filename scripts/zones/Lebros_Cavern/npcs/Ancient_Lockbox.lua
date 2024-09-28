@@ -2,7 +2,6 @@
 -- Area: Lebros Cavern
 -- Ancient Lockbox
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.DANGRUF_WADI]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local teporingoPHTable =

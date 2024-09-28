@@ -2,7 +2,6 @@
 -- Area: Garlaige Citadel (200)
 --   NM: Old Two-Wings
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

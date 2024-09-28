@@ -2,7 +2,6 @@
 -- Area: Windurst Woods
 --  NPC: Seven of Spades
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

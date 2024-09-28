@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Karija-Marija
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- Karija-Marija doesn't stop walking, so all the points

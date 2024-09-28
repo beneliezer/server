@@ -4,7 +4,6 @@
 -- Note: entrance for "Ouryu Cometh"
 -- !pos 183.390 -3.250 341.550 30
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

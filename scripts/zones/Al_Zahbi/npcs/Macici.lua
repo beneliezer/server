@@ -4,7 +4,6 @@
 -- Type: Smithing Normal/Adv. Image Support
 -- !pos -35.163 -1 -31.351 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

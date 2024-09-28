@@ -4,7 +4,6 @@
 -- Gobbie Mystery Box
 -- !pos -215.5 0.0 -147.3
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local events =

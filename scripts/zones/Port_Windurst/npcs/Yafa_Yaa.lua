@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Yafa Yaa
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

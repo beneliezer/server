@@ -2,7 +2,6 @@
 -- Area: Gusgen Mines
 --   NM: Smothered Schmidt
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobRoam = function(mob)

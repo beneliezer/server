@@ -5,7 +5,6 @@
 local ID = zones[xi.zone.SEALIONS_DEN]
 mixins = { require('scripts/mixins/warriors_path_taru') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -31,13 +30,8 @@ entity.onMobEngage = function(mob, target)
 end
 
 entity.onMobFight = function(mob, target)
+    local bfID = mob:getBattlefield():getArea()
     local battlefield = mob:getBattlefield()
-    if not battlefield then
-        return
-    end
-
-    local bfID = battlefield:getArea()
-
     local changetime = mob:getLocalVar('changetime')
     local battletime = mob:getBattleTime()
     if battlefield:getLocalVar('fireworks') == 1 then

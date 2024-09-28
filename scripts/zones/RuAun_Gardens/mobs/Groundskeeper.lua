@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.RUAUN_GARDENS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local despotPHTable =

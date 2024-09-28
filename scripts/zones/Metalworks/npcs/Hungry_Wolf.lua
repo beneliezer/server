@@ -3,7 +3,6 @@
 --  NPC: Hungry Wolf
 -- !pos -25.861 -11 -30.172 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

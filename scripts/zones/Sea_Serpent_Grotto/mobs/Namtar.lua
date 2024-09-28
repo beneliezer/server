@@ -2,7 +2,6 @@
 -- Area: Sea Serpent Grotto
 --   NM: Namtar
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

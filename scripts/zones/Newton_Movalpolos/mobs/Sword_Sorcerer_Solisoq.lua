@@ -2,7 +2,6 @@
 -- Area: Newton Movalpolos
 --   NM: Sword Sorcerer Solisoq
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Albiona
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

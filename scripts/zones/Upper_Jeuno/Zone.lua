@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Upper_Jeuno (244)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

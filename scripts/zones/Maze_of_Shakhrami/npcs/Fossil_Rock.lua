@@ -3,7 +3,6 @@
 --  NPC: Fossil Rock
 -- !pos 17 18 184 198 + <many pos>
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

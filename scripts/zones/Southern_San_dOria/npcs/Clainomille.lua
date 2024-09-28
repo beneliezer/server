@@ -3,7 +3,6 @@
 --  NPC: Clainomille
 -- !pos -72.771 0.999 -6.112 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

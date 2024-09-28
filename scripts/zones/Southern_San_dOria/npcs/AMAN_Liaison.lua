@@ -2,7 +2,6 @@
 -- Area: Southern San d'Oria
 --  NPC: A.M.A.N Liaison
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

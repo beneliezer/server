@@ -2,7 +2,6 @@
 -- Area: Dynamis - Qufim
 --  Mob: Adamantking Effigy
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

@@ -2,7 +2,6 @@
 -- Area: RoMaeve
 --   NM: Martinet
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

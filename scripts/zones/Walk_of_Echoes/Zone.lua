@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Walk_of_Echoes
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

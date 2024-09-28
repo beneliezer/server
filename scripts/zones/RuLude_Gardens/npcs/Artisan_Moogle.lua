@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Artisan Moogle
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Blank Card
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

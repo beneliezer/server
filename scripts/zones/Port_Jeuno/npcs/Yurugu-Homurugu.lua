@@ -2,7 +2,6 @@
 -- Area: Port Jeuno
 --  NPC: Yurugu-Homurugu
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

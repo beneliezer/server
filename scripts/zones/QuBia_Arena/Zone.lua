@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Qu'Bia Arena (206)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

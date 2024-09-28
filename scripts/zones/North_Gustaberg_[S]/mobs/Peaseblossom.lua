@@ -2,7 +2,6 @@
 -- Area: North Gustaberg [S]
 --   NM: Peaseblossom
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

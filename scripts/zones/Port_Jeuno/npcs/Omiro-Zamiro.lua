@@ -3,7 +3,6 @@
 --  NPC: Omiro-Zamiro
 -- !pos 3 7 -54 246
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

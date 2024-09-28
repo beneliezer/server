@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Bearclaw_Pinnacle (6)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

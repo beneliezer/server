@@ -3,7 +3,6 @@
 --  NPC: Paytah
 -- !pos 77.550 -6 117.769 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

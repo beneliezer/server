@@ -3,7 +3,6 @@
 --  NPC: Nereus
 -- Starts and ends repeteable quest A_POTTER_S_PREFERENCE
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 --    player:startEvent(110) -- standar dialog

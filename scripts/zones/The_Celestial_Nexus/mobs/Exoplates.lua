@@ -3,7 +3,6 @@
 --  Mob: Exoplates
 -- Zilart Mission 16 BCNM Fight
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -55,6 +54,12 @@ entity.onMobDeath = function(mob, player, optParams)
         ealdnarche:delStatusEffect(xi.effect.ARROW_SHIELD)
         ealdnarche:delStatusEffect(xi.effect.MAGIC_SHIELD)
     end
+end
+
+entity.onEventUpdate = function(player, csid, option, npc)
+end
+
+entity.onEventFinish = function(player, csid, option, npc)
 end
 
 return entity

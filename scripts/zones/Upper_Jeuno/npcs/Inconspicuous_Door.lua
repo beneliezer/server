@@ -4,7 +4,6 @@
 -- A Moogle Kupo d'Etat Mission NPC
 -- !pos -15 1.300 68 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

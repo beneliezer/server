@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WINDURST_WOODS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local trustMemory = function(player)

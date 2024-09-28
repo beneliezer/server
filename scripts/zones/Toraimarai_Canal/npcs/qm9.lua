@@ -4,7 +4,6 @@
 -- Involved In Quest: The Root of the Problem
 -- !pos -137 16 151 169
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

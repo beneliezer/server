@@ -5,7 +5,6 @@ local ID = zones[xi.zone.PASHHOW_MARSHLANDS]
 require('scripts/quests/i_can_hear_a_rainbow')
 require('scripts/missions/amk/helpers')
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -48,6 +47,7 @@ end
 
 zoneObject.onZoneWeatherChange = function(weather)
     local toxicTamlyn = GetMobByID(ID.mob.TOXIC_TAMLYN)
+
     if not toxicTamlyn then
         return
     end

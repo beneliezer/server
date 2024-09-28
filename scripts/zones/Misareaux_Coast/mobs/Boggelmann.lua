@@ -2,7 +2,6 @@
 -- Area: Misareaux Coast
 --  Mob: Boggelmann
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

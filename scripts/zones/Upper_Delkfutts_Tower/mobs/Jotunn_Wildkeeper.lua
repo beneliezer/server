@@ -2,7 +2,6 @@
 -- Area: Upper Delkfutt's Tower
 --  Mob: Jotunn Wildkeeper
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

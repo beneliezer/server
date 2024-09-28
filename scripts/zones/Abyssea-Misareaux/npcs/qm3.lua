@@ -4,7 +4,6 @@
 -- Spawns Funeral Apkallu
 -- !pos 209 -23 321 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

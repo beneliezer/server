@@ -5,7 +5,6 @@
 local ID = zones[xi.zone.BEHEMOTHS_DOMINION]
 mixins = { require('scripts/mixins/job_special') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDisengage = function(mob)

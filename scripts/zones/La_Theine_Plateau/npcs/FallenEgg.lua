@@ -6,7 +6,6 @@
 local laTheineGlobal = require('scripts/zones/La_Theine_Plateau/globals')
 local ID = zones[xi.zone.LA_THEINE_PLATEAU]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

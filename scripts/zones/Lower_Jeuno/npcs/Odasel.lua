@@ -2,7 +2,6 @@
 -- Area: Lower Jeuno
 --  NPC: Odasel
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

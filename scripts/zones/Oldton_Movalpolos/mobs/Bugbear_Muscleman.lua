@@ -2,7 +2,6 @@
 -- Area: Oldton Movalpolos
 --   NM: Bugbear Muscleman
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

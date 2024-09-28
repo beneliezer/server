@@ -4,7 +4,6 @@
 -- Involved in Mission: The Davoi Report
 -- !pos 215 0.1 -10 149
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

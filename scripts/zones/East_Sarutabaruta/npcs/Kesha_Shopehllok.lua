@@ -4,7 +4,6 @@
 -- Type: Goldfish Scooping
 -- !pos -22.316 -2.79 -50.815 116
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

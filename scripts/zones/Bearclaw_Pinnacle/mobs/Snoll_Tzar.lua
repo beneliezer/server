@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BEARCLAW_PINNACLE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)
@@ -14,7 +13,7 @@ end
 entity.onMobEngage = function(mob, target)
 end
 
-entity.onMobFight = function(mob, player)
+entity.onMobFight = function(mob, player, target)
     local changeTime = mob:getLocalVar('changeTime')
     local delay = mob:getLocalVar('delayed')
     local cd = mob:getLocalVar('cooldown')
@@ -87,7 +86,6 @@ entity.onMobDeath = function(mob, player, optParams)
 
     -- end BCNM
     if
-        bf and
         gameOver == 1 and
         mob:getBattleTime() - changeTime > 3
     then

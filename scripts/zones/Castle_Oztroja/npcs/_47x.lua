@@ -4,7 +4,6 @@
 -- Notes: Opens door _477
 -- !pos -99 -71 -41 151
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

@@ -3,7 +3,6 @@
 --  NPC: Sniggnix
 -- !pos -45.832 4.498 -135.029 245
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

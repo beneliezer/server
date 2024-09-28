@@ -3,7 +3,6 @@
 --  NPC: Hooknox
 -- !pos -265.248 11.693 -102.547 152
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -23,9 +23,12 @@ mission.sections =
 
         [xi.zone.RUAUN_GARDENS] =
         {
-            onZoneIn = function(player, prevZone)
-                return 51
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 51
+                end,
+            },
 
             onEventFinish =
             {

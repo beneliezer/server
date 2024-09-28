@@ -3,7 +3,6 @@
 --  NPC: Spare Two
 --  Involved in quest: A Greeting Cardian
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

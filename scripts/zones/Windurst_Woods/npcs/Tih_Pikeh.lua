@@ -3,7 +3,6 @@
 --  NPC: Tih Pikeh
 -- !pos 107 -5 -22 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

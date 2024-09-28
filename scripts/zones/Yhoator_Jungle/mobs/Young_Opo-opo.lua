@@ -2,7 +2,6 @@
 -- Area: Yhoator Jungle
 --  Mob: Young Opo-opo
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

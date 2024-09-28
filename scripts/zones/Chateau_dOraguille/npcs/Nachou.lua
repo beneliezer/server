@@ -3,7 +3,6 @@
 --  NPC: Nachou
 -- !pos -39.965 -3.999 34.292 233
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

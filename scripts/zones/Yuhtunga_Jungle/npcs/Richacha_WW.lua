@@ -4,7 +4,6 @@
 -- Border Conquest Guards
 -- !pos -241.334 -1 478.602 123
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.WINDURST

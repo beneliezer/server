@@ -2,7 +2,6 @@
 -- Area: Vunkerl Inlet [S]
 --   NM: Big Bang
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

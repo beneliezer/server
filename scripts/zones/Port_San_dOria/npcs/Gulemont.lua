@@ -6,7 +6,6 @@
 -----------------------------------
 -- Starts and Finishes Quest: The Dismayed Customer
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

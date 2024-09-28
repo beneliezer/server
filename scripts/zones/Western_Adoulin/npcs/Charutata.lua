@@ -3,7 +3,6 @@
 --  NPC: Charutata
 -- !pos -17 0 -90 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WEST_SARUTABARUTA]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local nunyenuncPHTable =

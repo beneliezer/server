@@ -2,7 +2,6 @@
 -- Area: West Sarutabaruta (115)
 --   NM: Nunyenunc
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

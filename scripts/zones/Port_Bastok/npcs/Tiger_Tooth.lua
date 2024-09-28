@@ -2,7 +2,6 @@
 -- Area: Port Bastok
 --  NPC: Tiger Tooth
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

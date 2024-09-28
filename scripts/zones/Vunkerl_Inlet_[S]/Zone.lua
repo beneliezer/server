@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.VUNKERL_INLET_S]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

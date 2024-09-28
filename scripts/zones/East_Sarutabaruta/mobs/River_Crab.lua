@@ -3,7 +3,6 @@
 --  Mob: River Crab
 -- Note: PH for Duke Decapod
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

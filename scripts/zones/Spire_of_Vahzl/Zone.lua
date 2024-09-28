@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Spire_of_Vahzl (23)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

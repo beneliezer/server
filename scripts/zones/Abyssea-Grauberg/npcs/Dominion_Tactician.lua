@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ABYSSEA_GRAUBERG]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local itemType =

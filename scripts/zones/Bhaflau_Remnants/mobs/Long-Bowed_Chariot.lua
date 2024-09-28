@@ -2,7 +2,6 @@
 -- Area: Bhaflau Remnants
 --  Mob: Long-Bowed Chariot
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

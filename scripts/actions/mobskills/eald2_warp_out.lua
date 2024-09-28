@@ -11,6 +11,7 @@ end
 
 mobskillObject.onMobWeaponSkill = function(target, mob, skill)
     local battletarget = mob:getTarget()
+
     if not battletarget then
         return
     end

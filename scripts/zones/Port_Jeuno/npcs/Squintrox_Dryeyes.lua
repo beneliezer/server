@@ -9,7 +9,6 @@
 local ID = zones[xi.zone.PORT_JEUNO]
 require('scripts/missions/amk/helpers')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- maps the menu options to the key items/missions that block access

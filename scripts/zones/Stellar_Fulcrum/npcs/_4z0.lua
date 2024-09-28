@@ -3,7 +3,6 @@
 -- Door: Qe'Lov Gate
 -- !pos -520 -4 17 179
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

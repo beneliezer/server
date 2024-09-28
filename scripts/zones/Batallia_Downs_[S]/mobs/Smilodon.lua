@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BATALLIA_DOWNS_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local laVeluePHTable =

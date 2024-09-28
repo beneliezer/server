@@ -3,7 +3,6 @@
 --  NPC: Veridical Conflux
 -- !pos -414 14 -60 182
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

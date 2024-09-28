@@ -2,7 +2,6 @@
 -- Area: Eastern Altepa Desert (114)
 --   NM: Dune Widow
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

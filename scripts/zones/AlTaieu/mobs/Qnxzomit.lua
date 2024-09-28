@@ -6,7 +6,6 @@
 mixins = { require('scripts/mixins/job_special') }
 local ID = zones[xi.zone.ALTAIEU]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

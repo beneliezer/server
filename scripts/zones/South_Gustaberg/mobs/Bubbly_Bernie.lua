@@ -2,7 +2,6 @@
 -- Area: South Gustaberg
 --   NM: Bubbly Bernie
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

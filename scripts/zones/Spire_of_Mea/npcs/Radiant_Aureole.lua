@@ -2,7 +2,6 @@
 -- Area: Spire of Mea
 --  NPC: Radiant Aureole
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

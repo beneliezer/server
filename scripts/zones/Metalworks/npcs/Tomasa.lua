@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.METALWORKS]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

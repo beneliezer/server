@@ -2,7 +2,6 @@
 -- Area: Xarcabard
 --  Mob: Hail Gigas
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.LOWER_JEUNO]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local function getQuestId(mainJobId)

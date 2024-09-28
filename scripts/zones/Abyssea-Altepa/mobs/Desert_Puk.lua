@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/puk') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

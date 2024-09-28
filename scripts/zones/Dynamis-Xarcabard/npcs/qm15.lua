@@ -3,7 +3,6 @@
 --  NPC: ??? (qm15)
 -- Note: Spawns Animated Hammer
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

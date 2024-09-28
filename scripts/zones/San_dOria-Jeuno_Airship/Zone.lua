@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: San_dOria-Jeuno_Airship
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

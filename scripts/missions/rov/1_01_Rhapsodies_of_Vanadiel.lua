@@ -28,22 +28,23 @@ local rovEntryZones =
 }
 
 mission.sections    = {}
-mission.sections[1] =
-{
-    check = function(player, currentMission, missionStatus, vars)
-        return currentMission == mission.missionId and
-            xi.settings.main.ENABLE_ROV == 1 and
-            player:getMainLvl() >= 3 and
-            not player:isInMogHouse()
-    end,
-}
+mission.sections[1] = {}
 
----@type ZoneSection
+mission.sections[1].check = function(player, currentMission, missionStatus, vars)
+    return currentMission == mission.missionId and
+        xi.settings.main.ENABLE_ROV == 1 and
+        player:getMainLvl() >= 3 and
+        not player:isInMogHouse()
+end
+
 local rovZoneInEvent =
 {
-    onZoneIn = function(player, prevZone)
-        return 30035
-    end,
+    onZoneIn =
+    {
+        function(player, prevZone)
+            return 30035
+        end,
+    },
 
     onEventFinish =
     {

@@ -4,7 +4,6 @@
 -- Unlocks: Geo-Wilt
 -- !pos 412.263 4.161 111.199 260
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

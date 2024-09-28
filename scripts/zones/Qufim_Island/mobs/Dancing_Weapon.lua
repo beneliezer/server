@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.QUFIM_ISLAND]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local tricksterPHTable =

@@ -4,7 +4,6 @@
 -- Spawns Npfundlwa
 -- !pos 412 -7 50 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

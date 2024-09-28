@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Mamool Ja Training Grounds
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -10,7 +9,7 @@ end
 entity.onTrigger = function(player, npc)
     local instance = npc:getInstance()
 
-    if instance and instance:completed() then
+    if instance:completed() then
         player:startEvent(100, 1)
     end
 end

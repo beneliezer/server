@@ -3,7 +3,6 @@
 --  NPC: Ten of Hearts
 -- !pos -49.441 -5.909 226.524 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

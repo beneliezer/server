@@ -2,7 +2,6 @@
 -- Area: Inner Horutoto Ruins
 --  Mob: Battue Bats
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

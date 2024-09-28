@@ -2,7 +2,6 @@
 -- Area: Upper Delkfutt's Tower
 --  Mob: Incubus Bats
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

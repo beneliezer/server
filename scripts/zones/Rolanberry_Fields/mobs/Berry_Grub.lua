@@ -2,7 +2,6 @@
 -- Area: Rolanberry Fields
 --  Mob: Berry Grub
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

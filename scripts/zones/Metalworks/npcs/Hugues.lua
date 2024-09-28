@@ -4,7 +4,6 @@
 -- Type: Smithing Synthesis Image Support
 -- !pos -106.336 2.000 26.117 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

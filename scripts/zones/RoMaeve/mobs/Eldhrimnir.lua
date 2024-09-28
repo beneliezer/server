@@ -5,7 +5,6 @@
 -- Involved in Quest: Orastery Woes
 -- !pos 200.3 -11 -24.8 122
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

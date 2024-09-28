@@ -2,7 +2,6 @@
 -- Area: Cape Teriggan
 -- Type: Field Manual
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

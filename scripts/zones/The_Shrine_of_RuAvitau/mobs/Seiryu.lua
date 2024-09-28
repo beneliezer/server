@@ -2,7 +2,6 @@
 -- Area: The Shrine of Ru'Avitau
 --  Mob: Seiryu (Pet version)
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

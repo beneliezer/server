@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WEST_SARUTABARUTA_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local ramponneauPHTable =

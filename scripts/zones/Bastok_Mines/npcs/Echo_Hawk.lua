@@ -3,7 +3,6 @@
 --  NPC: Echo Hawk
 -- !pos -0.965 5.999 -15.567 234
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

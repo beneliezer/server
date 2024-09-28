@@ -2,7 +2,6 @@
 -- Area: North Gustaberg
 --  Mob: Young Quadav
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

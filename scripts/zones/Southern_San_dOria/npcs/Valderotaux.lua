@@ -4,7 +4,6 @@
 --  General Info NPC
 -- !pos 97 0.1 113 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

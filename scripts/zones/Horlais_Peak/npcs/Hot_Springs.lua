@@ -3,7 +3,6 @@
 --  NPC: Hot Springs
 -- !pos 444 -37 -18 139
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

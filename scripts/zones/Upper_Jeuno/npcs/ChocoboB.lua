@@ -3,7 +3,6 @@
 --  NPC: Chocobo
 -- Pos: -57 8 83 244
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

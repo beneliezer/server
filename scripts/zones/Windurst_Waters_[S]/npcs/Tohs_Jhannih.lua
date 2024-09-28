@@ -3,7 +3,6 @@
 --  NPC: Tohs Jhannih
 -- !pos -46.492 -4.5 70.828 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

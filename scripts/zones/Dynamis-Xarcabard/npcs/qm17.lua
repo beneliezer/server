@@ -3,7 +3,6 @@
 --  NPC: ??? (qm17)
 -- Note: Spawns Animated Longbow
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

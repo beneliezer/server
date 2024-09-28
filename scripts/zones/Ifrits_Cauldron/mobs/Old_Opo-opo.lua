@@ -2,7 +2,6 @@
 -- Area: Ifrit's Cauldron
 --  Mob: Old Opo-opo
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

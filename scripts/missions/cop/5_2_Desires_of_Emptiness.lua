@@ -179,15 +179,18 @@ mission.sections =
 
         [xi.zone.SPIRE_OF_VAHZL] =
         {
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 1 then
-                    if bit.rshift(mission:getVar(player, 'Option'), 3) == 7 then
-                        return 20
-                    else
-                        return 21
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 1 then
+                        if bit.rshift(mission:getVar(player, 'Option'), 3) == 7 then
+                            return 20
+                        else
+                            return 21
+                        end
                     end
-                end
-            end,
+                end,
+            },
 
             onEventFinish =
             {
@@ -246,11 +249,14 @@ mission.sections =
                 end,
             },
 
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 3 then
-                    return 206
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 3 then
+                        return 206
+                    end
+                end,
+            },
 
             onEventUpdate =
             {

@@ -4,7 +4,6 @@
 local func = require('scripts/zones/Carpenters_Landing/globals')
 local ID = zones[xi.zone.CARPENTERS_LANDING]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

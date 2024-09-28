@@ -2,7 +2,6 @@
 -- Area: Port San d'Oria
 --  NPC: Liloune
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

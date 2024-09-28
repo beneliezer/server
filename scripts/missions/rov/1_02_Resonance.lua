@@ -21,9 +21,12 @@ mission.sections =
 
         [xi.zone.MHAURA] =
         {
-            onZoneIn = function(player, prevZone)
-                return 368
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 368
+                end,
+            },
 
             onEventFinish =
             {
@@ -38,9 +41,12 @@ mission.sections =
 
         [xi.zone.SELBINA] =
         {
-            onZoneIn = function(player, prevZone)
-                return 176
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 176
+                end,
+            },
 
             onEventFinish =
             {

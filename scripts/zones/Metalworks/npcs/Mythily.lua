@@ -4,7 +4,6 @@
 -- Type: Immigration NPC
 -- !pos 94 -20 -8 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

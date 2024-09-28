@@ -4,7 +4,6 @@
 -- !pos 444.000 -0.500 320.000 218
 -- Notes Teleports Players to South Gustaberg
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

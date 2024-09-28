@@ -4,7 +4,6 @@
 -- Type: Adventurer's Assistant
 -- !pos 40.167 -14.999 16.073 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

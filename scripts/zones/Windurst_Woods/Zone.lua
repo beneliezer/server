@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Windurst_Woods (241)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

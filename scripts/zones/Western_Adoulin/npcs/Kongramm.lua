@@ -3,7 +3,6 @@
 --  NPC: Kongramm
 -- !pos 61 32 138 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

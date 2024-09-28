@@ -28,25 +28,26 @@ local rovEntryZones =
 }
 
 mission.sections    = {}
-mission.sections[1] =
-{
-    check = function(player, currentMission, missionStatus, vars)
-        local pNation = player:getNation()
+mission.sections[1] = {}
 
-        return currentMission == mission.missionId and
-            (
-                player:getRank(pNation) > 5 or
-                (player:getCurrentMission(pNation) == xi.mission.id.nation.SHADOW_LORD and player:getMissionStatus(pNation) >= 4)
-            )
-    end,
-}
+mission.sections[1].check = function(player, currentMission, missionStatus, vars)
+    local pNation = player:getNation()
 
----@type ZoneSection
+    return currentMission == mission.missionId and
+        (
+            player:getRank(pNation) > 5 or
+            (player:getCurrentMission(pNation) == xi.mission.id.nation.SHADOW_LORD and player:getMissionStatus(pNation) >= 4)
+        )
+end
+
 local rovZoneInEvent =
 {
-    onZoneIn = function(player, prevZone)
-        return 30036
-    end,
+    onZoneIn =
+    {
+        function(player, prevZone)
+            return 30036
+        end,
+    },
 
     onEventFinish =
     {

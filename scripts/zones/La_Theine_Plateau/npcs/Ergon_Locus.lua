@@ -4,7 +4,6 @@
 -- Involved in quest Dances with Luopans
 -- pos 420.399 24.389 28.734
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

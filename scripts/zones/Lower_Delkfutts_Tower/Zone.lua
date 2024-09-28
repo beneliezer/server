@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Lower_Delkfutts_Tower (184)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

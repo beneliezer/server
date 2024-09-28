@@ -2,7 +2,6 @@
 -- Area: Buburimu Peninsula
 --  Mob: Goblin Bounty Hunter
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

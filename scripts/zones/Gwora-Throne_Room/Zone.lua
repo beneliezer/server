@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Gwora-Throne_Room (299)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -3,7 +3,6 @@
 --  NPC: ??? (qm0)
 -- Note: Spawns Apocalyptic Beast / Arch Apocalyptic Beast
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

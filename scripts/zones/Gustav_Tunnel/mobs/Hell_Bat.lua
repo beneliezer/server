@@ -2,7 +2,6 @@
 -- Area: Gustav Tunnel
 --  Mob: Hell Bat
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

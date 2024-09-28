@@ -4,7 +4,6 @@
 local ID = zones[xi.zone.ROLANBERRY_FIELDS]
 require('scripts/quests/i_can_hear_a_rainbow')
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

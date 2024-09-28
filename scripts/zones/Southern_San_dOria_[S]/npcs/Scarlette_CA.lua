@@ -4,7 +4,6 @@
 -- !pos -27 2 -29 80
 -- Campaign Arbiter
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.CAPE_TERIGGAN]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local frostmanePHTable =

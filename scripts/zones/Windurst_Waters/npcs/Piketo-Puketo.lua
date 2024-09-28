@@ -4,7 +4,6 @@
 -- Type: Cooking Guild Master
 -- !pos -124.012 -2.999 59.998 238
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

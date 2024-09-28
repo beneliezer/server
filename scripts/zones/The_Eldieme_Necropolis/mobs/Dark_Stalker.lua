@@ -2,7 +2,6 @@
 -- Area: The Eldieme Necropolis
 --  Mob: Dark Stalker
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

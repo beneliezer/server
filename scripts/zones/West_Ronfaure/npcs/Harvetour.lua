@@ -4,7 +4,6 @@
 -- Type: Outpost Vendor
 -- !pos -448 -19 -214 100
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local vendorRegion  = xi.region.RONFAURE

@@ -3,7 +3,6 @@
 --  Mob: Cirrate Christelle
 -- Note: Mega Boss
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

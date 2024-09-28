@@ -3,7 +3,6 @@
 --  NPC: Yatniel
 -- !pos -66.817 -7 -126.594 245
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

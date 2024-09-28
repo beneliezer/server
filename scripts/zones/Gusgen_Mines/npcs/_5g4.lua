@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.GUSGEN_MINES]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -15,7 +14,7 @@ entity.onTrigger = function(player, npc)
     if npc:getAnimation() == 9 then
         player:messageSpecial(ID.text.LOCK_OTHER_DEVICE)
     else
-        return
+        return 0
     end
 end
 

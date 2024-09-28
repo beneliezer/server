@@ -2,7 +2,6 @@
 -- Area: Windurst Walls
 --  NPC: Purakoko
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local paths =

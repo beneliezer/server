@@ -2,7 +2,6 @@
 -- Area: The Shrine of Ru'Avitau
 --  Mob: Earth Elemental
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Batallia Downs
 --  Mob: Weeping Willow
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

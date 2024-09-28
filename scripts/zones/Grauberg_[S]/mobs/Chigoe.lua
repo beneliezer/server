@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/chigoe') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

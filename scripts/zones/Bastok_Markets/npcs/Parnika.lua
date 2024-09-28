@@ -2,7 +2,6 @@
 -- Area: Bastok Markets
 --  NPC: Parnika
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

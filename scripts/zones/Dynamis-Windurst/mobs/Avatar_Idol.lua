@@ -2,7 +2,6 @@
 -- Area: Dynamis - Windurst
 --  Mob: Avatar Idol
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

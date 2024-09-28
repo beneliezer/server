@@ -3,7 +3,6 @@
 --  NPC: Spatial Displacement
 -- !pos -35 -1 -539 31
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

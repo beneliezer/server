@@ -3,7 +3,6 @@
 --  NPC: Roderich
 -- Involved in Quests: The Fighting Fourth
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

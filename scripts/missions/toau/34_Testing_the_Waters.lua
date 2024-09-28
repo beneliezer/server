@@ -45,11 +45,14 @@ mission.sections =
 
         [xi.zone.TALACCA_COVE] =
         {
-            onZoneIn = function(player, prevZone)
-                if player:getMissionStatus(mission.areaId) == 1 then
-                    return 106
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if player:getMissionStatus(mission.areaId) == 1 then
+                        return 106
+                    end
+                end,
+            },
 
             onEventFinish =
             {

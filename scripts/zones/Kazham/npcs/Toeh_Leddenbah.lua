@@ -2,7 +2,6 @@
 -- Area: Kazham
 --  NPC: Toeh Leddenbah
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

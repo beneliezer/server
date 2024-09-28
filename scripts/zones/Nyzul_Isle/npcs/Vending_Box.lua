@@ -3,7 +3,6 @@
 -- NPC:   Vending Box
 -- Notes: Pick Temp items for assault
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

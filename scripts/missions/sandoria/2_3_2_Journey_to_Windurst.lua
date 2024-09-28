@@ -65,11 +65,14 @@ mission.sections =
                 end,
             },
 
-            onZoneIn = function(player, prevZone)
-                if player:getMissionStatus(mission.areaId) == 3 then
-                    return 42
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if player:getMissionStatus(mission.areaId) == 3 then
+                        return 42
+                    end
+                end,
+            },
 
             onEventUpdate =
             {

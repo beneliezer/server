@@ -3,7 +3,6 @@
 --  NPC: Cermet Door (Exit)
 -- Involved in Zilart Mission 7
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

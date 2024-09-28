@@ -4,7 +4,6 @@
 -- Type: Outpost Vendor
 -- !pos -24 -59 -120 111
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local vendorRegion  = xi.region.FAUREGANDI

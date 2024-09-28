@@ -2,7 +2,6 @@
 -- Area: Ru'Aun Gardens
 --  NPC: Survival Guide
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, targetNpc)

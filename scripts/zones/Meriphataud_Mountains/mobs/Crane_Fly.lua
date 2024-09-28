@@ -2,7 +2,6 @@
 -- Area: Meriphataud Mountains
 --  Mob: Crane Fly
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Valley of Sorrows
 --  Mob: Peryton
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.FORT_GHELSBA]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

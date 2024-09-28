@@ -2,7 +2,6 @@
 -- Area: The Sanctuary of ZiTah
 --   NM: Keeper of Halidom
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

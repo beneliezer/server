@@ -56,10 +56,6 @@ xi.mobSkill =
     RAZOR_FANG_2      = 1678,
     CLAW_CYCLONE_2    = 1679,
 
-    HYPNIC_LAMP       = 1695,
-
-    XENOGLOSSIA       = 1823,
-
     SANDBLAST_2       = 1841,
     SANDPIT_2         = 1842,
     VENOM_SPRAY_2     = 1843,
@@ -69,8 +65,6 @@ xi.mobSkill =
     RANGED_ATTACK_15  = 1949,
 
     ECLOSION          = 1970,
-    DEATHGNASH        = 1977,
-    BOREAS_MANTLE     = 1980,
 
     ROAR_3            = 2406,
 

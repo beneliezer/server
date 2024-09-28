@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.GIDDEUS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local vuuPuquPHTable =

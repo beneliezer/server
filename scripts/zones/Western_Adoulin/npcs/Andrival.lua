@@ -3,7 +3,6 @@
 --  NPC: Andrival
 -- !pos 26 0 127 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

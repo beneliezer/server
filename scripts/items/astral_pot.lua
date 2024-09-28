@@ -25,6 +25,7 @@ end
 
 itemObject.onEffectGain = function(target, effect)
     local pet = target:getPet()
+
     if not pet then
         return
     end

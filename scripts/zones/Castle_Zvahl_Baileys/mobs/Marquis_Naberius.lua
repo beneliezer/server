@@ -2,7 +2,6 @@
 -- Area: Castle Zvahl Baileys (161)
 --   NM: Marquis Naberius
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

@@ -4,7 +4,6 @@
 -- Spawns Resheph
 -- !pos 433 -51 145 253
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

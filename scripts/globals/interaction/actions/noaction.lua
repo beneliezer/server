@@ -6,7 +6,6 @@
 -----------------------------------
 require('scripts/globals/interaction/actions/action')
 
----@class TNoAction : TAction
 NoAction = Action:new(Action.Type.NoAction)
 
 function NoAction:new(prio)

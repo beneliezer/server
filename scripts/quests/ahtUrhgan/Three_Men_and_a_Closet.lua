@@ -18,8 +18,7 @@ quest.sections =
     -- Section: Begin quest
     {
         check = function(player, status, vars)
-            return status == xi.questStatus.QUEST_AVAILABLE and
-                player:getQuestStatus(xi.questLog.AHT_URHGAN, xi.quest.id.ahtUrhgan.GOT_IT_ALL) == xi.questStatus.QUEST_COMPLETED
+            return status == xi.questStatus.QUEST_AVAILABLE and player:getQuestStatus(xi.questLog.AHT_URHGAN, xi.quest.id.ahtUrhgan.GOT_IT_ALL) == xi.questStatus.QUEST_COMPLETED
         end,
 
         [xi.zone.AHT_URHGAN_WHITEGATE] =
@@ -27,7 +26,7 @@ quest.sections =
             ['Kubhe_Ijyuhla'] =
             {
                 onTrigger = function(player, npc)
-                    return quest:progressEvent(836)
+                    return quest:progressEvent(player, 836)
                 end
             },
 
@@ -117,14 +116,17 @@ quest.sections =
 
         [xi.zone.WAJAOM_WOODLANDS] =
         {
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.AHT_URHGAN_WHITEGATE and
-                    quest:getVar(player, 'Prog') == 0
-                then
-                    return 510
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.AHT_URHGAN_WHITEGATE and
+                        quest:getVar(player, 'Prog') == 0
+                    then
+                        return 510
+                    end
+                end,
+            },
 
             onEventFinish =
             {

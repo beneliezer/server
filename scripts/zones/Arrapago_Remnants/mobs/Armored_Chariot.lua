@@ -2,7 +2,6 @@
 -- Area: Arrapago Remnants
 --   NM: Armored Chariot
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

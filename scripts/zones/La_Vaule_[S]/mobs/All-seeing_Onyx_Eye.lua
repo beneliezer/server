@@ -2,7 +2,6 @@
 -- Area: La Vaule [S]
 --   NM: All-seeing Onyx Eye
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Den of Rancor
 --  Mob: Hakutaku
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

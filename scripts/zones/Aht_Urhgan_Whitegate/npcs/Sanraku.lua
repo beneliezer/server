@@ -4,7 +4,6 @@
 -- Type: Zeni NM pop item and trophy management.
 -- !pos -125.724 0.999 22.136 50
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

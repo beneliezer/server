@@ -2,7 +2,6 @@
 -- Area: Hazhalm Testing Grounds
 --  NPC: Entry Gate (TOAU-36)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

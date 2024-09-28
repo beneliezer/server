@@ -3,7 +3,6 @@
 --  NPC: Grimr
 -- !pos 31.819 -11.001 22.311 249
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

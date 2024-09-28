@@ -6,14 +6,10 @@
 local ID = zones[xi.zone.NYZUL_ISLE]
 require('scripts/zones/Nyzul_Isle/instances/nyzul_isle_investigation')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)
     local instance = npc:getInstance()
-    if not instance then
-        return
-    end
 
     if npc:getAnimationSub() == 1 and npc:getLocalVar('cued') == 0 then
         if instance:getLocalVar('menuChoice') > 1 then
@@ -33,7 +29,6 @@ entity.onEventUpdate = function(player, csid, option, npc)
     local instance = player:getInstance()
 
     if
-        instance and
         csid == 201 and
         option ~= utils.EVENT_CANCELLED_OPTION and
         instance:getLocalVar('runeHandler') == 0
@@ -53,12 +48,8 @@ end
 
 entity.onEventFinish = function(player, csid, option, npc)
     local instance = npc:getInstance()
-    if not instance then
-        return
-    end
-
-    local chars = instance:getChars()
-    local mobs  = instance:getMobs()
+    local chars    = instance:getChars()
+    local mobs     = instance:getMobs()
 
     if csid == 1 then
         for _, players in ipairs(chars) do

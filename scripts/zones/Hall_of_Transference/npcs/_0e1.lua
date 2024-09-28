@@ -3,7 +3,6 @@
 --  NPC: Cermet Gate - Dem
 -- !pos -220 -46 -279 14
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

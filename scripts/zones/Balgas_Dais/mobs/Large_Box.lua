@@ -3,7 +3,6 @@
 --   NM: Large Box
 -- BCNM: Treasures and Tribulations
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

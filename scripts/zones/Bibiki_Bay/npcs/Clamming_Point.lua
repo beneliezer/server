@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BIBIKI_BAY]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 -- clammingItems = item id, weight, drop rate, improved drop rate
@@ -42,11 +41,13 @@ local clammingItems =
     5122,  3, 1.000, 1.000  -- Bibiki Slug
 }
 
+entity.firstClammingPointID = -1
+
 entity.onSpawn = function(npc)
     local firstClammingPoint = npc:getZone():queryEntitiesByName('Clamming_Point')[1]
 
     if firstClammingPoint then
-        npc:setLocalVar('firstClammingPoint', firstClammingPoint:getID())
+        entity.firstClammingPointID = firstClammingPoint:getID()
     else
         print('ERROR: Clamming_Point not found in queryEntitiesByName!')
     end
@@ -73,7 +74,7 @@ end
 
 entity.onTrigger = function(player, npc)
     -- be noisy to try to get server admins to notice...
-    if npc:getLocalVar('firstClammingPoint') == 0 then
+    if entity.firstClammingPointID == -1 then
         print('ERROR: Clamming_Point not found!')
         return
     end
@@ -84,7 +85,7 @@ entity.onTrigger = function(player, npc)
         if delay > 0 and delay > os.time() then
             player:messageSpecial(ID.text.IT_LOOKS_LIKE_SOMEONE)
         else
-            local eventID = npc:getID() - npc:getLocalVar('firstClammingPoint') + 20
+            local eventID = npc:getID() - entity.firstClammingPointID + 20
 
             player:startEvent(eventID, 0, 0, 0, 0, 0, 0, 0, 0)
         end
@@ -98,7 +99,7 @@ end
 -- Param 2: Max weight of bucket in ponze
 -- Param 3: 0 = no Alraune, 1 = Alraune (used for the Something jumped in the bucket message with bucket size 200)
 entity.onEventUpdate = function(player, csid, option, npc)
-    local eventID = npc:getID() - npc:getLocalVar('firstClammingPoint') + 20
+    local eventID = npc:getID() - entity.firstClammingPointID + 20
 
     if csid == eventID then
         if player:getCharVar('ClammingKitBroken') > 0 then -- Broken bucket
@@ -143,7 +144,7 @@ entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)
-    local eventID = npc:getID() - npc:getLocalVar('firstClammingPoint') + 20
+    local eventID = npc:getID() - entity.firstClammingPointID + 20
 
     if csid == eventID then
         if player:getLocalVar('SomethingJumpedInBucket') > 0 then

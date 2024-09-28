@@ -2,7 +2,6 @@
 -- Area: Uleguerand Range
 --   NM: Bonnacon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

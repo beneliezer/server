@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WAUGHROON_SHRINE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

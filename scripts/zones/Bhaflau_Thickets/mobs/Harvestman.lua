@@ -3,7 +3,6 @@
 --   NM: Harvestman
 -- !pos 398.130 -10.675 179.169 52
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

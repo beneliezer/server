@@ -4,7 +4,6 @@
 -- Spawns Rakshas
 -- !pos -203 -39 -26 217
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

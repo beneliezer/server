@@ -5,7 +5,6 @@
 mixins = { require('scripts/mixins/job_special') }
 require('scripts/quests/tutorial')
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

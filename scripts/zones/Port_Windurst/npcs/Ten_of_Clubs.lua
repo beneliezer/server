@@ -3,7 +3,6 @@
 --  NPC: Ten of Clubs
 -- !pos -229.393 -9.2 182.696 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -4,7 +4,6 @@
 -- Type: Goldsmithing Normal/Adv. Image Support
 -- !pos 49.9 0.1 -45.2 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

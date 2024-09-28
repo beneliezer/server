@@ -2,7 +2,6 @@
 -- Area: Batallia Downs (105)
 --  Mob: Tottering Toby
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

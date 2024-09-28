@@ -4,7 +4,6 @@
 -- Starts & Finishes Quest: The Amazin' Scorpio
 -- !pos -17.073 1.749 -59.327 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

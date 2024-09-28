@@ -3,7 +3,6 @@
 --  NPC: Endracion
 -- !pos -110 1 -34 230
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

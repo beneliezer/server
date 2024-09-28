@@ -3,7 +3,6 @@
 --  NPC: Crystalline Field
 -- !pos .1 -10 -464 33
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

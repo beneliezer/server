@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: The_Celestial_Nexus (181)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

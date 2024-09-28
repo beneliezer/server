@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.GRAUBERG_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local kotanPHTable =

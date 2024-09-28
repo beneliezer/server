@@ -2,7 +2,6 @@
 -- Area: Monarch_Linn
 --  NPC: Spatial Displacement (Successful BCNM Exit)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

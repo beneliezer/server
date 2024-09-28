@@ -2,7 +2,6 @@
 -- Area: Metalworks
 --  NPC: Fariel
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

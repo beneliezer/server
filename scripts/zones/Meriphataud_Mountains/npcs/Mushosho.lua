@@ -4,7 +4,6 @@
 -- Type: Outpost Vendor
 -- !pos -290 16 415 119
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local vendorRegion  = xi.region.ARAGONEU

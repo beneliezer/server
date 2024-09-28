@@ -2,7 +2,6 @@
 -- Area: South Gustaberg
 --  Mob: Land Crab
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

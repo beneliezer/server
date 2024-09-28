@@ -2,7 +2,6 @@
 -- Area: Al'Taieu
 --   NM: Jailer of Justice
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

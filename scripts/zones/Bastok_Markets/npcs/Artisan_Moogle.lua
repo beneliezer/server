@@ -2,7 +2,6 @@
 -- Area: Bastok Markets
 --  NPC: Artisan Moogle
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

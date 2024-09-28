@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.JUGNER_FOREST_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local drumskillPHTable =

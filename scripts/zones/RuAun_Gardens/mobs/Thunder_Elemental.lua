@@ -2,7 +2,6 @@
 -- Area: RuAun Gardens
 --  Mob: Thunder Elemental
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

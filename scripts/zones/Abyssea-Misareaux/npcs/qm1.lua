@@ -4,7 +4,6 @@
 -- Spawns Minax Bugard
 -- !pos 520 15 -268 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

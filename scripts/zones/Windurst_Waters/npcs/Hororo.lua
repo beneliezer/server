@@ -2,7 +2,6 @@
 -- Area: Windurst Waters
 --  NPC: Hororo
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

@@ -2,7 +2,6 @@
 -- Area: Attohwa Chasm
 --   NM: Sekhmet
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

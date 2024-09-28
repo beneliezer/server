@@ -240,7 +240,7 @@ namespace charutils
     void  SendToZone(CCharEntity* PChar, uint8 type, uint64 ipp);
     void  ForceLogout(CCharEntity* PChar);
     void  ForceRezone(CCharEntity* PChar);
-    void  HomePoint(CCharEntity* PChar, bool resetHPMP);
+    void  HomePoint(CCharEntity* PChar);
     bool  AddWeaponSkillPoints(CCharEntity*, SLOTTYPE, int);
 
     int32 GetCharVar(CCharEntity* PChar, std::string const& var);
@@ -279,10 +279,6 @@ namespace charutils
     bool hasEntitySpawned(CCharEntity* PChar, CBaseEntity* entity);
 
     uint32 getCharIdFromName(std::string const& name);
-
-    void forceSynthCritFail(std::string sourceFunction, CCharEntity* PChar);
-
-    void removeCharFromZone(CCharEntity* PChar);
 }; // namespace charutils
 
 #endif // _CHARUTILS_H

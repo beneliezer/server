@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Newton_Movalpolos (12)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

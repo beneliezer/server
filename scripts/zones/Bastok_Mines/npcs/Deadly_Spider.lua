@@ -3,7 +3,6 @@
 --  NPC: Deadly Spider
 -- Involved in Quest: Stamp Hunt
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

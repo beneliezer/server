@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.PORT_WINDURST]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

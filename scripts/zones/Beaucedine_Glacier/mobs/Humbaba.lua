@@ -2,7 +2,6 @@
 -- Area: Beaucedine Glacier
 --   NM: Humbaba
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

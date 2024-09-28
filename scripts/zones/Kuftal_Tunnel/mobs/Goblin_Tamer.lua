@@ -2,7 +2,6 @@
 -- Area: Kuftal Tunnel
 --  Mob: Goblin Tamer
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

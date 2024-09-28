@@ -3,7 +3,6 @@
 --  NPC: Agapito
 -- !pos -72.093 -3.097 9.309 236
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

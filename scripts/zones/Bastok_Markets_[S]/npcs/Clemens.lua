@@ -2,7 +2,6 @@
 -- Area: Bastok Markets (S) (I-10)
 --  NPC: Clemens
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

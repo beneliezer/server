@@ -2,7 +2,6 @@
 -- Area: Ru'Lude Gardens
 --  NPC: Leis
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

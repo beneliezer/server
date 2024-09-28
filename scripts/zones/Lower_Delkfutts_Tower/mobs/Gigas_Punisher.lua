@@ -2,7 +2,6 @@
 -- Area: Lower Delkfutt's Tower
 --  Mob: Gigas Punisher
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

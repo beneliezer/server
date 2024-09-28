@@ -2,7 +2,6 @@
 -- Area: Vunkerl Inlet [S]
 --   NM: Judgmental Julika
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

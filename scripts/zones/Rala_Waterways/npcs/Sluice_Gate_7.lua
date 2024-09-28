@@ -3,7 +3,6 @@
 --  NPC: Sluice Gate #7 (Secret Hideout Exit)
 -- !pos TODO 258
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

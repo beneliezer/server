@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ROMAEVE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local nightmarePHTable =

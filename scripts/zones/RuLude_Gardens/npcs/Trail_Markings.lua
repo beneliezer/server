@@ -4,7 +4,6 @@
 -- Dynamis-Jeuno Enter
 -- !pos 35 9 -51 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

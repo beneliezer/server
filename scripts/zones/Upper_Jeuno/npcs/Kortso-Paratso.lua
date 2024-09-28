@@ -2,7 +2,6 @@
 -- Area: Upper Jeuno
 --  NPC: Kortso-Paratso
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

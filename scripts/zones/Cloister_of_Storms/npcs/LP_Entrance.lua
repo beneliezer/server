@@ -4,7 +4,6 @@
 -- Involved in Quests: Trial by Lightning
 -- !pos 534.5 -13 492 202
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

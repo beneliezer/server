@@ -2,7 +2,6 @@
 -- Area: Al'Taieu
 --  Mob: Ul'yovra
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

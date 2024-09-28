@@ -4,7 +4,6 @@
 -- Spawns Ironclad Pulverizor
 -- !pos -199 -31 145 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

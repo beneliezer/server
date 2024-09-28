@@ -4,7 +4,6 @@
 -- Unlocks: Geo-Refresh
 -- !pos 400.026 70.700 365.002 102
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

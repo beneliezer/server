@@ -115,9 +115,9 @@ namespace traits
         // Manually cleanup traits list
         for (auto jobTraitList : PTraitsList)
         {
-            for (auto trait : jobTraitList)
+            for (auto traitList : jobTraitList)
             {
-                destroy(trait);
+                destroy(traitList);
             }
             jobTraitList.clear();
         }

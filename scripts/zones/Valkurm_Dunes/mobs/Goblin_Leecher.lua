@@ -2,7 +2,6 @@
 -- Area: Valkurm Dunes
 --  Mob: Goblin Leecher
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -4,7 +4,6 @@
 -- Border Conquest Guards
 -- !pos -252.454 -1.958 624.366 121
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.SANDORIA

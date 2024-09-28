@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Jade_Sepulcher (67)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

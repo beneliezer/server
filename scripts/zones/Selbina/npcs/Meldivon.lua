@@ -2,7 +2,6 @@
 -- Area: Selbina
 --  NPC: Meldivon
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

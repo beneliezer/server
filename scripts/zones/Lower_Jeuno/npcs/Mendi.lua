@@ -4,7 +4,6 @@
 -- Reputation NPC
 -- !pos -55 5 -68 245
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Bostaunieux Oubliette (167)
 --   NM: Arioch
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

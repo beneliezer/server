@@ -3,7 +3,6 @@
 --  NPC: Shaz Norem
 -- !pos 2.805 -47.999 -15.083 242
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

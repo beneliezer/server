@@ -3,7 +3,6 @@
 --  NPC: Treasure Chest
 -- !zone 9
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

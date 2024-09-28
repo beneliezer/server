@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Cirdas Caverns
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -3,7 +3,6 @@
 --  NPC: Pursuivant
 -- !pos 52.020 -1 -17.813 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

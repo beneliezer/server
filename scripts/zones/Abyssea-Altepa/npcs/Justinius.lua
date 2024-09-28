@@ -2,7 +2,6 @@
 -- Area: Abyssea_Altepa
 --  NPC: Justinius
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Kazham
 --  NPC: Thali Mhobrum
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

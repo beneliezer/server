@@ -2,7 +2,6 @@
 -- Area: Den of Rancor
 --   NM: Friar Rush
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

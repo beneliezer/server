@@ -2,7 +2,6 @@
 -- Area: Kuftal Tunnel
 --   NM: Guivre
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local pathStart =

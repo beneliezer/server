@@ -2,7 +2,6 @@
 -- Area: Outer Horutoto Ruins
 --  Mob: Five of Swords
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

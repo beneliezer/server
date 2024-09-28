@@ -3,7 +3,6 @@
 --   NM: Bomb Queen
 --  Vid: https://www.youtube.com/watch?v=AVsEbYjSAHM
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -61,6 +60,7 @@ entity.onMobFight = function(mob, target)
                 end
 
                 local pet = GetMobByID(petId)
+
                 if not pet then
                     return
                 end

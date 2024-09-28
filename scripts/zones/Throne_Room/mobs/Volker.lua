@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.THRONE_ROOM]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(volker)
@@ -31,10 +30,7 @@ entity.onMobRoam = function(mob)
         mob:setLocalVar('ready', bit.band(baseID, 0xFFF))
         mob:setLocalVar('wait', 0)
     elseif ready > 0 then
-        local mobObj = GetMobByID(ready + bit.lshift(mob:getZoneID(), 12) + 0x1000000)
-        if mobObj then
-            mob:addEnmity(mobObj, 0, 1)
-        end
+        mob:addEnmity(GetMobByID(ready + bit.lshift(mob:getZoneID(), 12) + 0x1000000), 0, 1)
     else
         mob:setLocalVar('wait', wait + 3)
     end

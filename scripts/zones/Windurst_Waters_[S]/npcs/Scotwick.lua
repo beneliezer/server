@@ -4,7 +4,6 @@
 -- Type: Allied Notes Notorious Monsters
 -- !pos 153.785 -3.134 9.895 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

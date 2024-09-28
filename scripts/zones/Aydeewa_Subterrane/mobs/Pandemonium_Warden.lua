@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.AYDEEWA_SUBTERRANE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 -- Pet Arrays, we'll alternate between phases

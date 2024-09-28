@@ -4,7 +4,6 @@
 -----------------------------------
 local ID = zones[xi.zone.TALACCA_COVE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

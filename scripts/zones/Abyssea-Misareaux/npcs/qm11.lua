@@ -4,7 +4,6 @@
 -- Spawns Tuskertrap
 -- !pos -22 -23 656 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

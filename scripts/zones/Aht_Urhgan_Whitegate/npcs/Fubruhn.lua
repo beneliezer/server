@@ -22,7 +22,6 @@
 -- 602 = Expansion increased
 -- 4th arg = new size of locker
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local function getNumberOfCoinsToUpgradeSize(size)

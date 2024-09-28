@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Reiso-Haroiso
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Pashhow_Marshlands_[S] (90)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

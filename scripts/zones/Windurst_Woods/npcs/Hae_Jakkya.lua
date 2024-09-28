@@ -4,7 +4,6 @@
 -- Involved in quest: Chasing Tales
 -- !pos 57.387 -2.5 -140.757 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

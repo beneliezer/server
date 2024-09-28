@@ -2,7 +2,6 @@
 -- Area: Aydeewa Subterrane
 --   NM: Lizardtrap
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

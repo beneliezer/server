@@ -2,7 +2,6 @@
 -- Area: The Boyahda Tree
 --   NM: Agas
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

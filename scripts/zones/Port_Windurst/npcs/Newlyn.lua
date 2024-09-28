@@ -3,7 +3,6 @@
 --  NPC: Newlyn
 -- !pos 200.673 -6.601 108.665 240
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

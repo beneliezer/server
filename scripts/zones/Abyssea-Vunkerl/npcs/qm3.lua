@@ -4,7 +4,6 @@
 -- Spawns Iku-Turso
 -- !pos 244 -32 240 217
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

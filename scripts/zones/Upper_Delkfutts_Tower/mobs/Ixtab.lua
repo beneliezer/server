@@ -2,7 +2,6 @@
 -- Area: Upper Delkfutts Tower
 --   NM: Ixtab
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

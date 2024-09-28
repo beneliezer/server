@@ -2,7 +2,6 @@
 -- Area: Labyrinth of Onzozo
 --  Mob: Goblin Reaper
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

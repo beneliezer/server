@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.RUAUN_GARDENS]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 local function handleClosingPortal(player, eventId, npcId)

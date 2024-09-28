@@ -2,7 +2,6 @@
 -- Area: The Boyahda Tree
 --  Mob: Bark Spider
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

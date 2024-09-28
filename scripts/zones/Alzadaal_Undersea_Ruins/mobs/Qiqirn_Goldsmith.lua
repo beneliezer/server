@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ALZADAAL_UNDERSEA_RUINS]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local cookiedusterPHTable =

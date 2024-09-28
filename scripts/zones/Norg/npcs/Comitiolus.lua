@@ -3,7 +3,6 @@
 --  NPC: Comitiolus
 -- !pos 100 -7 -13 252
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

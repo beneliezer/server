@@ -2,7 +2,6 @@
 -- Area: Batallia Downs
 --  Mob: Ba
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

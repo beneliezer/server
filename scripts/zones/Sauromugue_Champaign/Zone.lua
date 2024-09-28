@@ -4,7 +4,6 @@
 local ID = zones[xi.zone.SAUROMUGUE_CHAMPAIGN]
 require('scripts/quests/i_can_hear_a_rainbow')
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -39,7 +38,7 @@ end
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
 end
 
-zoneObject.onGameDay = function()
+zoneObject.onGameDay = function(zone)
     for i = ID.npc.QM2, ID.npc.QM2 + 5 do
         GetNPCByID(i):resetLocalVars()
     end

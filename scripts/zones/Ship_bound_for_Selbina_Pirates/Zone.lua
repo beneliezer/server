@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Ship bound for Selbina Pirates (227)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

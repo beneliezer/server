@@ -3,7 +3,6 @@
 --  Mob: Eald'narche
 -- Apocalypse Nigh Final Fight
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

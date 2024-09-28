@@ -2,7 +2,6 @@
 -- Area: Outer Horutoto Ruins
 --   NM: Legalox Heftyhind
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

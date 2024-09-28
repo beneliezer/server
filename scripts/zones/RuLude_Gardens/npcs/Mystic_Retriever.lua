@@ -3,7 +3,6 @@
 --  NPC: Mystic Retriever
 -- Rov NPC
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

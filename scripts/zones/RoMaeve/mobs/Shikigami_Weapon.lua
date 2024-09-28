@@ -2,7 +2,6 @@
 -- Area: RoMaeve
 --   NM: Shikigami Weapon
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local pathNodes =

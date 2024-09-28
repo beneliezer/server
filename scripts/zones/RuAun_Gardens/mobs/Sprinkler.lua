@@ -2,7 +2,6 @@
 -- Area: RuAun Gardens
 --  Mob: Sprinkler
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

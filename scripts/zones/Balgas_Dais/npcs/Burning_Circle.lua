@@ -4,7 +4,6 @@
 -- Balga's Dais Burning Circle
 -- !pos 299 -123 345 146
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

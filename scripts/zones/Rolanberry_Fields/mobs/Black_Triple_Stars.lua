@@ -2,7 +2,6 @@
 -- Area: Rolanberry Fields
 --   NM: Black Triple Stars
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

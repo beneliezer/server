@@ -4,7 +4,6 @@
 -- Type: NPC Voidwalker
 -- !pos -32 0 -76 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

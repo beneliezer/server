@@ -2,7 +2,6 @@
 -- Area: Sealions Den
 --   NM: Ultima
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local abilities = { 1259, 1260, 1269, 1270 }

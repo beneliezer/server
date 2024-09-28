@@ -2,7 +2,6 @@
 -- Area: Eastern Altepa Desert
 --  Mob: Goblin Robber
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

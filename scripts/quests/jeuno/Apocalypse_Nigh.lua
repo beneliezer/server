@@ -77,11 +77,14 @@ quest.sections =
 
         [xi.zone.SEALIONS_DEN] =
         {
-            onZoneIn = function(player, prevZone)
-                if quest:getVar(player, 'Prog') == 0 then
-                    return 29
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if quest:getVar(player, 'Prog') == 0 then
+                        return 29
+                    end
+                end,
+            },
 
             onEventUpdate =
             {
@@ -122,11 +125,14 @@ quest.sections =
 
         [xi.zone.EMPYREAL_PARADOX] =
         {
-            onZoneIn = function(player, prevZone)
-                if quest:getVar(player, 'Prog') == 4 then
-                    return 7
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if quest:getVar(player, 'Prog') == 4 then
+                        return 7
+                    end
+                end,
+            },
 
             ['TR_Entrance'] =
             {

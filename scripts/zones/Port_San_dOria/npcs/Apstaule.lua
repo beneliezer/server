@@ -3,7 +3,6 @@
 --  NPC: Apstaule
 -- Not used cutscenes: 541
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

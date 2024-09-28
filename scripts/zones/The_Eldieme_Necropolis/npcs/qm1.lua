@@ -4,7 +4,6 @@
 -- Involved in Quests: Acting in Good Faith
 -- !pos -17 0 59 195 (I-10)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

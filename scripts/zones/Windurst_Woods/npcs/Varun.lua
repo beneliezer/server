@@ -3,7 +3,6 @@
 --  NPC: Varun
 -- !pos 7.800 -3.5 -10.064 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

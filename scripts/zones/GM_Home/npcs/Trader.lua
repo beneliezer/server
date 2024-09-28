@@ -3,7 +3,6 @@
 --  NPC: Trader
 -- Type: Debug NPC for testing trades.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

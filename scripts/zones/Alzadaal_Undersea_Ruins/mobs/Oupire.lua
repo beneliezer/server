@@ -2,7 +2,6 @@
 -- Area: Alzadaal Undersea Ruins
 --   NM: Oupire
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

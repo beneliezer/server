@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.FORT_KARUGO_NARUGO_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local ratatoskrPHTable =

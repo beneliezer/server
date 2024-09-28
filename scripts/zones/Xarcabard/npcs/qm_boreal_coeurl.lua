@@ -4,7 +4,6 @@
 -- Involved in Quests: Atop the Highest Mountains (for Boreal Coeurl)
 -- !pos 580 -9 290 112
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

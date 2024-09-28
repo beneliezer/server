@@ -2,7 +2,6 @@
 -- Area: Sea Serpent Grotto
 --  Mob: Ironshell
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

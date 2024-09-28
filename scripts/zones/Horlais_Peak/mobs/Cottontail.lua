@@ -3,7 +3,6 @@
 --  Mob: Cottontail
 -- BCNM: Tails of Woe
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

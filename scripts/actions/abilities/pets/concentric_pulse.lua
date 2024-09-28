@@ -9,7 +9,8 @@ abilityObject.onAbilityCheck = function(player, target, ability)
 end
 
 abilityObject.onPetAbility = function(target, pet, skill)
-    local master = pet:getMaster()
+    local master             = pet:getMaster()
+
     if not master then
         return
     end

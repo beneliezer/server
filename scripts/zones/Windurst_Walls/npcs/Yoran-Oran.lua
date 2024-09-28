@@ -3,7 +3,6 @@
 --  NPC: Yoran-Oran
 -- !pos -109.987 -14 203.338 239
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

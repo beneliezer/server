@@ -44,11 +44,14 @@ mission.sections =
 
         [xi.zone.LA_VAULE_S] =
         {
-            onZoneIn = function(player, prevZone)
-                if player:getMissionStatus(mission.areaId) == 2 then
-                    return 6
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if player:getMissionStatus(mission.areaId) == 2 then
+                        return 6
+                    end
+                end,
+            },
 
             onEventFinish =
             {

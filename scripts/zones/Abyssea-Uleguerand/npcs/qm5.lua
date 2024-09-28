@@ -4,7 +4,6 @@
 -- Spawns Koghatu
 -- !pos -108 -175 4 253
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

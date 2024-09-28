@@ -2,7 +2,6 @@
 -- Area: Yhoator Jungle
 --  Mob: Yhoator Mandragora
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -2,7 +2,6 @@
 -- Area: Rolanberry Fields [S]
 --   NM: Lamina
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

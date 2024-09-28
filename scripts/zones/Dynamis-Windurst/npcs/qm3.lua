@@ -3,7 +3,6 @@
 --  NPC: ??? (qm3)
 -- Note: Spawns Naa Yixo the Stillrage
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

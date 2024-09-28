@@ -1,7 +1,6 @@
 -----------------------------------
 -- Zone: Chateau_dOraguille (233)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)

@@ -2,7 +2,6 @@
 -- Area: Crawlers' Nest
 --   NM: Aqrabuamelu
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

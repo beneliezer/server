@@ -180,9 +180,12 @@ mission.sections =
                 onTrigger = largeApparatusOnTrigger,
             },
 
-            onZoneIn = function(player, prevZone)
-                return 108
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 108
+                end,
+            },
 
             onEventFinish =
             {

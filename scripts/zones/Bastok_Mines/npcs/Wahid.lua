@@ -4,7 +4,6 @@
 -- Start & Finishes Quest: The Siren's Tear
 -- !pos 26.305 -1 -66.403 234
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

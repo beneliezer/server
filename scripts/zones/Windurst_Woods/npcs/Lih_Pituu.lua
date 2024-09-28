@@ -4,7 +4,6 @@
 -- Type: Bonecraft Adv. Image Support
 -- !pos -5.471 -6.25 -141.211 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

@@ -2,7 +2,6 @@
 -- Area: Promyvion Holla
 --  NPC: Memory Flux 4th floor
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

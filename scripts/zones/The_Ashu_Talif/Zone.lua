@@ -1,16 +1,17 @@
 -----------------------------------
 -- Zone: The_Ashu_Talif (60)
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
 end
 
 zoneObject.onInstanceZoneIn = function(player, instance)
+    local cs = -1
+
     if player:getInstance() == nil then
         player:setPos(0, 0, 0, 0, 54)
-        return
+        return cs
     end
 
     local pos = player:getPos()
@@ -20,6 +21,8 @@ zoneObject.onInstanceZoneIn = function(player, instance)
     end
 
     player:addTempItem(5349)
+
+    return cs
 end
 
 zoneObject.onTriggerAreaEnter = function(player, triggerArea)
@@ -35,7 +38,7 @@ zoneObject.onEventFinish = function(player, csid, option, npc)
 end
 
 zoneObject.onInstanceLoadFailed = function()
-    return xi.zone.ARRAPAGO_REEF
+    return 54
 end
 
 return zoneObject

@@ -2,7 +2,6 @@
 -- Area: Northern San d'Oria
 --  NPC: Vavegallet
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

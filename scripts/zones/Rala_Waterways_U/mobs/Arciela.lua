@@ -1,7 +1,6 @@
 -----------------------------------
 -- Area: Rala Waterways [U]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 -- [4] =
@@ -31,10 +30,6 @@ local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)
     local instance = mob:getInstance()
-    if not instance then
-        return
-    end
-
     instance:fail()
 end
 

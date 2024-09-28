@@ -2,7 +2,6 @@
 -- Area: Bastok Mines
 --  NPC: Mydon
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

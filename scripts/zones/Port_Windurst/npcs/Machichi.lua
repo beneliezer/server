@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Machichi
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

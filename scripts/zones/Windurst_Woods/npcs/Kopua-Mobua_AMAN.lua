@@ -4,7 +4,6 @@
 -- Type: Mentor Recruiter
 -- !pos -23.134 1.749 -67.284 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

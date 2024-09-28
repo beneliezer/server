@@ -3,7 +3,6 @@
 --  Mob: Sobbing Eyes
 -- BCNM: Under Observation
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

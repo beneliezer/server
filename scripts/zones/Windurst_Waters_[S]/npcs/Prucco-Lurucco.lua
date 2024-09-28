@@ -3,7 +3,6 @@
 --  NPC: Prucco-Lurucco
 -- !pos 140.772 -3.499 132.942 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

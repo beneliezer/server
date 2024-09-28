@@ -6,7 +6,6 @@
 local ID = zones[xi.zone.KORROLOKA_TUNNEL]
 local korrolokaGlobal = require('scripts/zones/Korroloka_Tunnel/globals')
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

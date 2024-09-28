@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.WESTERN_ADOULIN]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
@@ -46,9 +45,7 @@ entity.onEventFinish = function(player, csid, option, npc)
         player:addExp(1000 * xi.settings.main.EXP_RATE)
         player:addCurrency('bayld', 500 * xi.settings.main.BAYLD_RATE)
         player:messageSpecial(ID.text.BAYLD_OBTAINED, 500 * xi.settings.main.BAYLD_RATE)
-
-        -- TODO: Verify fame value added
-        player:addFame(xi.fameArea.ADOULIN, 30)
+        player:addFame(xi.fameArea.ADOULIN)
     end
 end
 

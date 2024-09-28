@@ -3,7 +3,6 @@
 --  NPC: ??? (qm2)
 --  Involved in Quest: HITTING_THE_MARQUISATE (THF AF3)
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: The Boyahda Tree
 --  Mob: Mourning Crawler
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -6,7 +6,6 @@
 -----------------------------------
 local ID = zones[xi.zone.BEHEMOTHS_DOMINION]
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onSpawn = function(npc)

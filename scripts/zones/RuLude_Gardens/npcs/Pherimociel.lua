@@ -3,7 +3,6 @@
 --  NPC: Pherimociel
 -- !pos -31.627 1.002 67.956 243
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

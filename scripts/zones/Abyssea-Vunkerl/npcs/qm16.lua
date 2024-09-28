@@ -4,7 +4,6 @@
 -- Spawns Karkadann
 -- !pos -158 -32 118 217
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

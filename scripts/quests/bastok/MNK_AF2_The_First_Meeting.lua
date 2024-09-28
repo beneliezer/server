@@ -90,14 +90,17 @@ quest.sections =
 
         [xi.zone.FEIYIN] =
         {
-            onZoneIn = function(player, prevZone)
-                if
-                    prevZone == xi.zone.QUBIA_ARENA and
-                    not player:hasKeyItem(xi.ki.LETTER_FROM_DALZAKK)
-                then
-                    return 16
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if
+                        prevZone == xi.zone.QUBIA_ARENA and
+                        not player:hasKeyItem(xi.ki.LETTER_FROM_DALZAKK)
+                    then
+                        return 16
+                    end
+                end,
+            },
 
             onEventFinish =
             {

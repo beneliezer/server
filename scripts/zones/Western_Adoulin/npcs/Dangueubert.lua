@@ -4,7 +4,6 @@
 -- Involved with Quest: 'A Certain Substitute Patrolman'
 -- !pos 5 0 -136 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

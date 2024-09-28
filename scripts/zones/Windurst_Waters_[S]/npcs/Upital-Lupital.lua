@@ -3,7 +3,6 @@
 --  NPC: Upital-Lupital
 -- !pos -57.809 -13.339 122.753 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

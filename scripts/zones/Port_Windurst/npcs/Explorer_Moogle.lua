@@ -2,7 +2,6 @@
 -- Area: Port Windurst
 --  NPC: Explorer Moogle
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local eventId = 854

@@ -3,7 +3,6 @@
 --  NPC: _5cg (Gate of Fire)
 -- !pos -332 0 99 192
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

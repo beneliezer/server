@@ -3,7 +3,6 @@
 --  NPC: ??? COP mission spawn Dalham
 -- !pos
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

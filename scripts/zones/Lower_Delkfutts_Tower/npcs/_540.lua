@@ -5,7 +5,6 @@
 -- Windurst Mission 3.3 "A New Journey"
 -- !pos 636 16 59 184
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

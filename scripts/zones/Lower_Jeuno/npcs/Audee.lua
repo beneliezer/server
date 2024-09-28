@@ -4,7 +4,6 @@
 -- Type: Chocobo Renter
 -- !pos -89.6 -0.100 -197.4 245
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local eventSucceed = 10002

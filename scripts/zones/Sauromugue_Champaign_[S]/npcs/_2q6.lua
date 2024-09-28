@@ -3,7 +3,6 @@
 --  NPC: Ebon Door
 -- !pos -103.959 -26 -416.869 98
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

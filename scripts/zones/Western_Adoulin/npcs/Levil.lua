@@ -4,7 +4,6 @@
 -- Type: Quest and SoA Missions NPC
 -- !pos -87.204 3.350 12.655 256
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

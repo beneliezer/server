@@ -3,7 +3,6 @@
 --  NPC: Sahnn Dhansett
 -- !pos 112.820 -3.122 47.857 94
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

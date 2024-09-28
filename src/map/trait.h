@@ -165,7 +165,6 @@ class CTrait
 {
 public:
     CTrait(uint16 id);
-    virtual ~CTrait() = default;
 
     uint16 getID() const
     {

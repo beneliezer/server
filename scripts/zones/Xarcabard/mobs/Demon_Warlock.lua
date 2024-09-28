@@ -2,7 +2,6 @@
 -- Area: Xarcabard
 --  Mob: Demon Warlock
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

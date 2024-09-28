@@ -2,7 +2,6 @@
 -- Area: Kazham
 --  NPC: Mhebi Juhbily
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

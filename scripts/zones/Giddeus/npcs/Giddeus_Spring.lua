@@ -4,7 +4,6 @@
 -- Involved in Quest "Water Way to Go"
 -- !pos -258 -2 -249 145
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

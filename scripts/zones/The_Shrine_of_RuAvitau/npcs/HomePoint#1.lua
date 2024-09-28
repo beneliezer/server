@@ -3,7 +3,6 @@
 --  NPC: HomePoint#1
 -- !pos -13 48 61 178
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local hpEvent = 8700

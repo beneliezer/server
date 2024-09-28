@@ -2,7 +2,6 @@
 -- Area: Wajaom Woodlands
 --   NM: Gharial
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

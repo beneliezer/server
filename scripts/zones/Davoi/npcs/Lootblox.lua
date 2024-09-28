@@ -3,7 +3,6 @@
 --  NPC: Lootblox
 -- !pos 218.073 -0.982 -20.746 149
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: ??? Used for Norg quest "Stop Your Whining"
 -- !pos -94.073 -0.999 22.295 124
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

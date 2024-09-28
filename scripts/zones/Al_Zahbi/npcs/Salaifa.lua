@@ -3,7 +3,6 @@
 --  NPC: Salaifa
 -- !pos -37.462 -7 -41.665 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

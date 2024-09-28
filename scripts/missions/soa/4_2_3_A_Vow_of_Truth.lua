@@ -27,9 +27,12 @@ mission.sections =
 
         [xi.zone.WOH_GATES] =
         {
-            onZoneIn = function(player, prevZone)
-                return 7
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    return 7
+                end,
+            },
 
             onEventFinish =
             {

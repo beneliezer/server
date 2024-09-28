@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.CAEDARVA_MIRE]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local function spawnMinions(mob, target)

@@ -2,7 +2,6 @@
 -- Area: Quicksand Caves
 --  Mob: Antican Antesignanus
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

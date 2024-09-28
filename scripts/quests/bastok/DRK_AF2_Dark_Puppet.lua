@@ -100,11 +100,14 @@ quest.sections =
                 end,
             },
 
-            onZoneIn = function(player, prevZone)
-                if quest:getVar(player, 'Prog') == 0 then
-                    return 10
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if quest:getVar(player, 'Prog') == 0 then
+                        return 10
+                    end
+                end,
+            },
 
             onEventFinish =
             {
@@ -116,11 +119,14 @@ quest.sections =
 
         [xi.zone.LA_THEINE_PLATEAU] =
         {
-            onZoneIn = function(player, prevZone)
-                if quest:getVar(player, 'Prog') == 2 then
-                    return 122
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if quest:getVar(player, 'Prog') == 2 then
+                        return 122
+                    end
+                end,
+            },
 
             onEventFinish =
             {

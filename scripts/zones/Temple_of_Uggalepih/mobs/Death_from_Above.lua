@@ -2,7 +2,6 @@
 -- Area: Temple of Uggalepih
 --   NM: Death from Above
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)

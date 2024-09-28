@@ -2,7 +2,6 @@
 -- Area: Toraimarai Canal
 --  Mob: Makara
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/rage') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local useMeikyoShisui = function(mob)

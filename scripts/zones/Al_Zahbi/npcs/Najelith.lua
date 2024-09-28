@@ -4,7 +4,6 @@
 -- Type: Galeserpent General
 -- !pos -64.526 -8 39.372 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: Shivivi
 -- !pos 68.729 -6.281 -6.432 252
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

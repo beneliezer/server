@@ -3,7 +3,6 @@
 --  NPC: ??? (qm4)
 -- Note: Spawns Spellspear Djokvukk
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/weapon_break') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobEngage = function(mob, target)

@@ -4,7 +4,6 @@
 -- Type: Zazarg's Attendant
 -- !pos -35.897 -7 107.160 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

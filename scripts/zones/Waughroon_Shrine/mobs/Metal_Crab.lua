@@ -4,7 +4,6 @@
 -- BCNM: Crustacean Conundrum
 -- TODO: You can only do 0-2 damage no matter what your attack is.
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
@@ -13,7 +12,7 @@ end
 
 entity.onMobSpawn = function(mob)
     if VanadielDayOfTheWeek() == xi.day.WATERSDAY then
-        mob:setMod(xi.mod.REGEN, 6)
+        mob:setMod(xi.mod.REGEN, 6, 3, 0)
     end
 end
 

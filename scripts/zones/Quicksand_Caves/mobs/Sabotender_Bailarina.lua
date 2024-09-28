@@ -2,7 +2,6 @@
 -- Area: Quicksand Caves
 --   NM: Sabotender Bailarina
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

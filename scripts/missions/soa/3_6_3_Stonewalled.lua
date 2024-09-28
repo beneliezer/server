@@ -56,11 +56,14 @@ mission.sections =
 
         [xi.zone.CIRDAS_CAVERNS] =
         {
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 1 then
-                    return 30
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 1 then
+                        return 30
+                    end
+                end,
+            },
 
             onEventUpdate =
             {

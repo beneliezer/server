@@ -2,7 +2,6 @@
 -- Area: Abyssea_Vunkeral
 --  NPC: Liloune
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

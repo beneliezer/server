@@ -3,7 +3,6 @@
 --  NPC: Signpost
 -- Involved in Quest: Grimy Signposts
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

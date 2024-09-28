@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/antlion_ambush') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

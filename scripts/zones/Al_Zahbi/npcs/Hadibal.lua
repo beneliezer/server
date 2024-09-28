@@ -3,7 +3,6 @@
 --  NPC: Hadibal
 -- !pos -34.345 -1 -38.842 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -3,7 +3,6 @@
 --  NPC: ??? (qm3)
 -- Note: Spawns Lost Suttung
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

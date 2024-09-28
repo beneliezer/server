@@ -2,7 +2,6 @@
 -- Area: Windurst Water
 --  NPC: Puroiko-Maiko, W.W.
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local guardNation = xi.nation.WINDURST

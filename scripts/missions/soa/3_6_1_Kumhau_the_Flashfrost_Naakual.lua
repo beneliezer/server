@@ -46,11 +46,14 @@ mission.sections =
         {
             ['Crawling_Cave'] = mission:progressEvent(30),
 
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 2 then
-                    return 31
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 2 then
+                        return 31
+                    end
+                end,
+            },
 
             onEventFinish =
             {
@@ -67,11 +70,14 @@ mission.sections =
 
         [xi.zone.CEIZAK_BATTLEGROUNDS] =
         {
-            onZoneIn = function(player, prevZone)
-                if mission:getVar(player, 'Status') == 1 then
-                    return 27
-                end
-            end,
+            onZoneIn =
+            {
+                function(player, prevZone)
+                    if mission:getVar(player, 'Status') == 1 then
+                        return 27
+                    end
+                end,
+            },
 
             onEventUpdate =
             {

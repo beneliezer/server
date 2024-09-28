@@ -3,7 +3,6 @@
 --  NPC: Tarnotik
 -- !pos 160.896 10.999 -55.659 11
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

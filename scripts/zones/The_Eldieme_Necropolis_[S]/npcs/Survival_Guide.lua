@@ -2,7 +2,6 @@
 -- Area: The Eldieme Necropolis [S]
 --  NPC: Survival Guide
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, targetNpc)

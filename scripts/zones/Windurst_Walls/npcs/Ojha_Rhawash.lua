@@ -4,7 +4,6 @@
 -- Starts and Finishes Quest: Flower Child
 -- !pos -209 0 -134 239
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -2,7 +2,6 @@
 -- Area: Abyssea_Altepa
 --  NPC: Mheca Khetashipah
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

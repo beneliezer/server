@@ -4,7 +4,6 @@
 -- Type: Mihli's Attendant
 -- !pos -28.014 -7 64.371 48
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

@@ -5,7 +5,6 @@
 -- Starts Quest: Exit the Gambler
 -- !pos -156.253 11.999 253.691 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

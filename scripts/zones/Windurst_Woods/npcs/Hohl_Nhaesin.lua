@@ -2,7 +2,6 @@
 -- Area: Windurst Woods
 --  NPC: Hohl Nhaesin
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

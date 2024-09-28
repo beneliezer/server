@@ -3,7 +3,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ATTOHWA_CHASM]
 -----------------------------------
----@type TZone
 local zoneObject = {}
 
 zoneObject.onInitialize = function(zone)
@@ -84,7 +83,7 @@ end
 zoneObject.onTriggerAreaLeave = function(player, triggerArea)
 end
 
-zoneObject.onGameHour = function()
+zoneObject.onGameHour = function(zone)
     --[[
         the hard-coded id that was here was wrong. there are 22 miasmas in attohwa chasm
         starting at ID.npc.MIASMA_OFFSET. some are supposed to toggle open, but need retail test

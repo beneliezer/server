@@ -3,7 +3,6 @@
 --  NPC: Mighty Fist
 -- !pos -47 2 -30 237
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

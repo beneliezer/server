@@ -3,7 +3,6 @@
 --  NPC: Cayu Pensharhumi
 -- !pos 39.437 -0.91 -40.808 241
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

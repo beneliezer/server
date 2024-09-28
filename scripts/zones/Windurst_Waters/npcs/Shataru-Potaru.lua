@@ -2,7 +2,6 @@
 -- Area: Windurst Waters
 --  NPC: Shataru-Potaru
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 local pathNodes =

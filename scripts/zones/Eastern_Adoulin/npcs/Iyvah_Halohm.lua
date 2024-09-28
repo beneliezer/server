@@ -4,7 +4,6 @@
 -- Type: Adoulin Fame Checking NPC
 -- !pos -61.044 -0.150 -5.239 257
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, npc)

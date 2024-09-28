@@ -2,7 +2,6 @@
 -- Area: The Eldieme Necropolis
 --   NM: Skull of Gluttony
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

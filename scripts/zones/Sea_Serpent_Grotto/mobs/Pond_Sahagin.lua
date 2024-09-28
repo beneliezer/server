@@ -2,7 +2,6 @@
 -- Area: Sea Serpent Grotto
 --  Mob: Pond Sahagin
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

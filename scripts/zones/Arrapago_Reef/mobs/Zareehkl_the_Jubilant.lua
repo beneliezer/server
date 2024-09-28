@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/families/qutrub') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobSpawn = function(mob)

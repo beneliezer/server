@@ -2,7 +2,6 @@
 -- Area: Ranguemont Pass
 --   NM: Gloom Eye
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobFight = function(mob, target)

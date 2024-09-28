@@ -3,7 +3,6 @@
 --  NPC: Shomo Pochachilo
 -- !pos 28.369 -0.199 30.061 231
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

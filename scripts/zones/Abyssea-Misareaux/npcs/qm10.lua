@@ -4,7 +4,6 @@
 -- Spawns Nonno
 -- !pos 719 1 -486 216
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

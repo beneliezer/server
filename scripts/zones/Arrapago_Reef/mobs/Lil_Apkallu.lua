@@ -4,7 +4,6 @@
 -----------------------------------
 mixins = { require('scripts/mixins/rage') }
 -----------------------------------
----@type TMobEntity
 local entity = {}
 -- Todo: Apkallu hate, Hundred Fists, Movement and TP pattern
 

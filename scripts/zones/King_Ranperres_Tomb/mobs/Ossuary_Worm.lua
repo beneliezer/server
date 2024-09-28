@@ -2,7 +2,6 @@
 -- Area: King Ranperres Tomb
 --  Mob: Ossuary Worm
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 entity.onMobDeath = function(mob, player, optParams)

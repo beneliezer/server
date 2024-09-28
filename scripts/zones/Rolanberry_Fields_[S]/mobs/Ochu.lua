@@ -5,7 +5,6 @@
 -----------------------------------
 local ID = zones[xi.zone.ROLANBERRY_FIELDS_S]
 -----------------------------------
----@type TMobEntity
 local entity = {}
 
 local delicieusePHTable =

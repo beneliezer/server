@@ -3,7 +3,6 @@
 --  NPC: Chomomo
 -- !pos -1.262 -11 290.224 239
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)

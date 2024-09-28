@@ -2,7 +2,6 @@
 -- Area: Vunkerl Inlet [S]
 --  NPC: Survival Guide
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrigger = function(player, targetNpc)

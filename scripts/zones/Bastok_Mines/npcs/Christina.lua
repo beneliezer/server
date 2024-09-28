@@ -4,7 +4,6 @@
 -- Type: Special Event Coordinator
 -- !pos 23.703 -1 -86.034 234
 -----------------------------------
----@type TNpcEntity
 local entity = {}
 
 entity.onTrade = function(player, npc, trade)
