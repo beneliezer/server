@@ -130,6 +130,26 @@ bool CBattleEntity::isInAssault()
     return false;
 }
 
+bool CBattleEntity::isInAdoulin()
+{
+    if (loc.zone != nullptr)
+    {
+        ZONEID zoneid = loc.zone->GetID();
+        switch (zoneid)
+        {
+            case ZONEID::ZONE_WESTERN_ADOULIN:
+            case ZONEID::ZONE_EASTERN_ADOULIN:
+            case ZONEID::ZONE_MOG_GARDEN:
+            case ZONEID::ZONE_SILVER_KNIFE:
+            case ZONEID::ZONE_CELENNIA_MEMORIAL_LIBRARY:
+                return true;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
 bool CBattleEntity::isInMogHouse()
 {
     if (this->objtype == TYPE_PC)
@@ -243,7 +263,7 @@ int32 CBattleEntity::GetMaxMP() const
 uint8 CBattleEntity::GetSpeed()
 {
     uint8 baseSpeed   = speed;
-    uint8 outputSpeed = 0;
+    int16 outputSpeed = 0;
 
     // Mount speed. Independent from regular speed and unaffected by most things.
     // Note: retail treats mounted speed as double what it actually is! 40 is in fact retail accurate!
@@ -255,14 +275,14 @@ uint8 CBattleEntity::GetSpeed()
         return std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
     }
 
-    // Gear penalties, Bolters Roll.
-    uint8 additiveMods = static_cast<uint8>(getMod(Mod::MOVE_SPEED_STACKABLE));
+    // Gear penalties.
+    int8 additiveMods = static_cast<int8>(getMod(Mod::MOVE_SPEED_STACKABLE));
 
     // Gravity and Curse. They seem additive to each other and the sum seems to be multiplicative.
     float weightFactor = std::clamp<float>(1.0f - static_cast<float>(getMod(Mod::MOVE_SPEED_WEIGHT_PENALTY)) / 100.0f, 0.1f, 1.0f);
 
     // Flee.
-    float fleeFactor = std::clamp<float>(1.0f + static_cast<float>(getMod(Mod::MOVE_SPEED_FLEE)) / 100.0f, 1.0f, 2.0f);
+    float fleeFactor = std::clamp<float>(1.0f + static_cast<float>(getMod(Mod::MOVE_SPEED_FLEE)) / 10000.0f, 1.0f, 2.0f);
 
     // Cheer KI's
     float cheerFactor = (99.0f + static_cast<float>(getMod(Mod::MOVE_SPEED_CHEER))) / 99.0f;
@@ -282,17 +302,20 @@ uint8 CBattleEntity::GetSpeed()
     uint8 mazurkaQuickeningEffect = std::clamp<uint8>(getMod(Mod::MOVE_SPEED_QUICKENING) + getMod(Mod::MOVE_SPEED_MAZURKA), 0, 10);
 
     // We have all the modifiers needed. Calculate final speed.
-    // This MUST BE DONE IN THIS ORDER. Using uint8 data type, we use that to floor.
+    // This MUST BE DONE IN THIS ORDER. Using int8 data type, we use that to floor.
     outputSpeed = baseSpeed + additiveMods;
     outputSpeed = outputSpeed * weightFactor;
     outputSpeed = outputSpeed * fleeFactor;
     outputSpeed = outputSpeed * cheerFactor;
     outputSpeed = outputSpeed + boltersRollEffect;
     outputSpeed = outputSpeed * gearFactor;
-    outputSpeed = outputSpeed + mazurkaQuickeningEffect;
+    if (outputSpeed > 0)
+    {
+        outputSpeed = outputSpeed + mazurkaQuickeningEffect;
+    }
 
     // Set cap (Default 80).
-    outputSpeed = std::clamp<uint8>(outputSpeed, 0, 80 + settings::get<int8>("map.SPEED_MOD"));
+    outputSpeed = std::clamp<int16>(outputSpeed, 0, 80 + settings::get<int8>("map.SPEED_MOD"));
 
     // Speed cap can be bypassed. Ex. Feast of swords. GM speed.
     // TODO: Find exceptions. Add them here.
@@ -303,7 +326,7 @@ uint8 CBattleEntity::GetSpeed()
         outputSpeed = getMod(Mod::MOVE_SPEED_OVERRIDE);
     }
 
-    return std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
+    return static_cast<uint8>(std::clamp<int16>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
 }
 
 bool CBattleEntity::CanRest()
@@ -338,10 +361,6 @@ bool CBattleEntity::Rest(float rate)
 int16 CBattleEntity::GetWeaponDelay(bool tp)
 {
     TracyZoneScoped;
-    if (StatusEffectContainer->HasStatusEffect(EFFECT_HUNDRED_FISTS) && !tp)
-    {
-        return 1700;
-    }
     uint16 WeaponDelay = 9999;
     if (auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]))
     {
@@ -396,6 +415,13 @@ int16 CBattleEntity::GetWeaponDelay(bool tp)
         // This should be enforced on -delay equipment, martial arts, dual wield, and haste, hence MinimumDelay * 0.2.
         // TODO: Could be converted to value/1024 if the exact cap is ever determined.
         MinimumDelay -= (uint16)(MinimumDelay * 0.8);
+
+        // if hundred fists then use the min delay (as hundred fists also reduces base delay by 80%
+        if (StatusEffectContainer->HasStatusEffect(EFFECT_HUNDRED_FISTS) && !tp)
+        {
+            WeaponDelay = MinimumDelay;
+        }
+
         WeaponDelay = (WeaponDelay < MinimumDelay) ? MinimumDelay : WeaponDelay;
     }
     return WeaponDelay;
@@ -562,10 +588,14 @@ uint16 CBattleEntity::GetSubWeaponRank()
 
 uint16 CBattleEntity::GetRangedWeaponRank()
 {
-    if (auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_RANGED]))
+    // Check ranged slot first, otherwise use ammo if it's null
+    CItemEquipment* item = m_Weapons[SLOT_RANGED] ? m_Weapons[SLOT_RANGED] : m_Weapons[SLOT_AMMO];
+
+    if (auto* weapon = dynamic_cast<CItemWeapon*>(item))
     {
         return (weapon->getDamage() + getMod(Mod::RANGED_DMG_RANK)) / 9;
     }
+
     return 0;
 }
 
@@ -752,17 +782,27 @@ uint16 CBattleEntity::ATT(SLOTTYPE slot)
     int32 ATT    = 8 + m_modStat[Mod::ATT];
     auto  ATTP   = m_modStat[Mod::ATTP];
     auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[slot]);
-    if (weapon && weapon->isTwoHanded())
+
+    // https://www.bg-wiki.com/ffxi/Strength
+    if (weapon && weapon->isTwoHanded()) // 2-handed weapon
     {
-        ATT += (STR() * 3) / 4;
+        ATT += STR();
     }
-    else if (weapon && weapon->isHandToHand())
+    else if (weapon && weapon->isHandToHand()) // H2H Weapon
     {
-        ATT += (STR() * 5) / 8;
+        ATT += STR() * 3 / 4;
     }
-    else
+    else if (slot == SLOT_RANGED || slot == SLOT_AMMO) // Ranged/ammo weapon.
     {
-        ATT += (STR() * 3) / 4;
+        ATT += STR();
+    }
+    else if (slot == SLOT_MAIN) // 1-handed weapon in main slot.
+    {
+        ATT += STR();
+    }
+    else // 1-handed weapon in sub slot.
+    {
+        ATT += STR() / 2;
     }
 
     if (this->StatusEffectContainer->HasStatusEffect(EFFECT_ENDARK))
@@ -801,7 +841,7 @@ uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
 
     // make sure to not use fishing skill
     uint16 baseSkill = skill == SKILL_FISHING ? 0 : GetSkill(skill);
-    int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + (STR() * 3) / 4;
+    int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + STR();
     // use max to prevent any underflow
     return std::max(0, RATT + (RATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((RATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]));
 }
