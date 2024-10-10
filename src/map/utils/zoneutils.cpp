@@ -222,7 +222,7 @@ namespace zoneutils
         return PTertiary;
     }
 
-    auto GetZonesOnThisProcess() -> std::vector<uint16>
+    std::vector<uint16> GetZonesOnThisProcess()
     {
         char address[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &map_ip, address, INET_ADDRSTRLEN);
@@ -248,20 +248,6 @@ namespace zoneutils
         }
 
         return zonesOnThisProcess;
-    }
-
-    bool IsZoneOnThisProcess(ZONEID zoneId)
-    {
-        std::vector processZones = GetZonesOnThisProcess();
-        for (auto& zone : processZones)
-        {
-            if (zone == zoneId)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /************************************************************************

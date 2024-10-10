@@ -43,7 +43,13 @@ end
 content.groups =
 {
     {
-        mobs = { 'Garuda_Prime_TSTBW' },
+        mobIds =
+        {
+            { cloisterOfGalesID.mob.GARUDA_PRIME + 6 },
+            { cloisterOfGalesID.mob.GARUDA_PRIME + 7 },
+            { cloisterOfGalesID.mob.GARUDA_PRIME + 8 },
+        },
+
         allDeath = function(battlefield, mob)
             battlefield:setStatus(xi.battlefield.status.WON)
         end,

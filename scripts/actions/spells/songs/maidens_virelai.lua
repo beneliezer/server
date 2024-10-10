@@ -35,31 +35,14 @@ spellObject.onSpellCast = function(caster, target, spell)
         params.bonus = bonus
         params.effect = xi.effect.CHARM_I
         local resist = applyResistanceEffect(caster, target, spell, params)
-        local duration = 30
 
-        if resist >= 0.50 then
+        if resist >= 0.25 and caster:getCharmChance(target, false) > 0 then
+            spell:setMsg(xi.msg.basic.MAGIC_ENFEEB_IS)
             if caster:isMob() then
-                -- Mobs charm players by first adding the charm status effect to the player
-                -- Note the duration of the status effect determines the charm length
-                target:addStatusEffect(xi.effect.CHARM_I, 0, 0, duration * resist)
-                -- The charm function below simply changes the player AI
+                target:addStatusEffect(xi.effect.CHARM_I, 0, 0, 30 * resist)
                 caster:charm(target)
-                spell:setMsg(xi.msg.basic.MAGIC_ENFEEB_IS)
-            elseif
-                caster:isPC() and
-                target:isMob() and
-                target:getMobMod(xi.mobMod.CHARMABLE) > 0
-            then
-                -- Each Virelai mod boosts duration by 10%
-                local iBoost = caster:getMod(xi.mod.VIRELAI_EFFECT) + caster:getMod(xi.mod.ALL_SONGS_EFFECT)
-                duration = duration * (iBoost * 0.1 + 1)
-
-                -- Players typically charm mobs by using job_utils.beastmaster however that uses BST assumptions
-                -- Therefore instead we call charm directly with a duration based on resist of the spell
-                caster:charm(target, math.floor(duration * resist))
-                spell:setMsg(xi.msg.basic.MAGIC_ENFEEB_IS)
             else
-                spell:setMsg(xi.msg.basic.MAGIC_RESIST)
+                caster:charmPet(target)
             end
         else
             -- Resist

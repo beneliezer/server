@@ -130,26 +130,6 @@ bool CBattleEntity::isInAssault()
     return false;
 }
 
-bool CBattleEntity::isInAdoulin()
-{
-    if (loc.zone != nullptr)
-    {
-        ZONEID zoneid = loc.zone->GetID();
-        switch (zoneid)
-        {
-            case ZONEID::ZONE_WESTERN_ADOULIN:
-            case ZONEID::ZONE_EASTERN_ADOULIN:
-            case ZONEID::ZONE_MOG_GARDEN:
-            case ZONEID::ZONE_SILVER_KNIFE:
-            case ZONEID::ZONE_CELENNIA_MEMORIAL_LIBRARY:
-                return true;
-            default:
-                break;
-        }
-    }
-    return false;
-}
-
 bool CBattleEntity::isInMogHouse()
 {
     if (this->objtype == TYPE_PC)
@@ -263,7 +243,7 @@ int32 CBattleEntity::GetMaxMP() const
 uint8 CBattleEntity::GetSpeed()
 {
     uint8 baseSpeed   = speed;
-    int16 outputSpeed = 0;
+    uint8 outputSpeed = 0;
 
     // Mount speed. Independent from regular speed and unaffected by most things.
     // Note: retail treats mounted speed as double what it actually is! 40 is in fact retail accurate!
@@ -275,58 +255,43 @@ uint8 CBattleEntity::GetSpeed()
         return std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
     }
 
-    // Gear penalties.
-    int8 additiveMods = static_cast<int8>(getMod(Mod::MOVE_SPEED_STACKABLE));
+    // Flee, KIs, Gear penalties, Bolters Roll.
+    float additiveMods = static_cast<float>(getMod(Mod::MOVE_SPEED_STACKABLE)) / 100.0f;
 
-    // Gravity and Curse. They seem additive to each other and the sum seems to be multiplicative.
-    float weightFactor = std::clamp<float>(1.0f - static_cast<float>(getMod(Mod::MOVE_SPEED_WEIGHT_PENALTY)) / 100.0f, 0.1f, 1.0f);
+    // Quickening and Mazurka. Only highest applies.
+    Mod modToUse = getMod(Mod::MOVE_SPEED_QUICKENING) > getMod(Mod::MOVE_SPEED_MAZURKA) ? Mod::MOVE_SPEED_QUICKENING : Mod::MOVE_SPEED_MAZURKA;
 
-    // Flee.
-    float fleeFactor = std::clamp<float>(1.0f + static_cast<float>(getMod(Mod::MOVE_SPEED_FLEE)) / 10000.0f, 1.0f, 2.0f);
+    float effectBonus = static_cast<float>(getMod(modToUse)) / 100.0f;
 
-    // Cheer KI's
-    float cheerFactor = (99.0f + static_cast<float>(getMod(Mod::MOVE_SPEED_CHEER))) / 99.0f;
-
-    // Bolter's Roll. Additive
-    uint8 boltersRollEffect = static_cast<uint8>(getMod(Mod::MOVE_SPEED_BOLTERS_ROLL));
-
-    // Positive movement speed from gear and from Atmas. Only highest applies. Multiplicative to base speed.
-    float gearFactor = 1.0f;
+    // Positive movement speed from gear. Only highest applies.
+    float gearBonus = 0.0f;
 
     if (objtype == TYPE_PC)
     {
-        gearFactor = std::clamp<float>(1.0f + static_cast<float>(getMaxGearMod(Mod::MOVE_SPEED_GEAR_BONUS)) / 100.0f, 1.0f, 1.25f);
+        gearBonus = static_cast<float>(getMaxGearMod(Mod::MOVE_SPEED_GEAR_BONUS)) / 100.0f;
     }
 
-    // Quickening and Mazurka. They share a cap. Additive.
-    uint8 mazurkaQuickeningEffect = std::clamp<uint8>(getMod(Mod::MOVE_SPEED_QUICKENING) + getMod(Mod::MOVE_SPEED_MAZURKA), 0, 10);
+    // Gravity and Curse. They seem additive to each other and the sum seems to be multiplicative.
+    float weightPenalties = static_cast<float>(getMod(Mod::MOVE_SPEED_WEIGHT_PENALTY)) / 100.0f;
 
     // We have all the modifiers needed. Calculate final speed.
-    // This MUST BE DONE IN THIS ORDER. Using int8 data type, we use that to floor.
-    outputSpeed = baseSpeed + additiveMods;
-    outputSpeed = outputSpeed * weightFactor;
-    outputSpeed = outputSpeed * fleeFactor;
-    outputSpeed = outputSpeed * cheerFactor;
-    outputSpeed = outputSpeed + boltersRollEffect;
-    outputSpeed = outputSpeed * gearFactor;
-    if (outputSpeed > 0)
-    {
-        outputSpeed = outputSpeed + mazurkaQuickeningEffect;
-    }
+    float modifiedSpeed = static_cast<float>(baseSpeed) * std::clamp<float>(1.0f + additiveMods + effectBonus, 0.1f, 1.6f) * (1.0f + gearBonus) * std::clamp<float>(1.0f - weightPenalties, 0.1f, 1.0f);
 
-    // Set cap (Default 80).
-    outputSpeed = std::clamp<int16>(outputSpeed, 0, 80 + settings::get<int8>("map.SPEED_MOD"));
+    outputSpeed = static_cast<uint8>(modifiedSpeed);
+
+    // Set cap.
+    outputSpeed = std::clamp<uint8>(outputSpeed, 0, 80 + settings::get<int8>("map.SPEED_MOD"));
 
     // Speed cap can be bypassed. Ex. Feast of swords. GM speed.
     // TODO: Find exceptions. Add them here.
 
     // GM speed bypass.
-    if (getMod(Mod::MOVE_SPEED_OVERRIDE) > 0)
+    if (getMod(Mod::MOVE_SPEED_OVERIDE) > 0)
     {
-        outputSpeed = getMod(Mod::MOVE_SPEED_OVERRIDE);
+        outputSpeed = getMod(Mod::MOVE_SPEED_OVERIDE);
     }
 
-    return static_cast<uint8>(std::clamp<int16>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
+    return std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
 }
 
 bool CBattleEntity::CanRest()
@@ -361,6 +326,10 @@ bool CBattleEntity::Rest(float rate)
 int16 CBattleEntity::GetWeaponDelay(bool tp)
 {
     TracyZoneScoped;
+    if (StatusEffectContainer->HasStatusEffect(EFFECT_HUNDRED_FISTS) && !tp)
+    {
+        return 1700;
+    }
     uint16 WeaponDelay = 9999;
     if (auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]))
     {
@@ -415,13 +384,6 @@ int16 CBattleEntity::GetWeaponDelay(bool tp)
         // This should be enforced on -delay equipment, martial arts, dual wield, and haste, hence MinimumDelay * 0.2.
         // TODO: Could be converted to value/1024 if the exact cap is ever determined.
         MinimumDelay -= (uint16)(MinimumDelay * 0.8);
-
-        // if hundred fists then use the min delay (as hundred fists also reduces base delay by 80%
-        if (StatusEffectContainer->HasStatusEffect(EFFECT_HUNDRED_FISTS) && !tp)
-        {
-            WeaponDelay = MinimumDelay;
-        }
-
         WeaponDelay = (WeaponDelay < MinimumDelay) ? MinimumDelay : WeaponDelay;
     }
     return WeaponDelay;
@@ -588,14 +550,10 @@ uint16 CBattleEntity::GetSubWeaponRank()
 
 uint16 CBattleEntity::GetRangedWeaponRank()
 {
-    // Check ranged slot first, otherwise use ammo if it's null
-    CItemEquipment* item = m_Weapons[SLOT_RANGED] ? m_Weapons[SLOT_RANGED] : m_Weapons[SLOT_AMMO];
-
-    if (auto* weapon = dynamic_cast<CItemWeapon*>(item))
+    if (auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_RANGED]))
     {
         return (weapon->getDamage() + getMod(Mod::RANGED_DMG_RANK)) / 9;
     }
-
     return 0;
 }
 
@@ -782,27 +740,17 @@ uint16 CBattleEntity::ATT(SLOTTYPE slot)
     int32 ATT    = 8 + m_modStat[Mod::ATT];
     auto  ATTP   = m_modStat[Mod::ATTP];
     auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[slot]);
-
-    // https://www.bg-wiki.com/ffxi/Strength
-    if (weapon && weapon->isTwoHanded()) // 2-handed weapon
+    if (weapon && weapon->isTwoHanded())
     {
-        ATT += STR();
+        ATT += (STR() * 3) / 4;
     }
-    else if (weapon && weapon->isHandToHand()) // H2H Weapon
+    else if (weapon && weapon->isHandToHand())
     {
-        ATT += STR() * 3 / 4;
+        ATT += (STR() * 5) / 8;
     }
-    else if (slot == SLOT_RANGED || slot == SLOT_AMMO) // Ranged/ammo weapon.
+    else
     {
-        ATT += STR();
-    }
-    else if (slot == SLOT_MAIN) // 1-handed weapon in main slot.
-    {
-        ATT += STR();
-    }
-    else // 1-handed weapon in sub slot.
-    {
-        ATT += STR() / 2;
+        ATT += (STR() * 3) / 4;
     }
 
     if (this->StatusEffectContainer->HasStatusEffect(EFFECT_ENDARK))
@@ -841,7 +789,7 @@ uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
 
     // make sure to not use fishing skill
     uint16 baseSkill = skill == SKILL_FISHING ? 0 : GetSkill(skill);
-    int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + STR();
+    int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + (STR() * 3) / 4;
     // use max to prevent any underflow
     return std::max(0, RATT + (RATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((RATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]));
 }
@@ -1553,19 +1501,7 @@ bool CBattleEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
             // PVE
             if (allegiance <= ALLEGIANCE_TYPE::PLAYER && PInitiator->allegiance <= ALLEGIANCE_TYPE::PLAYER)
             {
-                bool haveDiffAllegiances = allegiance != PInitiator->allegiance;
-
-                if (haveDiffAllegiances)
-                {
-                    return true;
-                }
-                // if seems like an invalid target due to allegiances then check for special mob mod
-                // this is needed for mobs that heal themselves with TARGET_ENEMY spells
-                // like fire-absorbing mobs casting Fire IV on themselves
-                else if (auto* PMobInitiator = dynamic_cast<CMobEntity*>(PInitiator))
-                {
-                    return PMobInitiator->getMobMod(MOBMODIFIER::MOBMOD_SKIP_ALLEGIANCE_CHECK) == 1;
-                }
+                return allegiance != PInitiator->allegiance;
             }
 
             return false;

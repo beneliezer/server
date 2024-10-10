@@ -24,13 +24,13 @@
 #include "logging.h"
 #include "settings.h"
 #include "taskmgr.h"
+#include "utils.h"
 
 #include <chrono>
 using namespace std::chrono_literals;
 
 namespace
 {
-    // TODO: Manual checkout and pooling of state
     mutex_guarded<db::detail::State> state;
 } // namespace
 
@@ -65,22 +65,14 @@ mutex_guarded<db::detail::State>& db::detail::getState()
 {
     TracyZoneScoped;
 
-    // NOTE: mariadb-connector-cpp doesn't seem to make any guarantees about whether or not isValid() or reconnect()
-    //     : are const. So we're going to have to wrap calls to them as though they aren't.
+    // TODO: Manual pooling?
+    // TODO: Locking of individual connections by passing back a handle with a `*this` reference to free the connection on handle destruction?
 
     // clang-format off
-    if (state.write([&](auto& state)
-    {
-        // If we have a valid and connected connection: return it
-        // TODO: Does this logic make ping_connection redundant?
-        return state.connection != nullptr && (state.connection->isValid() || state.connection->reconnect());
-    }))
+    if (state.read([&](const auto& state) { return state.connection != nullptr; }))
     {
         return state;
     }
-
-    // Otherwise, create a new connection. Writing it to the state.connection unique_ptr will release any previous connection
-    // that might be there.
 
     state.write([&](auto& state)
     {

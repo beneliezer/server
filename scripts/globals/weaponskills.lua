@@ -381,7 +381,7 @@ local function getSingleHitDamage(attacker, target, dmg, ftp, wsParams, calcPara
         magicdmg = target:magicDmgTaken(magicdmg, wsParams.ele)
 
         if magicdmg > 0 then
-            magicdmg = magicdmg * xi.spells.damage.calculateNukeAbsorbOrNullify(target, wsParams.ele) -- this may absorb or nullify
+            magicdmg = adjustForTarget(target, magicdmg, wsParams.ele) -- this may absorb or nullify
         end
 
         if magicdmg > 0 then -- handle nonzero damage if previous function does not absorb or nullify
@@ -970,7 +970,7 @@ xi.weaponskills.doMagicWeaponskill = function(attacker, target, wsID, wsParams, 
             return dmg
         end
 
-        dmg = dmg * xi.spells.damage.calculateNukeAbsorbOrNullify(target, wsParams.ele)
+        dmg = adjustForTarget(target, dmg, wsParams.ele)
 
         if dmg > 0 then
             dmg = dmg - target:getMod(xi.mod.PHALANX)

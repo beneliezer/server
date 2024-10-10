@@ -28,7 +28,7 @@ spellObject.onSpellCast = function(caster, target, spell)
     --add on bonuses (staff/day/weather/jas/mab/etc all go in this function)
     dmg = addBonuses(caster, spell, target, dmg)
     --add in target adjustment
-    dmg = dmg * xi.spells.damage.calculateNukeAbsorbOrNullify(target, spell:getElement())
+    dmg = adjustForTarget(target, dmg, spell:getElement())
     --add in final adjustments
 
     dmg = dmg * xi.settings.main.DARK_POWER

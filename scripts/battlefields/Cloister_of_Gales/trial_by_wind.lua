@@ -2,6 +2,8 @@
 -- Area: Cloister of Gales
 -- BCNM: Trial by Wind
 -----------------------------------
+local cloisterOfGalesID = zones[xi.zone.CLOISTER_OF_GALES]
+-----------------------------------
 
 local content = BattlefieldQuest:new({
     zoneId           = xi.zone.CLOISTER_OF_GALES,
@@ -26,7 +28,13 @@ end
 content.groups =
 {
     {
-        mobs = { 'Garuda_Prime_TBW' },
+        mobIds =
+        {
+            { cloisterOfGalesID.mob.GARUDA_PRIME     },
+            { cloisterOfGalesID.mob.GARUDA_PRIME + 1 },
+            { cloisterOfGalesID.mob.GARUDA_PRIME + 2 },
+        },
+
         allDeath = function(battlefield, mob)
             battlefield:setStatus(xi.battlefield.status.WON)
         end,

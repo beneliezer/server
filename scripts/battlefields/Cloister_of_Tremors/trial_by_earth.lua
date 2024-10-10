@@ -2,6 +2,8 @@
 -- Area: Cloister of Tremors
 -- BCNM: Trial by Earth
 -----------------------------------
+local cloisterOfTremorsID = zones[xi.zone.CLOISTER_OF_TREMORS]
+-----------------------------------
 
 local content = BattlefieldQuest:new({
     zoneId           = xi.zone.CLOISTER_OF_TREMORS,
@@ -21,7 +23,13 @@ local content = BattlefieldQuest:new({
 content.groups =
 {
     {
-        mobs = { 'Titan_Prime_TBE' },
+        mobIds =
+        {
+            { cloisterOfTremorsID.mob.TITAN_PRIME     },
+            { cloisterOfTremorsID.mob.TITAN_PRIME + 1 },
+            { cloisterOfTremorsID.mob.TITAN_PRIME + 2 },
+        },
+
         allDeath = function(battlefield, mob)
             battlefield:setStatus(xi.battlefield.status.WON)
         end,
