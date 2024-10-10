@@ -155,6 +155,7 @@
 #include "utils/battleutils.h"
 #include "utils/blueutils.h"
 #include "utils/charutils.h"
+#include "utils/fishingcontest.h"
 #include "utils/guildutils.h"
 #include "utils/instanceutils.h"
 #include "utils/itemutils.h"
@@ -13543,7 +13544,12 @@ bool CLuaBaseEntity::doRandomDeal(CLuaBaseEntity* PTarget)
         return false;
     }
 
-    return battleutils::DoRandomDealToEntity(static_cast<CCharEntity*>(m_PBaseEntity), static_cast<CCharEntity*>(PTarget->m_PBaseEntity));
+    if (auto PBattleTarget = dynamic_cast<CBattleEntity*>(PTarget->m_PBaseEntity))
+    {
+        return battleutils::DoRandomDealToEntity(static_cast<CCharEntity*>(m_PBaseEntity), PBattleTarget);
+    }
+
+    return false;
 }
 
 /************************************************************************
@@ -13694,11 +13700,15 @@ bool CLuaBaseEntity::addBardSong(CLuaBaseEntity* PEntity, uint16 effectID, uint1
  *  Function: charm()
  *  Purpose : Charms an entity target
  *  Example : mob:charm(target)
+ *  Notes: optional parameter specifying the duration in seconds
+ *         (default duration of 0 implies duration is controlled
+ *         by the status effect charm, which is the case for charmed players)
  ************************************************************************/
 
-void CLuaBaseEntity::charm(CLuaBaseEntity const* target)
+void CLuaBaseEntity::charm(CLuaBaseEntity const* target, sol::object const& p0)
 {
-    battleutils::applyCharm(static_cast<CBattleEntity*>(m_PBaseEntity), static_cast<CBattleEntity*>(target->GetBaseEntity()));
+    auto charmDuration = std::chrono::seconds(p0 != sol::lua_nil ? p0.as<uint32>() : 0);
+    battleutils::applyCharm(static_cast<CBattleEntity*>(m_PBaseEntity), static_cast<CBattleEntity*>(target->GetBaseEntity()), charmDuration);
 }
 
 /************************************************************************
@@ -15141,45 +15151,6 @@ void CLuaBaseEntity::registerChocobo(uint32 value)
     auto* PChar           = static_cast<CCharEntity*>(m_PBaseEntity);
     PChar->m_FieldChocobo = value;
     _sql->Query("UPDATE char_pet SET field_chocobo = %u WHERE charid = %u", value, PChar->id);
-}
-
-/************************************************************************
- *  Function: getCharmChance()
- *  Purpose : Returns decimal value of the chances of charming an Entity
- *  Example : player:getCharmChance(target, false)
- *  Notes   : Used for Guage and Maiden's Virelai
- ************************************************************************/
-
-float CLuaBaseEntity::getCharmChance(CLuaBaseEntity const* target, sol::object const& mods)
-{
-    if (m_PBaseEntity->objtype == TYPE_NPC)
-    {
-        ShowWarning("Invalid Entity (NPC: %s) calling function.", m_PBaseEntity->getName());
-        return 0;
-    }
-
-    auto* PCharmer = static_cast<CBattleEntity*>(m_PBaseEntity);
-    auto* PTarget  = static_cast<CBattleEntity*>(target->GetBaseEntity());
-
-    bool  includeCharmAffinityAndChanceMods = (mods != sol::lua_nil) ? mods.as<bool>() : true;
-    float charmChance                       = battleutils::GetCharmChance(PCharmer, PTarget, includeCharmAffinityAndChanceMods);
-
-    return charmChance;
-}
-
-/************************************************************************
- *  Function: charmPet()
- *  Purpose : Attempts to charm a pet
- *  Example : player:charmPet(target)
- *  Notes   :
- ************************************************************************/
-
-void CLuaBaseEntity::charmPet(CLuaBaseEntity const* target)
-{
-    if (m_PBaseEntity->objtype != TYPE_MOB)
-    {
-        battleutils::tryToCharm(static_cast<CBattleEntity*>(m_PBaseEntity), static_cast<CBattleEntity*>(target->GetBaseEntity()));
-    }
 }
 
 /************************************************************************
@@ -17896,6 +17867,108 @@ uint8 CLuaBaseEntity::getMannequinPose(uint16 itemID)
     return 0;
 }
 
+// Fishing Contest Utilities
+
+void CLuaBaseEntity::submitContestFish(uint32 score)
+{
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        fishingcontest::SubmitFish(PChar, score);
+    }
+}
+
+void CLuaBaseEntity::withdrawContestFish()
+{
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        fishingcontest::WithdrawFish(PChar);
+    }
+}
+
+uint32 CLuaBaseEntity::getContestScore()
+{
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        FishingContestEntry* PEntry = fishingcontest::GetPlayerEntry(PChar);
+        if (PEntry != nullptr)
+        {
+            return PEntry->score;
+        }
+    }
+
+    return 0;
+}
+
+uint8 CLuaBaseEntity::getContestRank()
+{
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        FishingContestEntry* PEntry = fishingcontest::GetPlayerEntry(PChar);
+        if (PEntry != nullptr)
+        {
+            return PEntry->contestRank;
+        }
+    }
+
+    return 0;
+}
+
+auto CLuaBaseEntity::getContestRewardStatus() -> sol::table
+{
+    auto reward = lua.create_table();
+
+    // Default values for lua script
+    reward["rank"]  = 0;
+    reward["share"] = 0;
+
+    if (auto PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        std::string Query = "SELECT contestrank, share "
+                            "FROM   fishing_contest_entries "
+                            "WHERE  charid = (?) "
+                            "AND    claimed != 1; ";
+
+        auto ret = db::preparedStmt(Query, PChar->id);
+        if (ret && ret->rowsCount() > 0 && ret->next())
+        {
+            reward["rank"]  = ret->getInt("contestrank");
+            reward["share"] = ret->getInt("share");
+        }
+    }
+
+    return reward;
+}
+
+auto CLuaBaseEntity::getContestRankHistory() -> sol::table
+{
+    auto table = lua.create_table();
+
+    // Default values
+    table["rank1"]     = 0;
+    table["rank2"]     = 0;
+    table["rank3"]     = 0;
+    table["rank4to10"] = 0;
+
+    if (auto PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        FishingContestHistory history = fishingcontest::GetFishingContestHistory(PChar);
+        table["rank1"]                = history.rank1;
+        table["rank2"]                = history.rank2;
+        table["rank3"]                = history.rank3;
+        table["rank4to10"]            = history.rank4;
+    }
+
+    return table;
+}
+
+void CLuaBaseEntity::claimContestReward()
+{
+    if (auto* PChar = dynamic_cast<CCharEntity*>(m_PBaseEntity))
+    {
+        fishingcontest::ClaimContestReward(PChar);
+    }
+}
+
 void CLuaBaseEntity::addPacketMod(uint16 packetId, uint16 offset, uint8 value)
 {
     TracyZoneScoped;
@@ -18602,9 +18675,6 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("setPetName", CLuaBaseEntity::setPetName);
     SOL_REGISTER("registerChocobo", CLuaBaseEntity::registerChocobo);
 
-    SOL_REGISTER("getCharmChance", CLuaBaseEntity::getCharmChance);
-    SOL_REGISTER("charmPet", CLuaBaseEntity::charmPet);
-
     SOL_REGISTER("petAttack", CLuaBaseEntity::petAttack);
     SOL_REGISTER("petAbility", CLuaBaseEntity::petAbility);
     SOL_REGISTER("petRetreat", CLuaBaseEntity::petRetreat);
@@ -18762,6 +18832,15 @@ void CLuaBaseEntity::Register()
 
     SOL_REGISTER("setMannequinPose", CLuaBaseEntity::setMannequinPose);
     SOL_REGISTER("getMannequinPose", CLuaBaseEntity::getMannequinPose);
+
+    // Fish Ranking Contest
+    SOL_REGISTER("submitContestFish", CLuaBaseEntity::submitContestFish);
+    SOL_REGISTER("withdrawContestFish", CLuaBaseEntity::withdrawContestFish);
+    SOL_REGISTER("getContestScore", CLuaBaseEntity::getContestScore);
+    SOL_REGISTER("getContestRank", CLuaBaseEntity::getContestRank);
+    SOL_REGISTER("getContestRewardStatus", CLuaBaseEntity::getContestRewardStatus);
+    SOL_REGISTER("getContestRankHistory", CLuaBaseEntity::getContestRankHistory);
+    SOL_REGISTER("claimContestReward", CLuaBaseEntity::claimContestReward);
 
     SOL_REGISTER("addPacketMod", CLuaBaseEntity::addPacketMod);
     SOL_REGISTER("clearPacketMods", CLuaBaseEntity::clearPacketMods);
