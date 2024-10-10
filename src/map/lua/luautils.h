@@ -274,6 +274,8 @@ namespace luautils
     void OnMobDeath(CBaseEntity* PMob, CBaseEntity* PKiller);
     void OnMobDespawn(CBaseEntity* PMob);
 
+    void OnPlayerAbilityUse(CBaseEntity* PMob, CBaseEntity* PPlayer, CAbility* PAbility); // when a player uses an ability and mob is in notoriety container
+
     void OnPetLevelRestriction(CBaseEntity* PMob);
 
     void OnPath(CBaseEntity* PEntity);
@@ -369,6 +371,13 @@ namespace luautils
     auto   SendItemToDeliveryBox(std::string const& playerName, uint16 itemId, uint32 quantity, std::string senderText) -> SendToDBoxReturnCode;
 
     std::optional<CLuaBaseEntity> GenerateDynamicEntity(CZone* PZone, CInstance* PInstance, sol::table table);
+
+    // Fishing Contest
+    auto GetFishingContest() -> sol::table;
+    void InitNewFishingContest();
+    void SetContestParameters(uint16 fishId, uint8 measure, uint8 criteria);
+    void ProgressFishingContest();
+    void InitializeFishingContestSystem();
 
     template <typename... Targs>
     int32 invokeBattlefieldEvent(uint16 battlefieldId, const std::string& eventName, Targs... args);

@@ -71,8 +71,12 @@
 #include "items/item_weapon.h"
 #include "job_points.h"
 #include "latent_effect_container.h"
+#include "linkshell.h"
+#include "message.h"
+#include "mob_modifier.h"
 #include "mobskill.h"
 #include "modifier.h"
+#include "notoriety_container.h"
 #include "packets/char_job_extra.h"
 #include "packets/status_effects.h"
 #include "petskill.h"
@@ -81,6 +85,7 @@
 #include "trade_container.h"
 #include "treasure_pool.h"
 #include "trustentity.h"
+#include "unitychat.h"
 #include "universal_container.h"
 #include "utils/attackutils.h"
 #include "utils/battleutils.h"
@@ -275,6 +280,90 @@ CCharEntity::~CCharEntity()
         // remove myself
         PTreasurePool->DelMember(this);
     }
+
+    ClearTrusts(); // trusts don't survive zone lines
+
+    if (PLinkshell1 != nullptr)
+    {
+        PLinkshell1->DelMember(this);
+    }
+
+    if (PLinkshell2 != nullptr)
+    {
+        PLinkshell2->DelMember(this);
+    }
+
+    if (PUnityChat != nullptr)
+    {
+        PUnityChat->DelMember(this);
+    }
+
+    if (isDead())
+    {
+        charutils::SaveDeathTime(this);
+    }
+
+    if (m_LevelRestriction != 0)
+    {
+        if (PParty)
+        {
+            if (PParty->GetSyncTarget() == this || PParty->GetLeader() == this)
+            {
+                PParty->SetSyncTarget("", 551);
+            }
+            if (PParty->GetSyncTarget() != nullptr)
+            {
+                uint8 count = 0;
+                for (uint32 i = 0; i < PParty->members.size(); ++i)
+                {
+                    if (PParty->members.at(i) != this && PParty->members.at(i)->getZone() == PParty->GetSyncTarget()->getZone())
+                    {
+                        count++;
+                    }
+                }
+                if (count < 2) // 3, because one is zoning out - thus at least 2 will be left
+                {
+                    PParty->SetSyncTarget("", 552);
+                }
+            }
+        }
+        StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_SYNC);
+        StatusEffectContainer->DelStatusEffectSilent(EFFECT_LEVEL_RESTRICTION);
+    }
+
+    if (PParty && loc.destination != 0 && m_moghouseID == 0)
+    {
+        uint8 data[4]{};
+
+        if (PParty->m_PAlliance)
+        {
+            ref<uint32>(data, 0) = PParty->m_PAlliance->m_AllianceID;
+            message::send(MSG_ALLIANCE_RELOAD, data, sizeof data, nullptr);
+        }
+        else
+        {
+            ref<uint32>(data, 0) = PParty->GetPartyID();
+            message::send(MSG_PT_RELOAD, data, sizeof data, nullptr);
+        }
+    }
+
+    SpawnPCList.clear();
+    SpawnNPCList.clear();
+    SpawnMOBList.clear();
+    SpawnPETList.clear();
+    SpawnTRUSTList.clear();
+
+    if (PParty)
+    {
+        PParty->PopMember(this);
+    }
+
+    if (PAutomaton)
+    {
+        PAutomaton->PMaster = nullptr;
+    }
+
+    charutils::WriteHistory(this);
 
     destroy(TradeContainer);
     destroy(Container);
@@ -975,7 +1064,9 @@ bool CCharEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
     bool targetsParty     = targetFlags & TARGET_PLAYER_PARTY;
     bool targetsAlliance  = targetFlags & TARGET_PLAYER_ALLIANCE;
     bool hasPianissimo    = (targetFlags & TARGET_PLAYER_PARTY_PIANISSIMO) && PInitiator->StatusEffectContainer->HasStatusEffect(EFFECT_PIANISSIMO);
+    bool hasEntrust       = (targetFlags & TARGET_PLAYER_PARTY_ENTRUST) && PInitiator->StatusEffectContainer->HasStatusEffect(EFFECT_ENTRUST);
     bool isDifferentChar  = PInitiator != this;
+    bool isTrust          = PInitiator->objtype == TYPE_TRUST;
 
     // Alliance member valid target.
     if (targetsAlliance &&
@@ -993,22 +1084,9 @@ bool CCharEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
         return true;
     }
 
-    if (targetFlags & TARGET_PLAYER_PARTY_ENTRUST)
+    if (hasEntrust && (isSameParty || isTrust))
     {
-        if (PInitiator->objtype == TYPE_TRUST)
-        {
-            return true;
-        }
-
-        // Can cast on self and others in party but potency gets no bonuses from equipment mods if entrust is active
-        if (!PInitiator->StatusEffectContainer->HasStatusEffect(EFFECT_ENTRUST) && PInitiator == this)
-        {
-            return true;
-        }
-        else if (PInitiator->StatusEffectContainer->HasStatusEffect(EFFECT_ENTRUST) && ((PParty && PInitiator->PParty == PParty) || PInitiator == this))
-        {
-            return true;
-        }
+        return true;
     }
 
     return false;
@@ -1801,6 +1879,18 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
             }
 
             state.ApplyEnmity();
+
+            // Some mobs respond to abilities (ex. Absolute Virtue / Ob)
+            for (CBattleEntity* PBattleEntity : *PNotorietyContainer)
+            {
+                if (CMobEntity* PMob = dynamic_cast<CMobEntity*>(PBattleEntity))
+                {
+                    if (PMob->getMobMod(MOBMOD_ABILITY_RESPONSE) && PMob->getZone() == this->getZone())
+                    {
+                        luautils::OnPlayerAbilityUse(PMob, this, PAbility);
+                    }
+                }
+            }
         }
 
         if (charge)
@@ -2019,7 +2109,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
         if (slot == SLOT_RANGED)
         {
             auto attackType = (state.IsRapidShot()) ? PHYSICAL_ATTACK_TYPE::RAPID_SHOT : PHYSICAL_ATTACK_TYPE::RANGED;
-            totalDamage     = attackutils::CheckForDamageMultiplier(this, PItem, totalDamage, attackType, true);
+            totalDamage     = attackutils::CheckForDamageMultiplier(this, PItem, totalDamage, attackType, slot, true);
         }
         actionTarget.param =
             battleutils::TakePhysicalDamage(this, PTarget, PHYSICAL_ATTACK_TYPE::RANGED, totalDamage, false, slot, realHits, nullptr, true, true);

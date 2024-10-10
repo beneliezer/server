@@ -194,11 +194,8 @@ namespace battleutils
 
     bool HasNinjaTool(CBattleEntity* PEntity, CSpell* PSpell, bool ConsumeTool);
 
-    float GetCharmChance(CBattleEntity* PCharmer, CBattleEntity* PTarget, bool includeCharmAffinityAndChanceMods = true);
-    bool  TryCharm(CBattleEntity* PCharmer, CBattleEntity* PVictim);
-    void  tryToCharm(CBattleEntity* PCharmer, CBattleEntity* PVictim);
-    void  applyCharm(CBattleEntity* PCharmer, CBattleEntity* PVictim, duration charmTime = 0s);
-    void  unCharm(CBattleEntity* PEntity);
+    void applyCharm(CBattleEntity* PCharmer, CBattleEntity* PVictim, duration charmTime = 0s);
+    void unCharm(CBattleEntity* PEntity);
 
     uint16 doSoulEaterEffect(CCharEntity* m_PChar, uint32 damage);
     uint16 doConsumeManaEffect(CCharEntity* m_PChar);
@@ -251,7 +248,7 @@ namespace battleutils
     bool    WeatherMatchesElement(WEATHER weather, uint8 element);
     bool    DrawIn(CBattleEntity* PEntity, CMobEntity* PMob, float offset);
     void    DoWildCardToEntity(CCharEntity* PCaster, CCharEntity* PTarget, uint8 roll);
-    bool    DoRandomDealToEntity(CCharEntity* PChar, CCharEntity* PTarget);
+    bool    DoRandomDealToEntity(CCharEntity* PChar, CBattleEntity* PTarget);
 
     void turnTowardsTarget(CBaseEntity* PEntity, CBaseEntity* PTarget, bool force = false);
 
