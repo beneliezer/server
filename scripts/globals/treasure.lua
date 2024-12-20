@@ -1108,7 +1108,7 @@ xi.treasure.treasureInfo =
                     {
                         test = function(player)
                             return not player:hasKeyItem(xi.ki.JOKER_CARD) and
-                                (player:getCharVar('[2][77]Prog') == 2 or player:getCharVar('[2][77]Prog') == 3)
+                                (player:getCharVar('Quest[2][77]Prog') == 2 or player:getCharVar('Quest[2][77]Prog') == 3)
                         end,
 
                         code = function(player)

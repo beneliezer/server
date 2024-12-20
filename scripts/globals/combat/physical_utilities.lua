@@ -72,11 +72,11 @@ xi.combat.physical.pDifWeaponCapTable =
 
 local shieldSizeToBlockRateTable =
 {
-    [1] = 55, -- Buckler
-    [2] = 40, -- Round
-    [3] = 45, -- Kite
-    [4] = 30, -- Tower
-    [5] = 50, -- Aegis and Srivatsa
+    [1] =  55, -- Buckler
+    [2] =  40, -- Round
+    [3] =  45, -- Kite
+    [4] =  30, -- Tower
+    [5] =  50, -- Aegis and Srivatsa
     [6] = 100, -- Ochain  https://www.bg-wiki.com/ffxi/Category:Shields
 }
 
@@ -107,11 +107,27 @@ local elementalBelt = -- Ordered by element.
 -- 'fSTR' in English Wikis. 'SV function' in JP wiki and Studio Gobli.
 -- BG wiki: https://www.bg-wiki.com/ffxi/FSTR
 -- Gobli Wiki: https://w-atwiki-jp.translate.goog/studiogobli/pages/14.html?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=wapp
+-- Mob calculation: https://docs.google.com/spreadsheets/d/1YBoveP-weMdidrirY-vPDzHyxbEI2ryECINlfCnFkLI/edit?gid=224123492#gid=224123492&range=C50
 xi.combat.physical.calculateMeleeStatFactor = function(actor, target)
     local fSTR = 0 -- The variable we want to calculate.
 
+    -- Early return: Mobs at or under lvl 1.
+    if actor:isMob() and actor:getMainLvl() <= 1 then
+        return 1
+    end
+
     -- Calculate statDiff.
-    local statDiff     = actor:getStat(xi.mod.STR) - target:getStat(xi.mod.VIT)
+    local statDiff = actor:getStat(xi.mod.STR) - target:getStat(xi.mod.VIT)
+
+    -- Pets and Mobs.
+    if actor:isMob() or actor:isPet() then
+        fSTR = math.floor((statDiff + 4) / 4)
+        fSTR = utils.clamp(fSTR, -20, 24)
+
+        return fSTR
+    end
+
+    -- Players and Trusts
     local weaponRank   = actor:getWeaponDmgRank()
     local statLowerCap = (7 + weaponRank * 2) * -2
     local statUpperCap = (14 + weaponRank * 2) * 2
@@ -156,8 +172,23 @@ end
 xi.combat.physical.calculateRangedStatFactor = function(actor, target)
     local fSTR = 0 -- The variable we want to calculate.
 
+    -- Early return: Mobs at or under lvl 1.
+    if actor:isMob() and actor:getMainLvl() <= 1 then
+        return 1
+    end
+
     -- Calculate statDiff.
-    local statDiff     = actor:getStat(xi.mod.STR) - target:getStat(xi.mod.VIT)
+    local statDiff = actor:getStat(xi.mod.STR) - target:getStat(xi.mod.VIT)
+
+    -- Pets and Mobs.
+    if actor:isMob() or actor:isPet() then
+        fSTR = math.floor((statDiff + 4) / 2)
+        fSTR = utils.clamp(fSTR, -20, 24)
+
+        return fSTR
+    end
+
+    -- Players and Trusts
     local weaponRank   = actor:getWeaponDmgRank()
     local statLowerCap = (7 + weaponRank * 2) * -2
     local statUpperCap = (14 + weaponRank * 2) * 2
@@ -241,7 +272,7 @@ xi.combat.physical.calculateFTP = function(actor, tpFactor)
     ------------------------------
     -- TODO: Use item mods and latents for the conditional fTP bonuses they provide.
     local scProp1, scProp2, scProp3 = actor:getWSSkillchainProp()
-    local dayElement                = VanadielDayElement() + 1
+    local dayElement                = VanadielDayElement() + 1 -- "+ 1" because index 1 in table is for non-elemental, not fire.
 
     local neckFtpBonus   = 0
     local waistFtpBonus  = 0
@@ -489,7 +520,7 @@ xi.combat.physical.calculateRangedPDIF = function(actor, target, weaponType, wsA
     local ignoreDefenseFactor = 1
 
     if tpIgnoresDefense then
-        ignoreDefenseFactor = 1.0 - tpFactor
+        ignoreDefenseFactor = 1 - tpFactor
     end
 
     targetDefense = math.floor(targetDefense * ignoreDefenseFactor)
@@ -543,9 +574,9 @@ xi.combat.physical.calculateRangedPDIF = function(actor, target, weaponType, wsA
     ----------------------------------------
     -- Step 4: Apply weapon type caps.
     ----------------------------------------
-    local damageLimitPlus = actor:getMod(xi.mod.DAMAGE_LIMIT) / 100
-    local damageLimitPercent = (100 + actor:getMod(xi.mod.DAMAGE_LIMITP)) / 100
-    local pDifFinalCap = (xi.combat.physical.pDifWeaponCapTable[weaponType][1] + damageLimitPlus) * damageLimitPercent -- Added damage limit bonuses
+    local damageLimitPlus    = actor:getMod(xi.mod.DAMAGE_LIMIT) / 100
+    local damageLimitPercent = 1 + actor:getMod(xi.mod.DAMAGE_LIMITP) / 100
+    local pDifFinalCap       = (xi.combat.physical.pDifWeaponCapTable[weaponType][1] + damageLimitPlus) * damageLimitPercent -- Added damage limit bonuses
 
     pDif = utils.clamp(pDif, 0, pDifFinalCap)
 
@@ -809,7 +840,8 @@ xi.combat.physical.calculateGuardRate = function(defender, attacker)
     local attackerDex = attacker:getStat(xi.mod.DEX)
     local defenderAgi = defender:getStat(xi.mod.AGI)
 
-    guardRate = utils.clamp(((guardSkill * 0.1 + (defenderAgi - attackerDex) * 0.125 + 10) * levelDiffMult), 5, 25)
+    -- Dodge's guard bonus goes over the cap
+    guardRate = utils.clamp(((guardSkill * 0.1 + (defenderAgi - attackerDex) * 0.125 + 10) * levelDiffMult), 5, 25) + defender:getMod(xi.mod.ADDITIVE_GUARD)
 
     return guardRate
 end
@@ -910,29 +942,40 @@ xi.combat.physical.calculateBlockRate = function(defender, attacker)
     return blockRate
 end
 
-xi.combat.physical.handleBlock = function(defender, attacker, damage)
-    if
-        xi.combat.physical.canBlock(defender, attacker) and
-        xi.combat.physical.calculateBlockRate(defender, attacker) > math.random(100)
-    then
+xi.combat.physical.getDamageReductionForBlock = function(defender, attacker, damage)
+    -- save original damage for comparison
+    local originalDamage = damage
+
+    -- do not reduce if damage is negative
+    if damage > 0 then
         -- shield def bonus is a flat raw damage reduction that occurs before absorb
-        -- however do not reduce below 0 or if damage is negative
-        if damage > 0 then
-            damage = math.max(0, damage - defender:getMod(xi.mod.SHIELD_DEF_BONUS))
-        end
+        damage = math.max(0, damage - defender:getMod(xi.mod.SHIELD_DEF_BONUS))
 
         if defender:isPC() then
             local shield = defender:getEquippedItem(xi.slot.SUB)
-            local absorb = 100
-            absorb = utils.clamp(absorb - shield:getShieldAbsorptionRate(), 0, 100)
+            local absorb = utils.clamp(100 - shield:getShieldAbsorptionRate(), 0, 100)
             damage = math.floor(damage * (absorb / 100))
-            defender:trySkillUp(xi.skill.SHIELD, attacker:getMainLvl())
         else
             damage = math.floor(damage * 0.5)
         end
     end
 
-    return damage
+    -- return the difference between original and new damage
+    -- in other words the damage reduction (as a flat value)
+    return originalDamage - damage
+end
+
+xi.combat.physical.isBlocked = function(defender, attacker)
+    local blocked = false
+    if
+        xi.combat.physical.canBlock(defender, attacker) and
+        xi.combat.physical.calculateBlockRate(defender, attacker) > math.random(100)
+    then
+        defender:trySkillUp(xi.skill.SHIELD, attacker:getMainLvl())
+        blocked = true
+    end
+
+    return blocked
 end
 
 xi.combat.physical.isParried = function(defender, attacker)

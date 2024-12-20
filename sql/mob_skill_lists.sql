@@ -3930,7 +3930,24 @@ INSERT INTO `mob_skill_lists` VALUES ('Avatar_Ifrit_WTB',2013,844); -- Waking th
 INSERT INTO `mob_skill_lists` VALUES ('Avatar_Ifrit_WTB',2013,845); -- Waking the Beast, fire iv
 INSERT INTO `mob_skill_lists` VALUES ('Avatar_Ifrit_WTB',2013,847); -- Waking the Beast, meteor_strike
 
--- Next available ID: 2014
+INSERT INTO `mob_skill_lists` VALUES ('Colo-Colo',2014,392); -- ultrasonics
+INSERT INTO `mob_skill_lists` VALUES ('Colo-Colo',2014,394); -- blood_drain
+INSERT INTO `mob_skill_lists` VALUES ('Colo-Colo',2014,1155); -- subsonics
+INSERT INTO `mob_skill_lists` VALUES ('Colo-Colo',2014,1156); -- marrow_drain
+
+INSERT INTO `mob_skill_lists` VALUES ('Furies',2015,395); -- jetstream
+INSERT INTO `mob_skill_lists` VALUES ('Furies',2015,393); -- sonic_boom
+INSERT INTO `mob_skill_lists` VALUES ('Furies',2015,1157); -- slipstream
+INSERT INTO `mob_skill_lists` VALUES ('Furies',2015,1158); -- turbulence
+
+INSERT INTO `mob_skill_lists` VALUES ('Mind_Hoarder',2016,524); -- mind_drain
+
+INSERT INTO `mob_skill_lists` VALUES ('Unfettered_Twitherym',2017,2950); -- tempestuous_upheaval
+INSERT INTO `mob_skill_lists` VALUES ('Unfettered_Twitherym',2017,2952); -- blackout
+
+INSERT INTO `mob_skill_lists` VALUES ('Unfettered_Twitherym_low_50',2018,2953); -- smouldering_swarm
+
+-- Next available ID: 2019
 
 -- ------------------------------------------------------------
 -- Start of Ambuscade section

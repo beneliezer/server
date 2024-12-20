@@ -275,7 +275,7 @@ local digInfo =
     [xi.zone.LA_THEINE_PLATEAU] = -- 102
     {
         { xi.item.BUNCH_OF_GYSAHL_GREENS,  150, digReq.BURROW  },
-        { xi.item.PIECE_OF_YELLOW_YINSENG, 150, digReq.BORE    },
+        { xi.item.PIECE_OF_YELLOW_GINSENG, 150, digReq.BORE    },
         { xi.item.CHAMOMILE,                50, digReq.BURROW  },
         { xi.item.ARROWWOOD_LOG,            50, digReq.NO_REQS },
         { xi.item.CHOCOBO_FEATHER,          50, digReq.NO_REQS },
@@ -347,7 +347,7 @@ local digInfo =
     },
     [xi.zone.BATALLIA_DOWNS] = -- 105
     {
-        { xi.item.PIECE_OF_YELLOW_YINSENG, 150, digReq.BORE    },
+        { xi.item.PIECE_OF_YELLOW_GINSENG, 150, digReq.BORE    },
         { xi.item.BEASTCOIN,               100, digReq.BURROW  },
         { xi.item.SILVER_BEASTCOIN,        100, digReq.BURROW  },
         { xi.item.BIRD_FEATHER,             50, digReq.NO_REQS },
@@ -432,7 +432,7 @@ local digInfo =
     },
     [xi.zone.PASHHOW_MARSHLANDS] = -- 109
     {
-        { xi.item.PIECE_OF_YELLOW_YINSENG, 150, digReq.BURROW  },
+        { xi.item.PIECE_OF_YELLOW_GINSENG, 150, digReq.BURROW  },
         { xi.item.INSECT_WING,              50, digReq.NO_REQS },
         { xi.item.LIZARD_MOLT,              50, digReq.NO_REQS },
         { xi.item.PEBBLE,                   50, digReq.NO_REQS },

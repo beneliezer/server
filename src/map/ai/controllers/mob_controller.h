@@ -58,6 +58,7 @@ public:
     void         TapDeclaimTime();
     virtual bool Cast(uint16 targid, SpellID spellid) override;
     void         SetFollowTarget(CBaseEntity* PTarget, FollowType followType);
+    bool         HasFollowTarget();
     void         ClearFollowTarget();
 
     void OnCastStopped(CMagicState& state, action_t& action);

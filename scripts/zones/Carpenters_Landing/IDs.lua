@@ -28,7 +28,6 @@ zones[xi.zone.CARPENTERS_LANDING] =
         FISHING_MESSAGE_OFFSET        = 7285, -- You can't fish here.
         LOGGING_IS_POSSIBLE_HERE      = 7402, -- Logging is possible here if you have <item>.
         BEUGUNGEL_SHOP_DIALOG         = 7434, -- Hello, [sir/ma'am]! I'm selling goods direct from the Carpenters' Guild.
-        NOTHING_OUT_OF_THE_ORDINARY   = 7483, -- There is nothing out of the ordinary here.
         STENCH_OF_DECAY               = 7484, -- You are overwhelmed by the putrid stench of decay!
         CRYPTONBERRY_EXECUTOR_DIE     = 7486, -- ...Cleave our foesss with barren hate.
         CRYPTONBERRY_ASSASSIN_2HR     = 7487, -- ..Take up thy lanternsss. The truth we shall illuminate.

@@ -89,12 +89,6 @@ INSERT INTO `mob_pool_mods` VALUES (459,23,50,0);  -- ATT: 50
 INSERT INTO `mob_pool_mods` VALUES (459,73,25,0);  -- STORETP: 25
 INSERT INTO `mob_pool_mods` VALUES (459,430,20,0); -- QUAD_ATTACK: 20
 
--- Bowho Warmonger
-INSERT INTO `mob_pool_mods` VALUES (519,160,-50,0); -- DMG: -50
-
--- Bright-Handed Kunberry
-INSERT INTO `mob_pool_mods` VALUES (532,160,-50,0); -- DMG: -50
-
 -- Bugbby
 INSERT INTO `mob_pool_mods` VALUES (559,62,-50,0);   -- ATTP: -50
 -- Byakko
@@ -104,9 +98,6 @@ INSERT INTO `mob_pool_mods` VALUES (592,302,45,0); -- TRIPLE_ATTACK: 45
 
 -- Cargo Crab Colin
 INSERT INTO `mob_pool_mods` VALUES (639,63,25,0); -- DEFP: 25
-
--- Centurio Xii-I
-INSERT INTO `mob_pool_mods` VALUES (676,160,-50,0); -- DMG: -50
 
 -- Cerberus
 INSERT INTO `mob_pool_mods` VALUES (680,1,322,0);   -- DEF: 322
@@ -274,12 +265,6 @@ INSERT INTO `mob_pool_mods` VALUES (2499,240,90,0); -- SLEEPRES: 90
 
 -- Mammet-22 Zeta
 INSERT INTO `mob_pool_mods` VALUES (2500,240,90,0); -- SLEEPRES: 90
-
--- Meteormauler Zhagtegg
-INSERT INTO `mob_pool_mods` VALUES (2643,160,-50,0); -- DMG: -50
-
--- Meww The Turtlerider
-INSERT INTO `mob_pool_mods` VALUES (2647,160,-50,0); -- DMG: -50
 
 -- Mimic
 INSERT INTO `mob_pool_mods` VALUES (2664,12,1,1); -- DRAW_IN: 1

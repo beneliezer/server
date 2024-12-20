@@ -350,14 +350,14 @@ void CAttackRound::CreateAttacks(CItemWeapon* PWeapon, PHYSICAL_ATTACK_DIRECTION
         uint8           loc       = PChar->equipLoc[SLOT_AMMO];
         uint8           ammoCount = 0;
 
-        // Two handed and Hand-to-Hand
+        // Two handed
         if (battleutils::GetScaledItemModifier(PChar, PMain, Mod::AMMO_SWING_TYPE) == 2 &&
             xirand::GetRandomNumber(100) < m_attacker->getMod(Mod::AMMO_SWING) && PAmmo != nullptr && ammoCount < PAmmo->getQuantity())
         {
             AddAttackSwing(PHYSICAL_ATTACK_TYPE::NORMAL, direction, 1);
             ammoCount += 1;
         }
-        // One handed
+        // One handed and Hand-to-Hand
         else
         {
             if (direction == RIGHTATTACK && battleutils::GetScaledItemModifier(PChar, PMain, Mod::AMMO_SWING_TYPE) == 1 &&
@@ -366,7 +366,7 @@ void CAttackRound::CreateAttacks(CItemWeapon* PWeapon, PHYSICAL_ATTACK_DIRECTION
                 AddAttackSwing(PHYSICAL_ATTACK_TYPE::NORMAL, RIGHTATTACK, 1);
                 ammoCount += 1;
             }
-            if (direction == LEFTATTACK && PSub != nullptr && battleutils::GetScaledItemModifier(PChar, PSub, Mod::AMMO_SWING_TYPE) == 1 &&
+            if (direction == LEFTATTACK && battleutils::GetScaledItemModifier(PChar, IsH2H() ? PMain : PSub, Mod::AMMO_SWING_TYPE) == 1 &&
                 xirand::GetRandomNumber(100) < m_attacker->getMod(Mod::AMMO_SWING) && PAmmo != nullptr && ammoCount < PAmmo->getQuantity())
             {
                 AddAttackSwing(PHYSICAL_ATTACK_TYPE::NORMAL, LEFTATTACK, 1);
@@ -383,7 +383,7 @@ void CAttackRound::CreateAttacks(CItemWeapon* PWeapon, PHYSICAL_ATTACK_DIRECTION
                 PChar->RequestPersist(CHAR_PERSIST::EQUIP);
             }
             charutils::UpdateItem(PChar, loc, slot, -ammoCount);
-            PChar->pushPacket(new CInventoryFinishPacket());
+            PChar->pushPacket<CInventoryFinishPacket>();
         }
     }
 

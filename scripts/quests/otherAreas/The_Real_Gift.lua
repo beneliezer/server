@@ -2,18 +2,18 @@
 -- The Real Gift
 -----------------------------------
 -- Log ID: 4, Quest ID: 22
+-- !addquest 4 22
+-- !additem 4484
 -- Oswald  : !pos 47.119 -15.273 7.989 248
------------------------------------
-require('scripts/globals/quests')
-require('scripts/globals/interaction/quest')
 -----------------------------------
 
 local quest = Quest:new(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_REAL_GIFT)
 
 quest.reward =
 {
-    item = xi.item.GLASS_FIBER_FISHING_ROD,
-    title = xi.title.THE_LOVE_DOCTOR
+    item     = xi.item.GLASS_FIBER_FISHING_ROD,
+    title    = xi.title.THE_LOVE_DOCTOR,
+    fameArea = xi.fameArea.SELBINA_RABAO,
 }
 
 quest.sections =
@@ -21,13 +21,14 @@ quest.sections =
     {
         check = function(player, status, vars)
             return status == xi.questStatus.QUEST_AVAILABLE and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_GIFT) == xi.questStatus.QUEST_COMPLETED and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) == xi.questStatus.QUEST_COMPLETED
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA) == xi.questStatus.QUEST_COMPLETED and
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) >= xi.questStatus.QUEST_COMPLETED and
+                xi.settings.map.FISHING_ENABLE == true
         end,
 
         [xi.zone.SELBINA] =
         {
-            ['Oswald'] = quest:event(73, xi.item.SHALL_SHELL),
+            ['Oswald'] = quest:progressEvent(73, xi.item.SHALL_SHELL), -- Bring me a shall shell
 
             onEventFinish =
             {
@@ -49,14 +50,14 @@ quest.sections =
         {
             ['Oswald'] =
             {
-                onTrade = function(player, npc, trade)
-                    if npcUtil.tradeHasExactly(trade, xi.item.SHALL_SHELL) then
-                        return quest:progressEvent(75)
-                    end
+                onTrigger = function(player, npc)
+                    return quest:event(74, xi.item.SHALL_SHELL) -- Shall shells yield pearls
                 end,
 
-                onTrigger = function(player, npc)
-                    return quest:event(74, xi.item.SHALL_SHELL)
+                onTrade = function(player, npc, trade)
+                    if npcUtil.tradeHasExactly(trade, xi.item.SHALL_SHELL) then
+                        return quest:progressEvent(75) -- You're so fantastic! Thank you!
+                    end
                 end,
             },
 
@@ -70,16 +71,16 @@ quest.sections =
             },
         },
     },
-    {
-        {
-            check = function(player, status, vars)
-                return status == xi.questStatus.QUEST_COMPLETED
-            end,
 
-            [xi.zone.SELBINA] =
-            {
-                ['Oswald'] = quest:event(76):replaceDefault(),
-            },
+    {
+        check = function(player, status, vars)
+            return status == xi.questStatus.QUEST_COMPLETED
+        end,
+
+        [xi.zone.SELBINA] =
+        {
+            ['Oswald'] = quest:progressEvent(76):replaceDefault(),
+            -- Thanks for all you've done.
         },
     },
 }

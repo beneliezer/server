@@ -209,15 +209,16 @@ CCharEntity::CCharEntity()
 
     BazaarID.clean();
 
+    WideScanTarget = std::nullopt;
+
     lastTradeInvite = {};
     TradePending.clean();
     InvitePending.clean();
 
-    PLinkshell1     = nullptr;
-    PLinkshell2     = nullptr;
-    PUnityChat      = nullptr;
-    PTreasurePool   = nullptr;
-    PWideScanTarget = nullptr;
+    PLinkshell1   = nullptr;
+    PLinkshell2   = nullptr;
+    PUnityChat    = nullptr;
+    PTreasurePool = nullptr;
 
     PAutomaton             = nullptr;
     PClaimedMob            = nullptr;
@@ -338,12 +339,12 @@ CCharEntity::~CCharEntity()
         if (PParty->m_PAlliance)
         {
             ref<uint32>(data, 0) = PParty->m_PAlliance->m_AllianceID;
-            message::send(MSG_ALLIANCE_RELOAD, data, sizeof data, nullptr);
+            message::send(MSG_ALLIANCE_RELOAD, data, sizeof(data), nullptr);
         }
         else
         {
             ref<uint32>(data, 0) = PParty->GetPartyID();
-            message::send(MSG_PT_RELOAD, data, sizeof data, nullptr);
+            message::send(MSG_PT_RELOAD, data, sizeof(data), nullptr);
         }
     }
 
@@ -434,6 +435,7 @@ void CCharEntity::pushPacket(CBasicPacket* packet)
 
 void CCharEntity::pushPacket(std::unique_ptr<CBasicPacket> packet)
 {
+    // TODO: We should be maintaining unique_ptr instead of releasing here
     pushPacket(packet.release());
 }
 
@@ -965,7 +967,23 @@ void CCharEntity::PostTick()
     {
         updatemask |= UPDATE_HP;
         m_EquipSwap = false;
-        pushPacket(new CCharAppearancePacket(this));
+        pushPacket<CCharAppearancePacket>(this);
+    }
+
+    // notify client containers are dirty and then no longer dirty
+    if (!dirtyInventoryContainers.empty())
+    {
+        // Notify client containers were dirty
+        // Note: Retail sends this in the same chunk as the inventory equip packets, but it doesnt seem to matter as long as it arrives
+        for (const auto& [container, dirty] : dirtyInventoryContainers)
+        {
+            pushPacket<CInventoryFinishPacket>(container);
+        }
+
+        dirtyInventoryContainers.clear();
+
+        // Notify client containers are now ok
+        pushPacket(new CInventoryFinishPacket());
     }
 
     if (ReloadParty())
@@ -975,11 +993,11 @@ void CCharEntity::PostTick()
 
     if (m_EffectsChanged)
     {
-        pushPacket(new CCharUpdatePacket(this));
-        pushPacket(new CCharSyncPacket(this));
-        pushPacket(new CCharJobExtraPacket(this, true));
-        pushPacket(new CCharJobExtraPacket(this, false));
-        pushPacket(new CStatusEffectPacket(this));
+        pushPacket<CCharUpdatePacket>(this);
+        pushPacket<CCharSyncPacket>(this);
+        pushPacket<CCharJobExtraPacket>(this, true);
+        pushPacket<CCharJobExtraPacket>(this, false);
+        pushPacket<CStatusEffectPacket>(this);
         if (PParty)
         {
             PParty->PushEffectsPacket();
@@ -1008,14 +1026,14 @@ void CCharEntity::PostTick()
             // clang-format off
             ForAlliance([&](auto PEntity)
             {
-                static_cast<CCharEntity*>(PEntity)->pushPacket(new CCharHealthPacket(this));
+                static_cast<CCharEntity*>(PEntity)->pushPacket<CCharHealthPacket>(this);
             });
             // clang-format on
         }
         // Do not send an update packet when only the position has change
         if (updatemask ^ UPDATE_POS)
         {
-            pushPacket(new CCharUpdatePacket(this));
+            pushPacket<CCharUpdatePacket>(this);
         }
         updatemask = 0;
     }
@@ -1102,7 +1120,7 @@ void CCharEntity::OnChangeTarget(CBattleEntity* PNewTarget)
 {
     TracyZoneScoped;
     battleutils::RelinquishClaim(this);
-    pushPacket(new CLockOnPacket(this, PNewTarget));
+    pushPacket<CLockOnPacket>(this, PNewTarget);
     PLatentEffectContainer->CheckLatentsTargetChange();
 }
 
@@ -1553,12 +1571,12 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
     auto* PAbility = state.GetAbility();
     if (this->PRecastContainer->HasRecast(RECAST_ABILITY, PAbility->getRecastId(), PAbility->getRecastTime()))
     {
-        pushPacket(new CMessageBasicPacket(this, this, 0, 0, MSGBASIC_WAIT_LONGER));
+        pushPacket<CMessageBasicPacket>(this, this, 0, 0, MSGBASIC_WAIT_LONGER);
         return;
     }
     if (this->StatusEffectContainer->HasStatusEffect(EFFECT_AMNESIA))
     {
-        pushPacket(new CMessageBasicPacket(this, this, 0, 0, MSGBASIC_UNABLE_TO_USE_JA2));
+        pushPacket<CMessageBasicPacket>(this, this, 0, 0, MSGBASIC_UNABLE_TO_USE_JA2);
         return;
     }
 
@@ -1700,6 +1718,32 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
         action.actiontype = PAbility->getActionType();
         action.actionid   = PAbility->getID();
 
+        // Normal AoE check,
+        // Special cases go here
+        auto isAbilityAoE = [&]() -> bool
+        {
+            if (this->PParty != nullptr)
+            {
+                if (PAbility->isAoE())
+                {
+                    return true;
+                }
+                else if (PAbility->getID() == ABILITY_LIEMENT && getMod(Mod::LIEMENT_EXTENDS_TO_AREA) > 0)
+                {
+                    return true;
+                }
+                else if (PAbility->getID() == ABILITY_HEALING_WALTZ && StatusEffectContainer->HasStatusEffect(EFFECT_CONTRADANCE))
+                {
+                    // 10.1 = 10' in game. Unsure why 10' means 9.9' works but 10' doesn't... Epsilon check gone wrong?
+                    PAbility->setRange(10.1); // This is playing double duty as both target range and AoE range --
+                                              // by the time this lambda is called the target range has already been checked and can be used normally
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
         // TODO: get rid of this to script, too
         if (PAbility->isPetAbility())
         {
@@ -1796,7 +1840,7 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
             }
         }
         // TODO: make this generic enough to not require an if
-        else if ((PAbility->isAoE() || (PAbility->getID() == ABILITY_LIEMENT && getMod(Mod::LIEMENT_EXTENDS_TO_AREA) > 0)) && this->PParty != nullptr)
+        else if (isAbilityAoE())
         {
             PAI->TargetFind->reset();
 
@@ -1893,6 +1937,9 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
             }
         }
 
+        // Cleanup "consumed" abilities after action like Contradance
+        StatusEffectContainer->DelStatusEffect(PAbility->getPostActionEffectCleanup());
+
         if (charge)
         {
             PRecastContainer->Add(RECAST_ABILITY, PAbility->getRecastId(), action.recast, charge->chargeTime, charge->maxCharges);
@@ -1908,7 +1955,7 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
             PRecastContainer->Add(RECAST_ABILITY, (recastID == 173 ? 174 : 173), action.recast);
         }
 
-        pushPacket(new CCharRecastPacket(this));
+        pushPacket<CCharRecastPacket>(this);
 
         // TODO: refactor
         //  if (this->getMijinGakure())
@@ -1983,21 +2030,15 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
 
     uint8 shadowsTaken = 0;
     uint8 hitCount     = 1; // 1 hit by default
-    uint8 realHits     = 0; // to store the real number of hit for tp multipler
+    uint8 realHits     = 0; // to store the real number of hit for tp multiplier
     auto  ammoConsumed = 0;
     bool  hitOccured   = false; // track if player hit mob at all
-    bool  isSange      = false;
     bool  isBarrage    = StatusEffectContainer->HasStatusEffect(EFFECT_BARRAGE, 0);
 
     // if barrage is detected, getBarrageShotCount also checks for ammo count
     if (!ammoThrowing && !rangedThrowing && isBarrage)
     {
         hitCount += battleutils::getBarrageShotCount(this);
-    }
-    else if (ammoThrowing && this->StatusEffectContainer->HasStatusEffect(EFFECT_SANGE))
-    {
-        isSange = true;
-        hitCount += getMod(Mod::UTSUSEMI);
     }
     else if (this->StatusEffectContainer->HasStatusEffect(EFFECT_DOUBLE_SHOT) && xirand::GetRandomNumber(100) < (40 + this->getMod(Mod::DOUBLE_SHOT_RATE)))
     {
@@ -2011,7 +2052,8 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     // loop for barrage hits, if a miss occurs, the loop will end
     for (uint8 i = 1; i <= hitCount; ++i)
     {
-        if (xirand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, isBarrage)) // hit!
+        // TODO: add Barrage mod racc bonus
+        if (xirand::GetRandomNumber(100) < battleutils::GetRangedHitRate(this, PTarget, isBarrage, 0)) // hit!
         {
             // absorbed by shadow
             if (battleutils::IsAbsorbByShadow(PTarget, this))
@@ -2020,8 +2062,9 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
             }
             else
             {
+                // TODO: add Barrage ratt bonus from job points
                 bool  isCritical = xirand::GetRandomNumber(100) < battleutils::GetRangedCritHitRate(this, PTarget);
-                float pdif       = battleutils::GetRangedDamageRatio(this, PTarget, isCritical);
+                float pdif       = battleutils::GetRangedDamageRatio(this, PTarget, isCritical, 0);
 
                 if (isCritical)
                 {
@@ -2032,12 +2075,6 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
                 // at least 1 hit occured
                 hitOccured = true;
                 realHits++;
-
-                if (isSange)
-                {
-                    // change message to sange
-                    actionTarget.messageID = 77;
-                }
 
                 damage = (int32)((this->GetRangedWeaponDmg() + battleutils::GetFSTR(this, PTarget, slot)) * pdif);
 
@@ -2099,7 +2136,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     if (hitOccured)
     {
         // any misses with barrage cause remaining shots to miss, meaning we must check Action.reaction
-        if ((actionTarget.reaction & REACTION::MISS) != REACTION::NONE && (this->StatusEffectContainer->HasStatusEffect(EFFECT_BARRAGE) || isSange))
+        if ((actionTarget.reaction & REACTION::MISS) != REACTION::NONE && StatusEffectContainer->HasStatusEffect(EFFECT_BARRAGE))
         {
             actionTarget.messageID  = 352;
             actionTarget.reaction   = REACTION::HIT;
@@ -2151,18 +2188,7 @@ void CCharEntity::OnRangedAttack(CRangeState& state, action_t& action)
     {
         StatusEffectContainer->DelStatusEffect(EFFECT_BARRAGE, 0);
     }
-    else if (isSange)
-    {
-        uint16 power = StatusEffectContainer->GetStatusEffect(EFFECT_SANGE)->GetPower();
 
-        // remove shadows
-        while (realHits-- && xirand::GetRandomNumber(100) <= power && battleutils::IsAbsorbByShadow(this, this))
-        {
-            ;
-        }
-
-        StatusEffectContainer->DelStatusEffect(EFFECT_SANGE);
-    }
     battleutils::ClaimMob(PTarget, this);
     battleutils::RemoveAmmo(this, ammoConsumed);
 
@@ -2407,7 +2433,7 @@ void CCharEntity::OnItemFinish(CItemState& state, action_t& action)
     if (!PItem->isType(ITEM_EQUIPMENT) && (PItem->getQuantity() < 1 || PItem->getReserve() > 0))
     {
         ShowWarning("OnItemFinish: %s attempted to use reserved/insufficient %s (%u).", this->getName(), PItem->getName(), PItem->getID());
-        this->pushPacket(new CMessageBasicPacket(this, this, PItem->getID(), 0, MSGBASIC_ITEM_FAILS_TO_ACTIVATE));
+        this->pushPacket<CMessageBasicPacket>(this, this, PItem->getID(), 0, MSGBASIC_ITEM_FAILS_TO_ACTIVATE);
 
         return;
     }
@@ -2482,7 +2508,7 @@ CBattleEntity* CCharEntity::IsValidTarget(uint16 targid, uint16 validTargetFlags
             // Target is blocking assistance
             errMsg = std::make_unique<CMessageSystemPacket>(0, 0, MsgStd::TargetIsCurrentlyBlocking);
             // Interaction was blocked
-            static_cast<CCharEntity*>(PTarget)->pushPacket(new CMessageSystemPacket(0, 0, MsgStd::BlockedByBlockaid));
+            static_cast<CCharEntity*>(PTarget)->pushPacket<CMessageSystemPacket>(0, 0, MsgStd::BlockedByBlockaid);
         }
         else if (IsMobOwner(PTarget))
         {
@@ -2793,28 +2819,28 @@ void CCharEntity::changeMoghancement(uint16 moghancementID, bool isAdding)
     switch (moghancementID)
     {
         case MOGHANCEMENT_FIRE:
-            addModifier(Mod::SYNTH_FAIL_RATE_FIRE, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_FIRE, 5 * multiplier);
             break;
         case MOGHANCEMENT_ICE:
-            addModifier(Mod::SYNTH_FAIL_RATE_ICE, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_ICE, 5 * multiplier);
             break;
         case MOGHANCEMENT_WIND:
-            addModifier(Mod::SYNTH_FAIL_RATE_WIND, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_WIND, 5 * multiplier);
             break;
         case MOGHANCEMENT_EARTH:
-            addModifier(Mod::SYNTH_FAIL_RATE_EARTH, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_EARTH, 5 * multiplier);
             break;
         case MOGHANCEMENT_LIGHTNING:
-            addModifier(Mod::SYNTH_FAIL_RATE_LIGHTNING, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_THUNDER, 5 * multiplier);
             break;
         case MOGHANCEMENT_WATER:
-            addModifier(Mod::SYNTH_FAIL_RATE_WATER, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_WATER, 5 * multiplier);
             break;
         case MOGHANCEMENT_LIGHT:
-            addModifier(Mod::SYNTH_FAIL_RATE_LIGHT, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_LIGHT, 5 * multiplier);
             break;
         case MOGHANCEMENT_DARK:
-            addModifier(Mod::SYNTH_FAIL_RATE_DARK, 5 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_DARK, 5 * multiplier);
             break;
 
         case MOGHANCEMENT_FISHING:
@@ -2851,63 +2877,64 @@ void CCharEntity::changeMoghancement(uint16 moghancementID, bool isAdding)
             break;
         case MOGLIFICATION_WOODWORKING:
             addModifier(Mod::WOOD, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_WOODWORKING, 5 * multiplier);
             break;
         case MOGLIFICATION_SMITHING:
             addModifier(Mod::SMITH, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_SMITHING, 5 * multiplier);
             break;
         case MOGLIFICATION_GOLDSMITHING:
             addModifier(Mod::GOLDSMITH, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_GOLDSMITHING, 5 * multiplier);
             break;
         case MOGLIFICATION_CLOTHCRAFT:
             addModifier(Mod::CLOTH, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_CLOTHCRAFT, 5 * multiplier);
             break;
         case MOGLIFICATION_LEATHERCRAFT:
             addModifier(Mod::LEATHER, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_LEATHERCRAFT, 5 * multiplier);
             break;
         case MOGLIFICATION_BONECRAFT:
             addModifier(Mod::BONE, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_BONECRAFT, 5 * multiplier);
             break;
         case MOGLIFICATION_ALCHEMY:
             addModifier(Mod::ALCHEMY, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_ALCHEMY, 5 * multiplier);
             break;
         case MOGLIFICATION_COOKING:
             addModifier(Mod::COOK, 1 * multiplier);
+            addModifier(Mod::SYNTH_MATERIAL_LOSS_COOKING, 5 * multiplier);
             break;
 
+        // Mega Moglifications do not state anything about lowering material loss.
         case MEGA_MOGLIFICATION_FISHING:
             addModifier(Mod::FISH, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_WOODWORKING:
             addModifier(Mod::WOOD, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_WOOD, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_SMITHING:
             addModifier(Mod::SMITH, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_SMITH, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_GOLDSMITHING:
             addModifier(Mod::GOLDSMITH, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_GOLDSMITH, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_CLOTHCRAFT:
             addModifier(Mod::CLOTH, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_CLOTH, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_LEATHERCRAFT:
             addModifier(Mod::LEATHER, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_LEATHER, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_BONECRAFT:
             addModifier(Mod::BONE, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_BONE, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_ALCHEMY:
             addModifier(Mod::ALCHEMY, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_ALCHEMY, 5 * multiplier);
             break;
         case MEGA_MOGLIFICATION_COOKING:
             addModifier(Mod::COOK, 5 * multiplier);
-            addModifier(Mod::SYNTH_FAIL_RATE_COOK, 5 * multiplier);
             break;
 
         case MOGHANCEMENT_EXPERIENCE:
@@ -2917,7 +2944,7 @@ void CCharEntity::changeMoghancement(uint16 moghancementID, bool isAdding)
             addModifier(Mod::GARDENING_WILT_BONUS, 36 * multiplier);
             break;
         case MOGHANCEMENT_DESYNTHESIS:
-            addModifier(Mod::DESYNTH_SUCCESS, 2 * multiplier);
+            addModifier(Mod::SYNTH_SUCCESS_RATE_DESYNTHESIS, 2 * multiplier);
             break;
         case MOGHANCEMENT_CONQUEST:
             addModifier(Mod::CONQUEST_BONUS, 6 * multiplier);
@@ -3111,11 +3138,11 @@ void CCharEntity::tryStartNextEvent()
 
     if (currentEvent->strings.empty())
     {
-        pushPacket(new CEventPacket(this, currentEvent));
+        pushPacket<CEventPacket>(this, currentEvent);
     }
     else
     {
-        pushPacket(new CEventStringPacket(this, currentEvent));
+        pushPacket<CEventStringPacket>(this, currentEvent);
     }
 }
 
@@ -3124,13 +3151,13 @@ void CCharEntity::skipEvent()
     TracyZoneScoped;
     if (!m_Locked && !isInEvent() && (!currentEvent->cutsceneOptions.empty() || currentEvent->interruptText != 0))
     {
-        pushPacket(new CMessageSystemPacket(0, 0, MsgStd::EventSkipped));
-        pushPacket(new CReleasePacket(this, RELEASE_TYPE::SKIPPING));
+        pushPacket<CMessageSystemPacket>(0, 0, MsgStd::EventSkipped);
+        pushPacket<CReleasePacket>(this, RELEASE_TYPE::SKIPPING);
         m_Substate = CHAR_SUBSTATE::SUBSTATE_NONE;
 
         if (currentEvent->interruptText != 0)
         {
-            pushPacket(new CMessageTextPacket(currentEvent->targetEntity, currentEvent->interruptText, false));
+            pushPacket<CMessageTextPacket>(currentEvent->targetEntity, currentEvent->interruptText, false);
         }
 
         endCurrentEvent();

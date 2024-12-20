@@ -119,14 +119,14 @@ void ReportErrorToPlayer(CBaseEntity* PEntity, std::string const& message = "") 
                 {
                     auto        channel = MESSAGE_NS_SHOUT;
                     std::string breaker = "================";
-                    PChar->pushPacket(new CChatMessagePacket(PChar, channel, breaker.c_str()));
-                    PChar->pushPacket(new CChatMessagePacket(PChar, channel, "!!! Lua error !!!"));
+                    PChar->pushPacket<CChatMessagePacket>(PChar, channel, breaker.c_str());
+                    PChar->pushPacket<CChatMessagePacket>(PChar, channel, "!!! Lua error !!!");
                     for (auto const& part : split(message, "\n"))
                     {
                         auto str = replace(part, "\t", "    ");
-                        PChar->pushPacket(new CChatMessagePacket(PChar, channel, str.c_str()));
+                        PChar->pushPacket<CChatMessagePacket>(PChar, channel, str.c_str());
                     }
-                    PChar->pushPacket(new CChatMessagePacket(PChar, channel, breaker.c_str()));
+                    PChar->pushPacket<CChatMessagePacket>(PChar, channel, breaker.c_str());
                 }
             }
         }
@@ -280,6 +280,7 @@ namespace luautils
         // Load globals
         // Truly global files first
         lua.safe_script_file("./scripts/globals/common.lua");
+        lua.safe_script_file("./scripts/globals/utils.lua");
 
         // Load global enums
         for (auto const& entry : sorted_directory_iterator<std::filesystem::directory_iterator>("./scripts/enum"))
@@ -930,63 +931,45 @@ namespace luautils
             else
             {
                 ShowError(fmt::format("GetFirstID({}) in zone {}: Returning nil", name, zoneName));
-
                 return std::nullopt;
             }
         });
 
         std::unordered_map<std::string, sol::table> idLuaTables;
 
-        lua.set_function("GetTableOfIDs", [&](std::string const& name, std::optional<int> optRange, std::optional<int> optOffset) -> sol::table
+        lua.set_function("GetTableOfIDs", [&](std::string const& name) -> sol::table
         {
-            // Is it already built and cached?
+            // Is it already built and cached: return it
             if (idLuaTables.find(name) != idLuaTables.end())
             {
                 return idLuaTables[name];
             }
 
-            sol::table table = lua.create_table();
-
-            // Match first, +n following entries [start, start + n)
-            if (optRange)
+            // If we have no entries, bail out and return nil
+            if (lookup.find(name) == lookup.end())
             {
-                int range = *optRange;
-
-                // If we have no entries, bail out and return nil
-                if (lookup.find(name) == lookup.end())
-                {
-                    ShowError(fmt::format("GetTableOfIDs({}) in zone {}: Returning nil", name, zoneName));
-                    return sol::lua_nil;
-                }
-
-                auto entriesVec = lookup[name];
-
-                if (entriesVec.empty())
-                {
-                    ShowError(fmt::format("GetTableOfIDs({}) in zone {}: Returning empty table", name, zoneName));
-                    return table;
-                }
-
-                uint32 offset  = optOffset.value_or(0);
-                uint32 startId = entriesVec.front() + offset;
-                uint32 endId   = startId + range;
-
-                // TODO: Set this up to be able to iterate negatively too
-                for (std::size_t idx = startId; idx < endId; ++idx)
-                {
-                    table.add(idx);
-                }
+                ShowError(fmt::format("GetTableOfIDs({}) in zone {}: Returning nil", name, zoneName));
+                return sol::lua_nil;
             }
-            else // Look up all that match name
+
+            // Otherwise, let's start building it and then cache it
+            auto table = lua.create_table();
+
+            auto entriesVec = lookup[name];
+            if (entriesVec.empty())
             {
-                for (auto const& [lookupName, lookupVec] : lookup)
+                ShowError(fmt::format("GetTableOfIDs({}) in zone {}: Returning empty table", name, zoneName));
+                return table;
+            }
+
+            // Look up all that match name
+            for (auto const& [lookupName, lookupVec] : lookup)
+            {
+                if (name == lookupName)
                 {
-                    if (name == lookupName)
+                    for (auto const& entryId : lookupVec)
                     {
-                        for (auto const& entryId : lookupVec)
-                        {
-                            table.add(entryId);
-                        }
+                        table.add(entryId);
                     }
                 }
             }
@@ -1828,7 +1811,7 @@ namespace luautils
         return true;
     }
 
-    void OnZoneInitialise(uint16 ZoneID)
+    void OnZoneInitialize(uint16 ZoneID)
     {
         TracyZoneScoped;
 
@@ -1843,7 +1826,7 @@ namespace luautils
         auto name     = PZone->getName();
         auto filename = fmt::format("./scripts/zones/{}/Zone.lua", name);
 
-        ShowTraceFmt("luautils::OnZoneInitialise: {}", name);
+        ShowTraceFmt("luautils::OnZoneInitialize: {}", name);
 
         CacheLuaObjectFromFile(filename);
 
@@ -2256,7 +2239,7 @@ namespace luautils
         if (PChar->currentEvent->scriptFile.find("/bcnms/") > 0 && PChar->health.hp <= 0)
         { // for some reason the event doesnt enforce death afterwards
             PChar->animation = ANIMATION_DEATH;
-            PChar->pushPacket(new CRaiseTractorMenuPacket(PChar, TYPE_HOMEPOINT));
+            PChar->pushPacket<CRaiseTractorMenuPacket>(PChar, TYPE_HOMEPOINT);
             PChar->updatemask |= UPDATE_HP;
         }
 
@@ -3086,7 +3069,7 @@ namespace luautils
         }
     }
 
-    int32 OnBattlefieldHandlerInitialise(CZone* PZone)
+    int32 OnBattlefieldHandlerInitialize(CZone* PZone)
     {
         TracyZoneScoped;
 
@@ -3098,26 +3081,26 @@ namespace luautils
         int32 MaxAreas = 3;
 
         // TODO: This is loaded globally, fix this
-        auto onBattlefieldHandlerInitialise = lua["onBattlefieldHandlerInitialise"];
-        if (!onBattlefieldHandlerInitialise.valid())
+        auto onBattlefieldHandlerInitialize = lua["onBattlefieldHandlerInitialize"];
+        if (!onBattlefieldHandlerInitialize.valid())
         {
             return MaxAreas;
         }
 
         CLuaZone LuaZone(PZone);
 
-        auto result = onBattlefieldHandlerInitialise(CLuaZone(PZone));
+        auto result = onBattlefieldHandlerInitialize(CLuaZone(PZone));
         if (!result.valid())
         {
             sol::error err = result;
-            ShowError("luautils::onBattlefieldHandlerInitialise: %s", err.what());
+            ShowError("luautils::onBattlefieldHandlerInitialize: %s", err.what());
             return MaxAreas;
         }
 
         return result.get_type(0) == sol::type::number ? result.get<int32>(0) : MaxAreas;
     }
 
-    void OnBattlefieldInitialise(CBattlefield* PBattlefield)
+    void OnBattlefieldInitialize(CBattlefield* PBattlefield)
     {
         TracyZoneScoped;
 
@@ -3126,7 +3109,7 @@ namespace luautils
             return;
         }
 
-        invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldInitialise", CLuaBattlefield(PBattlefield));
+        invokeBattlefieldEvent(PBattlefield->GetID(), "onBattlefieldInitialize", CLuaBattlefield(PBattlefield));
     }
 
     void OnBattlefieldTick(CBattlefield* PBattlefield)
@@ -4254,13 +4237,16 @@ namespace luautils
             return 0;
         }
 
-        sol::function onSteal = getEntityCachedFunction(PMob, "onSteal");
-        if (!onSteal.valid())
-        {
-            return 0;
-        }
+        auto zone     = PChar->loc.zone->getName();
+        auto name     = PMob->getName();
+        auto filename = fmt::format("./scripts/zones/{}/mobs/{}.lua", zone, name);
 
-        auto result = onSteal(CLuaBaseEntity(PChar), CLuaBaseEntity(PMob), CLuaAbility(PAbility), CLuaAction(action));
+        ShowTrace("luautils::OnSteal: {} ({}) -> {}", PChar->getName(), zone, name);
+
+        auto onStealFramework = lua["InteractionGlobal"]["onSteal"];
+        auto onSteal          = GetCacheEntryFromFilename(filename)["onSteal"];
+
+        auto result = onStealFramework(CLuaBaseEntity(PChar), CLuaBaseEntity(PMob), CLuaAbility(PAbility), CLuaAction(action), onSteal);
         if (!result.valid())
         {
             sol::error err = result;
@@ -5563,7 +5549,7 @@ namespace luautils
         {
             while (rset->next())
             {
-                id = rset->getUInt("itemid");
+                id = rset->get<uint16>("itemid");
             }
         }
         else if (rset && rowCount > 1)

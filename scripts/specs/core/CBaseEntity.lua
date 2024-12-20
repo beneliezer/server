@@ -522,6 +522,10 @@ end
 function CBaseEntity:follow(target, followType)
 end
 
+---@return boolean
+function CBaseEntity:hasFollowTarget()
+end
+
 ---@return nil
 function CBaseEntity:unfollow()
 end
@@ -885,6 +889,12 @@ end
 ---@param slot integer
 ---@return CItem?
 function CBaseEntity:getEquippedItem(slot)
+end
+
+---@nodiscard
+---@param equipmentID integer
+---@return boolean
+function CBaseEntity:hasEquipped(equipmentID)
 end
 
 ---@nodiscard
@@ -2539,6 +2549,11 @@ end
 function CBaseEntity:triggerListener(eventName, ...)
 end
 
+---@param eventName string
+---@return boolean
+function CBaseEntity:hasListener(eventName)
+end
+
 ---@nodiscard
 ---@param targetID integer
 ---@return CBaseEntity?
@@ -2710,8 +2725,10 @@ end
 ---@param subType integer?
 ---@param subPower integer?
 ---@param tier integer?
+---@param SourceType integer?
+---@param SourceTypeParam integer?
 ---@return boolean
-function CBaseEntity:addStatusEffect(effectID, power, tick, duration, subType, subPower, tier)
+function CBaseEntity:addStatusEffect(effectID, power, tick, duration, subType, subPower, tier, SourceType, SourceTypeParam)
 end
 
 ---@param effect CStatusEffect
@@ -2765,6 +2782,14 @@ function CBaseEntity:getStatusEffect(StatusID, SubType)
 end
 
 ---@nodiscard
+---@param StatusID integer
+---@param SourceType integer
+---@param SourceTypeParam integer
+---@return CStatusEffect?
+function CBaseEntity:getStatusEffectBySource(StatusID, SourceType, SourceTypeParam)
+end
+
+---@nodiscard
 ---@return table
 function CBaseEntity:getStatusEffects()
 end
@@ -2808,8 +2833,10 @@ end
 
 ---@param StatusID integer
 ---@param SubType integer?
+---@param SourceType integer?
+---@param SourceTypeParam integer?
 ---@return boolean
-function CBaseEntity:delStatusEffect(StatusID, SubType)
+function CBaseEntity:delStatusEffect(StatusID, SubType, SourceType, SourceTypeParam)
 end
 
 ---@param flag integer
@@ -3688,12 +3715,12 @@ end
 
 ---@nodiscard
 ---@return integer
-function CBaseEntity:getBehaviour()
+function CBaseEntity:getBehavior()
 end
 
 ---@param behavior integer
 ---@return nil
-function CBaseEntity:setBehaviour(behavior)
+function CBaseEntity:setBehavior(behavior)
 end
 
 ---@nodiscard
@@ -3797,6 +3824,11 @@ end
 ---@param milliseconds integer
 ---@return nil
 function CBaseEntity:untargetableAndUnactionable(milliseconds)
+end
+
+---@param attacker CBaseEntity
+---@return nil
+function CBaseEntity:tryHitInterrupt(attacker)
 end
 
 ---@nodiscard
