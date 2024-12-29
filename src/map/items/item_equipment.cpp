@@ -24,6 +24,52 @@
 #include "map.h"
 #include <cstring>
 
+namespace
+{
+    /*
+    From augments.sql:
+
+    `augmentId` smallint(5) unsigned NOT NULL,
+    `multiplier` smallint(2) NOT NULL DEFAULT 0,
+    `modId` smallint(5) unsigned NOT NULL DEFAULT 0,
+    `value` smallint(5) NOT NULL DEFAULT 0,
+    `isPet` tinyint(1) NOT NULL DEFAULT 0,
+    `petType` tinyint(3) unsigned NOT NULL DEFAULT 0,
+    */
+    struct AugmentDataRow
+    {
+        uint16 augmentId;
+        uint16 multiplier;
+        uint16 modId;
+        int16  value; // Can be negative
+        uint8  isPet;
+        uint8  petType;
+    };
+
+    std::unordered_map<uint16, AugmentDataRow> sAugmentData;
+} // namespace
+
+void CItemEquipment::LoadAugmentData()
+{
+    const auto rset = db::preparedStmt("SELECT `augmentId`, `multiplier`, `modId`, `value`, `isPet`, `petType` FROM `augments`");
+    if (rset)
+    {
+        while (rset->next())
+        {
+            const auto augmentId = rset->get<uint16>("augmentId");
+
+            sAugmentData[augmentId] = AugmentDataRow{
+                .augmentId  = augmentId,
+                .multiplier = rset->get<uint16>("multiplier"),
+                .modId      = rset->get<uint16>("modId"),
+                .value      = rset->get<int16>("value"),
+                .isPet      = rset->get<uint8>("isPet"),
+                .petType    = rset->get<uint8>("petType"),
+            };
+        }
+    }
+}
+
 CItemEquipment::CItemEquipment(uint16 id)
 : CItemUsable(id)
 {
@@ -367,6 +413,12 @@ void CItemEquipment::setAugment(uint8 slot, uint16 type, uint8 value)
 
 void CItemEquipment::SetAugmentMod(uint16 type, uint8 value)
 {
+    if (sAugmentData.find(type) == sAugmentData.end())
+    {
+        ShowErrorFmt("Invalid augment type {} requested for item {}", type, this->getID());
+        return;
+    }
+
     if (type != 0)
     {
         setSubType(ITEM_AUGMENTED);
@@ -374,34 +426,28 @@ void CItemEquipment::SetAugmentMod(uint16 type, uint8 value)
         ref<uint8>(m_extra, 0x01) |= 0x03;
     }
 
-    // obtain augment info by querying the db
-    const char* fmtQuery = "SELECT augmentId, multiplier, modId, `value`, `isPet`, `petType` FROM augments WHERE augmentId = %u";
+    const auto& augmentData = sAugmentData[type];
 
-    int32 ret = _sql->Query(fmtQuery, type);
+    uint8 multiplier = augmentData.multiplier;
+    Mod   modId      = static_cast<Mod>(augmentData.modId);
+    int16 modValue   = augmentData.value;
 
-    while (ret != SQL_ERROR && _sql->NumRows() != 0 && _sql->NextRow() == SQL_SUCCESS)
+    // type is 0 unless mod is for pets
+    uint8      isPet   = augmentData.isPet;
+    PetModType petType = static_cast<PetModType>(augmentData.petType);
+
+    // apply modifier to item. increase modifier power by 'value' (default magnitude 1 for most augments) if multiplier isn't specified
+    // otherwise increase modifier power using the multiplier
+    // check if we should be adding to or taking away from the mod power (handle scripted augments properly)
+    modValue = (modValue > 0 ? modValue + value : modValue - value) * (multiplier > 1 ? multiplier : 1);
+
+    if (!isPet)
     {
-        uint8 multiplier = (uint8)_sql->GetUIntData(1);
-        Mod   modId      = static_cast<Mod>(_sql->GetUIntData(2));
-        int16 modValue   = (int16)_sql->GetIntData(3);
-
-        // type is 0 unless mod is for pets
-        uint8      isPet   = (uint8)_sql->GetUIntData(4);
-        PetModType petType = static_cast<PetModType>(_sql->GetIntData(5));
-
-        // apply modifier to item. increase modifier power by 'value' (default magnitude 1 for most augments) if multiplier isn't specified
-        // otherwise increase modifier power using the multiplier
-        // check if we should be adding to or taking away from the mod power (handle scripted augments properly)
-        modValue = (modValue > 0 ? modValue + value : modValue - value) * (multiplier > 1 ? multiplier : 1);
-
-        if (!isPet)
-        {
-            addModifier(CModifier(modId, modValue));
-        }
-        else
-        {
-            addPetModifier(CPetModifier(modId, petType, modValue));
-        }
+        addModifier(CModifier(modId, modValue));
+    }
+    else
+    {
+        addPetModifier(CPetModifier(modId, petType, modValue));
     }
 }
 

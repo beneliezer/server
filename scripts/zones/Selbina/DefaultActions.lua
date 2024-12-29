@@ -11,4 +11,5 @@ return {
     ['Thunder_Hawk'] = { event = 84 },
     ['Valgeir']      = { event = 140 },
     ['Yaya']         = { event = 153 },
+    ['Zaldon']       = { event = 150 },
 }

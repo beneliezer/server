@@ -5075,7 +5075,16 @@ INSERT INTO `mob_spell_lists` VALUES ('Two-faced_Flan',507,201,1,255); -- waterg
 INSERT INTO `mob_spell_lists` VALUES ('Two-faced_Flan',507,274,1,255); -- sleepga_ii (1~255)
 INSERT INTO `mob_spell_lists` VALUES ('Two-faced_Flan',507,362,1,255); -- bindga (1~255)
 
--- Next Available: 508
+-- Unfettered Twitherym (508)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,366,1,255); -- Graviga (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,356,1,255); -- Paralyga (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,362,1,255); -- Bindga (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,357,1,255); -- Slowga (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,359,1,255); -- silencega (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,360,1,255); -- dispelga (1~255)
+INSERT INTO `mob_spell_lists` VALUES ('Unfettered_Twitherym',508,187,1,255); -- aeroga_iv (1~255)
+
+-- Next Available: 509
 
 /*!40000 ALTER TABLE `mob_spell_lists` ENABLE KEYS */;
 UNLOCK TABLES;

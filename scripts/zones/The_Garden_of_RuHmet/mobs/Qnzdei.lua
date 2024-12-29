@@ -47,7 +47,7 @@ entity.onMobSpawn = function(mob)
 
     -- Qn'Zdei randomly spin at speeds 4, 8, 16, 64 and can be reversed (negative)
     mob:setLocalVar('spinSpeed', utils.randomEntry(spinSpeeds))
-    if math.random(1, 2) == 1 then
+    if math.random(1, 100) <= 50 then
         mob:setLocalVar('reversed', 1)
     end
 end

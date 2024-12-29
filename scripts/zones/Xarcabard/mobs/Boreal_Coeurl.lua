@@ -5,6 +5,7 @@
 -- !pos 580 -9 290 112
 -----------------------------------
 local ID = zones[xi.zone.XARCABARD]
+mixins = { require('scripts/mixins/draw_in') }
 -----------------------------------
 ---@type TMobEntity
 local entity = {}

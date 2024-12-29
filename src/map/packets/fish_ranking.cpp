@@ -24,7 +24,7 @@
 #include "common/socket.h"
 #include "common/vana_time.h"
 
-#include "utils/fishingcontest.h"
+#include "fishingcontest.h"
 
 #include <cstring>
 

@@ -36,6 +36,8 @@ zones[xi.zone.TAVNAZIAN_SAFEHOLD] =
         ITEM_DELIVERY_DIALOG           = 10930, -- I can send your items to anywhere in Vana'diel!
         HOMEPOINT_SET                  = 10933, -- Home point set!
         DOOR_IS_LOCKED_TIGHT           = 11030, -- The door is locked tight.
+        CRUSE_ON_THE_GROUND            = 11759, -- There is a <keyitem> lying on the ground here! <player> obtains the <keyitem>!
+        TRAIL_OF_WATER                 = 11760, -- There is a trail of water here. It is still fresh.
         YOU_CANNOT_ENTER_DYNAMIS       = 11843, -- You cannot enter Dynamis - [Dummy/San d'Oria/Bastok/Windurst/Jeuno/Beaucedine/Xarcabard/Valkurm/Buburimu/Qufim/Tavnazia] for <number> [day/days] (Vana'diel time).
         PLAYERS_HAVE_NOT_REACHED_LEVEL = 11845, -- Players who have not reached level <number> are prohibited from entering Dynamis.
         DYNA_NPC_DEFAULT_MESSAGE       = 11967, -- There is a strange symbol drawn here. A haunting chill sweeps through you as you gaze upon it...
@@ -47,7 +49,11 @@ zones[xi.zone.TAVNAZIAN_SAFEHOLD] =
     },
     npc =
     {
-        QM_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm_in_search_of_truth'),
+        QM1_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm1_in_search_of_truth'),
+        QM2_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm2_in_search_of_truth'),
+        QM3_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm3_in_search_of_truth'),
+        QM4_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm4_in_search_of_truth'),
+        QM5_IN_SEARCH_OF_TRUTH_BASE = GetFirstID('qm5_in_search_of_truth'),
     },
 }
 

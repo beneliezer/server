@@ -2,18 +2,18 @@
 -- The Gift
 -----------------------------------
 -- Log ID: 4, Quest ID: 21
+-- !addquest 4 21
+-- !additem 4375
 -- Oswald  : !pos 47.119 -15.273 7.989 248
------------------------------------
-require('scripts/globals/quests')
-require('scripts/globals/interaction/quest')
 -----------------------------------
 
 local quest = Quest:new(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_GIFT)
 
 quest.reward =
 {
-    item = xi.item.SLEEP_DAGGER,
-    title = xi.title.SAVIOR_OF_LOVE
+    item     = xi.item.SLEEP_DAGGER,
+    title    = xi.title.SAVIOR_OF_LOVE,
+    fameArea = xi.fameArea.SELBINA_RABAO,
 }
 
 quest.sections =
@@ -21,13 +21,14 @@ quest.sections =
     {
         check = function(player, status, vars)
             return status == xi.questStatus.QUEST_AVAILABLE and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA) == xi.questStatus.QUEST_COMPLETED and
-            player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) >= xi.questStatus.QUEST_ACCEPTED
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.UNDER_THE_SEA) == xi.questStatus.QUEST_COMPLETED and
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_SAND_CHARM) >= xi.questStatus.QUEST_ACCEPTED and
+                xi.settings.map.FISHING_ENABLE == true
         end,
 
         [xi.zone.SELBINA] =
         {
-            ['Oswald'] = quest:event(70, xi.item.DANCESHROOM),
+            ['Oswald'] = quest:progressEvent(70, xi.item.DANCESHROOM), -- Girlfriend needs a shroom
 
             onEventFinish =
             {
@@ -49,14 +50,14 @@ quest.sections =
         {
             ['Oswald'] =
             {
-                onTrade = function(player, npc, trade)
-                    if npcUtil.tradeHasExactly(trade, xi.item.DANCESHROOM) then
-                        return quest:progressEvent(72, 0, xi.item.DANCESHROOM)
-                    end
+                onTrigger = function(player, npc)
+                    return quest:event(71) -- They are really hard to come by
                 end,
 
-                onTrigger = function(player, npc)
-                    return quest:event(71)
+                onTrade = function(player, npc, trade)
+                    if npcUtil.tradeHasExactly(trade, xi.item.DANCESHROOM) then
+                        return quest:progressEvent(72, 0, xi.item.DANCESHROOM) -- You found it! Please take this reward
+                    end
                 end,
             },
 
@@ -70,17 +71,17 @@ quest.sections =
             },
         },
     },
-    {
-        {
-            check = function(player, status, vars)
-                return status == xi.questStatus.QUEST_COMPLETED and
-                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_REAL_GIFT) == xi.questStatus.QUEST_AVAILABLE
-            end,
 
-            [xi.zone.SELBINA] =
-            {
-                ['Oswald'] = quest:event(78):replaceDefault(),
-            },
+    {
+        check = function(player, status, vars)
+            return status == xi.questStatus.QUEST_COMPLETED and
+                player:getQuestStatus(xi.questLog.OTHER_AREAS, xi.quest.id.otherAreas.THE_REAL_GIFT) == xi.questStatus.QUEST_AVAILABLE
+        end,
+
+        [xi.zone.SELBINA] =
+        {
+            ['Oswald'] = quest:progressEvent(78):replaceDefault(),
+            -- I've been all over Vana'diel, but the inn is my favorite.
         },
     },
 }

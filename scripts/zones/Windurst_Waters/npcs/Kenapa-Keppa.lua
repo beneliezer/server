@@ -28,7 +28,7 @@ entity.onTrigger = function(player, npc)
     then
         player:startEvent(519)
     else
-        if math.random(1, 2) == 1 then
+        if math.random(1, 100) <= 50 then
             player:startEvent(302) -- Standard converstation
         else
             player:startEvent(303) -- Standard converstation

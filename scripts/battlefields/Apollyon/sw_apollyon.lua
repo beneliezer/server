@@ -351,7 +351,6 @@ content.groups =
         mobs    = { 'Armoury_Crate_Mimic' },
         mobMods =
         {
-            [xi.mobMod.DRAW_IN   ] = 1,
             [xi.mobMod.NO_MOVE   ] = 1,
             [xi.mobMod.NO_DESPAWN] = 1,
             [xi.mobMod.NO_AGGRO  ] = 1,

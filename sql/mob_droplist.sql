@@ -23334,8 +23334,8 @@ INSERT INTO `mob_droplist` VALUES (2837,1,1,1000,13071,70);      -- Scale Gorget
 
 -- ZoneID:  81 - Cottus
 -- ZoneID: 143 - Zighi Boneeater
-INSERT INTO `mob_droplist` VALUES (2838,0,0,1000,12797,900);       -- Coarse Gauntlets (90.0%)
-INSERT INTO `mob_droplist` VALUES (2838,0,0,1000,16934,@UNCOMMON); -- Braveheart (Uncommon, 10%)
+INSERT INTO `mob_droplist` VALUES (2838,1,1,1000,12797,900);       -- Coarse Gauntlets (Group 1 - 90.0%)
+INSERT INTO `mob_droplist` VALUES (2838,1,1,1000,16934,@UNCOMMON); -- Braveheart (Group 1 - Uncommon, 10%)
 
 -- ZoneID: 143 - Nomho Crimsonarmor
 INSERT INTO `mob_droplist` VALUES (2839,1,1,1000,13837,930); -- Bonzes Circlet (Group 1 - 93.0%)
@@ -24074,7 +24074,7 @@ INSERT INTO `mob_droplist` VALUES (2938,0,0,1000,2842,222); -- Flawed Garnet (22
 INSERT INTO `mob_droplist` VALUES (2939,0,0,1000,16296,@VCOMMON); -- Armigers Lace (Very Common, 24%)
 
 -- ZoneID: 143 - Quvho Deathhurler
-INSERT INTO `mob_droplist` VALUES (2940,0,0,1000,15052,257); -- Guerilla Gloves (25.7%)
+INSERT INTO `mob_droplist` VALUES (2940,0,0,1000,15052,@VCOMMON); -- Guerilla Gloves (Very Common, 24%)
 
 -- ZoneID: 100 - Amanita
 INSERT INTO `mob_droplist` VALUES (2941,0,0,1000,19043,@VCOMMON); -- Tenax Strap (Very Common, 24%)

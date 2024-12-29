@@ -35,7 +35,7 @@ extern sol::state lua;
 // SOL_NO_CHECK_NUMBER_PRECISION = 1
 #include "sol/sol.hpp"
 
-// sol changes this behaviour to return 0 rather than truncating
+// sol changes this behavior to return 0 rather than truncating
 // we rely on that, so change it back
 #undef lua_tointeger
 #define lua_tointeger(L, n) static_cast<lua_Integer>(std::floor(lua_tonumber(L, n)))
@@ -165,6 +165,7 @@ namespace luautils
     bool   PlayerHasValidSession(uint32 playerId);
     uint32 GetPlayerIDByName(std::string const& name);
     void   SendToJailOffline(uint32 playerId, int8 cellId, float posX, float posY, float posZ, uint8 rot);
+    void   DrawIn(CLuaBaseEntity* PLuaBaseEntity, sol::table const& table, float offset, float degrees);
 
     uint32 GetSystemTime();
     uint32 JstMidnight();
@@ -213,7 +214,7 @@ namespace luautils
     void OnZoneIn(CCharEntity* PChar);
     void OnZoneOut(CCharEntity* PChar);
     void AfterZoneIn(CBaseEntity* PChar);
-    void OnZoneInitialise(uint16 ZoneID);
+    void OnZoneInitialize(uint16 ZoneID);
     void OnZoneTick(CZone* PZone);
     void OnTriggerAreaEnter(CCharEntity* PChar, CTriggerArea* PTriggerArea);
     void OnTriggerAreaLeave(CCharEntity* PChar, CTriggerArea* PTriggerArea);
@@ -268,7 +269,6 @@ namespace luautils
     void OnMobDisengage(CBaseEntity* PMob);
     void OnMobFollow(CBaseEntity* PMob, CBaseEntity* PTarget);
     void OnMobUnfollow(CBaseEntity* PMob, CBaseEntity* PTarget);
-    void OnMobDrawIn(CBaseEntity* PMob, CBaseEntity* PTarget);
     void OnMobFight(CBaseEntity* PMob, CBaseEntity* PTarget);
     void OnCriticalHit(CBattleEntity* PMob, CBattleEntity* PAttacker);
     void OnMobDeath(CBaseEntity* PMob, CBaseEntity* PKiller);
@@ -282,8 +282,8 @@ namespace luautils
     void OnPathPoint(CBaseEntity* PEntity);
     void OnPathComplete(CBaseEntity* PEntity);
 
-    int32 OnBattlefieldHandlerInitialise(CZone* PZone);
-    void  OnBattlefieldInitialise(CBattlefield* PBattlefield); // what to do when initialising battlefield, battlefield:setLocalVar("lootId") here for any which have loot
+    int32 OnBattlefieldHandlerInitialize(CZone* PZone);
+    void  OnBattlefieldInitialize(CBattlefield* PBattlefield); // what to do when initialising battlefield, battlefield:setLocalVar("lootId") here for any which have loot
     void  OnBattlefieldTick(CBattlefield* PBattlefield);
     void  OnBattlefieldStatusChange(CBattlefield* PBattlefield);
 

@@ -2239,7 +2239,7 @@ INSERT INTO `item_usable` VALUES (16603,'halo_claymore',1,3,0,0,100,30,600,0);
 INSERT INTO `item_usable` VALUES (16613,'spirit_sword',1,3,78,0,100,30,600,0);
 INSERT INTO `item_usable` VALUES (16858,'sacred_lance',1,3,78,0,30,30,300,0);
 INSERT INTO `item_usable` VALUES (16954,'pealing_nagan',20,1,0,0,50,30,600,0);
-INSERT INTO `item_usable` VALUES (17040,'warp_cudgel',1,8,80,3,30,30,3600,0);
+INSERT INTO `item_usable` VALUES (17040,'warp_cudgel',1,8,80,3,30,3,3600,0);
 INSERT INTO `item_usable` VALUES (17468,'raise_rod',9,3,33,0,20,30,60,0);
 INSERT INTO `item_usable` VALUES (17469,'raise_ii_rod',9,4,33,0,20,30,60,0);
 INSERT INTO `item_usable` VALUES (17470,'pealing_buzdygan',20,1,0,0,50,30,600,0);

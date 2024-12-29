@@ -4025,7 +4025,7 @@ xi.magian.trials =
             },
         },
 
-        textOffset     = 358,
+        textOffset     = 660,
         defeatMob      = true,
         mobEcosystem   = xi.ecosystem.BEAST,
         useWeaponskill = xi.weaponskill.FINAL_HEAVEN,

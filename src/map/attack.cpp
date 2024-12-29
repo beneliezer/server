@@ -95,7 +95,22 @@ void CAttack::SetCritical(bool value)
 
     if (m_attackType == PHYSICAL_ATTACK_TYPE::DAKEN)
     {
-        m_damageRatio = battleutils::GetRangedDamageRatio(m_attacker, m_victim, m_isCritical);
+        uint16 bonusRatt = 0;
+
+        if (m_attacker->StatusEffectContainer)
+        {
+            const CStatusEffect* sangeEffect = m_attacker->StatusEffectContainer->GetStatusEffect(EFFECT_SANGE);
+            CCharEntity*         PChar       = dynamic_cast<CCharEntity*>(m_attacker);
+
+            if (sangeEffect && PChar && PChar->PMeritPoints)
+            {
+                int32 meritValue = PChar->PMeritPoints->GetMeritValue(MERIT_SANGE, PChar);
+
+                // Add N ranged attack * merit level during Sange effect
+                bonusRatt += PChar->getMod(Mod::ENHANCES_SANGE) * meritValue;
+            }
+        }
+        m_damageRatio = battleutils::GetRangedDamageRatio(m_attacker, m_victim, m_isCritical, bonusRatt);
     }
     else
     {
@@ -318,7 +333,21 @@ uint8 CAttack::GetHitRate()
     }
     else if (m_attackType == PHYSICAL_ATTACK_TYPE::DAKEN)
     {
-        m_hitRate = battleutils::GetRangedHitRate(m_attacker, m_victim, false, 100);
+        int16 accBonus = 100;
+
+        if (m_attacker->StatusEffectContainer)
+        {
+            const CStatusEffect* sangeEffect = m_attacker->StatusEffectContainer->GetStatusEffect(EFFECT_SANGE);
+            CCharEntity*         PChar       = dynamic_cast<CCharEntity*>(m_attacker);
+            if (sangeEffect && PChar && PChar->PMeritPoints)
+            {
+                int32 meritValue = PChar->PMeritPoints->GetMeritValue(MERIT_SANGE, PChar);
+
+                accBonus += (meritValue - 1) * 25; // add 25 acc per merit past the first (you have to merit Sange to even have the status effect, so this will never be negative acc bonus)
+            }
+        }
+
+        m_hitRate = battleutils::GetRangedHitRate(m_attacker, m_victim, false, accBonus);
     }
     else if (m_attackDirection == RIGHTATTACK)
     {
@@ -480,13 +509,22 @@ bool CAttack::CheckCounter()
     {
         if ((xirand::GetRandomNumber(100) < std::clamp<uint16>(m_victim->getMod(Mod::COUNTER) + meritCounter, 0, 80) ||
              xirand::GetRandomNumber(100) < seiganChance) &&
-            facing(m_victim->loc.p, m_attacker->loc.p, 64) && xirand::GetRandomNumber(100) < battleutils::GetHitRate(m_victim, m_attacker))
+            facing(m_victim->loc.p, m_attacker->loc.p, 64))
         {
-            m_isCountered = true;
-            m_isCritical  = (xirand::GetRandomNumber(100) < battleutils::GetCritHitRate(m_victim, m_attacker, false));
+            if (xirand::GetRandomNumber(100) < battleutils::GetHitRate(m_victim, m_attacker))
+            {
+                m_isCountered = true;
+                m_isCritical  = (xirand::GetRandomNumber(100) < battleutils::GetCritHitRate(m_victim, m_attacker, false));
+            }
+            else
+            {
+                m_attacker->PAI->EventHandler.triggerListener("MELEE_SWING_MISS", CLuaBaseEntity(m_attacker), CLuaBaseEntity(m_victim), CLuaAttack(this));
+            }
         }
         else if (m_victim->StatusEffectContainer->HasStatusEffect(EFFECT_PERFECT_COUNTER))
-        { // Perfect Counter only counters hits that normal counter misses, always critical, can counter 1-3 times before wearing
+        {
+            // Perfect Counter only counters hits that normal counter misses, always critical, can counter 1-3 times before wearing
+            // TODO: Perfect Counter can negate an attack even if it misses (No accuracy check yet)
             m_isCountered = true;
             m_isCritical  = true;
 

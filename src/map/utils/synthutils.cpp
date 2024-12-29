@@ -112,7 +112,7 @@ namespace synthutils
 
                     if (currentSkill < (skillValue * 10 - 150)) // Check player skill against recipe level. Range must be 14 or less.
                     {
-                        PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_NOSKILL));
+                        PChar->pushPacket<CSynthMessagePacket>(PChar, SYNTH_NOSKILL);
                         return false;
                     }
                 }
@@ -120,7 +120,7 @@ namespace synthutils
             }
         }
 
-        PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_BADRECIPE));
+        PChar->pushPacket<CSynthMessagePacket>(PChar, SYNTH_BADRECIPE);
         return false;
     }
 
@@ -183,28 +183,28 @@ namespace synthutils
         switch (skillID)
         {
             case SKILL_WOODWORKING:
-                ModID = Mod::ANTIHQ_WOOD;
+                ModID = Mod::SYNTH_ANTI_HQ_WOODWORKING;
                 break;
             case SKILL_SMITHING:
-                ModID = Mod::ANTIHQ_SMITH;
+                ModID = Mod::SYNTH_ANTI_HQ_SMITHING;
                 break;
             case SKILL_GOLDSMITHING:
-                ModID = Mod::ANTIHQ_GOLDSMITH;
+                ModID = Mod::SYNTH_ANTI_HQ_GOLDSMITHING;
                 break;
             case SKILL_CLOTHCRAFT:
-                ModID = Mod::ANTIHQ_CLOTH;
+                ModID = Mod::SYNTH_ANTI_HQ_CLOTHCRAFT;
                 break;
             case SKILL_LEATHERCRAFT:
-                ModID = Mod::ANTIHQ_LEATHER;
+                ModID = Mod::SYNTH_ANTI_HQ_LEATHERCRAFT;
                 break;
             case SKILL_BONECRAFT:
-                ModID = Mod::ANTIHQ_BONE;
+                ModID = Mod::SYNTH_ANTI_HQ_BONECRAFT;
                 break;
             case SKILL_ALCHEMY:
-                ModID = Mod::ANTIHQ_ALCHEMY;
+                ModID = Mod::SYNTH_ANTI_HQ_ALCHEMY;
                 break;
             case SKILL_COOKING:
-                ModID = Mod::ANTIHQ_COOK;
+                ModID = Mod::SYNTH_ANTI_HQ_COOKING;
                 break;
         }
 
@@ -306,11 +306,11 @@ namespace synthutils
             // Apply synthesis success rate modifier, based on synth type.
             if (PChar->CraftContainer->getCraftType() == CRAFT_DESYNTHESIS)
             {
-                successRate = successRate + PChar->getMod(Mod::DESYNTH_SUCCESS);
+                successRate = successRate + PChar->getMod(Mod::SYNTH_SUCCESS_RATE_DESYNTHESIS);
             }
             else
             {
-                successRate = successRate + PChar->getMod(Mod::SYNTH_SUCCESS);
+                successRate = successRate + PChar->getMod(Mod::SYNTH_SUCCESS_RATE);
             }
 
             // Crafting ring handling.
@@ -422,6 +422,7 @@ namespace synthutils
                 synthResult = RESULT_HQ;
                 break;
         }
+
         return synthResult;
     }
 
@@ -430,7 +431,7 @@ namespace synthutils
      * Do Skill Up                                                       *
      *                                                                   *
      ********************************************************************/
-    int32 doSynthSkillUp(CCharEntity* PChar)
+    void doSynthSkillUp(CCharEntity* PChar)
     {
         for (uint8 skillID = SKILL_WOODWORKING; skillID <= SKILL_COOKING; ++skillID) // Check for all skills involved in a recipe, to check for skill up
         {
@@ -470,8 +471,7 @@ namespace synthutils
             //------------------------------
             // Section 2: Skill up equations and penalties
             //------------------------------
-            double skillUpChance = 0;
-
+            double skillUpChance         = 0;
             double craftChanceMultiplier = settings::get<double>("map.CRAFT_CHANCE_MULTIPLIER");
 
             if (settings::get<bool>("map.CRAFT_MODERN_SYSTEM"))
@@ -628,7 +628,7 @@ namespace synthutils
 
                 // Skill Up addition:
                 PChar->RealSkills.skill[skillID] += skillUpAmount;
-                PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, skillID, skillUpAmount, 38));
+                PChar->pushPacket<CMessageBasicPacket>(PChar, PChar, skillID, skillUpAmount, 38);
 
                 if ((charSkill / 10) < (charSkill + skillUpAmount) / 10)
                 {
@@ -639,8 +639,8 @@ namespace synthutils
                         PChar->WorkingSkills.skill[skillID] |= 0x8000; // blue capped text
                     }
 
-                    PChar->pushPacket(new CCharSkillsPacket(PChar));
-                    PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, skillID, (charSkill + skillUpAmount) / 10, 53));
+                    PChar->pushPacket<CCharSkillsPacket>(PChar);
+                    PChar->pushPacket<CMessageBasicPacket>(PChar, PChar, skillID, (charSkill + skillUpAmount) / 10, 53);
                 }
 
                 charutils::SaveCharSkills(PChar, skillID);
@@ -649,21 +649,19 @@ namespace synthutils
                 if (skillCumulation > settings::get<uint16>("map.CRAFT_SPECIALIZATION_POINTS"))
                 {
                     PChar->RealSkills.skill[skillHighest] -= skillUpAmount;
-                    PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, skillHighest, skillUpAmount, 310));
+                    PChar->pushPacket<CMessageBasicPacket>(PChar, PChar, skillHighest, skillUpAmount, 310);
 
                     if ((PChar->RealSkills.skill[skillHighest] + skillUpAmount) / 10 > (PChar->RealSkills.skill[skillHighest]) / 10)
                     {
                         PChar->WorkingSkills.skill[skillHighest] -= 0x20;
-                        PChar->pushPacket(new CCharSkillsPacket(PChar));
-                        PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, skillHighest, (PChar->RealSkills.skill[skillHighest] - skillUpAmount) / 10, 53));
+                        PChar->pushPacket<CCharSkillsPacket>(PChar);
+                        PChar->pushPacket<CMessageBasicPacket>(PChar, PChar, skillHighest, (PChar->RealSkills.skill[skillHighest] - skillUpAmount) / 10, 53);
                     }
 
                     charutils::SaveCharSkills(PChar, skillHighest);
                 }
             }
         }
-
-        return 0;
     }
 
     /**************************************************************************
@@ -674,33 +672,33 @@ namespace synthutils
      *                                                                         *
      **************************************************************************/
 
-    int32 handleMaterialLoss(CCharEntity* PChar)
+    void handleMaterialLoss(CCharEntity* PChar)
     {
-        uint8 currentCraft     = PChar->CraftContainer->getInvSlotID(0);
-        int16 synthDifficulty  = getSynthDifficulty(PChar, currentCraft);
-        int16 modSynthFailRate = PChar->getMod(Mod::SYNTH_FAIL_RATE);
+        uint8 currentCraft = PChar->CraftContainer->getInvSlotID(0);
 
-        // We are able to get the correct elemental mod here by adding the element to it since they are in the same order
-        double reduction = PChar->getMod((Mod)((int32)Mod::SYNTH_FAIL_RATE_FIRE + PChar->CraftContainer->getType()));
-
-        // Similarly we get the correct craft mod here by adding the current craft to it since they are in the same order
-        reduction += PChar->getMod((Mod)((int32)Mod::SYNTH_FAIL_RATE_WOOD + (currentCraft - SKILL_WOODWORKING)));
-        reduction /= 100.0;
-
-        uint8 invSlotID  = 0;
+        // Loop variables
+        uint8 invSlotID  = PChar->CraftContainer->getInvSlotID(1);
         uint8 nextSlotID = 0;
         uint8 lostCount  = 0;
         uint8 totalCount = 0;
+        uint8 random     = 0;
 
-        double random   = 0;
-        double lostItem = std::clamp(0.15 - reduction + (synthDifficulty > 0 ? synthDifficulty / 20 : 0), 0.0, 1.0);
+        // Synth material loss modifiers. TODO: Audit usage of this modifiers.
+        int16 breakGlobalReduction    = PChar->getMod(Mod::SYNTH_MATERIAL_LOSS);
+        int16 breakElementalReduction = PChar->getMod((Mod)((int32)Mod::SYNTH_MATERIAL_LOSS_FIRE + PChar->CraftContainer->getType()));
+        int16 breakTypeReduction      = PChar->getMod((Mod)((int32)Mod::SYNTH_MATERIAL_LOSS_WOODWORKING + currentCraft - SKILL_WOODWORKING));
+        int16 synthDifficulty         = getSynthDifficulty(PChar, currentCraft);
 
-        // Translation of JP wiki for the "Synthesis failure rate" modifier is "Synthetic material loss rate"
-        // see: http://wiki.ffo.jp/html/18416.html
-        lostItem += (double)modSynthFailRate * 0.01;
+        if (synthDifficulty < 0)
+        {
+            synthDifficulty = 0;
+        }
 
-        invSlotID = PChar->CraftContainer->getInvSlotID(1);
+        // Break Chance.
+        // Clamp note: https://wiki-ffo-jp.translate.goog/html/36626.html?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=sc
+        int16 breakChance = std::clamp(50 - breakGlobalReduction - breakElementalReduction - breakTypeReduction + 5 * synthDifficulty, 20, 100);
 
+        // Loop through craft container items.
         for (uint8 slotID = 1; slotID <= 8; ++slotID)
         {
             if (slotID != 8)
@@ -708,9 +706,9 @@ namespace synthutils
                 nextSlotID = PChar->CraftContainer->getInvSlotID(slotID + 1);
             }
 
-            random = xirand::GetRandomNumber(1.);
+            random = xirand::GetRandomNumber(1, 100);
 
-            if (random < lostItem)
+            if (random <= breakChance)
             {
                 PChar->CraftContainer->setQuantity(slotID, 0);
                 lostCount++;
@@ -734,19 +732,19 @@ namespace synthutils
                     }
                     else
                     {
-                        PChar->pushPacket(new CInventoryAssignPacket(PItem, INV_NORMAL));
+                        PChar->pushPacket<CInventoryAssignPacket>(PItem, INV_NORMAL);
                     }
                 }
                 invSlotID = nextSlotID;
             }
+
             nextSlotID = 0;
+
             if (invSlotID == 0xFF)
             {
                 break;
             }
         }
-
-        return 0;
     }
 
     /**************************************************************************
@@ -756,7 +754,7 @@ namespace synthutils
      *                                                                         *
      **************************************************************************/
 
-    int32 doSynthFail(CCharEntity* PChar)
+    void doSynthFail(CCharEntity* PChar)
     {
         // Break material calculations.
         if (PChar->CraftContainer->getCraftType() != CRAFT_SYNTHESIS_NO_LOSS) // If it's a synth where no materials can be lost, skip break calculations.
@@ -775,9 +773,7 @@ namespace synthutils
             PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CSynthResultMessagePacket(PChar, SYNTH_FAIL));
         }
 
-        PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_FAIL, 29695));
-
-        return 0;
+        PChar->pushPacket<CSynthMessagePacket>(PChar, SYNTH_FAIL, 29695);
     }
 
     /*********************************************************************
@@ -790,56 +786,6 @@ namespace synthutils
     int32 startSynth(CCharEntity* PChar)
     {
         PChar->m_LastSynthTime = server_clock::now();
-        uint16 effect          = 0;
-        uint8  element         = 0;
-
-        uint16 crystalType = PChar->CraftContainer->getItemID(0);
-
-        switch (crystalType)
-        {
-            case 0x1000:
-            case 0x108E:
-                effect  = EFFECT_FIRESYNTH;
-                element = ELEMENT_FIRE;
-                break;
-            case 0x1001:
-            case 0x108F:
-                effect  = EFFECT_ICESYNTH;
-                element = ELEMENT_ICE;
-                break;
-            case 0x1002:
-            case 0x1090:
-                effect  = EFFECT_WINDSYNTH;
-                element = ELEMENT_WIND;
-                break;
-            case 0x1003:
-            case 0x1091:
-                effect  = EFFECT_EARTHSYNTH;
-                element = ELEMENT_EARTH;
-                break;
-            case 0x1004:
-            case 0x1092:
-                effect  = EFFECT_LIGHTNINGSYNTH;
-                element = ELEMENT_LIGHTNING;
-                break;
-            case 0x1005:
-            case 0x1093:
-                effect  = EFFECT_WATERSYNTH;
-                element = ELEMENT_WATER;
-                break;
-            case 0x1006:
-            case 0x1094:
-                effect  = EFFECT_LIGHTSYNTH;
-                element = ELEMENT_LIGHT;
-                break;
-            case 0x1007:
-            case 0x1095:
-                effect  = EFFECT_DARKSYNTH;
-                element = ELEMENT_DARK;
-                break;
-        }
-
-        PChar->CraftContainer->setType(element);
 
         if (!isRightRecipe(PChar))
         {
@@ -847,6 +793,64 @@ namespace synthutils
 
             return 0;
         }
+
+        // Set animation and element based on crystal element.
+        uint16 effect        = 0;
+        uint8  element       = 0;
+        uint16 crystalItemId = PChar->CraftContainer->getItemID(0);
+
+        switch (crystalItemId)
+        {
+            case 4096: // Fire Crystal
+            case 4238: // Inferno Crystal
+                effect  = EFFECT_FIRESYNTH;
+                element = ELEMENT_FIRE;
+                break;
+
+            case 4097: // Ice Crystal
+            case 4239: // Glacier Crystal
+                effect  = EFFECT_ICESYNTH;
+                element = ELEMENT_ICE;
+                break;
+
+            case 4098: // Wind Crystal
+            case 4240: // Cyclone Crystal
+                effect  = EFFECT_WINDSYNTH;
+                element = ELEMENT_WIND;
+                break;
+
+            case 4099: // Earth Crystal
+            case 4241: // Terra Crystal
+                effect  = EFFECT_EARTHSYNTH;
+                element = ELEMENT_EARTH;
+                break;
+
+            case 4100: // Lightning Crystal
+            case 4242: // Plasma Crystal
+                effect  = EFFECT_LIGHTNINGSYNTH;
+                element = ELEMENT_LIGHTNING;
+                break;
+
+            case 4101: // Water Crystal
+            case 4243: // Torrent Crystal
+                effect  = EFFECT_WATERSYNTH;
+                element = ELEMENT_WATER;
+                break;
+
+            case 4102: // Light Crystal
+            case 4244: // Aurora Crystal
+                effect  = EFFECT_LIGHTSYNTH;
+                element = ELEMENT_LIGHT;
+                break;
+
+            case 4103: // Dark Crystal
+            case 4245: // Twilight Crystal
+                effect  = EFFECT_DARKSYNTH;
+                element = ELEMENT_DARK;
+                break;
+        }
+
+        PChar->CraftContainer->setType(element);
 
         // Reserve the items after we know we have the right recipe
         for (uint8 container_slotID = 0; container_slotID <= 8; ++container_slotID)
@@ -888,14 +892,14 @@ namespace synthutils
                 if (PCraftItem != nullptr)
                 {
                     PCraftItem->setSubType(ITEM_LOCKED);
-                    PChar->pushPacket(new CInventoryAssignPacket(PCraftItem, INV_NOSELECT));
+                    PChar->pushPacket<CInventoryAssignPacket>(PCraftItem, INV_NOSELECT);
                 }
             }
         }
 
         PChar->animation = ANIMATION_SYNTH;
         PChar->updatemask |= UPDATE_HP;
-        PChar->pushPacket(new CCharUpdatePacket(PChar));
+        PChar->pushPacket<CCharUpdatePacket>(PChar);
 
         if (PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
         {
@@ -903,7 +907,7 @@ namespace synthutils
         }
         else
         {
-            PChar->pushPacket(new CSynthAnimationPacket(PChar, effect, result));
+            PChar->pushPacket<CSynthAnimationPacket>(PChar, effect, result);
         }
 
         return 0;
@@ -1008,18 +1012,18 @@ namespace synthutils
 
                     _sql->Query(fmtQuery, signature_esc, PChar->id, invSlotID);
                 }
-                PChar->pushPacket(new CInventoryItemPacket(PItem, LOC_INVENTORY, invSlotID));
+                PChar->pushPacket<CInventoryItemPacket>(PItem, LOC_INVENTORY, invSlotID);
             }
 
-            PChar->pushPacket(new CInventoryFinishPacket());
+            PChar->pushPacket<CInventoryFinishPacket>();
             if (PChar->loc.zone->GetID() != 255 && PChar->loc.zone->GetID() != 0)
             {
                 PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CSynthResultMessagePacket(PChar, SYNTH_SUCCESS, itemID, quantity));
-                PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_SUCCESS, itemID, quantity));
+                PChar->pushPacket<CSynthMessagePacket>(PChar, SYNTH_SUCCESS, itemID, quantity);
             }
             else
             {
-                PChar->pushPacket(new CSynthMessagePacket(PChar, SYNTH_SUCCESS, itemID, quantity));
+                PChar->pushPacket<CSynthMessagePacket>(PChar, SYNTH_SUCCESS, itemID, quantity);
             }
 
             // Calculate what craft this recipe "belongs" to based on highest skill required
@@ -1060,7 +1064,7 @@ namespace synthutils
         PChar->CraftContainer->Clean();
         PChar->animation = ANIMATION_NONE;
         PChar->updatemask |= UPDATE_HP;
-        PChar->pushPacket(new CCharUpdatePacket(PChar));
+        PChar->pushPacket<CCharUpdatePacket>(PChar);
         return 0;
     }
 

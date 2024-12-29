@@ -33,6 +33,7 @@ jobs:
       name: Get Changed Files
       uses: Ana06/get-changed-files@v2.3.0
       with:
+        format: "json"
         filter: |
           modules/**
           src/**
@@ -42,8 +43,9 @@ jobs:
     - name: List Changed Files
       if: always()
       run: |
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
-          echo "${changed_file}"
+        readarray -t removed_files <<<"$(jq -r '.[]' <<<'${{ steps.changed-files.outputs.all }}')"
+        for removed_file in ${removed_files[@]}; do
+            echo "${removed_file}"
         done
     - name: Git Formatting Checks
       if: github.event_name == 'pull_request'
@@ -88,7 +90,7 @@ jobs:
           exit 1
         fi
         exit 0
-    - name: CPP Formatting Checks (clang-format-15)
+    - name: Run CPP Formatting Checks (clang-format-15)
       if: always()
       run: |
         clang-format-15 -version
@@ -100,9 +102,19 @@ jobs:
             fi
           fi
         done
-        git diff --color >> cpp_formatting_checks.txt
-        git reset --hard
-        if [ -s cpp_formatting_checks.txt ]
+        git diff >> cpp_formatting_checks.txt
+        git diff --color >> cpp_formatting_checks_color.txt
+    - name: Upload CPP Formatting Diff (clang-format-15)
+      if: hashFiles('cpp_formatting_checks.txt') != ''
+      uses: actions/upload-artifact@v4
+      with:
+        name: clang_format_diff
+        path: |
+          cpp_formatting_checks.txt
+    - name: Report CPP Formatting Checks (clang-format-15)
+      if: always()
+      run: |
+        if [ -s cpp_formatting_checks_color.txt ]
         then
           echo ""
           echo "You have errors in your C++ code formatting."
@@ -110,17 +122,11 @@ jobs:
           echo "You can either fix the formatting by hand or use clang-format."
           echo "(You can safely ignore warnings about \$TERM and tput)"
           echo ""
-          cat cpp_formatting_checks.txt | diff-so-fancy || true
+          cat cpp_formatting_checks_color.txt | diff-so-fancy || true
           exit 1
         fi
+        git reset --hard
         exit 0
-    - name: Upload CPP Formatting Diff
-      if: hashFiles('cpp_formatting_checks.txt') != ''
-      uses: actions/upload-artifact@v4
-      with:
-        name: clang_format_diff
-        path: |
-          cpp_formatting_checks.txt
     - name: Lua Checks
       if: always()
       run: |
@@ -376,6 +382,7 @@ jobs:
           with open("modules/init.txt", "w") as f:
               f.write("custom\n")
               f.write("era\n")
+              f.write("example\n")
               f.write("renamer\n")
           EOF
       - name: Configure CMake
@@ -387,7 +394,16 @@ jobs:
         shell: cmd
         run: |
           cmake --build build -j4
-
+      - name: Archive Executables
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows_modules_executables
+          path: |
+            xi_connect.exe
+            xi_map.exe
+            xi_search.exe
+            xi_world.exe
+          
   MacOS_64bit:
     needs: Sanity_Checks
     # https://github.com/actions/runner-images/blob/main/images/macos/macos-13-Readme.md
@@ -433,17 +449,14 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y software-properties-common cmake mariadb-client-10.6 libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev luarocks binutils-dev
-        pip install bcrypt
+        pip install -r tools/requirements.txt
     - name: Verify MySQL connection from container
       run: |
         mysql -h 127.0.0.1 -uroot -proot -e "SHOW DATABASES"
     - name: Import SQL files
+      shell: bash
       run: |
-        for f in sql/*.sql; do
-          echo -e "Importing $f into the database..."
-          mysql xidb -h 127.0.0.1 -uroot -proot < $f
-        done
-        mysql xidb -h 127.0.0.1 -uroot -proot -e "SHOW tables"
+        python3 ./tools/dbtool.py setup xidb
     - name: Copy settings
       run: |
         cp settings/default/* settings/
@@ -451,15 +464,6 @@ jobs:
         sed -i 's/tpzdb/xidb/g' settings/network.lua
         sed -i 's/topazadmin/root/g' settings/network.lua
         sed -i 's/topazisawesome/root/g' settings/network.lua
-    - name: Enable Modules
-      shell: bash
-      run: |
-        python3 << EOF
-        with open("modules/init.txt", "w") as f:
-            f.write("custom\n")
-            f.write("era\n")
-            f.write("renamer\n")
-        EOF
     - name: Startup and character login checks
       uses: nick-invision/retry@v3
       with:
@@ -616,16 +620,14 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y software-properties-common cmake mariadb-client-10.6 libmariadb-dev-compat libluajit-5.1-dev libzmq3-dev zlib1g-dev libssl-dev luarocks binutils-dev
+        pip install -r tools/requirements.txt
     - name: Verify MySQL connection from container
       run: |
         mysql -h 127.0.0.1 -uroot -proot -e "SHOW DATABASES"
     - name: Import SQL files
+      shell: bash
       run: |
-        for f in sql/*.sql; do
-          echo -e "Importing $f into the database..."
-          mysql xidb -h 127.0.0.1 -uroot -proot < $f
-        done
-        mysql xidb -h 127.0.0.1 -uroot -proot -e "SHOW tables"
+        python3 ./tools/dbtool.py setup xidb
     - name: Assign odd zones a different port
       run: |
         mysql xidb -h 127.0.0.1 -uroot -proot -e "UPDATE xidb.zone_settings SET zoneport = 54231 WHERE zoneid % 2 = 0;"
@@ -710,12 +712,57 @@ jobs:
     - name: Import SQL files
       shell: bash
       run: |
-        for f in sql/*.sql; do
-          echo -e "Importing $f into the database..."
-          mysql xidb -h 127.0.0.1 -uroot -proot < $f
-        done
-        mysql xidb -h 127.0.0.1 -uroot -proot -e "SHOW tables"
+        python3 ./tools/dbtool.py setup xidb
     - name: Startup checks
+      uses: nick-invision/retry@v3
+      with:
+        timeout_minutes: 15
+        max_attempts: 3
+        retry_on: timeout
+        shell: bash
+        command: |
+          python3 ./tools/ci/startup_checks.py
+
+  Full_Startup_Checks_Windows_Tracy_Modules:
+    runs-on: windows-2022
+    needs: Windows_64bit_Release_Tracy_Modules
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+    - uses: actions/download-artifact@v4
+      with:
+        name: windows_modules_executables
+        path: .
+    - uses: zach2good/setup-mariadb@v1
+      with:
+          database: xidb
+    - name: Copy settings
+      run: |
+        cp settings/default/* settings/
+    - name: Enable Modules
       shell: bash
       run: |
-        python3 ./tools/ci/startup_checks.py
+        python3 << EOF
+        with open("modules/init.txt", "w") as f:
+            f.write("custom\n")
+            f.write("era\n")
+            f.write("example\n")
+            f.write("renamer\n")
+        EOF
+    - name: Install Python Dependencies
+      run: |
+        pip install -r tools/requirements.txt
+    - name: Import SQL files
+      shell: bash
+      run: |
+        python3 ./tools/dbtool.py setup xidb
+    - name: Startup checks
+      uses: nick-invision/retry@v3
+      with:
+        timeout_minutes: 15
+        max_attempts: 3
+        retry_on: timeout
+        shell: bash
+        command: |
+          python3 ./tools/ci/startup_checks.py

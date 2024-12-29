@@ -158,6 +158,17 @@ namespace settings
         return T();
     }
 
+    // A partial, core-only way to set settings.
+    // Not suitable for regular use.
+    //
+    // TODO: Gracefully convert like-types into types for the variant
+    // TODO: Publish back up into Lua
+    void set(std::string name, auto value)
+    {
+        const auto key   = to_upper(name);
+        settingsMap[key] = SettingsVariant_t(value);
+    }
+
     void visit(std::function<void(std::string, SettingsVariant_t)> visitor);
 } // namespace settings
 

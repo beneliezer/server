@@ -1025,6 +1025,9 @@ function utils.mobTeleport(mob, hideDuration, pos, disAnim, reapAnim)
         return
     end
 
+    -- TODO: Temporary workaround
+    ---@diagnostic disable: param-type-mismatch
+
     mob:entityAnimationPacket(disAnim)
     mob:hideName(true)
     mob:setUntargetable(true)
@@ -1033,6 +1036,9 @@ function utils.mobTeleport(mob, hideDuration, pos, disAnim, reapAnim)
     mob:setMobAbilityEnabled(false)
     mob:setPos(pos, 0)
     mob:setSpeed(0)
+
+    -- TODO: Temporary workaround
+    ---@diagnostic enable: param-type-mismatch
 
     mob:timer(hideDuration, function(mobArg)
         mobArg:setPos(pos, 0)
@@ -1206,6 +1212,31 @@ function utils.angleToRotation(radians)
     return radians * ffxiAngleToRotationFactor
 end
 
+-- Function to calculate the cross product
+local function crossProduct(x1, y1, x2, y2)
+    return x1 * y2 - y1 * x2
+end
+
+-- Function to check if two points are on the same side of a line
+---@nodiscard
+---@param line table
+---@param pos1 table
+---@param pos2 table
+---@return boolean
+function utils.sameSideOfLine(line, pos1, pos2)
+    -- Calculate vectors
+    local v1x, v1y = pos1.x - line[1][1], pos1.z - line[1][2]
+    local v2x, v2y = pos2.x - line[1][1], pos2.z - line[1][2]
+    local lx, ly = line[2][1] - line[1][1], line[2][2] - line[1][2]
+
+    -- Calculate cross products
+    local cross1 = crossProduct(lx, ly, v1x, v1y)
+    local cross2 = crossProduct(lx, ly, v2x, v2y)
+
+    -- Check if cross products have the same sign
+    return cross1 * cross2 >= 0
+end
+
 -- Returns 24h Clock Time (example: 04:30 = 430, 21:30 = 2130)
 ---@nodiscard
 ---@return number?
@@ -1254,4 +1285,61 @@ function utils.toWords(value)
     local word0 = bit.rshift(bit.band(value, 0x0000FFFF), 0)
     local word1 = bit.rshift(bit.band(value, 0xFFFF0000), 16)
     return word0, word1
+end
+
+-- Draws in target to position if any conditions are met.
+-- Conditions must be met for "wait" seconds.
+-- Can set offset from and degrees around position to place target.
+--[[
+table =
+{
+    conditions = { boolean, ... },
+    position =
+    {
+        x = number,
+        y = number,
+        z = number,
+        rot = integer,
+    },
+    offset = number,
+    degrees = number,
+    wait = integer,
+}
+--]]
+---@param target CBaseEntity
+---@param table table
+---@return boolean
+function utils.drawIn(target, table)
+    if table.position then
+        local nextDrawIn = target:getLocalVar('[Draw-In]WaitTime')
+        local conditions = table.conditions and table.conditions or { true }
+        for _, condition in ipairs(conditions) do
+            if condition then
+                if nextDrawIn > 0 then
+                    if os.time() > nextDrawIn then
+                        local position = {}
+                        if table.position then
+                            position.x   = table.position.x and table.position.x or table.position[1]
+                            position.y   = table.position.y and table.position.y or table.position[2]
+                            position.z   = table.position.z and table.position.z or table.position[3]
+                            position.rot = table.position.rot and table.position.rot or table.position[4]
+                        end
+                        local offset  = table.offset and table.offset or 0
+                        local degrees = table.degrees and table.degrees or 0
+
+                        DrawIn(target, position, offset, degrees)
+                        target:setLocalVar('[Draw-In]WaitTime', 0)
+                        return true
+                    end
+                    return false
+                else
+                    local wait = table.wait and table.wait or 1
+                    target:setLocalVar('[Draw-In]WaitTime', os.time() + wait)
+                    return false
+                end
+            end
+        end
+    end
+    target:setLocalVar('[Draw-In]WaitTime', 0)
+    return false
 end

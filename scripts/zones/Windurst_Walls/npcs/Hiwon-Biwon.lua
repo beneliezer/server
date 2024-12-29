@@ -20,7 +20,7 @@ entity.onTrigger = function(player, npc)
 
         if not utils.mask.getBit(prog, 2) then
             if cursesFoiledAgain1 == xi.questStatus.QUEST_ACCEPTED then
-                if math.random(1, 2) == 1 then
+                if math.random(1, 100) <= 50 then
                     player:startEvent(283) -- Give scoop while sick
                 else
                     player:startEvent(284) -- Give scoop while sick

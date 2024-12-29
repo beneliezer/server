@@ -3,13 +3,14 @@
 --   NM: Bomb Queen
 --  Vid: https://www.youtube.com/watch?v=AVsEbYjSAHM
 -----------------------------------
+mixins = { require('scripts/mixins/draw_in') }
+-----------------------------------
 ---@type TMobEntity
 local entity = {}
 
 entity.onMobInitialize = function(mob)
     mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 180)
     mob:setMobMod(xi.mobMod.HP_STANDBACK, -1)
-    mob:setMobMod(xi.mobMod.DRAW_IN, 1)
     mob:setMod(xi.mod.STUN_MEVA, 50)
 end
 
@@ -43,7 +44,7 @@ entity.onMobFight = function(mob, target)
 
                 -- Pick a random Prince or Princess
                 local petId = 0
-                local offset = math.random(4)
+                local offset = math.random(1, 4)
                 for i = 0, 3 do
                     local id = bombQueenId + 1 + (offset + i) % 4
                     if GetMobByID(id):getCurrentAction() == xi.action.NONE then

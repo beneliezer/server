@@ -92,11 +92,21 @@ quest.sections =
             ['Para'] =
             {
                 onMobDeath = function(mob, player, optParams)
-                    if quest:getVar(player, 'Prog') == 1 then
+                    if
+                        mob:getID() == ID.mob.PARA and
+                        quest:getVar(player, 'Prog') == 1
+                    then
                         quest:setVar(player, 'Prog', 2)
                     end
                 end,
             },
+
+            -- Resets the progress if the player killed Para but didn't check the ??? before zoning. Will result in the player needing to refight.
+            onZoneOut = function(player)
+                if quest:getVar(player, 'Prog') == 2 then
+                    quest:setVar(player, 'Prog', 1)
+                end
+            end,
         },
     },
 

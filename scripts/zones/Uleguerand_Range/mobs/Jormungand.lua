@@ -14,17 +14,22 @@ end
 
 entity.onMobInitialize = function(mob)
     mob:setCarefulPathing(true)
-    mob:setMobMod(xi.mobMod.DRAW_IN, 15)
 end
 
 entity.onMobSpawn = function(mob)
     -- Reset animation so it starts grounded.
     mob:setMobSkillAttack(0)
     mob:setAnimationSub(0)
+    mob:setMobMod(xi.mobMod.NO_MOVE, 0)
+end
+
+entity.onMobRoam = function(mob)
+    mob:setMobMod(xi.mobMod.NO_MOVE, 0)
 end
 
 entity.onMobFight = function(mob, target)
-    -- Animation (Ground or flight mode) logic.
+
+-- Animation (Ground or flight mode) logic.
     if
         not mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) and
         mob:actionQueueEmpty()
@@ -68,6 +73,27 @@ entity.onMobFight = function(mob, target)
             elseif battleTime - changeTime > 60 then -- Change mode.
                 setupFlightMode(mob, battleTime)
             end
+        end
+    end
+    -- Jorm draws in from set boundaries leaving her spawn area
+    local drawInTable =
+    {
+        conditions =
+        {
+            target:getXPos() < -105 and target:getXPos() > -215 and target:getZPos() > 195,
+            target:getXPos() > -250 and target:getXPos() < -212 and target:getZPos() < 55,
+            target:getXPos() > -160 and target:getZPos() > 105 and target:getZPos() < 130,
+        },
+        position = mob:getPos(),
+        wait = 3,
+    }
+    for _, condition in ipairs(drawInTable.conditions) do
+        if condition then
+            mob:setMobMod(xi.mobMod.NO_MOVE, 1)
+            utils.drawIn(target, drawInTable)
+            break
+        else
+            mob:setMobMod(xi.mobMod.NO_MOVE, 0)
         end
     end
 end

@@ -19,7 +19,7 @@ entity.onTrigger = function(player, npc)
     player:addTreasure(5374) player:addTreasure(first[math.random(#first)]) player:addTreasure(first[math.random(#first)])
     player:addTreasure(second[math.random(#second)]) player:addTreasure(second[math.random(#second)])
 
-    if math.random(1, 2) == 1 then
+    if math.random(1, 100) <= 50 then
         player:addTreasure(5375)
     else
         player:addTreasure(5374)

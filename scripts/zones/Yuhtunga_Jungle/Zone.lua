@@ -16,6 +16,8 @@ zoneObject.onInitialize = function(zone)
 
     xi.bmt.updatePeddlestox(xi.zone.YUHTUNGA_JUNGLE, ID.npc.PEDDLESTOX)
 
+    GetMobByID(ID.mob.TURTLERIDER):setRespawnTime(math.random(900, 10800))
+
     GetMobByID(ID.mob.PYUU_THE_SPATEMAKER):setRespawnTime(math.random(5400, 7200))
 end
 

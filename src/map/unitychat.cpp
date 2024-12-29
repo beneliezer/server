@@ -62,8 +62,7 @@ void CUnityChat::PushPacket(uint32 senderID, CBasicPacket* packet)
     {
         if (member->id != senderID && member->status != STATUS_TYPE::DISAPPEAR && !jailutils::InPrison(member))
         {
-            CBasicPacket* newPacket = new CBasicPacket(*packet);
-            member->pushPacket(newPacket);
+            member->pushPacket<CBasicPacket>(*packet);
         }
     }
     destroy(packet);

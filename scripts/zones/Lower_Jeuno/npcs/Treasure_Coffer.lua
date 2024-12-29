@@ -1737,7 +1737,7 @@ local function givePrize(player, ki)
 
                 for i = 1, 4 do
                     -- static 50% chance to get any augment at all each loop
-                    if #addAug == 0 or math.random(1, 2) == 1 then
+                    if #addAug == 0 or math.random(1, 100) <= 50 then
                         -- since lua arrays start at index 1, set start at 1 to guarantee at least one augment
                         roll = math.random(1, #pAug)
                     else

@@ -25,9 +25,9 @@
 #include "common/cbasetypes.h"
 #include "common/mmo.h"
 
-#include "utils/fishingcontest.h"
-
 #include "basic.h"
+
+struct FishingContestEntry;
 
 class CFishRankingPacket : public CBasicPacket
 {
