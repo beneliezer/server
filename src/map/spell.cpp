@@ -684,8 +684,8 @@ namespace spell
             return false;
         }
 
-        bool  usable = false;
-        uint8 requirements;
+        bool  usable       = false;
+        uint8 requirements = 0;
 
         switch (PCaster->objtype)
         {

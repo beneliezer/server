@@ -652,8 +652,8 @@ void CMobEntity::DistributeRewards()
                 if (PMember->getZone() == PChar->getZone())
                 {
                     RoeDatagramList datagrams;
-                    datagrams.emplace_back(RoeDatagram("mob", this));
-                    datagrams.emplace_back(RoeDatagram("atkType", static_cast<uint8>(this->BattleHistory.lastHitTaken_atkType)));
+                    datagrams.emplace_back("mob", this);
+                    datagrams.emplace_back("atkType", static_cast<uint8>(this->BattleHistory.lastHitTaken_atkType));
                     roeutils::event(ROE_MOBKILL, (CCharEntity*)PMember, datagrams);
                 }
             });

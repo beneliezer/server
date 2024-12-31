@@ -368,7 +368,7 @@ namespace luautils
 
     // Retrive the first itemId that matches a name
     uint16 GetItemIDByName(std::string const& name);
-    auto   SendItemToDeliveryBox(std::string const& playerName, uint16 itemId, uint32 quantity, std::string senderText) -> SendToDBoxReturnCode;
+    auto   SendItemToDeliveryBox(const std::string& playerName, uint16 itemId, uint32 quantity, const std::string& senderText) -> SendToDBoxReturnCode;
 
     std::optional<CLuaBaseEntity> GenerateDynamicEntity(CZone* PZone, CInstance* PInstance, sol::table table);
 

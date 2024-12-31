@@ -280,7 +280,7 @@ namespace charutils
 
     uint32 getCharIdFromName(std::string const& name);
 
-    void forceSynthCritFail(std::string sourceFunction, CCharEntity* PChar);
+    void forceSynthCritFail(const std::string& sourceFunction, CCharEntity* PChar);
 
     void removeCharFromZone(CCharEntity* PChar);
 }; // namespace charutils

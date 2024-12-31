@@ -2393,7 +2393,7 @@ void SmallPacket0x04B(map_session_data_t* const PSession, CCharEntity* const PCh
                 }
                 else
                 {
-                    entries.push_back(FishingContestEntry()); // Safety if there is no pointer but we need to fill the vector
+                    entries.emplace_back(FishingContestEntry{}); // Safety if there is no pointer but we need to fill the vector
                 }
             }
         }

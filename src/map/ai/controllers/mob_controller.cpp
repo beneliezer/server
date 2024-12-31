@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -633,6 +633,7 @@ void CMobController::FaceTarget(uint16 targid)
     {
         PMob->PAI->PathFind->LookAt(targ->loc.p);
     }
+    PMob->UpdateSpeed();
 }
 
 void CMobController::Move()

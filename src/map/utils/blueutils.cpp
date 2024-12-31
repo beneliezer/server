@@ -470,7 +470,7 @@ namespace blueutils
                         if (add)
                         {
                             // Check all the eligible Blue Traits for conflicts
-                            std::size_t j;
+                            std::size_t j = 0;
                             for (j = 0; j < traitsToAdd.size(); ++j)
                             {
                                 auto iter = traitsToAdd.at(j);

@@ -50,27 +50,27 @@
 
 struct MonstrositySpeciesRow
 {
-    uint8       monstrosityId;
-    uint16      monstrositySpeciesCode;
-    std::string name;
-    JOBTYPE     mjob;
-    JOBTYPE     sjob;
-    uint8       size;
-    uint16      look;
+    uint8       monstrosityId{};
+    uint16      monstrositySpeciesCode{};
+    std::string name{};
+    JOBTYPE     mjob{};
+    JOBTYPE     sjob{};
+    uint8       size{};
+    uint16      look{};
 };
 
 struct MonstrosityInstinctRow
 {
-    uint16                 monstrosityInstinctId;
-    uint8                  cost;
-    std::string            name;
-    std::vector<CModifier> mods;
+    uint16                 monstrosityInstinctId{};
+    uint8                  cost{};
+    std::string            name{};
+    std::vector<CModifier> mods{};
 };
 
 namespace
 {
-    std::unordered_map<uint16, MonstrositySpeciesRow>  gMonstrositySpeciesMap;
-    std::unordered_map<uint16, MonstrosityInstinctRow> gMonstrosityInstinctMap;
+    std::unordered_map<uint16, MonstrositySpeciesRow>  gMonstrositySpeciesMap{};
+    std::unordered_map<uint16, MonstrosityInstinctRow> gMonstrosityInstinctMap{};
 } // namespace
 
 monstrosity::MonstrosityData_t::MonstrosityData_t()

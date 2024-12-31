@@ -373,7 +373,7 @@ using AccessControl = struct _access_control
     uint32 mask;
 };
 
-enum _aco
+enum _aco : uint8
 {
     ACO_DENY_ALLOW,
     ACO_ALLOW_DENY,

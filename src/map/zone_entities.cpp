@@ -909,7 +909,7 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
                 (!spawnedCharacters.empty() && totalScore > spawnedCharacters.top().first))
             {
                 // Is nearby and should be considered as a candidate to be spawned
-                candidateCharacters.push(std::make_pair(totalScore, PCurrentChar));
+                candidateCharacters.emplace(totalScore, PCurrentChar);
                 if (candidateCharacters.size() > CHARACTER_SYNC_LIMIT_MAX)
                 {
                     candidateCharacters.pop();
@@ -1542,7 +1542,7 @@ void CZoneEntities::ZoneServer(time_point tick)
 
             it->second = nullptr;
             m_mobList.erase(it++);
-            dynamicTargIdsToDelete.emplace_back(std::make_pair(PMob->targid, server_clock::now()));
+            dynamicTargIdsToDelete.emplace_back(PMob->targid, server_clock::now());
             destroy(PMob);
             continue;
         }
@@ -1595,7 +1595,7 @@ void CZoneEntities::ZoneServer(time_point tick)
             }
 
             destroy(it->second);
-            dynamicTargIdsToDelete.emplace_back(std::make_pair(it->first, server_clock::now()));
+            dynamicTargIdsToDelete.emplace_back(it->first, server_clock::now());
 
             m_npcList.erase(it++);
             continue;
@@ -1630,7 +1630,7 @@ void CZoneEntities::ZoneServer(time_point tick)
                     destroy(it->second);
                 }
 
-                dynamicTargIdsToDelete.emplace_back(std::make_pair(it->first, server_clock::now()));
+                dynamicTargIdsToDelete.emplace_back(it->first, server_clock::now());
 
                 m_petList.erase(it++);
                 continue;
@@ -1687,7 +1687,7 @@ void CZoneEntities::ZoneServer(time_point tick)
                 }
 
                 destroy(it->second);
-                dynamicTargIdsToDelete.emplace_back(std::make_pair(it->first, server_clock::now()));
+                dynamicTargIdsToDelete.emplace_back(it->first, server_clock::now());
 
                 m_trustList.erase(it++);
                 continue;

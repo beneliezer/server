@@ -5451,7 +5451,7 @@ namespace luautils
         customMenuContext.erase(PChar->id);
     }
 
-    SendToDBoxReturnCode SendItemToDeliveryBox(std::string const& playerName, uint16 itemId, uint32 quantity, std::string senderText)
+    SendToDBoxReturnCode SendItemToDeliveryBox(const std::string& playerName, uint16 itemId, uint32 quantity, const std::string& senderText)
     {
         uint32 playerID = GetPlayerIDByName(playerName);
         if (playerID == 0)

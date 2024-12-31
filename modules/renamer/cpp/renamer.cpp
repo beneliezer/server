@@ -64,7 +64,7 @@ class RenamerModule : public CPPModule
             }
 
             std::string dataString;
-            for (auto [key, value] : zoneTable)
+            for (const auto& [key, value] : zoneTable)
             {
                 auto entryTable = value.as<sol::table>();
 

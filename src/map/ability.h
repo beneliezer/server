@@ -765,7 +765,7 @@ private:
     std::string m_name;
     uint16      m_mobskillId;
     ACTIONTYPE  m_actionType{};
-    EFFECT      m_cleanupEffect;
+    EFFECT      m_cleanupEffect{};
 };
 
 /************************************************************************

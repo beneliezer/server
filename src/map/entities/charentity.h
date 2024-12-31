@@ -313,7 +313,7 @@ public:
     bool  isSettingBazaarPrices; // Is setting bazaar prices (temporarily hide bazaar)
     bool  isLinkDead;            // Player is d/cing
 
-    SAVE_CONF playerConfig; // Various settings such as chat filter, display head flag, new adventurer, autotarget, etc.
+    SAVE_CONF playerConfig{}; // Various settings such as chat filter, display head flag, new adventurer, autotarget, etc.
 
     uint32 lastOnline{ 0 };              // UTC Unix Timestamp of the last time char zoned or logged out
     bool   isNewPlayer() const;          // Checks if new player bit is unset.

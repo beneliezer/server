@@ -6615,24 +6615,26 @@ uint8 CLuaBaseEntity::levelRestriction(sol::object const& level)
             charutils::RemoveAllEquipMods(PChar);
             PChar->SetMLevel(NewMLevel);
             PChar->SetSLevel(PChar->jobs.job[PChar->GetSJob()]);
+
             charutils::ApplyAllEquipMods(PChar);
+            blueutils::ValidateBlueSpells(PChar);
+            jobpointutils::RefreshGiftMods(PChar);
+            charutils::BuildingCharSkillsTable(PChar);
+            charutils::CalculateStats(PChar);
+            charutils::BuildingCharTraitsTable(PChar);
+            charutils::BuildingCharAbilityTable(PChar);
+            charutils::CheckValidEquipment(PChar);
+
+            PChar->updatemask |= UPDATE_HP;
+
+            // Update the character's Automaton capacity bonus regardless if the pet is out or not
+            if (PChar->PAutomaton)
+            {
+                PChar->PAutomaton->setElementalCapacityBonus(PChar->getMod(Mod::AUTO_ELEM_CAPACITY));
+            }
 
             if (PChar->status != STATUS_TYPE::DISAPPEAR)
             {
-                blueutils::ValidateBlueSpells(PChar);
-                jobpointutils::RefreshGiftMods(PChar);
-                charutils::BuildingCharSkillsTable(PChar);
-                charutils::CalculateStats(PChar);
-                charutils::BuildingCharTraitsTable(PChar);
-                charutils::BuildingCharAbilityTable(PChar);
-                charutils::CheckValidEquipment(PChar);
-
-                // Update the character's Automaton capacity bonus regardless if the pet is out or not
-                if (PChar->PAutomaton)
-                {
-                    PChar->PAutomaton->setElementalCapacityBonus(PChar->getMod(Mod::AUTO_ELEM_CAPACITY));
-                }
-
                 PChar->pushPacket<CCharJobsPacket>(PChar);
                 PChar->pushPacket<CCharStatsPacket>(PChar);
                 PChar->pushPacket<CCharSkillsPacket>(PChar);
@@ -6641,7 +6643,6 @@ uint8 CLuaBaseEntity::levelRestriction(sol::object const& level)
                 PChar->pushPacket<CCharSpellsPacket>(PChar);
                 PChar->pushPacket<CCharUpdatePacket>(PChar);
                 PChar->pushPacket<CCharSyncPacket>(PChar);
-                PChar->updatemask |= UPDATE_HP;
             }
 
             if (PChar->PPet)
@@ -6774,7 +6775,7 @@ void CLuaBaseEntity::setMonstrosityData(sol::table table)
     // NOTE: This will populate m_PMonstrosity if it doesn't exist
     monstrosity::ReadMonstrosityData(PChar);
 
-    luautils::SetMonstrosityLuaTable(PChar, table);
+    luautils::SetMonstrosityLuaTable(PChar, std::move(table));
 
     monstrosity::WriteMonstrosityData(PChar);
 
@@ -7992,11 +7993,11 @@ void CLuaBaseEntity::triggerRoeEvent(uint8 eventNum, sol::object const& reqTable
             {
                 if (kv.second.get_type() == sol::type::number)
                 {
-                    roeEventData.emplace_back(RoeDatagram(kv.first.as<std::string>(), kv.second.as<uint32>()));
+                    roeEventData.emplace_back(kv.first.as<std::string>(), kv.second.as<uint32>());
                 }
                 else if (kv.second.get_type() == sol::type::string)
                 {
-                    roeEventData.emplace_back(RoeDatagram(kv.first.as<std::string>(), kv.second.as<std::string>()));
+                    roeEventData.emplace_back(kv.first.as<std::string>(), kv.second.as<std::string>());
                 }
             }
         }
@@ -11778,11 +11779,11 @@ void CLuaBaseEntity::objectiveUtility(sol::object const& obj)
                 {
                     std::string barTitle = barObj.as<sol::table>().get<std::string>("title");
                     uint32      barValue = barObj.as<sol::table>().get<uint32>("value");
-                    bars.push_back(std::make_pair(barTitle, barValue));
+                    bars.emplace_back(barTitle, barValue);
                 }
                 else
                 {
-                    bars.push_back(std::make_pair("", 0));
+                    bars.emplace_back("", 0);
                 }
             }
             packet->addBars(std::move(bars));
@@ -14834,8 +14835,8 @@ std::string CLuaBaseEntity::addSimpleGambit(uint16 targ, uint16 cond, uint32 con
     uint16 retry_delay = (retry != sol::lua_nil) ? retry.as<uint16>() : 0;
 
     Gambit_t g;
-    g.predicates.emplace_back(Predicate_t{ target, condition, condition_arg });
-    g.actions.emplace_back(Action_t{ reaction, selector, selector_arg });
+    g.predicates.emplace_back(target, condition, condition_arg);
+    g.actions.emplace_back(reaction, selector, selector_arg);
     g.retry_delay = retry_delay;
     g.identifier  = fmt::format("{}_{}_{}_{}_{}_{}_{}", targ, cond, condition_arg, react, select, selector_arg, retry_delay);
 
