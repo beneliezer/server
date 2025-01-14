@@ -132,7 +132,7 @@ void CAttackState::UpdateTarget(uint16 targid)
                         if (PChar->IsValidTarget(PPotentialTarget.second->targid, TARGET_ENEMY, errMsg))
                         {
                             newTargid = PPotentialTarget.second->targid;
-                            PChar->pushPacket(new CLockOnPacket(PChar, static_cast<CBattleEntity*>(PPotentialTarget.second)));
+                            PChar->pushPacket<CLockOnPacket>(PChar, static_cast<CBattleEntity*>(PPotentialTarget.second));
                             break;
                         }
                     }

@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -54,7 +54,7 @@ struct GP_SERV_POS_HEAD
 };
 
 // PS2: SAVE_LOGIN_STATE
-enum class SAVE_LOGIN_STATE : uint32_t
+enum class SAVE_LOGIN_STATE : uint8 // Originally uint32_t, but changed to uint8 to appease Clang
 {
     SAVE_LOGIN_STATE_NONE           = 0,
     SAVE_LOGIN_STATE_MYROOM         = 1,
@@ -246,7 +246,7 @@ CZoneInPacket::CZoneInPacket(CCharEntity* PChar, const EventInfo* currentEvent)
 
     // 0x1A = Target Index
 
-    ref<uint8>(0x1C) = PChar->GetSpeed();
+    ref<uint8>(0x1C) = PChar->UpdateSpeed();
     ref<uint8>(0x1D) = PChar->speedsub;
     ref<uint8>(0x1E) = PChar->GetHPP();
     ref<uint8>(0x1F) = PChar->animation;

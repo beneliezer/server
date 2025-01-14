@@ -10,6 +10,11 @@ mixins = { require('scripts/mixins/job_special') }
 local entity = {}
 
 entity.onMobSpawn = function(mob)
+
+    -- Resistances Confirmed
+    mob:addImmunity(xi.immunity.DARK_SLEEP)
+    mob:addImmunity(xi.immunity.BIND)
+
     xi.mix.jobSpecial.config(mob, {
         specials =
         {

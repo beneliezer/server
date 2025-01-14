@@ -526,7 +526,7 @@ local xarc = zones[xi.zone.XARCABARD]
 
 -- returns -1 or 1 to offset the wrong answer randomly
 local randomSign = function()
-    return math.random(1, 2) == 1 and 1 or -1
+    return math.random(1, 100) <= 50 and 1 or -1
 end
 
 -- Structured list of the trivia questions

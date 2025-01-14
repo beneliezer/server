@@ -63,6 +63,7 @@ zones[xi.zone.YUHTUNGA_JUNGLE] =
         VOLUPTUOUS_VILMA     = GetFirstID('Voluptuous_Vilma'),
         NASUS_OFFSET         = GetFirstID('Nasus'),
         SIREN                = GetFirstID('Siren'),
+        TURTLERIDER          = GetFirstID('Meww_the_Turtlerider'),
     },
     npc =
     {

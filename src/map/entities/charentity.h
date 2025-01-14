@@ -23,12 +23,14 @@
 #define _CHARENTITY_H
 
 #include "event_info.h"
+#include "item_container.h"
 #include "monstrosity.h"
 #include "packets/char.h"
 #include "packets/entity_update.h"
 
 #include "common/cbasetypes.h"
 #include "common/mmo.h"
+#include "common/xi.h"
 
 #include <bitset>
 #include <deque>
@@ -311,7 +313,7 @@ public:
     bool  isSettingBazaarPrices; // Is setting bazaar prices (temporarily hide bazaar)
     bool  isLinkDead;            // Player is d/cing
 
-    SAVE_CONF playerConfig; // Various settings such as chat filter, display head flag, new adventurer, autotarget, etc.
+    SAVE_CONF playerConfig{}; // Various settings such as chat filter, display head flag, new adventurer, autotarget, etc.
 
     uint32 lastOnline{ 0 };              // UTC Unix Timestamp of the last time char zoned or logged out
     bool   isNewPlayer() const;          // Checks if new player bit is unset.
@@ -355,7 +357,8 @@ public:
     void resetPetZoningInfo();            // Reset pet zoning info (when changing job ect)
     bool shouldPetPersistThroughZoning(); // If true, zoning should not cause a currently active pet to despawn
 
-    uint8  m_SetBlueSpells[20]{}; // The 0x200 offsetted blue magic spell IDs which the user has set. (1 byte per spell)
+    std::array<uint8, 20> m_SetBlueSpells{}; // The 0x200 offsetted blue magic spell IDs which the user has set. (1 byte per spell)
+
     uint32 m_FieldChocobo{};
     uint32 m_claimedDeeds[5]{};
     uint32 m_uniqueEvents[5]{};
@@ -413,7 +416,15 @@ public:
 
     uint8 GetGender();
 
-    void          clearPacketList();
+    void clearPacketList();
+
+    template <typename T, typename... Args>
+    void pushPacket(Args&&... args)
+    {
+        // TODO: This could hook into pooling of packet objects, etc.
+        pushPacket(std::make_unique<T>(std::forward<Args>(args)...));
+    }
+
     void          pushPacket(CBasicPacket*);                                                     // Adding a copy of a package to the PacketList
     void          pushPacket(std::unique_ptr<CBasicPacket>);                                     // Push packet to packet list
     void          updateCharPacket(CCharEntity* PChar, ENTITYUPDATE type, uint8 updatemask);     // Push or update a char packet
@@ -444,7 +455,11 @@ public:
     CUContainer*     UContainer;     // Container used for universal actions -- used for trading at least despite the dedicated trading container above
     CTradeContainer* CraftContainer; // Container used for crafting actions.
 
-    CBaseEntity* PWideScanTarget;
+    // TODO: All member instances of EntityID_t should be std::optional<EntityID_t> to allow for them not to be set,
+    //     : instead of checking for entityId.id != 0, etc.
+    // TODO: We don't want to replace this with just an ID, because in the future EntityID_t will be able to
+    //     : disambiguate between entities who have been rebuilt (players, dynamic entities) and have the same ID.
+    xi::optional<EntityID_t> WideScanTarget;
 
     SpawnIDList_t SpawnPCList;    // list of visible characters
     SpawnIDList_t SpawnMOBList;   // list of visible monsters
@@ -504,6 +519,9 @@ public:
     void setStyleLocked(bool isStyleLocked);
     bool getBlockingAid() const;
     void setBlockingAid(bool isBlockingAid);
+
+    // Send updates about dirty containers in post tick
+    std::map<CONTAINER_ID, bool> dirtyInventoryContainers;
 
     bool       m_EquipSwap; // true if equipment was recently changed
     bool       m_EffectsChanged;

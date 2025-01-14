@@ -7,12 +7,21 @@ mixins = { require('scripts/mixins/rage') }
 ---@type TMobEntity
 local entity = {}
 
-entity.onMobInitialize = function(mob)
-    mob:setMobMod(xi.mobMod.DRAW_IN, 1)
-end
-
 entity.onMobSpawn = function(mob)
     mob:setLocalVar('[rage]timer', 1800) -- 30 minutes
+end
+
+entity.onMobFight = function(mob, target)
+    local drawInTable =
+    {
+        conditions =
+        {
+            mob:checkDistance(target) > mob:getMeleeRange(),
+        },
+        position = mob:getPos(),
+        wait = 3,
+    }
+    utils.drawIn(target, drawInTable)
 end
 
 entity.onMobDeath = function(mob, player, optParams)

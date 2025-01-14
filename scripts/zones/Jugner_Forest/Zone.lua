@@ -14,6 +14,9 @@ zoneObject.onInitialize = function(zone)
     UpdateNMSpawnPoint(ID.mob.FRAELISSA)
     GetMobByID(ID.mob.FRAELISSA):setRespawnTime(math.random(900, 10800))
 
+    UpdateNMSpawnPoint(ID.mob.METEORMAULER)
+    GetMobByID(ID.mob.METEORMAULER):setRespawnTime(math.random(900, 10800))
+
     xi.conq.setRegionalConquestOverseers(zone:getRegionID())
 
     xi.helm.initZone(zone, xi.helmType.LOGGING)

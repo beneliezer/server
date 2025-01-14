@@ -120,10 +120,25 @@ local function handleSinglePhysicalHit(mob, target, hitdamage, hitslanded, final
     then
         local pdif = math.random((minRatio * 1000), (maxRatio * 1000)) --generate random PDIF
         pdif = pdif / 1000 --multiplier set.
-        finaldmg = finaldmg + hitdamage * pdif
+        hitdamage = hitdamage * pdif
+
         -- also handle blocking
-        finaldmg = xi.combat.physical.handleBlock(target, mob, finaldmg)
+        local isBlockedWithShieldMastery = false
+        if xi.combat.physical.isBlocked(target, mob) then
+            hitdamage = hitdamage - xi.combat.physical.getDamageReductionForBlock(target, mob, hitdamage)
+
+            if target:hasTrait(xi.trait.SHIELD_MASTERY) then
+                isBlockedWithShieldMastery = true
+            end
+        end
+
+        if hitdamage > 0 and not isBlockedWithShieldMastery then
+            target:tryHitInterrupt(mob)
+        end
+
+        -- update the hitslanded and finaldmg
         hitslanded = hitslanded + 1
+        finaldmg = finaldmg + hitdamage
     end
 
     return hitslanded, finaldmg
@@ -137,7 +152,13 @@ end
 -----------------------------------
 xi.mobskills.mobPhysicalMove = function(mob, target, skill, numHits, accMod, dmgMod, tpEffect, mtp000, mtp150, mtp300, offcratiomod)
     local returninfo    = {}
-    local dSTR          = utils.clamp(mob:getStat(xi.mod.STR) - target:getStat(xi.mod.VIT), -10, 10)
+
+    -- mobs use fSTR (but with special calculation in the called function)
+    local fSTR = xi.combat.physical.calculateMeleeStatFactor(mob, target)
+    if tpEffect == xi.mobskills.magicalTpBonus.RANGED then
+        fSTR = xi.combat.physical.calculateRangedStatFactor(mob, target)
+    end
+
     local targetEvasion = target:getEVA() + target:getMod(xi.mod.SPECIAL_ATTACK_EVASION)
 
     if
@@ -148,8 +169,7 @@ xi.mobskills.mobPhysicalMove = function(mob, target, skill, numHits, accMod, dmg
         targetEvasion = targetEvasion + target:getStatusEffect(xi.effect.YONIN):getPower()
     end
 
-    -- Apply WSC (TODO: Change to include WSC)
-    local base = math.max(1, mob:getWeaponDmg() + dSTR)
+    local base = math.max(1, mob:getWeaponDmg() + fSTR)
 
     --work out and cap ratio
     if not offcratiomod then -- default to attack. Pretty much every physical mobskill will use this, Cannonball being the exception.
@@ -457,7 +477,7 @@ xi.mobskills.mobFinalAdjustments = function(dmg, mob, skill, target, attackType,
         skill:setMsg(xi.msg.basic.DAMAGE)
     end
 
-    --Handle shadows depending on shadow behaviour / attackType
+    --Handle shadows depending on shadow behavior / attackType
     if
         shadowbehav ~= xi.mobskills.shadowBehavior.WIPE_SHADOWS and
         shadowbehav ~= xi.mobskills.shadowBehavior.IGNORE_SHADOWS

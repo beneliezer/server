@@ -23,6 +23,8 @@ end
 
 entity.onMobSpawn = function(mob)
     mob:setMobMod(xi.mobMod.IDLE_DESPAWN, 180) -- 3 minutes
+    mob:setMod(xi.mod.UDMGMAGIC, -4000)
+    mob:addImmunity(xi.immunity.LIGHT_SLEEP)
 
     local para = GetMobByID(ID.mob.PARA)
 

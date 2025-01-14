@@ -10,28 +10,23 @@
 
 #include "logging.h"
 
-// https://stackoverflow.com/questions/1505582/determining-32-vs-64-bit-in-c
-// Check Windows
-#if _WIN32 || _WIN64
-#if _WIN64
-#define ENV64BIT
-#else
-#define ENV32BIT
-#endif
+// The following definitions are set by CMake based on the architecture
+// #define ENV64BIT
+// #define ENV32BIT
+
+// Ensure one of the definitions is set
+#if !defined(ENV64BIT) && !defined(ENV32BIT)
+#error "Neither ENV64BIT nor ENV32BIT is defined"
 #endif
 
-// Check GCC
-#if __GNUC__
-#if __x86_64__ || __ppc64__
-#define ENV64BIT
-#else
-#define ENV32BIT
-#endif
-#endif
-
-// debug mode
+// Debug mode
 #if defined(_DEBUG) && !defined(DEBUG)
 #define DEBUG
+#endif
+
+// Release mode
+#if !defined(_DEBUG) && !defined(RELEASE)
+#define RELEASE
 #endif
 
 // define a break macro for debugging
@@ -48,6 +43,19 @@ using uint8  = std::uint8_t;
 using uint16 = std::uint16_t;
 using uint32 = std::uint32_t;
 using uint64 = std::uint64_t;
+
+using i8  = std::int8_t;
+using i16 = std::int16_t;
+using i32 = std::int32_t;
+using i64 = std::int64_t;
+
+using u8  = std::uint8_t;
+using u16 = std::uint16_t;
+using u32 = std::uint32_t;
+using u64 = std::uint64_t;
+
+using f32 = float;
+using f64 = double;
 
 template <typename T>
 inline void destroy(T*& ptr)

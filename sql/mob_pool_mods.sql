@@ -69,9 +69,6 @@ INSERT INTO `mob_pool_mods` VALUES (242,47,22,1);  -- SPAWN_LEASH: 22
 INSERT INTO `mob_pool_mods` VALUES (268,368,150,0); -- REGAIN: 150
 INSERT INTO `mob_pool_mods` VALUES (268,370,50,0);  -- REGEN: 50
 
--- Athamas
-INSERT INTO `mob_pool_mods` VALUES (276,12,1,1); -- DRAW_IN: 1
-
 -- Aura Statue
 INSERT INTO `mob_pool_mods` VALUES (289,4,4,1); -- SIGHT_RANGE: 4
 
@@ -89,12 +86,6 @@ INSERT INTO `mob_pool_mods` VALUES (459,23,50,0);  -- ATT: 50
 INSERT INTO `mob_pool_mods` VALUES (459,73,25,0);  -- STORETP: 25
 INSERT INTO `mob_pool_mods` VALUES (459,430,20,0); -- QUAD_ATTACK: 20
 
--- Bowho Warmonger
-INSERT INTO `mob_pool_mods` VALUES (519,160,-50,0); -- DMG: -50
-
--- Bright-Handed Kunberry
-INSERT INTO `mob_pool_mods` VALUES (532,160,-50,0); -- DMG: -50
-
 -- Bugbby
 INSERT INTO `mob_pool_mods` VALUES (559,62,-50,0);   -- ATTP: -50
 -- Byakko
@@ -104,9 +95,6 @@ INSERT INTO `mob_pool_mods` VALUES (592,302,45,0); -- TRIPLE_ATTACK: 45
 
 -- Cargo Crab Colin
 INSERT INTO `mob_pool_mods` VALUES (639,63,25,0); -- DEFP: 25
-
--- Centurio Xii-I
-INSERT INTO `mob_pool_mods` VALUES (676,160,-50,0); -- DMG: -50
 
 -- Cerberus
 INSERT INTO `mob_pool_mods` VALUES (680,1,322,0);   -- DEF: 322
@@ -131,9 +119,6 @@ INSERT INTO `mob_pool_mods` VALUES (820,368,10,0); -- REGAIN: 10
 -- Darksteel Golem
 INSERT INTO `mob_pool_mods` VALUES (906,4,4,1); -- SIGHT_RANGE: 4
 
--- Dark Dragon
-INSERT INTO `mob_pool_mods` VALUES (912,12,25,1); -- DRAW_IN: 25
-
 -- Dea
 INSERT INTO `mob_pool_mods` VALUES (930,370,15,0); -- REGEN: 15
 
@@ -152,9 +137,6 @@ INSERT INTO `mob_pool_mods` VALUES (979,9,60,1); -- HP_HEAL_CHANCE: 60
 
 -- Detector
 INSERT INTO `mob_pool_mods` VALUES (1013,28,-100,1); -- EXP_BONUS: -100
-
--- Diabolos
-INSERT INTO `mob_pool_mods` VALUES (1027,12,1,1); -- DRAW_IN: 1
 
 -- Effigy Prototype
 INSERT INTO `mob_pool_mods` VALUES (1178,163,-100,0); -- DMGMAGIC: -100
@@ -274,15 +256,6 @@ INSERT INTO `mob_pool_mods` VALUES (2499,240,90,0); -- SLEEPRES: 90
 
 -- Mammet-22 Zeta
 INSERT INTO `mob_pool_mods` VALUES (2500,240,90,0); -- SLEEPRES: 90
-
--- Meteormauler Zhagtegg
-INSERT INTO `mob_pool_mods` VALUES (2643,160,-50,0); -- DMG: -50
-
--- Meww The Turtlerider
-INSERT INTO `mob_pool_mods` VALUES (2647,160,-50,0); -- DMG: -50
-
--- Mimic
-INSERT INTO `mob_pool_mods` VALUES (2664,12,1,1); -- DRAW_IN: 1
 
 -- Minotaur
 INSERT INTO `mob_pool_mods` VALUES (2675,4,25,1); -- SIGHT_RANGE: 25

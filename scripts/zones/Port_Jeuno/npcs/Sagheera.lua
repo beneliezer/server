@@ -255,17 +255,17 @@ local tier1Chips =
     xi.item.IVORY_CHIP,
     xi.item.SCARLET_CHIP,
     xi.item.EMERALD_CHIP,
-    xi.item.SILVER_CHIP,
-    xi.item.CERULEAN_CHIP,
     xi.item.SMALT_CHIP,
     xi.item.SMOKY_CHIP,
+    xi.item.CHARCOAL_CHIP,
+    xi.item.MAGENTA_CHIP,
 }
 
 local tier2Chips =
 {
     xi.item.ORCHID_CHIP,
-    xi.item.CHARCOAL_CHIP,
-    xi.item.MAGENTA_CHIP,
+    xi.item.CERULEAN_CHIP,
+    xi.item.SILVER_CHIP,
 }
 
 local tier1ChipValue = 5

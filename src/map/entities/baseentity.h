@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -206,18 +206,24 @@ enum class SPAWN_ANIMATION : uint8
     SPECIAL = 1,
 };
 
-// TODO:it is possible to make this structure part of the class, instead of the current ID and Targid, but without the Clean method
-
+// TODO: It is possible to make this structure part of the class, instead of the current ID and Targid, but without the clean() method.
 struct EntityID_t
 {
+    // TODO: Add a constructor that takes an id and targid.
+    // TODO: Clean with a destructor.
     void clean()
     {
         id     = 0;
         targid = 0;
     }
 
-    uint32 id;
-    uint16 targid;
+    // TODO: Globally rename targid to index, zoneIndex, etc.
+
+    uint32 id;     // "Long" global ID of the entity. Built from 0x10000000 | (zoneId << 16) | targid.
+    uint16 targid; // The "index" of the entity in the current zone. Used for local targeting and referencing.
+
+    // TODO: Store the zoneId of this entity's zone. We can then use the targid (index) and the zoneId to build the global id.
+    // TODO: Store an incremental u64 as a UUID for the entity for disambiguation in the case of dynamic entities that might have the same targid.
 };
 
 class CAIContainer;
@@ -281,8 +287,8 @@ public:
     void         SendZoneUpdate();
 
     void   ResetLocalVars();
-    uint32 GetLocalVar(std::string var);
-    void   SetLocalVar(std::string var, uint32 val);
+    uint32 GetLocalVar(const std::string& var);
+    void   SetLocalVar(const std::string& var, uint32 val);
     auto   GetLocalVars() -> std::map<std::string, uint32>&;
 
     // pre-tick update
@@ -293,7 +299,7 @@ public:
     void   SetModelId(uint16 modelId); // Set new modelid
     uint16 GetModelId() const;         // Get the modelid
 
-    virtual void HandleErrorMessage(std::unique_ptr<CBasicPacket>&){};
+    virtual void HandleErrorMessage(std::unique_ptr<CBasicPacket>&) {};
 
     bool IsDynamicEntity() const;
 
@@ -310,7 +316,7 @@ public:
     uint8           animation;    // animation
     uint8           animationsub; // Additional animation parameter
     uint8           speed;        // speed of movement
-    uint8           speedsub;     // Additional movement speed parameter
+    uint8           speedsub;     // base movement speed
     uint8           namevis;
     ALLEGIANCE_TYPE allegiance;     // what types of targets the entity can fight
     uint8           updatemask;     // what to update next server tick to players nearby

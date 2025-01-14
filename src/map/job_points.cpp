@@ -241,7 +241,7 @@ namespace jobpointutils
                 break;
             }
 
-            currentGifts->emplace_back(CModifier(static_cast<Mod>(gift.modId), gift.value));
+            currentGifts->emplace_back(static_cast<Mod>(gift.modId), gift.value);
         }
 
         PChar->addModifiers(currentGifts);
@@ -468,7 +468,7 @@ namespace jobpointutils
 
         if (sendUpdate)
         {
-            PChar->pushPacket(new CCharSpellsPacket(PChar));
+            PChar->pushPacket<CCharSpellsPacket>(PChar);
         }
     }
 } // namespace jobpointutils

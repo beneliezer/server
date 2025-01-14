@@ -11388,6 +11388,7 @@ INSERT INTO `item_equipment` VALUES (23349,'horos_t._shoes_+2',99,119,262144,304
 INSERT INTO `item_equipment` VALUES (23350,'peda._loafers_+2',99,119,524288,215,0,0,256,0,0,0);
 INSERT INTO `item_equipment` VALUES (23351,'bagua_sandals_+2',99,119,1048576,310,0,0,256,0,0,0);
 INSERT INTO `item_equipment` VALUES (23352,'futhark_boots_+2',99,119,2097152,339,0,0,256,0,0,0);
+INSERT INTO `item_equipment` VALUES (23364,'kas._sune-ate_+2',99,119,2048,293,0,0,256,0,0,0);
 INSERT INTO `item_equipment` VALUES (23375,'pummelers_mask_+3',99,119,1,64,0,0,16,0,0,0);
 INSERT INTO `item_equipment` VALUES (23376,'anch._crown_+3',99,119,2,66,0,0,16,0,0,0);
 INSERT INTO `item_equipment` VALUES (23377,'theophany_cap_+3',99,119,4,68,0,0,16,0,0,0);

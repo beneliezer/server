@@ -19,8 +19,8 @@
 ===========================================================================
 */
 
-#ifndef _UTILS_H_
-#define _UTILS_H_
+#pragma once
+
 #define _USE_MATH_DEFINES
 
 #include "common/cbasetypes.h"
@@ -146,5 +146,3 @@ static mutex_guarded<std::unordered_map<std::string, time_point>> lastExecutionT
     });                                                                               \
 }
 // clang-format on
-
-#endif

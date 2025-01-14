@@ -1,4 +1,4 @@
-﻿/*
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -179,8 +179,8 @@ void CMobController::TryLink()
         return;
     }
 
-    // handle pet behaviour on the targets behalf (faster than in ai_pet_dummy)
-    // Avatars defend masters by attacking mobs if the avatar isn't attacking anything currently (bodyguard behaviour)
+    // handle pet behavior on the targets behalf (faster than in ai_pet_dummy)
+    // Avatars defend masters by attacking mobs if the avatar isn't attacking anything currently (bodyguard behavior)
     if (PTarget->PPet != nullptr && PTarget->PPet->GetBattleTargetID() == 0)
     {
         if (PTarget->PPet->objtype == TYPE_PET && ((CPetEntity*)PTarget->PPet)->getPetType() == PET_TYPE::AVATAR)
@@ -270,7 +270,7 @@ bool CMobController::CanDetectTarget(CBattleEntity* PTarget, bool forceSight)
         return isTargetAndInRange || PMob->CanSeeTarget(PTarget);
     }
 
-    if ((PMob->m_Behaviour & BEHAVIOUR_AGGRO_AMBUSH) && currentDistance < 3 && !hasSneak)
+    if ((PMob->m_Behavior & BEHAVIOR_AGGRO_AMBUSH) && currentDistance < 3 && !hasSneak)
     {
         return true;
     }
@@ -629,10 +629,11 @@ void CMobController::FaceTarget(uint16 targid)
     {
         targ = PMob->GetEntity(targid);
     }
-    if (!(PMob->m_Behaviour & BEHAVIOUR_NO_TURN) && targ)
+    if (!(PMob->m_Behavior & BEHAVIOR_NO_TURN) && targ)
     {
         PMob->PAI->PathFind->LookAt(targ->loc.p);
     }
+    PMob->UpdateSpeed();
 }
 
 void CMobController::Move()
@@ -707,16 +708,6 @@ void CMobController::Move()
 
         if (((currentDistance > closeDistance) || move) && PMob->PAI->CanFollowPath())
         {
-            // TODO: can this be moved to scripts entirely?
-            if (PMob->getMobMod(MOBMOD_DRAW_IN) > 0)
-            {
-                if (currentDistance >= PMob->GetMeleeRange() * 2 && battleutils::DrawIn(PTarget, PMob, PMob->GetMeleeRange() - 0.2f))
-                {
-                    FaceTarget();
-                    return;
-                }
-            }
-
             if (PMob->speed != 0 && PMob->getMobMod(MOBMOD_NO_MOVE) == 0 && m_Tick >= m_LastSpecialTime)
             {
                 // attempt to teleport to target (if in range)
@@ -1323,6 +1314,16 @@ void CMobController::SetFollowTarget(CBaseEntity* PTarget, FollowType followType
     m_followType  = followType;
 }
 
+bool CMobController::HasFollowTarget()
+{
+    if (PFollowTarget && m_followType != FollowType::None)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 void CMobController::ClearFollowTarget()
 {
     PFollowTarget = nullptr;
@@ -1346,7 +1347,7 @@ bool CMobController::CanMoveForward(float currentDistance)
         standbackRange = PMob->getMobMod(MOBMOD_STANDBACK_RANGE);
     }
 
-    if (PMob->m_Behaviour & BEHAVIOUR_STANDBACK && currentDistance < standbackRange && PMob->CanSeeTarget(PTarget))
+    if (PMob->m_Behavior & BEHAVIOR_STANDBACK && currentDistance < standbackRange && PMob->CanSeeTarget(PTarget))
     {
         return false;
     }

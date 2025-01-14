@@ -235,7 +235,7 @@ local function dropChance(player)
     --end
 
     if player:hasStatusEffect(xi.effect.PROWESS_CASKET_RATE) then
-        prowessCasketsPower = casketProwessEffect:getPower()
+        prowessCasketsPower = casketProwessEffect:getPower() / 100
     end
 
     local rand = math.random()
@@ -545,7 +545,7 @@ local function getDrops(npc, dropType, zoneId, player)
             if item == 0 or item == nil then
                 items[i] = 4112 -- default to potion
             else
-                if math.random() < 0.05 then
+                if math.random(1, 100) <= 5 then
                     if
                         not player:isCrystalWarrior() and
                         mazeMongersZones[zoneId] and
