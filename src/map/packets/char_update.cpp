@@ -281,7 +281,7 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
     flags1.unknown_1_14 = 0;                      // Unknown.
     flags1.InvisFlag    = PChar->m_isGMHidden || PChar->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_INVISIBLE);
     flags1.unknown_2_16 = 0; // Unknown.
-    flags1.SpeedBase    = PChar->speedsub;
+    flags1.SpeedBase    = PChar->animationSpeed;
     flags1.unknown_3_25 = 0; // Unknown
     flags1.BazaarFlag   = PChar->hasBazaar();
     flags1.CharmFlag    = PChar->isCharmed;
@@ -367,7 +367,7 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
     packet.Flags5 = flags5;
     packet.Flags6 = flags6;
 
-    std::memcpy(&data[0], &packet, sizeof(packet));
+    std::memcpy(&buffer_.data()[0], &packet, sizeof(packet));
 
     // Mog wardrobe enabled bits (apparently used by windower in get_bag_info(N).enabled):
     // 0x01 = Wardrobe 3

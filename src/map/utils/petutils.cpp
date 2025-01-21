@@ -113,7 +113,7 @@ namespace petutils
                 Pet->name.insert(0, (const char*)_sql->GetData(1));
 
                 uint16 sqlModelID[10];
-                memcpy(&sqlModelID, _sql->GetData(2), 20);
+                std::memcpy(&sqlModelID, _sql->GetData(2), 20);
                 Pet->look = look_t(sqlModelID);
 
                 Pet->minLevel  = (uint8)_sql->GetIntData(3);
@@ -352,8 +352,9 @@ namespace petutils
                 break;
         }
 
-        PMob->speed    = petStats->speed;
-        PMob->speedsub = petStats->speed;
+        PMob->baseSpeed      = petStats->speed;
+        PMob->speed          = petStats->speed;
+        PMob->animationSpeed = petStats->speed;
 
         PMob->UpdateHealth();
         PMob->health.tp = 0;

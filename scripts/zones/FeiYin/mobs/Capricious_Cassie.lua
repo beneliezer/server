@@ -21,10 +21,10 @@ entity.onMobFight = function(mob, target)
     local spawnPos = mob:getSpawnPos()
     local arenaBoundaries =
     {
-        { {-87, 142}, {-93,146} }, -- G-7 SW hallway
-        { {-98, 208}, {-94,213} }, -- G-6 NW hallway
-        { {-13, 254}, {-8,257} }, -- H-5 N hallway
-        { {18, 192}, {15,187} }, -- H-6 E hallway
+        { { -87, 142 }, { -93, 146 } }, -- G-7 SW hallway
+        { { -98, 208 }, { -94, 213 } }, -- G-6 NW hallway
+        { { -13, 254 }, {  -8, 257 } }, -- H-5 N hallway
+        { {  18, 192 }, {  15, 187 } }, -- H-6 E hallway
     }
     local drawInTable =
     {

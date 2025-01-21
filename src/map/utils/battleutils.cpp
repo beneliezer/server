@@ -2575,7 +2575,7 @@ namespace battleutils
      *                                                                       *
      ************************************************************************/
 
-    int32 TakeSpellDamage(CBattleEntity* PDefender, CCharEntity* PAttacker, CSpell* PSpell, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
+    int32 TakeSpellDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, CSpell* PSpell, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
     {
         // Scarlet Delirium: Updates status effect power with damage bonus
         battleutils::HandleScarletDelirium(PDefender, damage);
@@ -2611,7 +2611,7 @@ namespace battleutils
      *                                                                       *
      ************************************************************************/
 
-    int32 TakeSwipeLungeDamage(CBattleEntity* PDefender, CCharEntity* PAttacker, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
+    int32 TakeSwipeLungeDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
     {
         damage = CheckAndApplyDamageCap(damage, PDefender);
 
@@ -2638,7 +2638,7 @@ namespace battleutils
      ************************************************************************/
 
     uint8 GetHitRateEx(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber,
-                       int8 offsetAccuracy) // subWeaponAttack is for calculating acc of dual wielded sub weapon
+                       int16 offsetAccuracy) // subWeaponAttack is for calculating acc of dual wielded sub weapon
     {
         int32 hitrate = 75;
 
@@ -2766,7 +2766,7 @@ namespace battleutils
     {
         return GetHitRateEx(PAttacker, PDefender, attackNumber, 0);
     }
-    uint8 GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int8 offsetAccuracy)
+    uint8 GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int16 offsetAccuracy)
     {
         return GetHitRateEx(PAttacker, PDefender, attackNumber, offsetAccuracy);
     }
@@ -3931,8 +3931,8 @@ namespace battleutils
 
             { SC_LIGHT, { ELEMENT_LIGHT, ELEMENT_FIRE, ELEMENT_WIND, ELEMENT_THUNDER } },
             { SC_DARKNESS, { ELEMENT_DARK, ELEMENT_EARTH, ELEMENT_WATER, ELEMENT_ICE } },
-            { SC_LIGHT_II, { ELEMENT_LIGHT } },
-            { SC_DARKNESS_II, { ELEMENT_DARK } }
+            { SC_LIGHT_II, { ELEMENT_LIGHT, ELEMENT_FIRE, ELEMENT_WIND, ELEMENT_THUNDER } },
+            { SC_DARKNESS_II, { ELEMENT_DARK, ELEMENT_EARTH, ELEMENT_WATER, ELEMENT_ICE } }
         };
 
         return resonanceToElement.at(skillchain);
@@ -4635,7 +4635,7 @@ namespace battleutils
             if (PChar)
             {
                 charutils::BuildingCharAbilityTable(PChar);
-                memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
+                std::memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
                 PChar->pushPacket<CCharAbilitiesPacket>(PChar);
                 PChar->pushPacket<CCharUpdatePacket>(PChar);
                 PChar->pushPacket<CPetSyncPacket>(PChar);
@@ -5647,7 +5647,7 @@ namespace battleutils
                     PTarget->loc.zone->UpdateEntityPacket(PTarget, ENTITY_UPDATE, UPDATE_POS);
                 }
 
-                PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE, new CMessageBasicPacket(PTarget, PTarget, 0, 0, 232));
+                PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE, std::make_unique<CMessageBasicPacket>(PTarget, PTarget, 0, 0, 232));
             }
         }
 

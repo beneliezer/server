@@ -49,7 +49,9 @@ jobs:
       if: always()
       run: |
         readarray -t removed_files <<<"$(jq -r '.[]' <<<'${{ steps.changed-files.outputs.all }}')"
-        for removed_file in ${removed_files[@]}; do
+        echo "CHANGED_FILES=${removed_files[@]}" >> $GITHUB_ENV
+
+        for removed_file in $CHANGED_FILES; do
             echo "${removed_file}"
         done
     - name: Git Formatting Checks
@@ -67,7 +69,7 @@ jobs:
       if: always()
       run: |
         touch general_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             bash tools/ci/general.sh ${changed_file} >> general_checks.txt || true
           fi
@@ -82,10 +84,10 @@ jobs:
       if: always()
       run: |
         touch cpp_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.cpp ]]; then
-              bash tools/ci/cpp.sh ${changed_file} 2>> cpp_checks.txt >> cpp_checks.txt || true
+              bash tools/ci/cpp.sh ${changed_file} 2>> cpp_checks.txt || true
             fi
           fi
         done
@@ -100,7 +102,7 @@ jobs:
       run: |
         clang-format-18 -version
         touch cpp_formatting_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.cpp || $changed_file == *.h ]]; then
               clang-format-18 -style=file -i ${changed_file}
@@ -138,7 +140,7 @@ jobs:
         touch lua_checks.txt
         python3 tools/ci/lua_stylecheck.py test >> lua_checks.txt
 
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.lua ]]; then
               if [[ $changed_file != scripts/mixins/claim_shield.lua ]]; then
@@ -160,7 +162,7 @@ jobs:
       if: always()
       run: |
         touch sql_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.sql ]]; then
               bash tools/ci/sql.sh ${changed_file} >> sql_checks.txt || true
@@ -180,7 +182,7 @@ jobs:
       if: always()
       run: |
         touch python_checks.txt
-        for changed_file in ${{ steps.changed-files.outputs.all }}; do
+        for changed_file in $CHANGED_FILES; do
           if [[ -f $changed_file ]]; then
             if [[ $changed_file == *.py ]]; then
               bash tools/ci/python.sh ${changed_file} >> python_checks.txt || true
@@ -403,7 +405,7 @@ jobs:
           name: windows_modules_executables
           path: |
             xi_connect.exe
-            xi_map.exe
+            xi_map_tracy.exe
             xi_search.exe
             xi_world.exe
           
@@ -461,7 +463,7 @@ jobs:
     - name: Import SQL files
       shell: bash
       run: |
-        python3 ./tools/dbtool.py setup xidb
+        python3 ./tools/dbtool.py setup
     - name: Copy settings
       run: |
         cp settings/default/* settings/
@@ -634,7 +636,7 @@ jobs:
     - name: Import SQL files
       shell: bash
       run: |
-        python3 ./tools/dbtool.py setup xidb
+        python3 ./tools/dbtool.py setup
     - name: Assign odd zones a different port
       run: |
         mysql xidb -h 127.0.0.1 -uroot -proot -e "UPDATE xidb.zone_settings SET zoneport = 54231 WHERE zoneid % 2 = 0;"
@@ -705,7 +707,7 @@ jobs:
         path: .
     - uses: zach2good/setup-mariadb@v1
       with:
-          database: xidb
+        database: xidb
     - name: Copy settings
       run: |
         cp settings/default/* settings/
@@ -721,7 +723,7 @@ jobs:
     - name: Import SQL files
       shell: bash
       run: |
-        python3 ./tools/dbtool.py setup xidb
+        python3 ./tools/dbtool.py setup
     - name: Startup checks
       uses: nick-invision/retry@v3
       with:
@@ -745,7 +747,10 @@ jobs:
         path: .
     - uses: zach2good/setup-mariadb@v1
       with:
-          database: xidb
+        database: xidb
+    - name: Rename exe
+      run: |
+        mv xi_map_tracy.exe xi_map.exe
     - name: Copy settings
       run: |
         cp settings/default/* settings/
@@ -767,7 +772,7 @@ jobs:
     - name: Import SQL files
       shell: bash
       run: |
-        python3 ./tools/dbtool.py setup xidb
+        python3 ./tools/dbtool.py setup
     - name: Startup checks
       uses: nick-invision/retry@v3
       with:

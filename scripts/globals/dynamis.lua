@@ -823,7 +823,10 @@ xi.dynamis.procMonster = function(mob, player)
 
         local extensions = getExtensions(player)
         if extensions > 2 then
-            if player:hasStatusEffect(xi.effect.SJ_RESTRICTION) and math.random(1, 100) == 1 then
+            if
+                player:hasStatusEffect(xi.effect.SJ_RESTRICTION) and
+                math.random(1, 100) == 1
+            then
                 mob:setLocalVar('dynamis_proc', 4)
                 mob:addStatusEffect(xi.effect.TERROR, 0, 0, 30)
                 mob:weaknessTrigger(3)

@@ -1,4 +1,4 @@
-/*
+﻿/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -69,7 +69,7 @@ CBattleEntity::CBattleEntity()
     m_Weapons[SLOT_AMMO]   = nullptr;
     m_dualWield            = false;
 
-    memset(&health, 0, sizeof(health));
+    std::memset(&health, 0, sizeof(health));
     health.maxhp = 1;
 
     PPet          = nullptr;
@@ -299,16 +299,14 @@ int32 CBattleEntity::GetMaxMP() const
 
 uint8 CBattleEntity::UpdateSpeed(bool run)
 {
-    uint8 baseSpeed   = speedsub;
     int16 outputSpeed = 0;
 
     // Mount speed. Independent from regular speed and unaffected by most things.
-    // Note: retail treats mounted speed as double what it actually is! 40 is in fact retail accurate!
     if (isMounted())
     {
-        baseSpeed   = 40 + settings::get<int8>("map.MOUNT_SPEED_MOD");
-        outputSpeed = baseSpeed * (100 + getMod(Mod::MOUNT_MOVE)) / 100;
-        speed       = std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
+        outputSpeed = settings::get<uint8>("map.MOUNT_SPEED") / 2;
+        outputSpeed *= (100 + getMod(Mod::MOUNT_MOVE)) / 100;
+        speed = std::clamp<uint8>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max());
 
         return speed;
     }
@@ -355,16 +353,7 @@ uint8 CBattleEntity::UpdateSpeed(bool run)
     // Set cap if a PC (Default 80).
     if (objtype == TYPE_PC)
     {
-        outputSpeed = std::clamp<int16>(outputSpeed, 0, 80 + settings::get<int8>("map.SPEED_MOD"));
-    }
-
-    // Speed cap can be bypassed. Ex. Feast of swords. GM speed.
-    // TODO: Find exceptions. Add them here.
-
-    // GM speed bypass.
-    if (getMod(Mod::MOVE_SPEED_OVERRIDE) > 0)
-    {
-        outputSpeed = getMod(Mod::MOVE_SPEED_OVERRIDE);
+        outputSpeed = std::clamp<int16>(outputSpeed, 0, settings::get<uint8>("map.SPEED_LIMIT"));
     }
 
     if (run && outputSpeed > 0 && getMod(Mod::MOVE_SPEED_OVERRIDE) == 0)
@@ -395,7 +384,22 @@ uint8 CBattleEntity::UpdateSpeed(bool run)
         }
     }
 
+    // Speed cap can be bypassed. Ex. Feast of swords. GM speed.
+    // TODO: Find exceptions. Add them here.
+
+    // GM speed bypass.
+
+    if (getMod(Mod::MOVE_SPEED_OVERRIDE) > 255)
+    {
+        outputSpeed = 0;
+    }
+    else if (getMod(Mod::MOVE_SPEED_OVERRIDE) > 0)
+    {
+        outputSpeed = getMod(Mod::MOVE_SPEED_OVERRIDE);
+    }
+
     speed = static_cast<uint8>(std::clamp<int16>(outputSpeed, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
+
     return speed;
 }
 
@@ -940,7 +944,7 @@ uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
     return std::max(0, RACC + std::min<int16>(((100 + getMod(Mod::FOOD_RACCP) * RACC) / 100), getMod(Mod::FOOD_RACC_CAP)));
 }
 
-uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
+uint16 CBattleEntity::ACC(uint8 attackNumber, uint16 offsetAccuracy)
 {
     TracyZoneScoped;
 
@@ -991,7 +995,7 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
             }
             skill = SKILL_HAND_TO_HAND;
         }
-        int16 ACC = GetSkill(skill) + iLvlSkill;
+        int32 ACC = GetSkill(skill) + iLvlSkill;
         ACC       = (ACC > 200 ? (int16)(((ACC - 200) * 0.9) + 200) : ACC);
         if (auto* weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]); weapon && weapon->isTwoHanded())
         {
@@ -1020,7 +1024,7 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
     }
     else if (this->objtype == TYPE_PET && ((CPetEntity*)this)->getPetType() == PET_TYPE::AUTOMATON)
     {
-        int16 ACC = this->GetSkill(SKILL_AUTOMATON_MELEE);
+        int32 ACC = this->GetSkill(SKILL_AUTOMATON_MELEE);
         ACC       = (ACC > 200 ? (int16)(((ACC - 200) * 0.9) + 200) : ACC);
         ACC += (int16)(DEX() * 0.5);
         ACC += m_modStat[Mod::ACC] + offsetAccuracy;
@@ -1035,7 +1039,7 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
     }
     else
     {
-        int16 ACC = m_modStat[Mod::ACC];
+        int32 ACC = m_modStat[Mod::ACC] + offsetAccuracy;
 
         if (this->StatusEffectContainer->HasStatusEffect(EFFECT_ENLIGHT))
         {
@@ -1049,7 +1053,21 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
 
 uint16 CBattleEntity::DEF()
 {
-    int32 DEF = 8 + m_modStat[Mod::DEF] + std::floor(VIT() * 1.5f); // https://wiki.ffo.jp/html/313.html
+    // VIT * 1.5 for PCs / Alter egos / Fellows / Familiars / Wyverns / Avatars / Automatons / Luopans
+    // VIT * 0.5 for Enemy NPCs and pets controlled by Charm
+    // https://wiki.ffo.jp/html/313.html
+    // https://wiki.ffo.jp/html/35712.html
+    // https://forum.square-enix.com/ffxi/threads/51154-Aug.-3-2016-%28JST%29-Version-Update?p=583669&viewfull=1#post583669
+    int32 DEF       = 8 + m_modStat[Mod::DEF];
+    float vitFactor = 1.5f;
+
+    if (this->objtype == TYPE_MOB)
+    {
+        vitFactor = 0.5f;
+    }
+
+    DEF = DEF + std::floor(VIT() * vitFactor);
+
     if (this->StatusEffectContainer->HasStatusEffect(EFFECT_COUNTERSTANCE, 0))
     {
         return DEF / 2;
@@ -1713,6 +1731,7 @@ void CBattleEntity::OnCastFinished(CMagicState& state, action_t& action)
     }
 
     StatusEffectContainer->DelStatusEffectsByFlag(effectFlags);
+    StatusEffectContainer->DelStatusEffect(EFFECT_ILLUSION);
 
     PAI->TargetFind->reset();
 
@@ -1939,7 +1958,7 @@ void CBattleEntity::OnCastInterrupted(CMagicState& state, action_t& action, MSGB
         {
             actionTarget.reaction = REACTION::HIT;
             // For some reason, despite the system supporting interrupted message in the action packet (like auto attacks, JA), an 0x029 message is sent for spells.
-            loc.zone->PushPacket(this, CHAR_INRANGE_SELF, new CMessageBasicPacket(this, state.GetTarget() ? state.GetTarget() : this, 0, 0, msg));
+            loc.zone->PushPacket(this, CHAR_INRANGE_SELF, std::make_unique<CMessageBasicPacket>(this, state.GetTarget() ? state.GetTarget() : this, 0, 0, msg));
         }
     }
 }
@@ -2159,7 +2178,7 @@ void CBattleEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
                 target.knockback = 0;
             }
 
-            if (first && (PSkill->getPrimarySkillchain() != 0))
+            if (first && PTargetFound->health.hp > 0 && PSkill->getPrimarySkillchain() != 0)
             {
                 SUBEFFECT effect = battleutils::GetSkillChainEffect(PTargetFound, PSkill->getPrimarySkillchain(), PSkill->getSecondarySkillchain(),
                                                                     PSkill->getTertiarySkillchain());
@@ -2685,4 +2704,33 @@ void CBattleEntity::PostTick()
 uint16 CBattleEntity::GetBattleTargetID() const
 {
     return m_battleTarget;
+}
+
+bool CBattleEntity::hasEnmityEXPENSIVE() const
+{
+    // TODO: This check seems to always fail for pets?
+    if (PNotorietyContainer->hasEnmity())
+    {
+        return true;
+    }
+
+    bool isTargeted = false;
+
+    // TODO: this is bad but because of how super tanking is implemented there's not much we can do without a larger refactor
+    if (loc.zone)
+    {
+        // clang-format off
+        loc.zone->ForEachMob([&](CMobEntity* PMob)
+        {
+            // Account for charmed mobs attacking normal mobs, etc
+            if (PMob->GetBattleTargetID() == targid && PMob->allegiance != allegiance)
+            {
+                isTargeted = true;
+                return;
+            }
+        });
+        // clang-format on
+    }
+
+    return isTargeted;
 }

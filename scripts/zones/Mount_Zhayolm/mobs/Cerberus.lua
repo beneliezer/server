@@ -18,19 +18,21 @@ entity.onMobFight = function(mob, target)
     local spawnPos = mob:getSpawnPos()
     local arenaBoundaries =
     {
-        { {335, -92}, {332,-94} },
+        { { 335, -92 }, { 332, -94 } },
     }
+
     local drawInPositions =
     {
-        {330.166, -23.909, -89.456, targetPos.rot},
-        {314.186, -24.180, -89.331, targetPos.rot},
-        {314.372, -23.985, -82.1, targetPos.rot},
-        {321.629, -24, -90.936, targetPos.rot},
-        {329.969, -24, -73.665, targetPos.rot},
-        {322.330, -24, -82.168, targetPos.rot},
-        {331.026, -24, -81.093, targetPos.rot},
-        {321.795, -23.978, -73.724, targetPos.rot},
+        { 330.166, -23.909, -89.456, targetPos.rot },
+        { 314.186, -24.180, -89.331, targetPos.rot },
+        { 314.372, -23.985,   -82.1, targetPos.rot },
+        { 321.629,     -24, -90.936, targetPos.rot },
+        { 329.969,     -24, -73.665, targetPos.rot },
+        { 322.330,     -24, -82.168, targetPos.rot },
+        { 331.026,     -24, -81.093, targetPos.rot },
+        { 321.795, -23.978, -73.724, targetPos.rot },
     }
+
     local drawInTable =
     {
         conditions =
