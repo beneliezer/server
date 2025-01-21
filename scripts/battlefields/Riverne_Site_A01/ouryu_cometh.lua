@@ -3,8 +3,11 @@
 -- Name: Ouryu Cometh
 -- !pos 187.112 -0.5 346.341 30
 -----------------------------------
-local riverneID = zones[xi.zone.RIVERNE_SITE_A01]
+local ID = zones[xi.zone.RIVERNE_SITE_A01]
 -----------------------------------
+ID.text.MEMBERS_OF_YOUR_PARTY         = 7535
+ID.text.TIME_LIMIT_FOR_THIS_BATTLE_IS = 7537
+ID.text.ENTERING_THE_BATTLEFIELD_FOR  = 7600
 
 local content = Battlefield:new({
     zoneId        = xi.zone.RIVERNE_SITE_A01,
@@ -19,8 +22,8 @@ local content = Battlefield:new({
     requiredItems =
     {
         xi.item.CLOUD_EVOKER,
-        wearMessage = riverneID.text.A_GLOWING_MIST + 280,
-        wornMessage = riverneID.text.A_GLOWING_MIST + 279,
+        wearMessage = ID.text.A_GLOWING_MIST + 280,
+        wornMessage = ID.text.A_GLOWING_MIST + 279,
     },
     grantXP          = 1500,
 })
