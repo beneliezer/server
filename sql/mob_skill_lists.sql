@@ -1225,11 +1225,8 @@ INSERT INTO `mob_skill_lists` VALUES ('Serket',273,721);
 INSERT INTO `mob_skill_lists` VALUES ('Serket',273,722);
 INSERT INTO `mob_skill_lists` VALUES ('Serket',273,723);
 INSERT INTO `mob_skill_lists` VALUES ('Serket',273,724);
-INSERT INTO `mob_skill_lists` VALUES ('KingV',274,353);
 INSERT INTO `mob_skill_lists` VALUES ('KingV',274,354);
 INSERT INTO `mob_skill_lists` VALUES ('KingV',274,355);
-INSERT INTO `mob_skill_lists` VALUES ('KingV',274,719);
-INSERT INTO `mob_skill_lists` VALUES ('KingV',274,720);
 INSERT INTO `mob_skill_lists` VALUES ('KingV',274,722);
 INSERT INTO `mob_skill_lists` VALUES ('KingV',274,723);
 -- 275: Matamata
@@ -1949,7 +1946,9 @@ INSERT INTO `mob_skill_lists` VALUES ('Two-faced_Flan',416,1823);
 INSERT INTO `mob_skill_lists` VALUES ('Two-faced_Flan',416,1824);
 INSERT INTO `mob_skill_lists` VALUES ('Two-faced_Flan',416,1825);
 INSERT INTO `mob_skill_lists` VALUES ('Barbaric_Weapon',417,514); -- Whirl of Rage
--- 418 to 435: free
+INSERT INTO `mob_skill_lists` VALUES ('Picolaton',418,403); -- Stormwind
+INSERT INTO `mob_skill_lists` VALUES ('Dahu',419,802); -- Great Sandstorm
+-- 420 to 435: free
 INSERT INTO `mob_skill_lists` VALUES ('Bloodlapper',436,2162);
 INSERT INTO `mob_skill_lists` VALUES ('Ghillie_Dhu',437,685);
 INSERT INTO `mob_skill_lists` VALUES ('Highlander_Lizard',438,371);

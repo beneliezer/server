@@ -6021,30 +6021,70 @@ bool CLuaBaseEntity::canUseMisc(uint16 misc)
 
 /************************************************************************
  *  Function: getSpeed()
- *  Purpose : Sets a player's speed or returns their current speed
+ *  Purpose : Gets a player's current speed
  *  Example : player:getSpeed()
  *  Notes   :
  ************************************************************************/
 
 uint8 CLuaBaseEntity::getSpeed()
 {
-    return m_PBaseEntity->speed;
+    return m_PBaseEntity->GetSpeed();
 }
 
 /************************************************************************
- *  Function: setSpeed()
- *  Purpose : Sets a player's speed or returns their current speed
- *  Example : player:setSpeed(40)
+ *  Function: getBaseSpeed()
+ *  Purpose : Gets a player's base speed
+ *  Example : player:getBaseSpeed()
  *  Notes   :
  ************************************************************************/
 
-void CLuaBaseEntity::setSpeed(uint8 speedVal)
+uint8 CLuaBaseEntity::getBaseSpeed()
+{
+    return m_PBaseEntity->baseSpeed;
+}
+
+/************************************************************************
+ *  Function: setBaseSpeed()
+ *  Purpose : Sets a player's base speed
+ *  Example : player:setBaseSpeed(40)
+ *  Notes   :
+ ************************************************************************/
+
+void CLuaBaseEntity::setBaseSpeed(uint8 speedVal)
 {
     auto speed = std::min<uint8>(speedVal, 255);
 
-    if (m_PBaseEntity->speed != speed)
+    if (m_PBaseEntity->baseSpeed != speed)
     {
-        m_PBaseEntity->speed = speed;
+        m_PBaseEntity->baseSpeed = speed;
+        m_PBaseEntity->UpdateSpeed();
+
+        if (m_PBaseEntity->objtype == TYPE_PC)
+        {
+            auto* PChar = static_cast<CCharEntity*>(m_PBaseEntity);
+            PChar->pushPacket<CCharUpdatePacket>(PChar);
+        }
+        else
+        {
+            m_PBaseEntity->loc.zone->UpdateEntityPacket(m_PBaseEntity, ENTITY_UPDATE, UPDATE_POS);
+        }
+    }
+}
+
+/************************************************************************
+ *  Function: setAnimationSpeed()
+ *  Purpose : Sets a player's animation speed
+ *  Example : player:setAnimationSpeed(40)
+ *  Notes   :
+ ************************************************************************/
+
+void CLuaBaseEntity::setAnimationSpeed(uint8 speedVal)
+{
+    auto speed = std::min<uint8>(speedVal, 255);
+
+    if (m_PBaseEntity->animationSpeed != speed)
+    {
+        m_PBaseEntity->animationSpeed = speed;
 
         if (m_PBaseEntity->objtype == TYPE_PC)
         {
@@ -18717,7 +18757,9 @@ void CLuaBaseEntity::Register()
     SOL_REGISTER("canUseMisc", CLuaBaseEntity::canUseMisc);
 
     SOL_REGISTER("getSpeed", CLuaBaseEntity::getSpeed);
-    SOL_REGISTER("setSpeed", CLuaBaseEntity::setSpeed);
+    SOL_REGISTER("getBaseSpeed", CLuaBaseEntity::getBaseSpeed);
+    SOL_REGISTER("setBaseSpeed", CLuaBaseEntity::setBaseSpeed);
+    SOL_REGISTER("setAnimationSpeed", CLuaBaseEntity::setAnimationSpeed);
 
     SOL_REGISTER("getPlaytime", CLuaBaseEntity::getPlaytime);
     SOL_REGISTER("getTimeCreated", CLuaBaseEntity::getTimeCreated);

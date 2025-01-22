@@ -95,6 +95,7 @@ class AHAnnouncementModule : public CPPModule
 
                         if (gil != nullptr && gil->isType(ITEM_CURRENCY) && gil->getQuantity() >= price && gil->getReserve() == 0)
                         {
+                            bool itemPurchasedSuccessfully = false;
                             // clang-format off
                             TransactionWrapper wrapper([&]() -> void
                             {
@@ -182,10 +183,17 @@ class AHAnnouncementModule : public CPPModule
                                             message::send(sellerId, std::make_unique<CChatMessagePacket>(PChar, MESSAGE_SYSTEM_3,
                                                 fmt::format("Your '{}' has sold to {} for {} gil!", name, PChar->name, price).c_str(), ""));
                                         }
+
+                                        itemPurchasedSuccessfully = true;
                                     }
                                 }
                             }); // TransactionWrapper
                             // clang-format on
+
+                            if (itemPurchasedSuccessfully)
+                            {
+                                return;
+                            }
                         }
                     }
 

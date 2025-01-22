@@ -118,7 +118,7 @@ void CEntityUpdatePacket::updateWith(CBaseEntity* PEntity, ENTITYUPDATE type, ui
         ref<float>(0x14)  = PEntity->loc.p.z;
         ref<uint16>(0x18) = PEntity->loc.p.moving;
         ref<uint16>(0x1A) = PEntity->m_TargID << 1;
-        ref<uint8>(0x1C)  = PEntity->speed;
+        ref<uint8>(0x1C)  = PEntity->GetSpeed();
         ref<uint8>(0x1D)  = PEntity->animationSpeed;
     }
 

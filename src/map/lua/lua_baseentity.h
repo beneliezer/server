@@ -326,7 +326,9 @@ public:
     bool canUseMisc(uint16 misc); // Check misc flags of current zone.
 
     uint8 getSpeed();
-    void  setSpeed(uint8 speedVal);
+    uint8 getBaseSpeed();
+    void  setBaseSpeed(uint8 speedVal);
+    void  setAnimationSpeed(uint8 speedVal);
 
     uint32 getPlaytime(sol::object const& shouldUpdate);
     int32  getTimeCreated();

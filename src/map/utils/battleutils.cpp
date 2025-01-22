@@ -4138,34 +4138,34 @@ namespace battleutils
                 {
                     switch (toolID)
                     {
-                        case ITEM_UCHITAKE:
-                        case ITEM_TSURARA:
-                        case ITEM_KAWAHORI_OGI:
-                        case ITEM_MAKIBISHI:
-                        case ITEM_HIRAISHIN:
-                        case ITEM_MIZU_DEPPO:
-                            toolID = ITEM_INOSHISHINOFUDA;
+                        case ITEMID::UCHITAKE:
+                        case ITEMID::TSURARA:
+                        case ITEMID::KAWAHORI_OGI:
+                        case ITEMID::MAKIBISHI:
+                        case ITEMID::HIRAISHIN:
+                        case ITEMID::MIZU_DEPPO:
+                            toolID = ITEMID::INOSHISHINOFUDA;
                             break;
 
-                        case ITEM_RYUNO:
-                        case ITEM_MOKUJIN:
-                        case ITEM_SANJAKU_TENUGUI:
-                        case ITEM_KABENRO:
-                        case ITEM_SHINOBI_TABI:
-                        case ITEM_SHIHEI:
-                        case ITEM_RANKA:
-                        case ITEM_FURUSUMI:
+                        case ITEMID::RYUNO:
+                        case ITEMID::MOKUJIN:
+                        case ITEMID::SANJAKU_TENUGUI:
+                        case ITEMID::KABENRO:
+                        case ITEMID::SHINOBI_TABI:
+                        case ITEMID::SHIHEI:
+                        case ITEMID::RANKA:
+                        case ITEMID::FURUSUMI:
 
-                            toolID = ITEM_SHIKANOFUDA;
+                            toolID = ITEMID::SHIKANOFUDA;
                             break;
 
-                        case ITEM_SOSHI:
-                        case ITEM_KODOKU:
-                        case ITEM_KAGINAWA:
-                        case ITEM_JUSATSU:
-                        case ITEM_SAIRUI_RAN:
-                        case ITEM_JINKO:
-                            toolID = ITEM_CHONOFUDA;
+                        case ITEMID::SOSHI:
+                        case ITEMID::KODOKU:
+                        case ITEMID::KAGINAWA:
+                        case ITEMID::JUSATSU:
+                        case ITEMID::SAIRUI_RAN:
+                        case ITEMID::JINKO:
+                            toolID = ITEMID::CHONOFUDA;
                             break;
 
                         default:
@@ -4187,8 +4187,8 @@ namespace battleutils
             // Check For Futae Effect
             bool hasFutae = PChar->StatusEffectContainer->HasStatusEffect(EFFECT_FUTAE);
             // Futae only applies to Elemental Wheel Tools
-            bool useFutae = (toolID == ITEM_UCHITAKE || toolID == ITEM_TSURARA || toolID == ITEM_KAWAHORI_OGI || toolID == ITEM_MAKIBISHI ||
-                             toolID == ITEM_HIRAISHIN || toolID == ITEM_MIZU_DEPPO);
+            bool useFutae = (toolID == ITEMID::UCHITAKE || toolID == ITEMID::TSURARA || toolID == ITEMID::KAWAHORI_OGI || toolID == ITEMID::MAKIBISHI ||
+                             toolID == ITEMID::HIRAISHIN || toolID == ITEMID::MIZU_DEPPO);
 
             // If you have Futae active, Ninja Tool Expertise does not apply.
             if (ConsumeTool && hasFutae && useFutae)

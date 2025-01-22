@@ -437,12 +437,12 @@ namespace trustutils
         PTrust->HPscale        = trustData->HPscale;
         PTrust->MPscale        = trustData->MPscale;
         PTrust->baseSpeed      = trustData->baseSpeed;
-        PTrust->speed          = trustData->baseSpeed;
         PTrust->animationSpeed = trustData->animationSpeed;
-        PTrust->m_TrustID      = trustData->trustID;
-        PTrust->status         = STATUS_TYPE::NORMAL;
-        PTrust->m_ModelRadius  = trustData->radius;
-        PTrust->m_EcoSystem    = trustData->EcoSystem;
+        PTrust->UpdateSpeed();
+        PTrust->m_TrustID     = trustData->trustID;
+        PTrust->status        = STATUS_TYPE::NORMAL;
+        PTrust->m_ModelRadius = trustData->radius;
+        PTrust->m_EcoSystem   = trustData->EcoSystem;
 
         PTrust->SetMJob(trustData->mJob);
         PTrust->SetSJob(trustData->sJob);

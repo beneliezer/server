@@ -1576,8 +1576,8 @@ namespace mobutils
                 PMob->m_ModelRadius = (float)_sql->GetIntData(21);
 
                 PMob->baseSpeed      = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined baseSpeed
-                PMob->speed          = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined speed
                 PMob->animationSpeed = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined animationSpeed
+                PMob->UpdateSpeed();
 
                 PMob->strRank = (uint8)_sql->GetIntData(23);
                 PMob->dexRank = (uint8)_sql->GetIntData(24);
@@ -1738,8 +1738,8 @@ namespace mobutils
                 PMob->m_ModelRadius = (float)_sql->GetIntData(21);
 
                 PMob->baseSpeed      = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined baseSpeed
-                PMob->speed          = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined speed
                 PMob->animationSpeed = (uint8)_sql->GetIntData(22); // Overwrites baseentity.cpp's defined animationSpeed
+                PMob->UpdateSpeed();
 
                 PMob->strRank = (uint8)_sql->GetIntData(23);
                 PMob->dexRank = (uint8)_sql->GetIntData(24);

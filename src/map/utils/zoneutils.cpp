@@ -342,9 +342,9 @@ namespace zoneutils
 
                                 PNpc->m_TargID = rset->get<uint32>("flag") >> 16;
 
-                                PNpc->speed          = rset->get<uint8>("speed");    // Overwrites baseentity.cpp's defined speed
                                 PNpc->animationSpeed = rset->get<uint8>("speedsub"); // Overwrites baseentity.cpp's defined animationSpeed
-                                PNpc->baseSpeed      = rset->get<uint8>("speedsub"); // Overwrites baseentity.cpp's defined baseSpeed
+                                PNpc->baseSpeed      = rset->get<uint8>("speed");    // Overwrites baseentity.cpp's defined baseSpeed
+                                PNpc->UpdateSpeed();
 
                                 PNpc->animation    = rset->get<uint8>("animation");
                                 PNpc->animationsub = rset->get<uint8>("animationsub");
@@ -490,8 +490,8 @@ namespace zoneutils
                                 PMob->m_ModelRadius = (float)sql->GetIntData(25);
 
                                 PMob->baseSpeed       = (uint8)sql->GetIntData(26);
-                                PMob->speed           = (uint8)sql->GetIntData(26);
                                 PMob->animationSpeed  = (uint8)sql->GetIntData(26);
+                                PMob->UpdateSpeed();
 
                                 PMob->strRank = (uint8)sql->GetIntData(27);
                                 PMob->dexRank = (uint8)sql->GetIntData(28);
