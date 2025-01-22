@@ -72,7 +72,7 @@ void CCharPacket::updateWith(CCharEntity* PChar, ENTITYUPDATE type, uint8 update
     }
     else // Update and OR the flags together
     {
-        // static_cast doesn't set the bits the way we need it to, so do some memcpy
+        // static_cast doesn't set the bits the way we need it to, so do some std::memcpy
         uint8 tempSendFlg = {};
         std::memcpy(&tempSendFlg, &packet.SendFlg, sizeof(charflags::sendflags_t));
 
@@ -91,7 +91,7 @@ void CCharPacket::updateWith(CCharEntity* PChar, ENTITYUPDATE type, uint8 update
         packet.z   = PChar->loc.p.y; // Intentionally Swapped
 
         packet.Speed     = PChar->UpdateSpeed();
-        packet.SpeedBase = PChar->speedsub;
+        packet.SpeedBase = PChar->animationSpeed;
 
         packet.Flags0.MovTime     = PChar->loc.p.moving;
         packet.Flags0.RunMode     = 0;                      // Unknown
@@ -266,5 +266,5 @@ void CCharPacket::updateWith(CCharEntity* PChar, ENTITYUPDATE type, uint8 update
         packet.Flags4.JobMasterFlag = PChar->getMod(Mod::SUPERIOR_LEVEL) == 5 && PChar->m_jobMasterDisplay;
     }
 
-    std::memcpy(&data[0], &packet, sizeof(packet));
+    std::memcpy(&buffer_.data()[0], &packet, sizeof(packet));
 }

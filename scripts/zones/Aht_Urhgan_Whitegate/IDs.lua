@@ -34,6 +34,7 @@ zones[xi.zone.AHT_URHGAN_WHITEGATE] =
         OBTAIN_SCYLDS                 = 1515,  -- You obtain <number> [scyld/scylds]! Current balance: <number> [scyld/scylds].
         HUNT_CANCELED                 = 1519,  -- Hunt canceled.
         RUNIC_PORTAL                  = 4601,  -- You cannot use the runic portal without the Empire's authorization.
+        IMPERIAL_AUTHORIZATION        = 4604,  -- Confirming Imperial authorization... You are authorized to use the runic portal.
         SUFFICIENT_IMPERIAL_STANDING  = 4609,  -- You do not possess sufficient Imperial Standing.
         CONFIRMING                    = 4610,  -- Confirming <assault>...
         RUNIC_DENIED_ASSAULT_OFFSET   = 4618,  -- You have not opened a path between the Chamber of Passage and the Azouph Isle staging point (Leujaoam Sanctum). Unable to use runic portal.
@@ -73,9 +74,9 @@ zones[xi.zone.AHT_URHGAN_WHITEGATE] =
         AUTOMATON_SPIRITREAVER_UNLOCK = 9652,  -- You obtain the Spiritreaver M-400 head!
         AUTOMATON_ATTACHMENT_UNLOCK   = 9668,  -- You can now equip your automaton with <item>.
         SANCTION                      = 9821,  -- You have received the Empire's Sanction.
-        ZASSHAL_DIALOG                = 11023, -- 'ang about. Looks like the permit you got was the last one I 'ad, so it might take me a bit o' time to scrounge up some more. 'ere, don't gimme that look. I'll be restocked before you know it.
-        RETRIEVE_DIALOG_ID            = 13542, -- You retrieve <item> from the porter moogle's care.
-        COMMON_SENSE_SURVIVAL         = 14333, -- It appears that you have arrived at a new survival guide provided by the Adventurers' Mutual Aid Network. Common sense dictates that you should now be able to teleport here from similar tomes throughout the world.
+        ZASSHAL_DIALOG                = 11024, -- 'ang about. Looks like the permit you got was the last one I 'ad, so it might take me a bit o' time to scrounge up some more. 'ere, don't gimme that look. I'll be restocked before you know it.
+        RETRIEVE_DIALOG_ID            = 13543, -- You retrieve <item> from the porter moogle's care.
+        COMMON_SENSE_SURVIVAL         = 14334, -- It appears that you have arrived at a new survival guide provided by the Adventurers' Mutual Aid Network. Common sense dictates that you should now be able to teleport here from similar tomes throughout the world.
     },
     mob =
     {

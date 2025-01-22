@@ -56,6 +56,7 @@ entity.onMobFight = function(mob, target)
 
         mob:setLocalVar('spawnTime', fifteenBlock + 4)
     end
+
     -- Vrtra draws in if you attempt to leave the room
     local drawInTable =
     {

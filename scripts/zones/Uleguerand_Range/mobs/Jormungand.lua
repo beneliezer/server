@@ -28,8 +28,7 @@ entity.onMobRoam = function(mob)
 end
 
 entity.onMobFight = function(mob, target)
-
--- Animation (Ground or flight mode) logic.
+    -- Animation (Ground or flight mode) logic.
     if
         not mob:hasStatusEffect(xi.effect.BLOOD_WEAPON) and
         mob:actionQueueEmpty()
@@ -75,6 +74,7 @@ entity.onMobFight = function(mob, target)
             end
         end
     end
+
     -- Jorm draws in from set boundaries leaving her spawn area
     local drawInTable =
     {

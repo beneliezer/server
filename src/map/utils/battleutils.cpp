@@ -2575,7 +2575,7 @@ namespace battleutils
      *                                                                       *
      ************************************************************************/
 
-    int32 TakeSpellDamage(CBattleEntity* PDefender, CCharEntity* PAttacker, CSpell* PSpell, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
+    int32 TakeSpellDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, CSpell* PSpell, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
     {
         // Scarlet Delirium: Updates status effect power with damage bonus
         battleutils::HandleScarletDelirium(PDefender, damage);
@@ -2611,7 +2611,7 @@ namespace battleutils
      *                                                                       *
      ************************************************************************/
 
-    int32 TakeSwipeLungeDamage(CBattleEntity* PDefender, CCharEntity* PAttacker, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
+    int32 TakeSwipeLungeDamage(CBattleEntity* PDefender, CBattleEntity* PAttacker, int32 damage, ATTACK_TYPE attackType, DAMAGE_TYPE damageType)
     {
         damage = CheckAndApplyDamageCap(damage, PDefender);
 
@@ -2638,7 +2638,7 @@ namespace battleutils
      ************************************************************************/
 
     uint8 GetHitRateEx(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber,
-                       int8 offsetAccuracy) // subWeaponAttack is for calculating acc of dual wielded sub weapon
+                       int16 offsetAccuracy) // subWeaponAttack is for calculating acc of dual wielded sub weapon
     {
         int32 hitrate = 75;
 
@@ -2766,7 +2766,7 @@ namespace battleutils
     {
         return GetHitRateEx(PAttacker, PDefender, attackNumber, 0);
     }
-    uint8 GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int8 offsetAccuracy)
+    uint8 GetHitRate(CBattleEntity* PAttacker, CBattleEntity* PDefender, uint8 attackNumber, int16 offsetAccuracy)
     {
         return GetHitRateEx(PAttacker, PDefender, attackNumber, offsetAccuracy);
     }
@@ -3931,8 +3931,8 @@ namespace battleutils
 
             { SC_LIGHT, { ELEMENT_LIGHT, ELEMENT_FIRE, ELEMENT_WIND, ELEMENT_THUNDER } },
             { SC_DARKNESS, { ELEMENT_DARK, ELEMENT_EARTH, ELEMENT_WATER, ELEMENT_ICE } },
-            { SC_LIGHT_II, { ELEMENT_LIGHT } },
-            { SC_DARKNESS_II, { ELEMENT_DARK } }
+            { SC_LIGHT_II, { ELEMENT_LIGHT, ELEMENT_FIRE, ELEMENT_WIND, ELEMENT_THUNDER } },
+            { SC_DARKNESS_II, { ELEMENT_DARK, ELEMENT_EARTH, ELEMENT_WATER, ELEMENT_ICE } }
         };
 
         return resonanceToElement.at(skillchain);
@@ -4138,34 +4138,34 @@ namespace battleutils
                 {
                     switch (toolID)
                     {
-                        case ITEM_UCHITAKE:
-                        case ITEM_TSURARA:
-                        case ITEM_KAWAHORI_OGI:
-                        case ITEM_MAKIBISHI:
-                        case ITEM_HIRAISHIN:
-                        case ITEM_MIZU_DEPPO:
-                            toolID = ITEM_INOSHISHINOFUDA;
+                        case ITEMID::UCHITAKE:
+                        case ITEMID::TSURARA:
+                        case ITEMID::KAWAHORI_OGI:
+                        case ITEMID::MAKIBISHI:
+                        case ITEMID::HIRAISHIN:
+                        case ITEMID::MIZU_DEPPO:
+                            toolID = ITEMID::INOSHISHINOFUDA;
                             break;
 
-                        case ITEM_RYUNO:
-                        case ITEM_MOKUJIN:
-                        case ITEM_SANJAKU_TENUGUI:
-                        case ITEM_KABENRO:
-                        case ITEM_SHINOBI_TABI:
-                        case ITEM_SHIHEI:
-                        case ITEM_RANKA:
-                        case ITEM_FURUSUMI:
+                        case ITEMID::RYUNO:
+                        case ITEMID::MOKUJIN:
+                        case ITEMID::SANJAKU_TENUGUI:
+                        case ITEMID::KABENRO:
+                        case ITEMID::SHINOBI_TABI:
+                        case ITEMID::SHIHEI:
+                        case ITEMID::RANKA:
+                        case ITEMID::FURUSUMI:
 
-                            toolID = ITEM_SHIKANOFUDA;
+                            toolID = ITEMID::SHIKANOFUDA;
                             break;
 
-                        case ITEM_SOSHI:
-                        case ITEM_KODOKU:
-                        case ITEM_KAGINAWA:
-                        case ITEM_JUSATSU:
-                        case ITEM_SAIRUI_RAN:
-                        case ITEM_JINKO:
-                            toolID = ITEM_CHONOFUDA;
+                        case ITEMID::SOSHI:
+                        case ITEMID::KODOKU:
+                        case ITEMID::KAGINAWA:
+                        case ITEMID::JUSATSU:
+                        case ITEMID::SAIRUI_RAN:
+                        case ITEMID::JINKO:
+                            toolID = ITEMID::CHONOFUDA;
                             break;
 
                         default:
@@ -4187,8 +4187,8 @@ namespace battleutils
             // Check For Futae Effect
             bool hasFutae = PChar->StatusEffectContainer->HasStatusEffect(EFFECT_FUTAE);
             // Futae only applies to Elemental Wheel Tools
-            bool useFutae = (toolID == ITEM_UCHITAKE || toolID == ITEM_TSURARA || toolID == ITEM_KAWAHORI_OGI || toolID == ITEM_MAKIBISHI ||
-                             toolID == ITEM_HIRAISHIN || toolID == ITEM_MIZU_DEPPO);
+            bool useFutae = (toolID == ITEMID::UCHITAKE || toolID == ITEMID::TSURARA || toolID == ITEMID::KAWAHORI_OGI || toolID == ITEMID::MAKIBISHI ||
+                             toolID == ITEMID::HIRAISHIN || toolID == ITEMID::MIZU_DEPPO);
 
             // If you have Futae active, Ninja Tool Expertise does not apply.
             if (ConsumeTool && hasFutae && useFutae)
@@ -4635,7 +4635,7 @@ namespace battleutils
             if (PChar)
             {
                 charutils::BuildingCharAbilityTable(PChar);
-                memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
+                std::memset(&PChar->m_PetCommands, 0, sizeof(PChar->m_PetCommands));
                 PChar->pushPacket<CCharAbilitiesPacket>(PChar);
                 PChar->pushPacket<CCharUpdatePacket>(PChar);
                 PChar->pushPacket<CPetSyncPacket>(PChar);
@@ -5647,7 +5647,7 @@ namespace battleutils
                     PTarget->loc.zone->UpdateEntityPacket(PTarget, ENTITY_UPDATE, UPDATE_POS);
                 }
 
-                PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE, new CMessageBasicPacket(PTarget, PTarget, 0, 0, 232));
+                PTarget->loc.zone->PushPacket(PTarget, CHAR_INRANGE, std::make_unique<CMessageBasicPacket>(PTarget, PTarget, 0, 0, 232));
             }
         }
 

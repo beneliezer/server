@@ -127,7 +127,6 @@ entity.onMobFight = function(mob, target)
             mob:addTP(3000) -- Uses a mobskill upon drawing in a player. Not necessarily on the person drawn in.
         end
     end
-
 end
 
 entity.onCriticalHit = function(mob)

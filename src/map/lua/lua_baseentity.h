@@ -290,7 +290,7 @@ public:
     uint8  getAnimation();
     void   setAnimation(uint8 animation);
     uint8  getAnimationSub();
-    void   setAnimationSub(uint8 animationsub);
+    void   setAnimationSub(uint8 animationsub, sol::object const& sendUpdate);
     bool   getCallForHelpFlag() const;
     void   setCallForHelpFlag(bool cfh);
     bool   getCallForHelpBlocked() const;
@@ -326,7 +326,9 @@ public:
     bool canUseMisc(uint16 misc); // Check misc flags of current zone.
 
     uint8 getSpeed();
-    void  setSpeed(uint8 speedVal);
+    uint8 getBaseSpeed();
+    void  setBaseSpeed(uint8 speedVal);
+    void  setAnimationSpeed(uint8 speedVal);
 
     uint32 getPlaytime(sol::object const& shouldUpdate);
     int32  getTimeCreated();
@@ -433,6 +435,9 @@ public:
     uint16 getSpentJobPoints();
     uint8  getJobPointLevel(uint16 jpType);
     void   setJobPoints(uint16 amount);
+    void   addJobPoints(uint8 jobID, uint16 amount);
+    void   delJobPoints(uint8 jobID, uint16 amount);
+    uint16 getJobPoints(JOBTYPE jobID);
     void   setCapacityPoints(uint16 amount);
     void   masterJob();
 
@@ -483,6 +488,7 @@ public:
     int32 getBaseMP();             // Returns Entity base Mana Points (before modifiers)
     int32 addMP(int32 amount);     // Increase mp of Entity
     void  setMP(int32 value);      // Set mp of Entity to value
+    void  setMaxMP(int32 value);   // Set max mp of Entity to value
     int32 restoreMP(int32 amount); // Modify mp of Entity, but check if alive first
     int32 delMP(int32 amount);     // Decrease mp of Entity
 

@@ -109,7 +109,6 @@ entity.onMobFight = function(mob, target)
             end
         end
     end
-
 end
 
 entity.onMobDeath = function(mob, player, optParams)

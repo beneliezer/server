@@ -59,6 +59,7 @@ entity.onMobFight = function(mob, target)
     if mob:getHPP() <= 10 and skillList == 784 then
         mob:setMobMod(xi.mobMod.SKILL_LIST, 785)
     end
+
     local drawInTable =
     {
         conditions =

@@ -268,11 +268,13 @@ public:
     virtual const std::string& getName();       // Internal name of entity
     virtual const std::string& getPacketName(); // Name of entity sent to the client
 
-    uint16 getZone() const; // Current zone
-    float  GetXPos() const; // Position of co-ordinate X
-    float  GetYPos() const; // Position of co-ordinate Y
-    float  GetZPos() const; // Position of co-ordinate Z
-    uint8  GetRotPos() const;
+    uint16        getZone() const; // Current zone
+    float         GetXPos() const; // Position of co-ordinate X
+    float         GetYPos() const; // Position of co-ordinate Y
+    float         GetZPos() const; // Position of co-ordinate Z
+    uint8         GetRotPos() const;
+    uint8         GetSpeed() const;
+    virtual uint8 UpdateSpeed(bool run = false);
 
     void         HideName(bool hide);     // hide / show name
     void         GhostPhase(bool ghost);  // makes mob semi transparent
@@ -303,20 +305,20 @@ public:
 
     bool IsDynamicEntity() const;
 
-    uint32          id;           // global identifier unique on the server
-    uint16          targid;       // local identifier unique to the zone
-    ENTITYTYPE      objtype;      // Type of entity
-    STATUS_TYPE     status;       // Entity status (different entities - different statuses)
-    uint16          m_TargID;     // the targid of the object the entity is looking at
-    std::string     name;         // Entity name
-    std::string     packetName;   // Used to override name when being sent to the client
-    look_t          look;         //
-    look_t          mainlook;     // only used if mob use changeSkin() or player /lockstyle
-    location_t      loc;          // Location of entity
-    uint8           animation;    // animation
-    uint8           animationsub; // Additional animation parameter
-    uint8           speed;        // speed of movement
-    uint8           speedsub;     // base movement speed
+    uint32          id;             // global identifier unique on the server
+    uint16          targid;         // local identifier unique to the zone
+    ENTITYTYPE      objtype;        // Type of entity
+    STATUS_TYPE     status;         // Entity status (different entities - different statuses)
+    uint16          m_TargID;       // the targid of the object the entity is looking at
+    std::string     name;           // Entity name
+    std::string     packetName;     // Used to override name when being sent to the client
+    look_t          look;           //
+    look_t          mainlook;       // only used if mob use changeSkin() or player /lockstyle
+    location_t      loc;            // Location of entity
+    uint8           animation;      // animation
+    uint8           animationsub;   // Additional animation parameter
+    uint8           baseSpeed;      // base movement speed
+    uint8           animationSpeed; // speed of movement animation
     uint8           namevis;
     ALLEGIANCE_TYPE allegiance;     // what types of targets the entity can fight
     uint8           updatemask;     // what to update next server tick to players nearby
@@ -336,6 +338,7 @@ public:
 
 protected:
     std::map<std::string, uint32> m_localVars;
+    uint8                         speed; // speed of movement
 };
 
 #endif // _BASEENTITY_H
