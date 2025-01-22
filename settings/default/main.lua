@@ -328,6 +328,7 @@ xi.settings.main =
     DYNAMIS_CAMPAIGN             = false,
     ENABLE_CAMPAIGN              = false,
     ENABLE_WEW_TO_ACE            = true,
+    ENABLE_SUMMIT_OF_THE_STARS   = true,
 
     -- Crystal Warrior
     ENABLE_CW      = 1,
