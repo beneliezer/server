@@ -781,4 +781,55 @@ namespace puppetutils
         }
     }
 
+    void PreLevelRestriction(CCharEntity* PChar)
+    {
+        CAutomatonEntity* PAutomaton = PChar->PAutomaton;
+        if (PAutomaton)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                uint8 attachment = PAutomaton->getAttachment(i);
+
+                if (attachment != 0)
+                {
+                    CItemPuppet* PAttachment = dynamic_cast<CItemPuppet*>(itemutils::GetItemPointer(0x2100 + attachment));
+
+                    if (PAttachment)
+                    {
+                        // Attachment scripts may have custom unequip logic that needs to run before the restriction is applied
+                        // If they were to delMod after the restriction is applied, under/overflow may occur.
+                        // This will also clear the localVars holding previously applied modifiers
+                        luautils::OnAttachmentUnequip(PAutomaton, PAttachment);
+                    }
+                }
+            }
+        }
+    }
+
+    void PostLevelRestriction(CCharEntity* PChar)
+    {
+        CAutomatonEntity* PAutomaton = PChar->PAutomaton;
+
+        if (PAutomaton)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                uint8 attachment = PAutomaton->getAttachment(i);
+
+                if (attachment != 0)
+                {
+                    CItemPuppet* PAttachment = dynamic_cast<CItemPuppet*>(itemutils::GetItemPointer(0x2100 + attachment));
+                    if (PAttachment)
+                    {
+                        // Attachment scripts may have custom equip logic that needs to be computed against the LvRestricted puppet stats
+                        luautils::OnAttachmentEquip(PAutomaton, PAttachment);
+                    }
+                }
+            }
+
+            // Now re-run the maneuvers apply logic on all attachments
+            UpdateAttachments(PChar);
+        }
+    }
+
 } // namespace puppetutils

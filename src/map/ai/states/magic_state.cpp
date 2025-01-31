@@ -356,7 +356,7 @@ bool CMagicState::CanCastSpell(CBattleEntity* PTarget, bool isEndOfCast)
 
     if (dynamic_cast<CMobEntity*>(m_PEntity))
     {
-        if (distanceSquared(m_PEntity->loc.p, PTarget->loc.p) > square(28.5f))
+        if (!isWithinDistance(m_PEntity->loc.p, PTarget->loc.p, 28.5f))
         {
             return false;
         }

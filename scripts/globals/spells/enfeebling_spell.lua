@@ -330,41 +330,30 @@ xi.spells.enfeebling.calculateDuration = function(caster, target, spellId, spell
     return math.floor(duration)
 end
 
-xi.spells.enfeebling.handleEffectNullification = function(caster, target, spell, spellEffect)
-    -- Determine if target mob is completely immune to a status effect.
-    if xi.combat.statusEffect.isTargetImmune(target, spellEffect, spell:getElement()) then
-        spell:setMsg(xi.msg.basic.MAGIC_COMPLETE_RESIST)
+-- Main function, called by spell scripts
+xi.spells.enfeebling.useEnfeeblingSpell = function(caster, target, spell)
+    local spellId      = spell:getID()
+    local spellElement = spell:getElement()
+    local spellEffect  = pTable[spellId][column.EFFECT_ID]
 
-        return true
+    ------------------------------
+    -- STEP 1: Check spell nullification.
+    ------------------------------
+    if xi.combat.statusEffect.isTargetImmune(target, spellEffect, spellElement) then
+        spell:setMsg(xi.msg.basic.MAGIC_COMPLETE_RESIST)
+        return spellEffect
     end
 
     -- Check trait nullification trigger.
     if xi.combat.statusEffect.isTargetResistant(caster, target, spellEffect) then
         spell:setModifier(xi.msg.actionModifier.RESIST)
         spell:setMsg(xi.msg.basic.MAGIC_RESIST)
-
-        return true
+        return spellEffect
     end
 
     -- Target already has an status effect that nullifies current.
     if xi.combat.statusEffect.isEffectNullified(target, spellEffect) then
         spell:setMsg(xi.msg.basic.MAGIC_NO_EFFECT)
-
-        return true
-    end
-
-    return false
-end
-
--- Main function, called by spell scripts
-xi.spells.enfeebling.useEnfeeblingSpell = function(caster, target, spell)
-    local spellId     = spell:getID()
-    local spellEffect = pTable[spellId][column.EFFECT_ID]
-
-    ------------------------------
-    -- STEP 1: Check spell nullification.
-    ------------------------------
-    if xi.spells.enfeebling.handleEffectNullification(caster, target, spell, spellEffect) then
         return spellEffect
     end
 
@@ -372,7 +361,6 @@ xi.spells.enfeebling.useEnfeeblingSpell = function(caster, target, spell)
     -- STEP 2: Calculate resist tiers.
     ------------------------------
     local skillType    = spell:getSkillType()
-    local spellElement = spell:getElement()
     local spellGroup   = spell:getSpellGroup()
     local statUsed     = pTable[spellId][column.STAT_USED]
     local resistStages = pTable[spellId][column.RESIST_STAGES]

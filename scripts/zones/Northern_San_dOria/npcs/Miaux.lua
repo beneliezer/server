@@ -9,9 +9,6 @@ local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local aCraftsmansWork = player:getQuestStatus(xi.questLog.SANDORIA, xi.quest.id.sandoria.A_CRAFTSMAN_S_WORK)
     local quotasStatus    = player:getCharVar('ChasingQuotas_Progress')
@@ -42,9 +39,6 @@ entity.onTrigger = function(player, npc)
     else
         player:startEvent(11)
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

@@ -637,6 +637,8 @@ xi.weaponskills.calculateRawWSDmg = function(attacker, target, wsID, tp, action,
         -- Needs better verification
         if calcParams.extraOffhandHit and hitsDone == 1 then
             calcParams.tpHitsLanded = calcParams.tpHitsLanded + calcParams.hitsLanded
+        elseif wsParams.isBarrage then
+            calcParams.tpHitsLanded = calcParams.tpHitsLanded + calcParams.hitsLanded
         else -- Otherwise, add a hit to the "extra" hits which is 10 tp each
             calcParams.mainHitsLanded = calcParams.mainHitsLanded + calcParams.hitsLanded
         end

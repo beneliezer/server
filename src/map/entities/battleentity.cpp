@@ -2479,8 +2479,14 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 // Apply Feint
                 if (CStatusEffect* PFeintEffect = StatusEffectContainer->GetStatusEffect(EFFECT_FEINT))
                 {
-                    PTarget->StatusEffectContainer->AddStatusEffect(
-                        new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, PFeintEffect->GetPower(), 3, 30));
+                    if (PTarget->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_EVASION_DOWN, EFFECT_EVASION_DOWN, PFeintEffect->GetPower(), 3, 30)))
+                    {
+                        auto PEffect = PTarget->StatusEffectContainer->GetStatusEffect(EFFECT_EVASION_DOWN);
+
+                        // When Feint's evasion down effect is on, the target can get "debuffed" with TREASURE_HUNTER_PROC +25% * level above first on Feint
+                        PEffect->addMod(Mod::TREASURE_HUNTER_PROC, PFeintEffect->GetSubPower());      // Remove TREASURE_HUNTER_PROC debuff on effect wearing off. This isnt added to the mob directly.
+                        PTarget->addModifier(Mod::TREASURE_HUNTER_PROC, PFeintEffect->GetSubPower()); // Add TREASURE_HUNTER_PROC debuff immediately to mob
+                    }
                     StatusEffectContainer->DelStatusEffect(EFFECT_FEINT);
                 }
 
@@ -2564,7 +2570,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
         if ((actionTarget.reaction & REACTION::MISS) == REACTION::NONE && attack.GetAttackType() != PHYSICAL_ATTACK_TYPE::DAKEN)
         {
             battleutils::HandleEnspell(this, PTarget, &actionTarget, attack.IsFirstSwing(), (CItemWeapon*)this->m_Weapons[attack.GetWeaponSlot()],
-                                       attack.GetDamage());
+                                       attack.GetDamage(), attack);
             battleutils::HandleSpikesDamage(this, PTarget, &actionTarget, attack.GetDamage());
         }
 

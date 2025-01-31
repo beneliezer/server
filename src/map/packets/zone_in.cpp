@@ -85,6 +85,7 @@ struct GP_MYROOM_DANCER_PKT
 };
 
 // PS2: SAVE_CONF
+// Seems to be a truncated version of SAVE_CONF missing PvpFlg and AreaCode?
 struct SAVE_CONF_PKT
 {
     uint32_t unknown00[3]; // PS2: (Multiple fields; bits.)
@@ -352,7 +353,7 @@ CZoneInPacket::CZoneInPacket(CCharEntity* PChar, const EventInfo* currentEvent)
     ref<uint32>(0xEC) = PChar->GetMaxMP();
     // ref<uint8>(0xEF) = TODO: implement flag of 1 = high for "has unlocked sub and can change jobs"
 
-    std::memcpy(&buffer_[offsetof(GP_SERV_LOGIN, ConfData)], &PChar->playerConfig, sizeof(SAVE_CONF));
+    std::memcpy(&buffer_[offsetof(GP_SERV_LOGIN, ConfData)], &PChar->playerConfig, sizeof(SAVE_CONF_PKT));
 
     ref<uint8>(0x100) = 0x01; // observed: RoZ = 3, CoP = 5, ToAU = 9, WoTG = 11, SoA/original areas = 1
 

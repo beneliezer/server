@@ -9,9 +9,6 @@ local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local finishtime = player:getCharVar('MissionaryMan_date')
     local missionaryManVar = player:getCharVar('MissionaryManVar')
@@ -27,9 +24,6 @@ entity.onTrigger = function(player, npc)
     else
         player:startEvent(697) -- Standard dialog
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

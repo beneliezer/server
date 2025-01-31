@@ -265,7 +265,7 @@ xi.moghouse.moogleTrigger = function(player, npc)
             end
         end
 
-        player:sendMenu(1)
+        player:sendMenu(xi.menuType.MOOGLE)
     end
 end
 

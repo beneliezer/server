@@ -237,7 +237,6 @@ CCharEntity::CCharEntity()
     m_SaveTime    = 0;
     m_reloadParty = false;
 
-    m_LastYell       = 0;
     m_moghouseID     = 0;
     m_moghancementID = 0;
 
@@ -397,6 +396,21 @@ bool CCharEntity::isPacketListEmpty()
     return PacketList.empty();
 }
 
+auto CCharEntity::getPacketList() const -> const std::deque<std::unique_ptr<CBasicPacket>>&
+{
+    return PacketList;
+}
+
+auto CCharEntity::getPacketListCopy() -> std::deque<std::unique_ptr<CBasicPacket>>
+{
+    std::deque<std::unique_ptr<CBasicPacket>> PacketListCopy;
+    for (const auto& packet : PacketList)
+    {
+        PacketListCopy.emplace_back(std::make_unique<CBasicPacket>(packet));
+    }
+    return PacketListCopy;
+}
+
 void CCharEntity::clearPacketList()
 {
     while (!PacketList.empty())
@@ -423,11 +437,11 @@ void CCharEntity::pushPacket(std::unique_ptr<CBasicPacket>&& packet)
     {
         if (PendingPositionPacket)
         {
-            PendingPositionPacket = packet->copy();
+            PendingPositionPacket = packet.get();
         }
         else
         {
-            PendingPositionPacket = packet->copy();
+            PendingPositionPacket = packet.get();
             PacketList.emplace_back(std::move(packet));
         }
     }
@@ -439,33 +453,39 @@ void CCharEntity::pushPacket(std::unique_ptr<CBasicPacket>&& packet)
 
 void CCharEntity::updateCharPacket(CCharEntity* PChar, ENTITYUPDATE type, uint8 updatemask)
 {
-    auto existing = PendingCharPackets.find(PChar->id);
-    if (existing == PendingCharPackets.end())
+    auto       itr              = PendingCharPackets.find(PChar->id);
+    const bool hasPendingPacket = itr != PendingCharPackets.end() && itr->second != nullptr;
+    if (hasPendingPacket)
     {
-        // No existing packet update for the given char, so we push new packet
-        PacketList.emplace_back(std::make_unique<CCharPacket>(PChar, type, updatemask));
-        PendingCharPackets.emplace(PChar->id, std::make_unique<CCharPacket>(PChar, type, updatemask));
+        // Found existing packet update for the given char, so we update it instead of pushing new
+        auto& packet = itr->second;
+        packet->updateWith(PChar, type, updatemask);
     }
     else
     {
-        // Found existing packet update for the given char, so we update it instead of pushing new
-        existing->second->updateWith(PChar, type, updatemask);
+        // No existing packet update for the given char, so we push new packet
+        auto packet                   = std::make_unique<CCharPacket>(PChar, type, updatemask);
+        PendingCharPackets[PChar->id] = packet.get();
+        PacketList.emplace_back(std::move(packet));
     }
 }
 
 void CCharEntity::updateEntityPacket(CBaseEntity* PEntity, ENTITYUPDATE type, uint8 updatemask)
 {
-    auto existing = PendingEntityPackets.find(PEntity->id);
-    if (existing == PendingEntityPackets.end())
+    auto       itr              = PendingEntityPackets.find(PEntity->id);
+    const bool hasPendingPacket = itr != PendingEntityPackets.end() && itr->second != nullptr;
+    if (hasPendingPacket)
     {
-        // No existing packet update for the given entity, so we push new packet
-        PacketList.emplace_back(std::make_unique<CEntityUpdatePacket>(PEntity, type, updatemask));
-        PendingEntityPackets.emplace(PEntity->id, std::make_unique<CEntityUpdatePacket>(PEntity, type, updatemask));
+        // Found existing packet update for the given entity, so we update it instead of pushing new
+        auto& packet = itr->second;
+        packet->updateWith(PEntity, type, updatemask);
     }
     else
     {
-        // Found existing packet update for the given entity, so we update it instead of pushing new
-        existing->second->updateWith(PEntity, type, updatemask);
+        // No existing packet update for the given entity, so we push new packet
+        auto packet                       = std::make_unique<CEntityUpdatePacket>(PEntity, type, updatemask);
+        PendingEntityPackets[PEntity->id] = packet.get();
+        PacketList.emplace_back(std::move(packet));
     }
 }
 
@@ -491,16 +511,6 @@ auto CCharEntity::popPacket() -> std::unique_ptr<CBasicPacket>
     }
 
     return PPacket;
-}
-
-auto CCharEntity::getPacketListCopy() -> std::deque<std::unique_ptr<CBasicPacket>>
-{
-    std::deque<std::unique_ptr<CBasicPacket>> PacketListCopy;
-    for (const auto& packet : PacketList)
-    {
-        PacketListCopy.emplace_back(std::make_unique<CBasicPacket>(packet));
-    }
-    return PacketListCopy;
 }
 
 size_t CCharEntity::getPacketCount()

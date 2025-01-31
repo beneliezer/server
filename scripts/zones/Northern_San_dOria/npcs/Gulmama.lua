@@ -10,9 +10,6 @@ local ID = zones[xi.zone.NORTHERN_SAN_DORIA]
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local trialByIce = player:getQuestStatus(xi.questLog.SANDORIA, xi.quest.id.sandoria.TRIAL_BY_ICE)
     local classReunion = player:getQuestStatus(xi.questLog.WINDURST, xi.quest.id.windurst.CLASS_REUNION)
@@ -75,9 +72,6 @@ entity.onTrigger = function(player, npc)
     else
         player:startEvent(710) -- Standard dialog
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

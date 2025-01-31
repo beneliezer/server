@@ -438,45 +438,6 @@ function addBonusesAbility(caster, ele, target, dmg, params)
     return dmg
 end
 
-function handleThrenody(caster, target, spell, basePower, baseDuration, modifier)
-    -- Process resitances
-    local staff  = caster:getMod(xi.combat.element.getElementalAffinityMACCModifier(spell:getElement())) * 10
-    local params = {}
-
-    params.attribute = xi.mod.CHR
-    params.skillType = xi.skill.SINGING
-    params.bonus = staff
-
-    local resm = applyResistanceEffect(caster, target, spell, params)
-
-    if resm < 0.5 then
-        spell:setMsg(xi.msg.basic.MAGIC_RESIST)
-        return xi.effect.THRENODY
-    end
-
-    -- Remove previous Threnody
-    target:delStatusEffect(xi.effect.THRENODY)
-
-    local iBoost = caster:getMod(xi.mod.THRENODY_EFFECT) + caster:getMod(xi.mod.ALL_SONGS_EFFECT)
-    local power = basePower + iBoost * 5
-    local duration = baseDuration * ((iBoost * 0.1) + (caster:getMod(xi.mod.SONG_DURATION_BONUS) / 100) + 1)
-
-    if caster:hasStatusEffect(xi.effect.SOUL_VOICE) then
-        power = power * 2
-    elseif caster:hasStatusEffect(xi.effect.MARCATO) then
-        power = power * 1.5
-    end
-
-    if caster:hasStatusEffect(xi.effect.TROUBADOUR) then
-        duration = duration * 2
-    end
-
-    -- Set spell message and apply status effect
-    target:addStatusEffect(xi.effect.THRENODY, -power, 0, duration, 0, modifier, 0)
-
-    return xi.effect.THRENODY
-end
-
 function calculateDuration(duration, magicSkill, spellGroup, caster, target, useComposure)
     local casterJob = caster:getMainJob()
 

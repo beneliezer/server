@@ -8,17 +8,11 @@ local ID = zones[xi.zone.ALTAIEU]
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local offset = npc:getID() - ID.npc.SWIRLING_VORTEX_OFFSET
     if offset >= 0 and offset <= 1 then
         player:startEvent(159 + offset)
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

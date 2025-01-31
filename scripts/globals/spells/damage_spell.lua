@@ -219,6 +219,88 @@ local pTable =
     [xi.magic.spell.CURE_VI       ] = { xi.mod.MND,    0,  295,    2,  295, 212, 0 },
 }
 
+local function cardinalChantBonus(actor, target, direction, spellId, skillType)
+    -- https://www.bg-wiki.com/ffxi/Cardinal_Chant
+    local chantBonus = 0
+
+    -- Early return
+    if spellId == 0 or skillType ~= xi.skill.ELEMENTAL_MAGIC then
+        return chantBonus
+    end
+
+    -- Calculate base bonus.
+    local raSpellTable =
+    set{
+        xi.magic.spell.STONERA,  xi.magic.spell.STONERA_II,  xi.magic.spell.STONERA_III,
+        xi.magic.spell.WATERA,   xi.magic.spell.WATERA_II,   xi.magic.spell.WATERA_III,
+        xi.magic.spell.AERA,     xi.magic.spell.AERA_II,     xi.magic.spell.AERA_III,
+        xi.magic.spell.FIRA,     xi.magic.spell.FIRA_II,     xi.magic.spell.FIRA_III,
+        xi.magic.spell.BLIZZARA, xi.magic.spell.BLIZZARA_II, xi.magic.spell.BLIZZARA_III,
+        xi.magic.spell.THUNDARA, xi.magic.spell.THUNDARA_II, xi.magic.spell.THUNDARA_III,
+    }
+
+    local chantTable =
+    {
+        [0] = { [xi.direction.EAST] = {  0,  0 }, [xi.direction.SOUTH] = {  0,  0 }, [xi.direction.WEST] = {  0,  0 }, [xi.direction.NORTH] = {  0,  0 } },
+        [1] = { [xi.direction.EAST] = {  5,  8 }, [xi.direction.SOUTH] = {  5,  8 }, [xi.direction.WEST] = { 10, 15 }, [xi.direction.NORTH] = {  5,  8 } },
+        [2] = { [xi.direction.EAST] = {  7, 10 }, [xi.direction.SOUTH] = {  7, 10 }, [xi.direction.WEST] = { 14, 19 }, [xi.direction.NORTH] = {  7, 10 } },
+        [3] = { [xi.direction.EAST] = { 10, 14 }, [xi.direction.SOUTH] = { 10, 14 }, [xi.direction.WEST] = { 18, 24 }, [xi.direction.NORTH] = { 10, 14 } },
+        [4] = { [xi.direction.EAST] = { 13, 17 }, [xi.direction.SOUTH] = { 13, 17 }, [xi.direction.WEST] = { 22, 28 }, [xi.direction.NORTH] = { 13, 17 } },
+    }
+
+    local isRaSpell = raSpellTable[spellId] and 2 or 1
+    local baseBonus = chantTable[actor:getMod(xi.mod.CARDINAL_CHANT)][direction][isRaSpell]
+
+    -- Calculate fervor %
+    local fervorFactor = actor:hasStatusEffect(xi.effect.COLLIMATED_FERVOR) and 1.5 or 1
+
+    -- Calculate gear %
+    local gearFactor = 1 + actor:getMod(xi.mod.CARDINAL_CHANT_BONUS) / 100
+
+    -- Calculate angle %
+    local angle        = utils.getWorldRotation(actor:getPos(), target:getPos())
+    local angleFactor  = 0
+
+    switch (direction) : caseof
+    {
+        [xi.direction.EAST] = function() -- MAB -> Optimal angle = 0
+            if angle > 192 and angle < 256 then
+                angleFactor = 1 - (256 - angle) / 64
+            elseif angle >= 0 and angle < 64 then
+                angleFactor = 1 - angle / 64
+            end
+        end,
+
+        [xi.direction.SOUTH] = function() -- MACC -> Optimal angle = 64
+            if angle > 0 and angle < 64 then
+                angleFactor = 1 - (64 - angle) / 64
+            elseif angle >= 64 and angle < 128 then
+                angleFactor = 1 - (angle - 64) / 64
+            end
+        end,
+
+        [xi.direction.WEST] = function() -- MBB -> Optimal angle = 128
+            if angle > 64 and angle < 128 then
+                angleFactor = 1 - (128 - angle) / 64
+            elseif angle >= 128 and angle < 192 then
+                angleFactor = 1 - (angle - 128) / 64
+            end
+        end,
+
+        [xi.direction.NORTH] = function() -- M.Crit -> Optimal angle = 192
+            if angle > 128 and angle < 192 then
+                angleFactor = 1 - (192 - angle) / 64
+            elseif angle >= 192 and angle < 256 then
+                angleFactor = 1 - (angle - 192) / 64
+            end
+        end,
+    }
+
+    chantBonus = math.floor(baseBonus * fervorFactor * gearFactor * angleFactor)
+
+    return chantBonus
+end
+
 -----------------------------------
 -- Basic Functions
 -----------------------------------
@@ -495,8 +577,8 @@ end
 xi.spells.damage.calculateMagicBonusDiff = function(caster, target, spellId, skillType, spellElement)
     local magicBonusDiff = 1 -- The variable we want to calculate
     local casterJob      = caster:getMainJob()
-    local mab            = caster:getMod(xi.mod.MATT)
-    local mabCrit        = caster:getMod(xi.mod.MAGIC_CRITHITRATE)
+    local mab            = caster:getMod(xi.mod.MATT) + cardinalChantBonus(caster, target, xi.direction.EAST, spellId, skillType)
+    local mabCrit        = caster:getMod(xi.mod.MAGIC_CRITHITRATE) + cardinalChantBonus(caster, target, xi.direction.NORTH, spellId, skillType)
     local mDefBarBonus   = 0
 
     -- Ninja spell bonuses
@@ -843,7 +925,7 @@ xi.spells.damage.calculateIfMagicBurst = function(target, spellElement, skillcha
     return magicBurst
 end
 
-xi.spells.damage.calculateIfMagicBurstBonus = function(caster, target, spellId, spellElement)
+xi.spells.damage.calculateIfMagicBurstBonus = function(caster, target, spellId, skillType, spellElement)
     local magicBurstBonus = 1 -- The variable we want to calculate
     local cappedBonus     = caster:getMod(xi.mod.MAGIC_BURST_BONUS_CAPPED) / 100
     local uncappedBonus   = caster:getMod(xi.mod.MAGIC_BURST_BONUS_UNCAPPED) / 100
@@ -861,8 +943,8 @@ xi.spells.damage.calculateIfMagicBurstBonus = function(caster, target, spellId, 
     -- Cap bonuses from first step at 40% or 0.4
     cappedBonus = utils.clamp(cappedBonus, 0, 0.4)
 
-    -- BLM Job Point: Magic Burst Damage
-    uncappedBonus = uncappedBonus + caster:getJobPointLevel(xi.jp.MAGIC_BURST_DMG_BONUS) / 100
+    -- BLM Job Point: Magic Burst Damage and GEO cardinal chant.
+    uncappedBonus = uncappedBonus + caster:getJobPointLevel(xi.jp.MAGIC_BURST_DMG_BONUS) / 100 + cardinalChantBonus(caster, target, xi.direction.WEST, spellId, skillType)
 
     -- Get final multiplier
     magicBurstBonus = magicBurstBonus + cappedBonus + uncappedBonus
@@ -944,7 +1026,7 @@ xi.spells.damage.useDamageSpell = function(caster, target, spell)
     local spellGroup   = spell:getSpellGroup()
     local spellElement = spell:getElement()
     local statUsed     = pTable[spellId][column.STAT_USED]
-    local bonusMacc    = pTable[spellId][column.BONUS_MACC]
+    local bonusMacc    = pTable[spellId][column.BONUS_MACC] + cardinalChantBonus(caster, target, xi.direction.SOUTH, spellId, skillType)
 
     -- Calculate damage absobtion or nullification.
     local nukeAbsorbOrNullify = xi.spells.damage.calculateNukeAbsorbOrNullify(target, spellElement)
@@ -977,7 +1059,7 @@ xi.spells.damage.useDamageSpell = function(caster, target, spell)
 
             if skillchainCount > 0 then
                 magicBurst      = xi.spells.damage.calculateIfMagicBurst(target, spellElement, skillchainCount)
-                magicBurstBonus = xi.spells.damage.calculateIfMagicBurstBonus(caster, target, spellId, spellElement)
+                magicBurstBonus = xi.spells.damage.calculateIfMagicBurstBonus(caster, target, spellId, skillType, spellElement)
 
                 if spellGroup == xi.magic.spellGroup.BLUE then
                     caster:delStatusEffectSilent(xi.effect.BURST_AFFINITY)

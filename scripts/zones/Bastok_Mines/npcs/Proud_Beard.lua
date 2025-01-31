@@ -32,10 +32,4 @@ entity.onTrigger = function(player, npc)
     xi.shop.general(player, stock)
 end
 
-entity.onEventUpdate = function(player, csid, option, npc)
-end
-
-entity.onEventFinish = function(player, csid, option, npc)
-end
-
 return entity

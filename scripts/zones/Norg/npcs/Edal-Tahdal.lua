@@ -9,9 +9,6 @@ local ID = zones[xi.zone.NORG]
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local trialByWater = player:getQuestStatus(xi.questLog.OUTLANDS, xi.quest.id.outlands.TRIAL_BY_WATER)
     local hasWhisperOfTides = player:hasKeyItem(xi.ki.WHISPER_OF_TIDES)
@@ -56,9 +53,6 @@ entity.onTrigger = function(player, npc)
     else
         player:startEvent(113) -- Standard dialog
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

@@ -605,7 +605,7 @@ end
 function CBaseEntity:changeMusic(blockID, musicTrackID)
 end
 
----@param menu integer
+---@param menu xi.menuType
 ---@return nil
 function CBaseEntity:sendMenu(menu)
 end
@@ -2931,6 +2931,10 @@ end
 function CBaseEntity:delMod(modID, value)
 end
 
+---@return nil
+function CBaseEntity:printAllMods(modID, value)
+end
+
 ---@nodiscard
 ---@param modId integer
 ---@return integer
@@ -3276,23 +3280,20 @@ function CBaseEntity:trustPartyMessage(messageId)
 end
 
 ---@param targ integer
----@param cond integer
----@param condition_arg integer
----@param react integer
----@param select integer
----@param selectorArg integer
+---@param conditions table
+---@param reactions table
 ---@param retry integer?
 ---@return string
-function CBaseEntity:addSimpleGambit(targ, cond, condition_arg, react, select, selectorArg, retry)
+function CBaseEntity:addGambit(targ, conditions, reactions, retry)
 end
 
 ---@param id string
 ---@return nil
-function CBaseEntity:removeSimpleGambit(id)
+function CBaseEntity:removeGambit(id)
 end
 
 ---@return nil
-function CBaseEntity:removeAllSimpleGambits()
+function CBaseEntity:removeAllGambits()
 end
 
 ---@param trigger integer
@@ -3439,8 +3440,20 @@ function CBaseEntity:getAutomatonFrame()
 end
 
 ---@nodiscard
+---@param itemId integer
+---@return nil
+function CBaseEntity:setAutomatonFrame(itemId)
+end
+
+---@nodiscard
 ---@return integer
 function CBaseEntity:getAutomatonHead()
+end
+
+---@nodiscard
+---@param itemId integer
+---@return nil
+function CBaseEntity:setAutomatonHead(itemId)
 end
 
 ---@param itemID integer
@@ -3465,6 +3478,13 @@ end
 ---@param slotId integer
 ---@return CItem?
 function CBaseEntity:getAttachment(slotId)
+end
+
+---@nodiscard
+---@param itemId integer
+---@param slotId integer
+---@return nil
+function CBaseEntity:setAttachment(itemId, slotId)
 end
 
 ---@nodiscard
@@ -3917,6 +3937,12 @@ end
 ---@nodiscard
 ---@return integer
 function CBaseEntity:getTHlevel()
+end
+
+---@nodiscard
+---@param newLevel integer
+---@return nil
+function CBaseEntity:setTHlevel(newLevel)
 end
 
 ---@nodiscard

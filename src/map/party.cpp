@@ -626,11 +626,13 @@ void CParty::AddMember(CBattleEntity* PEntity)
             PChar->updatemask |= UPDATE_HP;
 
             charutils::SaveCharStats(PChar);
+            charutils::SavePlayerSettings(PChar);
 
             PChar->pushPacket<CMenuConfigPacket>(PChar);
             PChar->pushPacket<CCharUpdatePacket>(PChar);
             PChar->pushPacket<CCharSyncPacket>(PChar);
         }
+
         PChar->PTreasurePool->UpdatePool(PChar);
 
         // Apply level sync if the party is level synced

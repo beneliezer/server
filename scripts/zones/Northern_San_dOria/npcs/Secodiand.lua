@@ -25,9 +25,6 @@ entity.onTrigger = function(player, npc)
     end
 end
 
-entity.onEventUpdate = function(player, csid, option, npc)
-end
-
 entity.onEventFinish = function(player, csid, option, npc)
     if csid == 19 and option == 1 then
         player:addQuest(xi.questLog.SANDORIA, xi.quest.id.sandoria.FEAR_OF_THE_DARK)
