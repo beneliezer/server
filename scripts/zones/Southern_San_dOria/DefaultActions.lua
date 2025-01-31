@@ -42,5 +42,6 @@ return {
     ['Rumoie']               = { event = 863 },
     ['Simmie']               = { event = 673 },
     ['Sobane']               = { text = ID.text.SOBANE_DIALOG },
+    ['Taumila']              = { text = ID.text.TAUMILA_DIALOG },
     ['Valderotaux']          = { event = 58 },
 }

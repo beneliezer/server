@@ -221,11 +221,11 @@ void CPathFind::ResumePatrol()
         float closestPoint = FLT_MAX;
         for (size_t i = 0; i < m_points.size(); ++i)
         {
-            float distance = distanceSquared(m_POwner->loc.p, m_points[i].position);
-            if (distance < closestPoint)
+            const float distanceSq = distanceSquared(m_POwner->loc.p, m_points[i].position);
+            if (distanceSq < closestPoint)
             {
                 m_currentPoint = (int16)i;
-                closestPoint   = distance;
+                closestPoint   = distanceSq;
             }
         }
     }
@@ -495,9 +495,8 @@ bool CPathFind::FindRandomPath(const position_t& start, float maxRadius, uint8 m
             return false;
         }
 
-        float distSq = distanceSquared(startPosition, status.second, true);
         // only add the roam point if it's _actually_ within range of the spawn point...
-        if (distSq < maxRadius * maxRadius)
+        if (isWithinDistance(startPosition, status.second, maxRadius, true))
         {
             m_turnPoints.emplace_back(status.second);
         }
@@ -505,8 +504,11 @@ bool CPathFind::FindRandomPath(const position_t& start, float maxRadius, uint8 m
         // {
         //     ShowDebug("CPathFind::FindRandomPath (%s - %d) random point too far: sq distance (%f)", m_POwner->GetName(), m_POwner->id, distSq);
         // }
+
         if (m_turnPoints.size() >= m_turnLength)
+        {
             break;
+        }
     }
     if (m_turnPoints.size() > 0)
     {
@@ -549,7 +551,7 @@ bool CPathFind::FindClosestPath(const position_t& start, const position_t& end)
 void CPathFind::LookAt(const position_t& point)
 {
     // Avoid unpredictable results if we're too close.
-    if (!distanceWithin(m_POwner->loc.p, point, 0.1f, true))
+    if (!isWithinDistance(m_POwner->loc.p, point, 0.1f, true))
     {
         m_POwner->loc.p.rotation = worldAngle(m_POwner->loc.p, point);
         m_POwner->updatemask |= UPDATE_POS;
@@ -580,11 +582,11 @@ bool CPathFind::AtPoint(const position_t& pos)
 {
     if (m_distanceFromPoint == 0)
     {
-        return distanceWithin(m_POwner->loc.p, pos, 0.1f);
+        return isWithinDistance(m_POwner->loc.p, pos, 0.1f);
     }
     else
     {
-        return distanceWithin(m_POwner->loc.p, pos, m_distanceFromPoint + 0.2f);
+        return isWithinDistance(m_POwner->loc.p, pos, m_distanceFromPoint + 0.2f);
     }
 }
 

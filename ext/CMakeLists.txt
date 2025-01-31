@@ -74,7 +74,7 @@ CPMAddPackage(
 CPMAddPackage(
     NAME recastnavigation
     GITHUB_REPOSITORY recastnavigation/recastnavigation
-    GIT_TAG 455a019e7aef99354ac3020f04c1fe3541aa4d19
+    GIT_TAG 77f7e54bc8cf5a816f9f087a3e0ac391d2043be3
     OPTIONS
         "RECASTNAVIGATION_DEMO OFF"
         "RECASTNAVIGATION_TESTS OFF"
@@ -237,6 +237,12 @@ CPMAddPackage(
     GIT_TAG 83a592f0c3807500f1aaf3b07fd48105a01e2780
 ) # defines: alpaca
 
+CPMAddPackage(
+    NAME magic_enum
+    GITHUB_REPOSITORY Neargye/magic_enum
+    GIT_TAG 1a1824df7ac798177a521eed952720681b0bf482
+) # defines: magic_enum
+
 set(EXTERNAL_LIBS
     fmt::fmt
     spdlog
@@ -258,6 +264,7 @@ set(EXTERNAL_LIBS
     asio
     bcrypt
     alpaca
+    magic_enum
 )
 
 if(WIN32)

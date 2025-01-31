@@ -363,8 +363,8 @@ xi.mod =
     TRIPLE_ATTACK                   = 302,
     TRIPLE_ATTACK_DMG               = 1039, -- Increases "Triple Attack" damage/"Triple Attack" damage + (in percents, e.g. +20 = +20% damage)
     TREASURE_HUNTER                 = 303,
-    TREASURE_HUNTER_PROC            = 1048, -- TODO: Increases Treasure Hunter proc rate (percent)
-    TREASURE_HUNTER_CAP             = 1049, -- TODO: Increases the Treasure Hunter Cap (e.g. THF JP Gift)
+    TREASURE_HUNTER_PROC            = 1048, -- Increases Treasure Hunter proc rate (percent)
+    TREASURE_HUNTER_CAP             = 1049, -- Increases the Treasure Hunter Cap (e.g. THF JP Gift)
     TAME                            = 304,
     RECYCLE                         = 305,
     ZANSHIN                         = 306,
@@ -446,6 +446,9 @@ xi.mod =
     REPRISAL_BLOCK_BONUS            = 1067, -- Increases block rate while under the effects of Reprisal (multiplicative, not additive)
     REPRISAL_SPIKES_BONUS           = 1068, -- Increases Reprisal spikes damage by percentage (e.g. mod value of 50 will increase spikes damage by 50%)
     SHIELD_BARRIER                  = 1082, -- Grants a bonus to Protect spells cast by self while a shield is equipped.
+
+    -- Ranger
+    BOUNTY_SHOT_TH_BONUS            = 826, -- Boosts base TH level of bounty shot
 
     -- Dark Knight
     ARCANE_CIRCLE_DURATION          = 858,  -- Arcane Circle extended duration in seconds
@@ -946,6 +949,7 @@ xi.mod =
     SNEAK_DURATION                  = 946, -- Additional duration in seconds
     INVISIBLE_DURATION              = 947, -- Additional duration in seconds
     CARDINAL_CHANT                  = 959,
+    CARDINAL_CHANT_BONUS            = 1132, -- Geomancy galero
     INDI_DURATION                   = 960,
     GEOMANCY_BONUS                  = 961, -- Used to increase potency of "Geomancy +" items (only the highest value is counted)
     WIDENED_COMPASS                 = 962,

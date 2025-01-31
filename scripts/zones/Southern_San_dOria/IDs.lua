@@ -58,6 +58,7 @@ zones[xi.zone.SOUTHERN_SAN_DORIA] =
         YOU_FIND_A_WELL                = 7915,  -- You find a well.
         DONT_NEED_MORE_WATER           = 7917,  -- You don't need any more water.
         I_THANK_YOU_ADVENTURER         = 7919,  -- I thank you, kind adventurer. His Majesty, the late king, thanks you, too.
+        TAUMILA_DIALOG                 = 7994,  -- I am Taumila, the owner of this establishment. Talk to the lady behind the counter if you wish to make a purchase.
         LUSIANE_SHOP_DIALOG            = 7995,  -- Hello! Let Taumila's handle all your sundry needs!
         OSTALIE_SHOP_DIALOG            = 7996,  -- Welcome, customer. Please have a look.
         ASH_THADI_ENE_SHOP_DIALOG      = 8017,  -- Welcome to Helbort's Blades!

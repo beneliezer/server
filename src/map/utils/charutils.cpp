@@ -4088,7 +4088,7 @@ namespace charutils
             // clang-format off
             PChar->ForAlliance([PMob, &members](CBattleEntity* PPartyMember)
             {
-                if (PPartyMember->getZone() == PMob->getZone() && distanceSquared(PPartyMember->loc.p, PMob->loc.p) < square(100.f))
+                if (PPartyMember->getZone() == PMob->getZone() && isWithinDistance(PPartyMember->loc.p, PMob->loc.p, 100.f))
                 {
                     members.emplace_back((CCharEntity*)PPartyMember);
                 }
@@ -4120,7 +4120,7 @@ namespace charutils
                 }
             }
         }
-        else if (distanceSquared(PChar->loc.p, PMob->loc.p) < square(100.f))
+        else if (isWithinDistance(PChar->loc.p, PMob->loc.p, 100.f))
         {
             // Check for gilfinder
             gil += gil * PChar->getMod(Mod::GILFINDER) / 100;
@@ -5097,8 +5097,14 @@ namespace charutils
 
                 PChar->UpdateHealth();
 
-                PChar->health.hp = PChar->GetMaxHP();
-                PChar->health.mp = PChar->GetMaxMP();
+                if (!expFromRaise)
+                {
+                    // Level up animation and message
+                    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, std::make_unique<CMessageCombatPacket>(PChar, PMob, PChar->jobs.job[PChar->GetMJob()], 0, 9));
+                    // Set HP and MP to max range
+                    PChar->health.hp = PChar->GetMaxHP();
+                    PChar->health.mp = PChar->GetMaxMP();
+                }
 
                 SaveCharStats(PChar);
                 SaveCharJob(PChar, PChar->GetMJob());
@@ -5115,8 +5121,6 @@ namespace charutils
                 PChar->pushPacket<CCharJobExtraPacket>(PChar, true);
                 PChar->pushPacket<CCharJobExtraPacket>(PChar, true);
                 PChar->pushPacket<CCharSyncPacket>(PChar);
-
-                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, std::make_unique<CMessageCombatPacket>(PChar, PMob, PChar->jobs.job[PChar->GetMJob()], 0, 9));
                 PChar->pushPacket<CCharStatsPacket>(PChar);
 
                 luautils::OnPlayerLevelUp(PChar);

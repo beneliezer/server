@@ -43,12 +43,27 @@ int32 checksum(uint8* buf, uint32 buflen, char checkhash[16]);
 int   config_switch(const char* str);
 bool  bin2hex(char* output, unsigned char* input, size_t count);
 
-float           distance(const position_t& A, const position_t& B, bool ignoreVertical = false);                     // distance between positions. Use only horizontal plane (x and z) if ignoreVertical is set.
-float           distanceSquared(const position_t& A, const position_t& B, bool ignoreVertical = false);              // squared distance between positions (use squared unless otherwise needed)
-bool            distanceWithin(const position_t& A, const position_t& B, float within, bool ignoreVertical = false); // returns true if the distance between the points is <= within.
-constexpr float square(float distance)                                                                               // constexpr square (used with distanceSquared)
+constexpr float square(auto distance) // constexpr square (used with distanceSquared)
 {
     return distance * distance;
+}
+
+inline float distanceSquared(const position_t& A, const position_t& B, bool ignoreVertical = false)
+{
+    float dX = A.x - B.x;
+    float dY = ignoreVertical ? 0 : A.y - B.y;
+    float dZ = A.z - B.z;
+    return dX * dX + dY * dY + dZ * dZ;
+}
+
+inline float distance(const position_t& A, const position_t& B, bool ignoreVertical = false)
+{
+    return std::sqrt(distanceSquared(A, B, ignoreVertical));
+}
+
+inline bool isWithinDistance(const position_t& A, const position_t& B, float within, bool ignoreVertical = false)
+{
+    return distanceSquared(A, B, ignoreVertical) <= square(within);
 }
 
 int32      intpow32(int32 base, int32 exponent); // Exponential power of integers

@@ -38,6 +38,7 @@ zones[xi.zone.THE_SHRINE_OF_RUAVITAU] =
     npc =
     {
         OLLAS_QM        = GetFirstID('qm1'),
+        KIRIN_QM        = GetFirstID('qm2'),
         DOOR_OFFSET     = GetFirstID('_4y0'),
         MONOLITH_OFFSET = GetFirstID('Monolith'),
     },

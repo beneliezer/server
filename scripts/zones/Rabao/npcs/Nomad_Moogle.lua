@@ -9,7 +9,7 @@ local entity = {}
 
 entity.onTrigger = function(player, npc)
     player:showText(npc, ID.text.NOMAD_MOOGLE_DIALOG)
-    player:sendMenu(1)
+    player:sendMenu(xi.menuType.MOOGLE)
 end
 
 return entity

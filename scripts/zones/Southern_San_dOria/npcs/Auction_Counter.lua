@@ -9,7 +9,7 @@ local entity = {}
 
 entity.onTrigger = function(player, npc)
     xi.tutorial.onAuctionTrigger(player)
-    player:sendMenu(3)
+    player:sendMenu(xi.menuType.AUCTION)
 end
 
 return entity

@@ -333,8 +333,30 @@ local function magicAccuracyFromFoodMultiplier(actor)
     return magicAcc
 end
 
+local function magicAccuracyFromSoulVoiceMultiplier(actor, skillType, effectId)
+    local effectTable =
+    set{
+        xi.effect.SLEEP_I, -- Lullabies
+        xi.effect.NONE,    -- Magic Finale
+        xi.effect.CHARM_I  -- Maiden's Virellai
+    }
+
+    if
+        effectTable[effectId] and
+        skillType == xi.skill.SINGING
+    then
+        if actor:hasStatusEffect(xi.effect.SOUL_VOICE) then
+            return 2
+        elseif actor:hasStatusEffect(xi.effect.MARCATO) then
+            return 1.5
+        end
+    end
+
+    return 1
+end
+
 -- Global function to calculate total magicc accuracy.
-xi.combat.magicHitRate.calculateActorMagicAccuracy = function(actor, target, spellGroup, skillType, skillRank, actionElement, statUsed, bonusMacc)
+xi.combat.magicHitRate.calculateActorMagicAccuracy = function(actor, target, spellGroup, skillType, skillRank, actionElement, statUsed, effectId, bonusMacc)
     local finalMagicAcc = 0
 
     local magicAccBase      = actor:getMod(xi.mod.MACC) + actor:getILvlMacc(xi.slot.MAIN)
@@ -349,11 +371,12 @@ xi.combat.magicHitRate.calculateActorMagicAccuracy = function(actor, target, spe
     local magicAccWeather   = magicAccuracyFromWeatherElement(actor, actionElement)
 
     -- Multipliers
-    local magicAccFoodFactor = magicAccuracyFromFoodMultiplier(actor)
+    local magicAccFoodFactor      = magicAccuracyFromFoodMultiplier(actor)
+    local magicAccSoulVoiceFactor = magicAccuracyFromSoulVoiceMultiplier(actor, skillType, effectId)
 
     -- Add up food magic accuracy.
     finalMagicAcc = magicAccBase + magicAccSkill + magicAccElement + magicAccStatDiff + magicAccEffects + magicAccMerits + magicAccJobPoints + magicAccBurst + magicAccDay + magicAccWeather + bonusMacc
-    finalMagicAcc = math.floor(finalMagicAcc * magicAccFoodFactor)
+    finalMagicAcc = math.floor(finalMagicAcc * magicAccFoodFactor * magicAccSoulVoiceFactor)
 
     return finalMagicAcc
 end
@@ -537,7 +560,7 @@ xi.combat.magicHitRate.calculateResistRate = function(actor, target, spellGroup,
     end
 
     -- Get Actor Magic Accuracy and target Magic Evasion
-    local magicAcc     = xi.combat.magicHitRate.calculateActorMagicAccuracy(actor, target, spellGroup, skillType, skillRank, actionElement, statUsed, bonusMacc)
+    local magicAcc     = xi.combat.magicHitRate.calculateActorMagicAccuracy(actor, target, spellGroup, skillType, skillRank, actionElement, statUsed, effectId, bonusMacc)
     local magicEva     = xi.combat.magicHitRate.calculateTargetMagicEvasion(actor, target, actionElement, magicEvasionModifier, rankModifier)
     local magicHitRate = xi.combat.magicHitRate.calculateMagicHitRate(magicAcc, magicEva)
     local resistRate   = xi.combat.magicHitRate.calculateResistanceFactor(actor, target, actionElement, magicHitRate, rankModifier)

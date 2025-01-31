@@ -34,6 +34,14 @@ zones[xi.zone.CASTLE_ZVAHL_KEEP] =
     {
         TREASURE_CHEST = GetFirstID('Treasure_Chest'),
         CRAGGY_PILLAR  = GetTableOfIDs('Craggy_Pillar'),
+        TELE_CENTER    = GetFirstID('_4iy'),
+        TELE_NW        = GetFirstID('_4iu'),
+        TELE_SW        = GetFirstID('_4iv'),
+        TELE_NE        = GetFirstID('_4iw'),
+        TELE_SE        = GetFirstID('_4ix'),
+        TELE_N         = GetFirstID('_4is'),
+        TELE_S         = GetFirstID('_4ir'),
+        TELE_HIDDEN    = GetFirstID('_4it'),
     },
 }
 

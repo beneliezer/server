@@ -415,7 +415,7 @@ void SmallPacket0x00A(map_session_data_t* const PSession, CCharEntity* const PCh
     }
 }
 
-// https://github.com/atom0s/XiPackets/tree/main/world/client/0x001A
+// https://github.com/atom0s/XiPackets/tree/main/world/client/0x000C
 /************************************************************************
  *                                                                       *
  *  GP_CLI_COMMAND_GAMEOK                                                *
@@ -5711,16 +5711,21 @@ void SmallPacket0x0B5(map_session_data_t* const PSession, CCharEntity* const PCh
                 break;
                 case MESSAGE_YELL:
                 {
+                    const auto yellCooldownTime = settings::get<uint16>("map.YELL_COOLDOWN");
+                    const auto isYellBanned     = PChar->getCharVar("[YELL]Banned") == 1;
+                    const auto isInYellCooldown = PChar->getCharVar("[YELL]Cooldown") == 1;
+
                     if (PChar->loc.zone->CanUseMisc(MISC_YELL))
                     {
-                        int yellBanned = PChar->getCharVar("[YELL]Banned");
-                        if (yellBanned == 1)
+                        if (isYellBanned)
                         {
                             PChar->pushPacket<CMessageBasicPacket>(PChar, PChar, 0, 0, MSGBASIC_CANNOT_USE_IN_AREA);
                         }
-                        else if (gettick() >= PChar->m_LastYell)
+                        else if (!isInYellCooldown)
                         {
-                            PChar->m_LastYell = gettick() + settings::get<uint16>("map.YELL_COOLDOWN") * 1000;
+                            // CharVar will self-expire and set to zero after the cooldown period
+                            PChar->setCharVar("[YELL]Cooldown", 1, CVanaTime::getInstance()->getSysTime() + yellCooldownTime);
+
                             int8 packetData[4]{};
                             ref<uint32>(packetData, 0) = PChar->id;
 
@@ -6308,145 +6313,125 @@ void SmallPacket0x0DB(map_session_data_t* const PSession, CCharEntity* const PCh
     PChar->pushPacket<CMenuConfigPacket>(PChar);
 }
 
-/************************************************************************
- *                                                                       *
- *  Set Name Flags (Party, Away, Autogroup, etc.)                        *
- *                                                                       *
- ************************************************************************/
+// https://github.com/atom0s/XiPackets/blob/main/world/client/0x00DC/README.md
+struct GP_CLI_CONFIG
+{
+    uint16_t id : 9;
+    uint16_t size : 7;
+    uint16_t sync;
+    uint8_t  InviteFlg : 1;           // PS2: InviteFlg
+    uint8_t  AwayFlg : 1;             // PS2: AwayFlg
+    uint8_t  AnonymityFlg : 1;        // PS2: AnonymityFlg
+    uint8_t  Language : 2;            // PS2: Language
+    uint8_t  unused05 : 3;            // PS2: GmLevel
+    uint8_t  unused08 : 1;            // PS2: InvisFlg
+    uint8_t  unused09 : 1;            // PS2: InvulFlg
+    uint8_t  unused10 : 1;            // PS2: IgnoreFlg
+    uint8_t  unused11 : 2;            // PS2: SysMesFilterLevel
+    uint8_t  unused13 : 1;            // PS2: GmNoPrintFlg
+    uint8_t  AutoTargetOffFlg : 1;    // PS2: AutoTargetOffFlg
+    uint8_t  AutoPartyFlg : 1;        // PS2: AutoPartyFlg
+    uint8_t  unused16 : 8;            // PS2: JailNo
+    uint8_t  unused24 : 1;            // PS2: (New; previously padding byte.)
+    uint8_t  MentorFlg : 1;           // PS2: (New; previously padding byte.)
+    uint8_t  NewAdventurerOffFlg : 1; // PS2: (New; previously padding byte.)
+    uint8_t  DisplayHeadOffFlg : 1;   // PS2: (New; previously padding byte.)
+    uint8_t  unused28 : 1;            // PS2: (New; previously padding byte.)
+    uint8_t  RecruitFlg : 1;          // PS2: (New; previously padding byte.)
+    uint8_t  unused30 : 2;            // PS2: (New; previously padding byte.)
+    uint32_t unused00;                // PS2: (Other misc data.)
+    uint32_t unused01;                // PS2: (Other misc data.)
+    uint8_t  SetFlg;                  // Ps2: SetFlg
+    uint8_t  padding00[3];            // PS2: (New; did not exist.)
+};
 
 void SmallPacket0x0DC(map_session_data_t* const PSession, CCharEntity* const PChar, CBasicPacket& data)
 {
     TracyZoneScoped;
-    switch (data.ref<uint32>(0x04))
+    auto configUpdateData = data.as<GP_CLI_CONFIG>();
+
+    bool value = configUpdateData->SetFlg == 1; // 1 == on, 2 == off. What?
+
+    bool updated = false;
+
+    if (configUpdateData->InviteFlg)
     {
-        case 0x01:
-            // /invite [on|off]
-            if (PChar->PParty)
-            {
-                // Can't put flag up while in a party
-                PChar->playerConfig.InviteFlg = false;
-            }
-            else
-            {
-                PChar->playerConfig.InviteFlg = !PChar->playerConfig.InviteFlg;
-            }
-            break;
-        case 0x02:
-            // /away | /online
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.AwayFlg = true;
-            }
-            if (data.ref<uint8>(0x10) == 2)
-            {
-                PChar->playerConfig.AwayFlg = false;
-            }
-            break;
-        case 0x04:
-        {
-            // /anon [on|off]
-            auto oldAnon = PChar->playerConfig.AnonymityFlg;
+        updated = true;
 
-            auto param = data.ref<uint8>(0x10);
-            if (param == 1)
-            {
-                PChar->playerConfig.AnonymityFlg = true;
-            }
-            else if (param == 2)
-            {
-                PChar->playerConfig.AnonymityFlg = false;
-            }
-
-            if (static_cast<bool>(oldAnon) != PChar->isAnon())
-            {
-                PChar->pushPacket<CMessageSystemPacket>(0, 0, param == 1 ? MsgStd::CharacterInfoHidden : MsgStd::CharacterInfoShown);
-            }
-            break;
-        }
-        case 0x4000:
-            // /autotarget [on|off]
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.AutoTargetOffFlg = false;
-            }
-            if (data.ref<uint8>(0x10) == 2)
-            {
-                PChar->playerConfig.AutoTargetOffFlg = true;
-            }
-            break;
-        case 0x8000:
-            // /autogroup [on|off]
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.AutoPartyFlg = true;
-            }
-            if (data.ref<uint8>(0x10) == 2)
-            {
-                PChar->playerConfig.AutoPartyFlg = false;
-            }
-            break;
-        case 0x2000000:
-            // /mentor [on|off]
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.MentorFlg = true;
-            }
-            else if (data.ref<uint8>(0x10) == 2)
-            {
-                PChar->playerConfig.MentorFlg = false;
-            }
-            break;
-        case 0x04000000:
-            // Cancel new adventurer status from help desk menu.
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.NewAdventurerOffFlg = true;
-            }
-            break;
-        case 0x08000000:
-        {
-            // /displayhead [on|off]
-            uint8 oldDisplayHeadflag = PChar->playerConfig.DisplayHeadOffFlg;
-            uint8 param              = data.ref<uint8>(0x10);
-
-            if (param == 1)
-            {
-                PChar->playerConfig.DisplayHeadOffFlg = true;
-            }
-            else if (param == 2)
-            {
-                PChar->playerConfig.DisplayHeadOffFlg = false;
-            }
-
-            if (oldDisplayHeadflag != PChar->playerConfig.DisplayHeadOffFlg)
-            {
-                PChar->pushPacket<CCharAppearancePacket>(PChar);
-                PChar->pushPacket<CMessageStandardPacket>(param == 1 ? MsgStd::HeadgearHide : MsgStd::HeadgearShow);
-            }
-            break;
-        }
-        case 0x20000000:
-            // /recruit [on|off]
-            if (data.ref<uint8>(0x10) == 1)
-            {
-                PChar->playerConfig.RecruitFlg = true;
-            }
-            if (data.ref<uint8>(0x10) == 2)
-            {
-                PChar->playerConfig.RecruitFlg = false;
-            }
-            break;
-        default: // If this wasn't a valid request, don't send a bunch of updates for no reason.
-            return;
+        PChar->playerConfig.InviteFlg = value;
     }
 
-    PChar->updatemask |= UPDATE_HP;
+    if (configUpdateData->AwayFlg)
+    {
+        updated = true;
 
-    charutils::SaveCharStats(PChar);
-    charutils::SavePlayerSettings(PChar);
-    PChar->pushPacket<CMenuConfigPacket>(PChar);
-    PChar->pushPacket<CCharUpdatePacket>(PChar);
-    PChar->pushPacket<CCharSyncPacket>(PChar);
+        PChar->playerConfig.AwayFlg = value;
+    }
+
+    if (configUpdateData->AnonymityFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.AnonymityFlg = value;
+        PChar->pushPacket<CMessageSystemPacket>(0, 0, value ? MsgStd::CharacterInfoHidden : MsgStd::CharacterInfoShown);
+    }
+
+    if (configUpdateData->AutoTargetOffFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.AutoTargetOffFlg = value;
+    }
+
+    if (configUpdateData->AutoPartyFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.AutoPartyFlg = value;
+    }
+
+    if (configUpdateData->MentorFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.MentorFlg = value;
+    }
+
+    if (configUpdateData->NewAdventurerOffFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.NewAdventurerOffFlg = value;
+    }
+
+    if (configUpdateData->DisplayHeadOffFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.DisplayHeadOffFlg = value;
+
+        // TODO: if you have no headgear you blink anyway. Check if retail does this.
+        PChar->pushPacket<CCharAppearancePacket>(PChar);
+        PChar->pushPacket<CMessageStandardPacket>(value ? MsgStd::HeadgearHide : MsgStd::HeadgearShow);
+    }
+
+    if (configUpdateData->RecruitFlg)
+    {
+        updated = true;
+
+        PChar->playerConfig.RecruitFlg = value;
+    }
+
+    if (updated)
+    {
+        PChar->updatemask |= UPDATE_HP;
+
+        charutils::SaveCharStats(PChar);
+        charutils::SavePlayerSettings(PChar);
+        PChar->pushPacket<CMenuConfigPacket>(PChar);
+        PChar->pushPacket<CCharUpdatePacket>(PChar);
+        PChar->pushPacket<CCharSyncPacket>(PChar);
+    }
 }
 
 /************************************************************************

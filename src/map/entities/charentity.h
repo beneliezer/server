@@ -415,6 +415,8 @@ public:
 
     uint8 GetGender();
 
+    auto getPacketList() const -> const std::deque<std::unique_ptr<CBasicPacket>>&;
+    auto getPacketListCopy() -> std::deque<std::unique_ptr<CBasicPacket>>; // Return a COPY of packet list
     void clearPacketList();
 
     template <typename T, typename... Args>
@@ -428,8 +430,7 @@ public:
     void   updateCharPacket(CCharEntity* PChar, ENTITYUPDATE type, uint8 updatemask);     // Push or update a char packet
     void   updateEntityPacket(CBaseEntity* PEntity, ENTITYUPDATE type, uint8 updatemask); // Push or update an entity update packet
     bool   isPacketListEmpty();
-    auto   popPacket() -> std::unique_ptr<CBasicPacket>;                     // Get first packet from PacketList
-    auto   getPacketListCopy() -> std::deque<std::unique_ptr<CBasicPacket>>; // Return a COPY of packet list
+    auto   popPacket() -> std::unique_ptr<CBasicPacket>; // Get first packet from PacketList
     size_t getPacketCount();
     void   erasePackets(uint8 num); // Erase num elements from front of packet list
     bool   isPacketFiltered(std::unique_ptr<CBasicPacket>& packet);
@@ -497,8 +498,6 @@ public:
     uint32 m_PlayTime;
     uint32 m_SaveTime;
 
-    uint32 m_LastYell;
-
     time_point m_LeaderCreatedPartyTime; // Time that a party member joined and this player was leader.
 
     uint8 m_GMlevel;    // Level of the GM flag assigned to this character
@@ -543,8 +542,6 @@ public:
     uint32 GetPlayTime(bool needUpdate = true); // Get playtime
 
     CItemEquipment* getEquip(SLOTTYPE slot);
-
-    std::unique_ptr<CBasicPacket> PendingPositionPacket = nullptr;
 
     bool requestedInfoSync = false;
 
@@ -665,9 +662,11 @@ private:
     uint8      dataToPersist = 0;
     time_point nextDataPersistTime;
 
-    std::deque<std::unique_ptr<CBasicPacket>>                        PacketList;           // The list of packets to be sent to the character during the next network cycle
-    std::unordered_map<uint32, std::unique_ptr<CCharPacket>>         PendingCharPackets;   // Keep track of which char packets are queued up for this char, such that they can be updated
-    std::unordered_map<uint32, std::unique_ptr<CEntityUpdatePacket>> PendingEntityPackets; // Keep track of which entity update packets are queued up for this char, such that they can be updated
+    // TODO: Don't use raw ptrs for this, but don't duplicate whole packets with unique_ptr either.
+    std::deque<std::unique_ptr<CBasicPacket>>        PacketList; // The list of packets to be sent to the character during the next network cycle
+    CBasicPacket*                                    PendingPositionPacket = nullptr;
+    std::unordered_map<uint32, CCharPacket*>         PendingCharPackets;   // Keep track of which char packets are queued up for this char, such that they can be updated
+    std::unordered_map<uint32, CEntityUpdatePacket*> PendingEntityPackets; // Keep track of which entity update packets are queued up for this char, such that they can be updated
 };
 
 #endif

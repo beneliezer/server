@@ -22,18 +22,18 @@ class AHPaginationModule : public CPPModule
     {
         TracyZoneScoped;
 
+        const auto originalAHListLimit = settings::get<uint32>("map.AH_LIST_LIMIT");
+        if (originalAHListLimit != 0 && originalAHListLimit <= 7)
+        {
+            ShowWarning("[AH PAGES] AH_LIST_LIMIT is already set to %i. AH_LIST_LIMIT <= 7 is handled by the client. This module isn't required.", originalAHListLimit);
+            return;
+        }
+
         // If this is set to 7, the client won't let you put up more than 7 items. So, 6.
         const auto ITEMS_PER_PAGE = 6U;
-        const auto TOTAL_PAGES    = 6U;
-        const auto AH_LIST_LIMIT  = ITEMS_PER_PAGE * TOTAL_PAGES;
+        const auto TOTAL_PAGES    = originalAHListLimit == 0 ? 99 : (originalAHListLimit / 6U) + 1;
 
-        ShowInfo("[AH PAGES] Setting AH_LIST_LIMIT to %i.", AH_LIST_LIMIT);
-
-        settings::set("map.AH_LIST_LIMIT", static_cast<double>(AH_LIST_LIMIT));
-        if (settings::get<uint32>("map.AH_LIST_LIMIT") != AH_LIST_LIMIT)
-        {
-            ShowError("Failed to set AH_LIST_LIMIT to %i.", AH_LIST_LIMIT);
-        }
+        ShowInfo("[AH PAGES] AH_LIST_LIMIT is set to %i. Enabling pagination of %i pages with %i items per page.", originalAHListLimit, TOTAL_PAGES, ITEMS_PER_PAGE);
 
         auto originalHandler = PacketParser[0x04E];
 
@@ -43,7 +43,7 @@ class AHPaginationModule : public CPPModule
 
             if (PChar->m_GMlevel == 0 && !PChar->loc.zone->CanUseMisc(MISC_AH))
             {
-                ShowWarning("%s is trying to use the auction house in a disallowed zone [%s]", PChar->getName(), PChar->loc.zone->getName());
+                ShowWarning("[AH PAGES] %s is trying to use the auction house in a disallowed zone [%s]", PChar->getName(), PChar->loc.zone->getName());
                 return;
             }
 
@@ -100,6 +100,9 @@ class AHPaginationModule : public CPPModule
                         PChar->SetLocalVar("AH_PAGE", currentAHPage + 1);
                     }
 
+                    // TODO: Don't use TOTAL_PAGES here, use the actual number of pages of results.
+                    // Current (10 items): Current page: 2 of 99. Showing 4 items.
+                    // Desired (10 items): Current page: 2 of 2. Showing 4 items.
                     PChar->pushPacket<CChatMessagePacket>(PChar, MESSAGE_SYSTEM_3, fmt::format("Current page: {} of {}. Showing {} items.", currentAHPage + 1, TOTAL_PAGES, rset->rowsCount()).c_str(), "");
 
                     if (rset && rset->rowsCount())

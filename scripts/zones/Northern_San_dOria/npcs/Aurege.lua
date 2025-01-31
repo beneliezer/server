@@ -8,9 +8,6 @@
 ---@type TNpcEntity
 local entity = {}
 
-entity.onTrade = function(player, npc, trade)
-end
-
 entity.onTrigger = function(player, npc)
     local exitTheGambler = player:getQuestStatus(xi.questLog.SANDORIA, xi.quest.id.sandoria.EXIT_THE_GAMBLER)
     local exitTheGamblerStat = player:getCharVar('exitTheGamblerStat')
@@ -28,9 +25,6 @@ entity.onTrigger = function(player, npc)
     else
         player:startEvent(514)
     end
-end
-
-entity.onEventUpdate = function(player, csid, option, npc)
 end
 
 entity.onEventFinish = function(player, csid, option, npc)

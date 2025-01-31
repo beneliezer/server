@@ -105,7 +105,6 @@ void auth_session::read_func()
     std::memcpy(usernameBuffer, data_ + 0x09, 16);
     std::memcpy(passwordBuffer, data_ + 0x19, 32);
     // 1 byte of command at 0x39
-    // 17 bytes of operator specific space starting at 0x50. This region will be used for anything server operators may install into custom launchers.
     const std::string version(data_ + 0x61, 5);
 
     std::string username{ usernameBuffer };

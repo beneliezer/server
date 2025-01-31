@@ -91,24 +91,6 @@ bool bin2hex(char* output, unsigned char* input, size_t count)
     return true;
 }
 
-float distance(const position_t& A, const position_t& B, bool ignoreVertical)
-{
-    return sqrt(distanceSquared(A, B, ignoreVertical));
-}
-
-float distanceSquared(const position_t& A, const position_t& B, bool ignoreVertical)
-{
-    float diff_x = A.x - B.x;
-    float diff_y = ignoreVertical ? 0 : A.y - B.y;
-    float diff_z = A.z - B.z;
-    return diff_x * diff_x + diff_y * diff_y + diff_z * diff_z;
-}
-
-bool distanceWithin(const position_t& A, const position_t& B, float within, bool ignoreVertical)
-{
-    return distanceSquared(A, B, ignoreVertical) <= square(within);
-}
-
 int32 intpow32(int32 base, int32 exponent)
 {
     int32 power = 1;
@@ -165,7 +147,7 @@ uint8 worldAngle(const position_t& A, const position_t& B)
 {
     uint8 angle = (uint8)(atanf((B.z - A.z) / (B.x - A.x)) * -(128.0f / M_PI));
 
-    return distanceWithin(A, B, 0.1f, true) ? A.rotation : (A.x > B.x ? angle + 128 : angle);
+    return isWithinDistance(A, B, 0.1f, true) ? A.rotation : (A.x > B.x ? angle + 128 : angle);
 }
 
 uint8 relativeAngle(uint8 world, int16 diff)
