@@ -122,9 +122,9 @@ xi.mod =
     CAMOUFLAGE_DURATION             = 98,  -- Camouflage duration in percents
 
     -- These are NOT item Level skill, they are skill in your status menu. iLvl "skill" happens in item_weapon.sql
-    AUTO_MELEE_SKILL                = 101,
-    AUTO_RANGED_SKILL               = 102,
-    AUTO_MAGIC_SKILL                = 103,
+    AUTO_MELEE_SKILL                = 101, -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
+    AUTO_RANGED_SKILL               = 102, -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
+    AUTO_MAGIC_SKILL                = 103, -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
     ARCHERY                         = 104,
     MARKSMAN                        = 105,
     THROW                           = 106,
@@ -565,7 +565,7 @@ xi.mod =
     ENHANCES_STRAFE                 = 282, -- Strafe merit augment, +50 TP gained per merit level on breath use.
     ENHANCES_SPIRIT_LINK            = 281, -- Adds erase/-na to Spirit Link
     REWARD_HP_BONUS                 = 364,
-    SNAP_SHOT                       = 365,
+    SNAPSHOT                        = 365,
 
     DMG_RATING                      = 287, -- adds damage rating to weapon (+DMG augments, maneater/blau dolch etc hidden effects)
     MAIN_DMG_RATING                 = 366, -- adds damage rating to mainhand weapon

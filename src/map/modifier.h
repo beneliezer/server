@@ -136,9 +136,9 @@ enum class Mod
     GKATANA           = 89,  // Great Katana Skill
     CLUB              = 90,  // Club Skill
     STAFF             = 91,  // Staff Skill
-    AUTO_MELEE_SKILL  = 101, // Automaton Melee Skill
-    AUTO_RANGED_SKILL = 102, // Automaton Range Skill
-    AUTO_MAGIC_SKILL  = 103, // Automaton Magic Skill
+    AUTO_MELEE_SKILL  = 101, // Automaton Melee Skill -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
+    AUTO_RANGED_SKILL = 102, // Automaton Range Skill -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
+    AUTO_MAGIC_SKILL  = 103, // Automaton Magic Skill -- Do not apply to items in item_mods_pet.sql, apply only to master (it does not work properly on pet mods)
     ARCHERY           = 104, // Archery Skill
     MARKSMAN          = 105, // Marksman Skill
     THROW             = 106, // Throw Skill
@@ -527,7 +527,7 @@ enum class Mod
     // Ranger
     CAMOUFLAGE_DURATION     = 98,   // Camouflage duration in percents
     RECYCLE                 = 305,  // Percent chance to recycle
-    SNAP_SHOT               = 365,  // Percent reduction to range attack delay
+    SNAPSHOT                = 365,  // Percent reduction to range attack delay
     RAPID_SHOT              = 359,  // Percent chance to proc rapid shot
     WIDESCAN                = 340,  //
     BARRAGE_ACC             = 420,  // Barrage accuracy

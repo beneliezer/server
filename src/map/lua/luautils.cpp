@@ -79,7 +79,6 @@
 #include "monstrosity.h"
 #include "packets/action.h"
 #include "packets/char_emotion.h"
-#include "packets/char_update.h"
 #include "packets/chat_message.h"
 #include "packets/entity_update.h"
 #include "packets/entity_visual.h"
@@ -1998,15 +1997,9 @@ namespace luautils
         }
     }
 
-    void OnTriggerAreaEnter(CCharEntity* PChar, CTriggerArea* PTriggerArea)
+    void OnTriggerAreaEnter(CCharEntity* PChar, std::unique_ptr<ITriggerArea> const& PTriggerArea)
     {
         TracyZoneScoped;
-
-        // Do not enter trigger areas while loading in. Set in xi.player.onGameIn
-        if (PChar->GetLocalVar("ZoningIn") > 0)
-        {
-            return;
-        }
 
         std::string                 filename;
         std::optional<CLuaInstance> optInstance = std::nullopt;
@@ -2043,7 +2036,7 @@ namespace luautils
         }
 
         auto onTriggerAreaEnterFramework = lua["InteractionGlobal"]["onTriggerAreaEnter"];
-        auto result                      = onTriggerAreaEnterFramework(CLuaBaseEntity(PChar), CLuaTriggerArea(PTriggerArea), optInstance, onTriggerAreaEnter);
+        auto result                      = onTriggerAreaEnterFramework(CLuaBaseEntity(PChar), CLuaTriggerArea(PTriggerArea.get()), optInstance, onTriggerAreaEnter);
         if (!result.valid())
         {
             sol::error err = result;
@@ -2052,7 +2045,7 @@ namespace luautils
         }
     }
 
-    void OnTriggerAreaLeave(CCharEntity* PChar, CTriggerArea* PTriggerArea)
+    void OnTriggerAreaLeave(CCharEntity* PChar, std::unique_ptr<ITriggerArea> const& PTriggerArea)
     {
         TracyZoneScoped;
 
@@ -2091,7 +2084,7 @@ namespace luautils
         }
 
         auto onTriggerAreaLeaveFramework = lua["InteractionGlobal"]["onTriggerAreaLeave"];
-        auto result                      = onTriggerAreaLeaveFramework(CLuaBaseEntity(PChar), CLuaTriggerArea(PTriggerArea), optInstance, onTriggerAreaLeave);
+        auto result                      = onTriggerAreaLeaveFramework(CLuaBaseEntity(PChar), CLuaTriggerArea(PTriggerArea.get()), optInstance, onTriggerAreaLeave);
         if (!result.valid())
         {
             sol::error err = result;
@@ -2186,8 +2179,8 @@ namespace luautils
     {
         TracyZoneScoped;
 
-        ShowTrace("luautils::OnEventUpdate: {} ({}), string: {}",
-                  PChar->getName(), PChar->loc.zone->getName(), updateString);
+        ShowTraceFmt("luautils::OnEventUpdate: {} ({}), string: {}",
+                     PChar->getName(), PChar->loc.zone->getName(), updateString);
 
         EventPrep* previousPrep = PChar->eventPreparation;
         PChar->eventPreparation = PChar->currentEvent;
@@ -4227,7 +4220,7 @@ namespace luautils
         auto name     = PMob->getName();
         auto filename = fmt::format("./scripts/zones/{}/mobs/{}.lua", zone, name);
 
-        ShowTrace("luautils::OnSteal: {} ({}) -> {}", PChar->getName(), zone, name);
+        ShowTraceFmt("luautils::OnSteal: {} ({}) -> {}", PChar->getName(), zone, name);
 
         auto onStealFramework = lua["InteractionGlobal"]["onSteal"];
         auto onSteal          = GetCacheEntryFromFilename(filename)["onSteal"];
@@ -5488,6 +5481,7 @@ namespace luautils
 
         if (_sql->SetAutoCommit(false) && _sql->TransactionStart())
         {
+            // NOTE: This will trigger SQL trigger: delivery_box_insert
             const char* Query = "INSERT INTO delivery_box (charid, box, itemid, quantity, senderid, sender) VALUES ("
                                 "%u, "     // Player ID
                                 "1, "      // Box ID == 1

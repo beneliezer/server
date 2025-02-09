@@ -12,6 +12,7 @@ zones[xi.zone.WAJAOM_WOODLANDS] =
         ITEM_OBTAINED                 = 6390, -- Obtained: <item>.
         GIL_OBTAINED                  = 6391, -- Obtained <number> gil.
         KEYITEM_OBTAINED              = 6393, -- Obtained key item: <keyitem>.
+        ITEM_RETURNED                 = 6402, -- A <item ID> is returned to you.
         FELLOW_MESSAGE_OFFSET         = 6419, -- I'm ready. I suppose.
         CARRIED_OVER_POINTS           = 7001, -- You have carried over <number> login point[/s].
         LOGIN_CAMPAIGN_UNDERWAY       = 7002, -- The [/January/February/March/April/May/June/July/August/September/October/November/December] <number> Login Campaign is currently underway!
@@ -40,7 +41,7 @@ zones[xi.zone.WAJAOM_WOODLANDS] =
             ['Marid'] = GetTableOfIDs('Chigoe', 5),
         },
         JADED_JODY             = GetFirstID('Jaded_Jody'),
-        ZORAAL_JA_S_PKUUCHA    = GetFirstID('Zoraal_Jas_Pkuucha'),
+        ZORAAL_JAS_PKUUCHA     = GetFirstID('Zoraal_Jas_Pkuucha'),
         PERCIPIENT_ZORAAL_JA   = GetFirstID('Percipient_Zoraal_Ja'),
         VULPANGUE              = GetFirstID('Vulpangue'),
         IRIZ_IMA               = GetFirstID('Iriz_Ima'),
@@ -50,6 +51,7 @@ zones[xi.zone.WAJAOM_WOODLANDS] =
     npc =
     {
         HARVESTING = GetTableOfIDs('Harvesting_Point'),
+        HOOFPRINT  = GetFirstID('Warhorse_Hoofprint'),
     },
 }
 

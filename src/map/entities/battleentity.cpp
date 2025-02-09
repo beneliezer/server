@@ -913,7 +913,7 @@ uint16 CBattleEntity::RATT(uint8 skill, uint16 bonusSkill)
     uint16 baseSkill = skill == SKILL_FISHING ? 0 : GetSkill(skill);
     int32  RATT      = 8 + baseSkill + bonusSkill + m_modStat[Mod::RATT] + battleutils::GetRangedAttackBonuses(this) + STR();
     // use max to prevent any underflow
-    return std::max(0, RATT + (RATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((RATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]));
+    return std::max(1, RATT + (RATT * m_modStat[Mod::RATTP] / 100) + std::min<int16>((RATT * m_modStat[Mod::FOOD_RATTP] / 100), m_modStat[Mod::FOOD_RATT_CAP]));
 }
 
 uint16 CBattleEntity::RACC(uint8 skill, uint16 bonusSkill)
@@ -2417,7 +2417,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                             attBonus += ((static_cast<float>(targetDex) / 100) * csJpModifier);
                         }
 
-                        float DamageRatio = battleutils::GetDamageRatio(PTarget, this, attack.IsCritical(), attBonus, skilltype, SLOT_MAIN);
+                        float DamageRatio = battleutils::GetDamageRatio(PTarget, this, attack.IsCritical(), attBonus, skilltype, SLOT_MAIN, false);
                         auto  damage      = (int32)((PTarget->GetMainWeaponDmg() + naturalh2hDMG + battleutils::GetFSTR(PTarget, this, SLOT_MAIN)) * DamageRatio);
 
                         actionTarget.spikesParam =
@@ -2724,6 +2724,10 @@ bool CBattleEntity::hasEnmityEXPENSIVE() const
         // clang-format off
         loc.zone->ForEachMob([&](CMobEntity* PMob)
         {
+            if (!PMob->isAlive())
+            {
+                return;
+            }
             // Account for charmed mobs attacking normal mobs, etc
             if (PMob->GetBattleTargetID() == targid && PMob->allegiance != allegiance)
             {

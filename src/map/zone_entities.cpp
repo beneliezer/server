@@ -39,7 +39,6 @@
 #include "entities/trustentity.h"
 
 #include "packets/change_music.h"
-#include "packets/char.h"
 #include "packets/char_sync.h"
 #include "packets/entity_set_name.h"
 #include "packets/entity_update.h"
@@ -162,8 +161,14 @@ void CZoneEntities::TryAddToNearbySpawnLists(CBaseEntity* PEntity)
             {
                 case TYPE_PC:
                 {
+                    auto* PChar = static_cast<CCharEntity*>(PEntity);
+                    if (PChar->m_moghouseID != PCurrentChar->m_moghouseID)
+                    {
+                        continue;
+                    }
+
                     PCurrentChar->SpawnPCList[PEntity->id] = PEntity;
-                    PCurrentChar->updateCharPacket(static_cast<CCharEntity*>(PEntity), ENTITY_SPAWN, UPDATE_ALL_CHAR);
+                    PCurrentChar->updateEntityPacket(PChar, ENTITY_SPAWN, UPDATE_ALL_CHAR);
                     break;
                 }
                 case TYPE_NPC:
@@ -178,7 +183,6 @@ void CZoneEntities::TryAddToNearbySpawnLists(CBaseEntity* PEntity)
                     PCurrentChar->updateEntityPacket(PEntity, ENTITY_SPAWN, UPDATE_ALL_MOB);
                     break;
                 }
-
                 case TYPE_PET:
                 {
                     PCurrentChar->SpawnPETList[PEntity->id] = PEntity;
@@ -213,7 +217,6 @@ void CZoneEntities::InsertPC(CCharEntity* PChar)
     m_charTargIds.insert(PChar->targid);
     m_charList[PChar->targid] = PChar;
 
-    // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
     TryAddToNearbySpawnLists(PChar);
 
     ShowDebug("CZone:: %s IncreaseZoneCounter <%u> %s", m_zone->getName(), m_charList.size(), PChar->getName());
@@ -228,7 +231,6 @@ void CZoneEntities::InsertAlly(CBaseEntity* PMob)
         PMob->loc.zone           = m_zone;
         m_allyList[PMob->targid] = PMob;
 
-        // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
         TryAddToNearbySpawnLists(PMob);
     }
 }
@@ -244,7 +246,6 @@ void CZoneEntities::InsertMOB(CBaseEntity* PMob)
         FindPartyForMob(PMob);
         m_mobList[PMob->targid] = PMob;
 
-        // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
         TryAddToNearbySpawnLists(PMob);
     }
 }
@@ -276,7 +277,6 @@ void CZoneEntities::InsertNPC(CBaseEntity* PNpc)
             m_npcList[PNpc->targid] = PNpc;
         }
 
-        // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
         TryAddToNearbySpawnLists(PNpc);
     }
 }
@@ -291,7 +291,6 @@ void CZoneEntities::InsertPET(CBaseEntity* PPet)
 
         m_petList[PPet->targid] = PPet;
 
-        // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
         TryAddToNearbySpawnLists(PPet);
 
         PPet->spawnAnimation = SPAWN_ANIMATION::NORMAL; // Turn off special spawn animation
@@ -310,7 +309,6 @@ void CZoneEntities::InsertTRUST(CBaseEntity* PTrust)
         m_zone->GetZoneEntities()->AssignDynamicTargIDandLongID(PTrust);
         m_trustList[PTrust->targid] = PTrust;
 
-        // TODO: Do we need to force-add the entity to spawn lists? It'll happen on a char's next update anyway?
         TryAddToNearbySpawnLists(PTrust);
 
         PTrust->spawnAnimation = SPAWN_ANIMATION::NORMAL; // Turn off special spawn animation
@@ -615,6 +613,7 @@ void CZoneEntities::AssignDynamicTargIDandLongID(CBaseEntity* PEntity)
     while (std::find(m_dynamicTargIds.begin(), m_dynamicTargIds.end(), targid) != m_dynamicTargIds.end())
     {
         ++targid;
+
         // Wrap around 0x8FF to 0x700
         if (targid > 0x8FF)
         {
@@ -623,7 +622,7 @@ void CZoneEntities::AssignDynamicTargIDandLongID(CBaseEntity* PEntity)
 
         if (counter > 0x1FF)
         {
-            ShowError(fmt::format("dynamicTargIds list full in zone {}!", m_zone->getName()));
+            ShowCriticalFmt("dynamicTargIds list full in zone {}!", m_zone->getName());
             targid = 0x900;
             break;
         }
@@ -663,6 +662,12 @@ void CZoneEntities::EraseStaleDynamicTargIDs()
             ++it;
         }
     }
+}
+
+// The range for dynamic targids is [0x700, 0x900), so a possible 0x1FF (511) entities can be in the zone at once.
+auto CZoneEntities::GetUsedDynamicTargIDsCount() const -> std::size_t
+{
+    return m_dynamicTargIds.size();
 }
 
 bool CZoneEntities::CharListEmpty() const
@@ -730,7 +735,7 @@ void CZoneEntities::DespawnPC(CCharEntity* PChar)
         if (isInSpawnList)
         {
             PCurrentChar->SpawnPCList.erase(itr);
-            PCurrentChar->updateCharPacket(PChar, ENTITY_DESPAWN, UPDATE_NONE);
+            PCurrentChar->updateEntityPacket(PChar, ENTITY_DESPAWN, UPDATE_NONE);
         }
     }
 }
@@ -1020,8 +1025,8 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
 
     FOR_EACH_PAIR_CAST_SECOND(CCharEntity*, PCurrentChar, PChar->SpawnPCList)
     {
-        // Despawn character if it's a hidden GM, is in a different mog house, or if player is in a conflict while other is not, or too far up/down
-        if (PCurrentChar->m_isGMHidden ||
+        // Despawn character if it's a hidden GM that isn't PChar, is in a different mog house, or if player is in a conflict while other is not, or too far up/down
+        if (((PChar != PCurrentChar) && PCurrentChar->m_isGMHidden) ||
             PChar->m_moghouseID != PCurrentChar->m_moghouseID ||
             !isWithinVerticalDistance(PChar, PCurrentChar))
         {
@@ -1061,7 +1066,7 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
 
     for (const auto& removeChar : toRemove)
     {
-        PChar->updateCharPacket(removeChar, ENTITY_DESPAWN, UPDATE_NONE);
+        PChar->updateEntityPacket(removeChar, ENTITY_DESPAWN, UPDATE_NONE);
         PChar->SpawnPCList.erase(removeChar->id);
     }
 
@@ -1141,7 +1146,7 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
                 {
                     CCharEntity* spawnedChar = spawnedCharacters.top().second;
                     PChar->SpawnPCList.erase(spawnedChar->id);
-                    PChar->updateCharPacket(spawnedChar, ENTITY_DESPAWN, UPDATE_NONE);
+                    PChar->updateEntityPacket(spawnedChar, ENTITY_DESPAWN, UPDATE_NONE);
                     spawnedCharacters.pop();
                     ++swapCount;
                 }
@@ -1155,7 +1160,7 @@ void CZoneEntities::SpawnPCs(CCharEntity* PChar)
 
             // Spawn best candidate character
             PChar->SpawnPCList[candidateChar->id] = candidateChar;
-            PChar->updateCharPacket(candidateChar, ENTITY_SPAWN, UPDATE_ALL_CHAR);
+            PChar->updateEntityPacket(candidateChar, ENTITY_SPAWN, UPDATE_ALL_CHAR);
             PChar->pushPacket<CCharSyncPacket>(candidateChar);
         }
     }
@@ -1442,36 +1447,26 @@ CCharEntity* CZoneEntities::GetCharByID(uint32 id)
     return nullptr;
 }
 
-void CZoneEntities::UpdateCharPacket(CCharEntity* PChar, ENTITYUPDATE type, uint8 updatemask)
-{
-    TracyZoneScoped;
-
-    // Do not send packets that are updates of a hidden GM
-    if (PChar->m_isGMHidden && type != ENTITY_DESPAWN)
-    {
-        return;
-    }
-
-    FOR_EACH_PAIR_CAST_SECOND(CCharEntity*, PCurrentChar, m_charList)
-    {
-        if (PCurrentChar == PChar)
-        {
-            continue;
-        }
-
-        if (type == ENTITY_SPAWN || type == ENTITY_DESPAWN || PCurrentChar->SpawnPCList.find(PChar->id) != PCurrentChar->SpawnPCList.end())
-        {
-            PCurrentChar->updateCharPacket(PChar, type, updatemask);
-        }
-    }
-}
-
 void CZoneEntities::UpdateEntityPacket(CBaseEntity* PEntity, ENTITYUPDATE type, uint8 updatemask, bool alwaysInclude)
 {
     TracyZoneScoped;
 
+    // Do not send packets that are updates of a hidden GM
+    if (auto* PChar = dynamic_cast<CCharEntity*>(PEntity))
+    {
+        if (PChar->m_isGMHidden && type != ENTITY_DESPAWN)
+        {
+            return;
+        }
+    }
+
     FOR_EACH_PAIR_CAST_SECOND(CCharEntity*, PCurrentChar, m_charList)
     {
+        if (PCurrentChar == PEntity)
+        {
+            continue;
+        }
+
         if (alwaysInclude || type == ENTITY_SPAWN || type == ENTITY_DESPAWN || charutils::hasEntitySpawned(PCurrentChar, PEntity))
         {
             PCurrentChar->updateEntityPacket(PEntity, type, updatemask);
@@ -1571,7 +1566,7 @@ void CZoneEntities::PushPacket(CBaseEntity* PEntity, GLOBAL_MESSAGE_TYPE message
                                     auto iter = spawnlist.lower_bound(id);
                                     if (iter != spawnlist.end() && !spawnlist.key_comp()(id, iter->first))
                                     {
-                                        PCurrentChar->pushPacket(packet->copy());
+                                        PChar->pushPacket(packet->copy());
                                     }
                                 };
 
@@ -1856,7 +1851,6 @@ void CZoneEntities::ZoneServer(time_point tick)
                 if (distance(PChar->loc.p, PTrust->loc.p) < ENTITY_RENDER_DISTANCE)
                 {
                     PChar->SpawnTRUSTList.erase(PTrust->id);
-                    PChar->ReloadPartyInc();
                 }
             }
 
@@ -1913,7 +1907,7 @@ void CZoneEntities::ZoneServer(time_point tick)
 
     for (const auto* PMob : m_mobsToDelete)
     {
-        if (auto itr = m_mobList.find(PMob->id); itr != m_mobList.end())
+        if (auto itr = m_mobList.find(PMob->targid); itr != m_mobList.end())
         {
             m_mobList.erase(itr);
             m_dynamicTargIdsToDelete.emplace_back(PMob->targid, server_clock::now());
@@ -1923,7 +1917,7 @@ void CZoneEntities::ZoneServer(time_point tick)
 
     for (const auto* PNpc : m_npcsToDelete)
     {
-        if (auto itr = m_npcList.find(PNpc->id); itr != m_npcList.end())
+        if (auto itr = m_npcList.find(PNpc->targid); itr != m_npcList.end())
         {
             m_npcList.erase(itr);
             m_dynamicTargIdsToDelete.emplace_back(PNpc->targid, server_clock::now());
@@ -1933,7 +1927,7 @@ void CZoneEntities::ZoneServer(time_point tick)
 
     for (const auto* PPet : m_petsToDelete)
     {
-        if (auto itr = m_petList.find(PPet->id); itr != m_petList.end())
+        if (auto itr = m_petList.find(PPet->targid); itr != m_petList.end())
         {
             m_petList.erase(itr);
             m_dynamicTargIdsToDelete.emplace_back(PPet->targid, server_clock::now());
@@ -1943,7 +1937,7 @@ void CZoneEntities::ZoneServer(time_point tick)
 
     for (const auto* PTrust : m_trustsToDelete)
     {
-        if (auto itr = m_trustList.find(PTrust->id); itr != m_trustList.end())
+        if (auto itr = m_trustList.find(PTrust->targid); itr != m_trustList.end())
         {
             m_trustList.erase(itr);
             m_dynamicTargIdsToDelete.emplace_back(PTrust->targid, server_clock::now());
